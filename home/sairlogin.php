@@ -1,0 +1,16 @@
+<?php
+session_start();
+// as variáveis login e senha recebem os dados digitados na página anterior
+$login = $_POST['login'];
+$pass =  $_POST['pass'];
+//Destrói
+session_destroy();
+
+//Limpa
+unset ($_SESSION['login']);
+unset ($_SESSION['pass']);
+
+//Redireciona para a página de autenticação
+header('location:login.php');
+	
+
