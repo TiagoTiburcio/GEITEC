@@ -1,81 +1,66 @@
 ﻿<?php
 
 /**
- * Description of usuario
+ * Description of principal
  *
  * @author tiagoc
+ * 
+ * Conjunto de classes responsável por controle e manutenção de Usuários, Páginas, Perfis e Módulos
  */
 include_once '../class/database.php';
-
-class Usuario extends database {
-    private $codigo;
+/**
+ * 
+ */
+class PrincipalFuncoes extends Database {
     
     private $usuario;
-    
-    private $nome;
-    
-    private $senha;
-    
-    private $ativo;
-    
     private $perfil;
+    private $pagina;
+    private $modulo;
+    private $permissao;
     
-    function __construct(){ }
-
-    function setCodigo($_codigo){
-        $this->codigo = $_codigo;
-    }
-
-    function getCodigo(){
-        return $this->codigo;
-    }
+    function __construct(){}
         
-    private function setNome($_nome){
-        $this->nome = $_nome;
-    }
-
-    function getNome(){
-        return $this->nome;
-    }
-        
-    private function setUsuario($_usuario){
+    function setUsuario($_usuario){ 
+        $this->usuario = new Usuario();
         $this->usuario = $_usuario;
     }
-
+    
     function getUsuario(){
         return $this->usuario;
     }
     
-    private function setSenha($_senha){
-        $this->senha = $_senha;
-    }
-            
-    function getSenha(){
-        return $this->senha;
-    }
-    
-    private function setAtivo($_ativo){
-        $this->ativo = $_ativo;
-    }
-            
-    function getAtivo(){
-        return $this->ativo;
-    }
-    
-    private function setPerfil($_perfil){
-        $_perfil = new Perfil();
+    function setPerfil($_perfil){
+        $this->perfil = new Perfil();
         $this->perfil = $_perfil;
     }
-            
+
     function getPerfil(){
         return $this->perfil;
     }
     
-    private function getSenhaEncriptada($_senha){
-        $resultado = sha1($_senha);
-        return $resultado;
+    function setPagina($_pagina){
+        $this->pagina = new Pagina();
+        $this->pagina = $_pagina;
     }
-/**   
+    
+    function getPagina(){
+        return $this->pagina;
+    }
+    
+    function setModulo($_modulo){
+        $this->modulo = new Modulo();
+        $this->modulo = $_modulo;
+    }
+    
+    function getModulo(){
+        return $this->modulo;  
+    }
+    function setPermissao($_permissao){
+        $this->permissao = array();
+    }
+        
+    /**   
 //    // 0 - usuario não gravado 1 - usuario existente na Base de Dados
 //    private function testeUsuarioCadatrado($_usuario){
 //        $consulta_usuario1 = "SELECT count(`usuario`.`id`) as cont FROM `home_usuario` where usuario = '$_usuario';";                                
@@ -164,47 +149,273 @@ class Usuario extends database {
 //    }
 //    
 **/
+    private function consultaIniLogin($_usuario){
+        $consulta_iniLogin = "SELECT u.codigo as u_codigo "
+                . ",u.usuario as u_usuario ,u.senha as u_senha "
+                . ",u.nome as u_nome ,u.ativo as u_ativo "
+                . ",pe.codigo as pe_codigo ,pe.descricao as pe_descricao "
+                . ",pe.ativo as pe_ativo ,pa.codigo as pa_codigo "
+                . ",pa.descricao as pa_codigo ,pa.caminho as pa_caminho "
+                . ",pa.ativo as pa_ativo ,m.codigo as m_codigo "
+                . ",m.descricao as m_descricao ,m.ativo as m_ativo "
+                . "FROM home_usuario as u"
+                . "join home_perfil as pe on pe.codigo = u.codigo_perfil "
+                . "join home_pagina_perfil as pape on pape.codigo_perfil = pe.codigo "
+                . "join home_pagina as pa on pape.codigo_pagina = pa.codigo "
+                . "join home_modulo as m on pa.codigo_modulo =  m.codigo "
+                . "where usuario = '$_usuario' and u.ativo = '1' and pe.ativo = '1' and pa.ativo = '1' and m.ativo = '1';";
+        $resultado_iniLogin = mysqli_query($this->connect(), $consulta_iniLogin);
+        return $resultado_iniLogin;
+    }
+      
+    function iniLogin($_usuario){
+        $retorno = FALSE;
+        $resultado_iniLogin = $this->consultaIniLogin($_usuario);
+        if (mysqli_num_rows($resultado_iniLogin) > 0) {
+            $retorno = TRUE;
+            $cont = 0;            
+            foreach ($resultado_iniLogin as $table_iniLogin){                        
+                $this->perfil->iniPerfil($table_iniLogin["pe_codigo"], $table_iniLogin["pe_descricao"], $table_iniLogin["pe_ativo"]);
+                $this->usuario->iniUsuario($table_iniLogin["u_codigo"], $table_iniLogin["u_usuario"], $table_iniLogin["u_senha"], $table_iniLogin["u_nome"], $table_iniLogin["u_ativo"], $this->perfil);
+                $this->modulo->iniModulo($table_iniLogin["m_codigo"], $table_iniLogin["m_descricao"], $table_iniLogin["m_ativo"]);
+                $this->pagina->iniPagina($table_iniLogin["pa_codigo"], $table_iniLogin["pa_descricao"], $table_iniLogin["pa_ativo"], $table_iniLogin["pa_caminho"], $this->modulo);
+                $this->permissao[$cont] = $this->pagina;
+                $cont = $cont + 1;
+            } 
+        }        
+        return $retorno;
+    }
+    
+    function validaSessao(){        
+//            session_start();
+            include ("../class/header.php");
+
+//            //Caso o usuário não esteja autenticado, limpa os dados e redireciona
+//            if ( !isset($_SESSION['login']) and !isset($_SESSION['pass']) ) {
+//                //Destrói
+//                session_destroy();
+//
+//                //Limpa
+//                unset ($_SESSION['login']);
+//                unset ($_SESSION['pass']);
+//                unset ($_SESSION['nome_usuario']);
+//
+//                //Redireciona para a página de autenticação
+//                echo '<META http-equiv="refresh" content="0;../home/login.php">';
+//            }        
+        }
+}    
+
+class Usuario {
+    private $codigo;
+    
+    private $usuario;
+    
+    private $nome;
+    
+    private $senha;
+    
+    private $ativo;
+    
+    private $perfil;
+    
+    function __construct(){ }
+
+    private function setCodigo($_codigo){
+        $this->codigo = $_codigo;
+    }
+
+    function getCodigo(){
+        return $this->codigo;
+    }
+        
+    private function setNome($_nome){
+        $this->nome = $_nome;
+    }
+
+    function getNome(){
+        return $this->nome;
+    }
+        
+    private function setUsuario($_usuario){
+        $this->usuario = $_usuario;
+    }
+
+    function getUsuario(){
+        return $this->usuario;
+    }
+    
+    private function setSenha($_senha){
+        $this->senha = $_senha;
+    }
+            
+    function getSenha(){
+        return $this->senha;
+    }
+    
+    private function setAtivo($_ativo){
+        $this->ativo = $_ativo;
+    }
+            
+    function getAtivo(){
+        return $this->ativo;
+    }
+    
+    private function setPerfil($_perfil){
+        $this->perfil = new Perfil();
+        $this->perfil = $_perfil;
+    }
+            
+    function getPerfil(){
+        return $this->perfil;
+    }
+    
+    function getSenhaEncriptada($_senha){
+        $resultado = sha1($_senha);
+        return $resultado;
+    }
+    
+    function iniUsuario($_codigo, $_usuario, $_senha, $_nome, $_ativo,$_perfil){
+        $this->setCodigo($_codigo);
+        $this->setUsuario($_usuario);
+        $this->setSenha($_senha);
+        $this->setNome($_nome);
+        $this->setAtivo($_ativo);
+        $this->setPerfil($_perfil);
+    }
     
     function __destruct() {}
 }
 
-class Perfil extends database {
+class Perfil {
     private $codigo;
     private $descricao;
     private $ativo;
+    function __construct(){ }
+    private function setCodigo($_codigo){
+        $this->codigo = $_codigo;
+    }
+
+    function getCodigo(){
+        return $this->codigo;
+    }
+    
+    private function setDescricao($_descricao){
+        $this->descricao = $_descricao;
+    }
+
+    function getDescricao(){
+        return $this->descricao;
+    }
+    
+     private function setAtivo($_ativo){
+        $this->ativo = $_ativo;
+    }
+
+    function getAtivo(){
+        return $this->ativo;
+    }
+    
+    function iniPerfil($_codigo, $_descricao, $_ativo){
+        $this->setCodigo($_codigo);
+        $this->setDescricao($_descricao);
+        $this->setAtivo($_ativo);
+    }
+    
+    function __destruct() {}
 }
 
-class Modulo extends database {
+class Modulo {
     private $codigo;
     private $descricao;
     private $ativo;
+    function __construct(){ }
+    private function setCodigo($_codigo){
+        $this->codigo = $_codigo;
+    }
+
+    function getCodigo(){
+        return $this->codigo;
+    }
+    
+    private function setDescricao($_descricao){
+        $this->descricao = $_descricao;
+    }
+
+    function getDescricao(){
+        return $this->descricao;
+    }
+    
+     private function setAtivo($_ativo){
+        $this->ativo = $_ativo;
+    }
+
+    function getAtivo(){
+        return $this->ativo;
+    }
+    
+    function iniModulo($_codigo, $_descricao, $_ativo){
+        $this->setCodigo($_codigo);
+        $this->setDescricao($_descricao);
+        $this->setAtivo($_ativo);
+    }
+    function __destruct() {}
 }
 
-class Pagina extends database {
+class Pagina {
     private $codigo;
     private $descricao;
     private $ativo;
     private $caminho;
     private $modulo;
+    function __construct(){ }
+    private function setCodigo($_codigo){
+        $this->codigo = $_codigo;
+    }
+
+    function getCodigo(){
+        return $this->codigo;
+    }
+    
+    private function setDescricao($_descricao){
+        $this->descricao = $_descricao;
+    }
+
+    function getDescricao(){
+        return $this->descricao;
+    }
+    
+    private function setAtivo($_ativo){
+        $this->ativo = $_ativo;
+    }
+
+    function getAtivo(){
+        return $this->ativo;
+    }
+    
+    private function setCaminho($_caminho){
+        $this->caminho = $_caminho;
+    }
+
+    function getCaminho(){
+        return $this->caminho;
+    }
+    
+    private function setModulo($_modulo){
+        $this->modulo = $_modulo;
+    }
+
+    function getModulo(){
+        return $this->modulo;
+    }
+    
+    function iniPagina($_codigo, $_descricao, $_ativo, $_caminho, $_modulo){
+        $this->setCodigo($_codigo);
+        $this->setDescricao($_descricao);
+        $this->setAtivo($_ativo);
+        $this->setCaminho($_caminho);
+        $this->setModulo($_modulo);
+    }
+    
+    function __destruct() {}
 }
-
-class Seguranca extends database {
-    function validaSessao(){        
-            session_start();
-            include ("../class/header.php");
-
-            //Caso o usuário não esteja autenticado, limpa os dados e redireciona
-            if ( !isset($_SESSION['login']) and !isset($_SESSION['pass']) ) {
-                //Destrói
-                session_destroy();
-
-                //Limpa
-                unset ($_SESSION['login']);
-                unset ($_SESSION['pass']);
-                unset ($_SESSION['nome_usuario']);
-
-                //Redireciona para a página de autenticação
-                echo '<META http-equiv="refresh" content="0;../home/login.php">';
-            }        
-        }
-}    
