@@ -19,45 +19,29 @@ class PrincipalFuncoes extends Database {
     private $modulo;
     private $permissao;
     
-    function __construct(){}
-        
-    function setUsuario($_usuario){ 
+    function __construct(){
         $this->usuario = new Usuario();
-        $this->usuario = $_usuario;
+        $this->perfil = new Perfil();                
+        $this->modulo = new Modulo();
+        $this->pagina = new Pagina();
+        $this->permissao = []; 
     }
-    
+        
     function getUsuario(){
         return $this->usuario;
     }
-    
-    function setPerfil($_perfil){
-        $this->perfil = new Perfil();
-        $this->perfil = $_perfil;
-    }
-
     function getPerfil(){
         return $this->perfil;
     }
-    
-    function setPagina($_pagina){
-        $this->pagina = new Pagina();
-        $this->pagina = $_pagina;
-    }
-    
     function getPagina(){
         return $this->pagina;
     }
-    
-    function setModulo($_modulo){
-        $this->modulo = new Modulo();
-        $this->modulo = $_modulo;
-    }
-    
     function getModulo(){
         return $this->modulo;  
     }
-    function setPermissao($_permissao){
-        $this->permissao = array();
+    
+    function getPermissao(){
+        return $this->permissao;  
     }
         
     /**   
@@ -151,30 +135,32 @@ class PrincipalFuncoes extends Database {
 **/
     private function consultaIniLogin($_usuario){
         $consulta_iniLogin = "SELECT u.codigo as u_codigo "
-                . ",u.usuario as u_usuario ,u.senha as u_senha "
-                . ",u.nome as u_nome ,u.ativo as u_ativo "
-                . ",pe.codigo as pe_codigo ,pe.descricao as pe_descricao "
-                . ",pe.ativo as pe_ativo ,pa.codigo as pa_codigo "
-                . ",pa.descricao as pa_codigo ,pa.caminho as pa_caminho "
-                . ",pa.ativo as pa_ativo ,m.codigo as m_codigo "
-                . ",m.descricao as m_descricao ,m.ativo as m_ativo "
-                . "FROM home_usuario as u"
-                . "join home_perfil as pe on pe.codigo = u.codigo_perfil "
-                . "join home_pagina_perfil as pape on pape.codigo_perfil = pe.codigo "
-                . "join home_pagina as pa on pape.codigo_pagina = pa.codigo "
-                . "join home_modulo as m on pa.codigo_modulo =  m.codigo "
-                . "where usuario = '$_usuario' and u.ativo = '1' and pe.ativo = '1' and pa.ativo = '1' and m.ativo = '1';";
+                . " ,u.usuario as u_usuario ,u.senha as u_senha "
+                . " ,u.nome as u_nome ,u.ativo as u_ativo "
+                . " ,pe.codigo as pe_codigo ,pe.descricao as pe_descricao "
+                . " ,pe.ativo as pe_ativo ,pa.codigo as pa_codigo "
+                . " ,pa.descricao as pa_codigo ,pa.caminho as pa_caminho "
+                . " ,pa.ativo as pa_ativo ,m.codigo as m_codigo "
+                . " ,m.descricao as m_descricao ,m.ativo as m_ativo "
+                . " FROM home_usuario as u "
+                . " join home_perfil as pe on pe.codigo = u.codigo_perfil "
+                . " join home_pagina_perfil as pape on pape.codigo_perfil = pe.codigo "
+                . " join home_pagina as pa on pape.codigo_pagina = pa.codigo "
+                . " join home_modulo as m on pa.codigo_modulo =  m.codigo "
+                . " where usuario = '$_usuario' and u.ativo = '1' and pe.ativo = '1' and pa.ativo = '1' and m.ativo = '1'; ";
         $resultado_iniLogin = mysqli_query($this->connect(), $consulta_iniLogin);
         return $resultado_iniLogin;
     }
       
     function iniLogin($_usuario){
-        $retorno = FALSE;
+    
         $resultado_iniLogin = $this->consultaIniLogin($_usuario);
+        
+        $retorno = mysqli_num_rows($resultado_iniLogin);
         if (mysqli_num_rows($resultado_iniLogin) > 0) {
-            $retorno = TRUE;
+            $retorno = 1;
             $cont = 0;            
-            foreach ($resultado_iniLogin as $table_iniLogin){                        
+            foreach ($resultado_iniLogin as $table_iniLogin){
                 $this->perfil->iniPerfil($table_iniLogin["pe_codigo"], $table_iniLogin["pe_descricao"], $table_iniLogin["pe_ativo"]);
                 $this->usuario->iniUsuario($table_iniLogin["u_codigo"], $table_iniLogin["u_usuario"], $table_iniLogin["u_senha"], $table_iniLogin["u_nome"], $table_iniLogin["u_ativo"], $this->perfil);
                 $this->modulo->iniModulo($table_iniLogin["m_codigo"], $table_iniLogin["m_descricao"], $table_iniLogin["m_ativo"]);
