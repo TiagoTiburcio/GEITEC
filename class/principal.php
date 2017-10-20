@@ -163,9 +163,9 @@ class PrincipalFuncoes extends Database {
             foreach ($resultado_iniLogin as $table_iniLogin){
                 $this->perfil->iniPerfil($table_iniLogin["pe_codigo"], $table_iniLogin["pe_descricao"], $table_iniLogin["pe_ativo"]);
                 $this->usuario->iniUsuario($table_iniLogin["u_codigo"], $table_iniLogin["u_usuario"], $table_iniLogin["u_senha"], $table_iniLogin["u_nome"], $table_iniLogin["u_ativo"], $this->perfil);
-                $this->modulo->iniModulo($table_iniLogin["m_codigo"], $table_iniLogin["m_descricao"], $table_iniLogin["m_ativo"]);
-                $this->pagina->iniPagina($table_iniLogin["pa_codigo"], $table_iniLogin["pa_descricao"], $table_iniLogin["pa_ativo"], $table_iniLogin["pa_caminho"], $this->modulo);
-                $this->permissao[$cont] = $this->pagina;
+                //$this->modulo->iniModulo($table_iniLogin["m_codigo"], $table_iniLogin["m_descricao"], $table_iniLogin["m_ativo"]);
+                //$this->pagina->iniPagina($table_iniLogin["pa_codigo"], $table_iniLogin["pa_descricao"], $table_iniLogin["pa_ativo"], $table_iniLogin["pa_caminho"], $this->modulo);
+                $this->permissao[$cont] = [$table_iniLogin["pa_codigo"], $table_iniLogin["pa_descricao"], $table_iniLogin["pa_ativo"], $table_iniLogin["pa_caminho"],$table_iniLogin["m_codigo"], $table_iniLogin["m_descricao"], $table_iniLogin["m_ativo"]];
                 $cont = $cont + 1;
             } 
         }        
