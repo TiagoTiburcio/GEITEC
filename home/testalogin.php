@@ -1,14 +1,14 @@
 <?php
-// as variáveis login e senha recebem os dados digitados na página anterior
+// as variï¿½veis login e senha recebem os dados digitados na pï¿½gina anterior
 $login = $_POST['login'];
 $pass_branco = $_POST['pass'];
 
-include_once '../class/usuario.php';
+include_once '../class/principal.php';
 
 $usuario = new Usuario();    
-//Caso consiga logar cria a sessão
+//Caso consiga logar cria a sessï¿½o
 if ($usuario->verificaUsuario($login, $pass_branco) == 1) {
-	// session_start inicia a sessão
+	// session_start inicia a sessï¿½o
 	session_start();
 	
 	$_SESSION['login'] = $usuario->getUsuario();
@@ -17,9 +17,9 @@ if ($usuario->verificaUsuario($login, $pass_branco) == 1) {
         echo '<META http-equiv="refresh" content="0;../home/index.php">';
 }
 
-//Caso contrário redireciona para a página de autenticação
+//Caso contrï¿½rio redireciona para a pï¿½gina de autenticaï¿½ï¿½o
 else {
-	//Destrói
+	//Destrï¿½i
 	session_destroy();
 
 	//Limpa
@@ -27,7 +27,7 @@ else {
 	unset ($_SESSION['pass']);
         unset ($_SESSION['nome_usuario']);
 
-	//Redireciona para a página de autenticação
+	//Redireciona para a pï¿½gina de autenticaï¿½ï¿½o
 	echo '<META http-equiv="refresh" content="0;../home/login.php">';
 	
 }

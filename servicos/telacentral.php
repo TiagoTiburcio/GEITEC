@@ -18,8 +18,7 @@
 </head>
 <body>    
     <?php
-        include_once '../class/usuario.php';     
-        include_once '../class/servicos.php';
+        include_once '../class/principal.php';
 
         $usuario = new Usuario();    
         $servicos = new Servicos();

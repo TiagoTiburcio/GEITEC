@@ -1,9 +1,9 @@
 <?php
     session_start();
 
-    //Caso o usuário não esteja autenticado, limpa os dados e redireciona
+    //Caso o usuï¿½rio nï¿½o esteja autenticado, limpa os dados e redireciona
     if ( !isset($_SESSION['login']) and !isset($_SESSION['pass']) ) {
-	//Destrói
+	//Destrï¿½i
 	session_destroy();
 
 	//Limpa
@@ -11,10 +11,10 @@
 	unset ($_SESSION['pass']);
         unset ($_SESSION['nome_usuario']);
 	
-	//Redireciona para a página de autenticação
+	//Redireciona para a pï¿½gina de autenticaï¿½ï¿½o
 	header('location:login.php');
     } else {
-        include_once '../class/usuario.php';
+        include_once '../class/principal.php';
         
         $login = $_POST['login'];
         $nome_usuario = $_POST['nome_usuario'];

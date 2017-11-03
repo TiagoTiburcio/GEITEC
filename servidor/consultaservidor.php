@@ -1,6 +1,5 @@
 <?php
-    include_once '../class/usuario.php';
-    include_once '../class/servidores.php'; 
+    include_once '../class/principal.php';
     
     $usuario = new Usuario();
     
