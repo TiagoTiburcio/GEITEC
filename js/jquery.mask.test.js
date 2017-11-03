@@ -679,7 +679,7 @@ $(document).ready(function(){
 
     function write() {
 
-      if (c >= 5) {
+      if (c >= 5){
           clearInterval(ticker);
           clearInterval(tester);
           return;
