@@ -36,7 +36,7 @@
                 <table class="table table-hover table-striped table-condensed">
                     <thead>
                       <tr>
-                        <th>ID</th>
+                        <th>Codigo</th>
                         <th>Login Usu&aacute;rio</th>
                         <th>Nome Usu&aacute;rio</th>                        
                         <th>Ativo</th>
@@ -46,15 +46,15 @@
                     </thead>
                     <tbody>
                         <?php
-                            $usarios = $usuario->listaUsuarios();
-                            foreach ($usarios as $table_usuario){                                
+                            $usuarios = $usuario->listaUsuarios($id, $nome, $login);
+                            foreach ($usuarios as $table_usuario){                                
                         ?>                
                     <tr>
-                        <td><?php echo $table_usuario["id"]; ?></td>
+                        <td><?php echo $table_usuario["codigo"]; ?></td>
                         <td><?php echo $table_usuario["usuario"]; ?></td> 
-                        <td><?php echo $table_usuario["nome_usuario"]; ?></td>                      
-                        <td><?php echo $table_usuario["ativo"]; ?></td>
-                        <td><?php echo $table_usuario["perfil"]; ?></td>
+                        <td><?php echo $table_usuario["nome"]; ?></td>                      
+                        <td><?php echo $usuario->imprimiAtivo($table_usuario["ativo"]); ?></td>
+                        <td><?php echo $table_usuario["descricao_perfil"]; ?></td>
                         <td><?php echo '<a type="button" class="btn btn-primary" target="_blank" href="../home/editusuario.php?usuario='.$table_usuario["usuario"].'"><span class="glyphicon glyphicon-edit"></span></a>';?></td>                        
                     </tr>  
                         <?php

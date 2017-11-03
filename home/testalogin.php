@@ -1,14 +1,16 @@
 <?php
-// as vari�veis login e senha recebem os dados digitados na p�gina anterior
+// as variáveis login e senha recebem os dados digitados na página anterior
 $login = $_POST['login'];
 $pass_branco = $_POST['pass'];
 
 include_once '../class/principal.php';
 
 $usuario = new Usuario();    
-//Caso consiga logar cria a sess�o
-if ($usuario->verificaUsuario($login, $pass_branco) == 1) {
-	// session_start inicia a sess�o
+//Caso consiga logar cria a sessão
+$teste = $usuario->iniUsuario($login);
+
+if ($teste == 1 && $usuario->getSenha() == $usuario->getSenhaEncriptada($pass_branco) ) {
+	// session_start inicia a sessão
 	session_start();
 	
 	$_SESSION['login'] = $usuario->getUsuario();
@@ -17,9 +19,9 @@ if ($usuario->verificaUsuario($login, $pass_branco) == 1) {
         echo '<META http-equiv="refresh" content="0;../home/index.php">';
 }
 
-//Caso contr�rio redireciona para a p�gina de autentica��o
+//Caso contrário redireciona para a página de autenticação
 else {
-	//Destr�i
+	//Destrói
 	session_destroy();
 
 	//Limpa
@@ -27,7 +29,7 @@ else {
 	unset ($_SESSION['pass']);
         unset ($_SESSION['nome_usuario']);
 
-	//Redireciona para a p�gina de autentica��o
+	//Redireciona para a página de autenticação
 	echo '<META http-equiv="refresh" content="0;../home/login.php">';
 	
 }

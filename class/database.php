@@ -16,7 +16,7 @@ abstract class Database {
     private static $host     = "10.24.0.59";   
     private static $user     = "root";
     private static $password = "seedqawsed";
-    private static $db       = "sis_geitec";
+    private static $db       = "homo_sis_geitec";
      
     /*Metodos que trazem o conteudo da variavel desejada
     @return   $xxx = conteudo da variavel solicitada*/
