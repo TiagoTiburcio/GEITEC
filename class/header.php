@@ -14,7 +14,8 @@
   <script src='../fullcalendar/lib/moment.min.js'></script>
   <script src='../fullcalendar/fullcalendar.js'></script>
   <script src='../fullcalendar/lang/pt-br.js'></script>
-  <script src="../js/calendarioservicos.js" type="text/javascript"></script>  
+  <script src="../js/calendarioservicos.js" type="text/javascript"></script>
+  <script src="../js/validacampo.js" type="text/javascript"></script>  
 </head>
 <body>
     <div class="row">
@@ -58,7 +59,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Manuten&ccedil;&atilde;o Usu&aacute;rios<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="../home/listarusuarios.php">Listar Todos os Usu&aacute;rios</a></li>
-                        <li><a href="../home/novousuario.php">Novo Usu&aacute;rio</a></li>
+                        <li><a href="../home/editusuario.php">Novo Usu&aacute;rio</a></li>
                     </ul>
                   </li>                  
                 </ul>

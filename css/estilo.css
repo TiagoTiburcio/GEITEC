@@ -32,7 +32,7 @@ footer {
 }
 
 .centraliza{
-    display: flex;
+    display: list-item;
     flex-direction: row;
     justify-content: center;
     align-items: center;

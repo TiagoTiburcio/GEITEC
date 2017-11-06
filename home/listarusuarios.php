@@ -55,7 +55,7 @@
                         <td><?php echo $table_usuario["nome"]; ?></td>                      
                         <td><?php echo $usuario->imprimiAtivo($table_usuario["ativo"]); ?></td>
                         <td><?php echo $table_usuario["descricao_perfil"]; ?></td>
-                        <td><?php echo '<a type="button" class="btn btn-primary" target="_blank" href="../home/editusuario.php?usuario='.$table_usuario["usuario"].'"><span class="glyphicon glyphicon-edit"></span></a>';?></td>                        
+                        <td><?php echo '<a type="button" class="btn btn-primary" href="../home/editusuario.php?usuario='.$table_usuario["usuario"].'"><span class="glyphicon glyphicon-edit"></span></a>';?></td>                        
                     </tr>  
                         <?php
                                 }

@@ -19,15 +19,17 @@
         $login = $_POST['login'];
         $nome_usuario = $_POST['nome_usuario'];
         $pass_branco = $_POST['pass'];
-        
+        $data = date_default_timezone_set("America/Bahia");
+        $data = date('Y-m-d H:i:s');
         $usuario = new Usuario();
-        
-        if($usuario->gravaNovaSenha($login, $pass_branco) == 1 ){
-            echo "Gravado com sucesso";
+        $usuario->iniUsuario($login);
+        $resultado = $usuario->manutUsuario($usuario->getUsuario(), $usuario->getNome(), $pass_branco, $usuario->getAtivo(), $usuario->getPerfil(), "0", $usuario->getUsuario(), $data);
+        if($resultado == 1 ){
+            echo "sdjakhdalk:   ".$usuario->getPerfil()."Gravado com sucesso";
             $pass = $usuario->getSenha();
         } else {
             echo "Erro gravacao";
         }
         
-        header('location:index.php');
+       header('location:index.php');
     }

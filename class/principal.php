@@ -18,6 +18,8 @@ class Usuario extends Database {
     
     private $perfil;
     
+    private $altProxLogin;
+            
     function __construct(){ }
 
     function setCodigo($_codigo){ $this->codigo = $_codigo; }
@@ -49,6 +51,10 @@ class Usuario extends Database {
             
     function getPerfil(){ return $this->perfil; }
     
+    private function setAltProxLogin($_altProxLogin){ $this->altProxLogin = $_altProxLogin; }
+            
+    function getAltProxLogin(){ return $this->altProxLogin; }
+    
     // 0 - usuario não gravado 1 - usuario existente na Base de Dados
     private function testeUsuarioCadatrado($_usuario){
         $consulta_usuario1 = "SELECT count(`codigo`) as cont FROM `home_usuario` where usuario = '$_usuario';";                                
@@ -59,25 +65,37 @@ class Usuario extends Database {
         return $resultado;
     }
     
+    // 0 - usuario não gravado 1 - usuario existente na Base de Dados
+    private function proxUsuario(){
+        $consulta_usuario1 = "SELECT (count(`codigo`) + 1) as cont FROM `home_usuario`";                                
+        $resultado_usuario1 = mysqli_query($this->connect(), $consulta_usuario1);
+        foreach ($resultado_usuario1 as $table_usuario1){                        
+           $resultado = $table_usuario1["cont"]; 
+        } 
+        return $resultado;
+    }
+    private function idUsuario($_usuario){
+        $consulta_usuario1 = "SELECT `codigo` FROM `home_usuario` where usuario = '$_usuario';";                                
+        $resultado_usuario1 = mysqli_query($this->connect(), $consulta_usuario1);
+        foreach ($resultado_usuario1 as $table_usuario1){                        
+           $resultado = $table_usuario1["codigo"]; 
+        } 
+        return $resultado;
+    }
+    
     // 0 - Usuário Novo 1 - Editou Usuário
-    function manutUsuario($_usuario,$_nome,$_senhaBranco, $_ativo, $_perfil){
-        $resultado = $this->testeUsuarioCadatrado($_usuario);
+    function manutUsuario($_usuario,$_nome,$_senhaBranco, $_ativo, $_perfil, $_altProxLogin, $_usuarioAlt, $_dataAlt){
+        $resultado = $this->testeUsuarioCadatrado($_usuario);       
         if( $resultado == 0){            
-            $this->setNome($_nome);
-            $this->setUsuario($_usuario);
-            $this->setSenha($this->getSenhaEncriptada($_senhaBranco));
-            $this->setAtivo($_ativo);
-            $this->setPerfil($_perfil);
-            $consulta_manutUsuario = "INSERT INTO `home_usuario`(`usuario`,`senha`,`nome`,`ativo`,`perfil`)VALUES( '".$this->getUsuario()."' , '".$this->getSenha()."' , '".$this->getNome()."' ,".$this->getAtivo().",".$this->getPerfil().");";
-            $resultado_manutUsuario = mysqli_query($this->connect(), $consulta_manutUsuario);                        
-        } else {                        
-            $this->iniUsuario($_usuario);
-            $this->setNome($_nome);
-            $this->setUsuario($_usuario);
-            $this->setSenha($this->getSenhaEncriptada($_senhaBranco));
-            $this->setAtivo($_ativo);
-            $this->setPerfil($_perfil);                        
-            $consulta_manutUsuario = "UPDATE `home_usuario` SET `usuario` = '".$this->getUsuario()."' , `senha` = '".$this->getSenha()."' , `nome` = '".$this->getNome()."' ,`ativo` = ".$this->getAtivo()." , `perfil` = ".$this->getPerfil()." WHERE `codigo` = ".$this->getId().";";
+            $consulta_manutUsuario = " INSERT INTO `home_usuario`(`codigo`,`usuario`,`senha`,`nome`,`ativo`,`codigo_perfil`,`altera_senha_login`,`usuario_edit`,`data_edit`) "
+                    . " VALUES( '".$this->proxUsuario()."' , '".$_usuario."' , '". $this->getSenhaEncriptada($_senhaBranco)."' , '".$_nome."' ,'".$_ativo."','".$_perfil."','".$_altProxLogin."','".$_usuarioAlt."','".$_dataAlt."'); ";
+            $resultado_manutUsuario = mysqli_query($this->connect(), $consulta_manutUsuario);
+            
+        } else {               
+            $consulta_manutUsuario = "UPDATE `home_usuario` SET `usuario` = '".$_usuario."' , "
+                    . "`senha` = '".$this->getSenhaEncriptada($_senhaBranco)."' , `nome` = '".$_nome."' "
+                    . ",`ativo` = '".$_ativo."',`altera_senha_login` = '".$_altProxLogin."', `usuario_edit` = '".$_usuarioAlt."',"
+                    . " `data_edit` = '".$_dataAlt."', `codigo_perfil` = '".$_perfil."' WHERE `codigo` = '".$this->idUsuario($_usuario)."';";
             $resultado_manutUsuario = mysqli_query($this->connect(), $consulta_manutUsuario);
         }        
         return $resultado;
@@ -91,6 +109,12 @@ class Usuario extends Database {
         return $resultado_listaUsuarios;
     }
     
+    function listaPerfil(){
+        $consulta_listaPerfil = "SELECT * FROM homo_sis_geitec.home_perfil where ativo = '1';";
+        $resultado_listaPerfil = mysqli_query($this->connect(), $consulta_listaPerfil);
+        return $resultado_listaPerfil;
+    }
+
     // retorno = 1 - usuario cadastrado 0 - usuario não cadastrado
     function iniUsuario($_usuario){
         $retorno = $this->testeUsuarioCadatrado($_usuario);
@@ -103,7 +127,8 @@ class Usuario extends Database {
                 $this->setNome($table_iniUsuario["nome"]);
                 $this->setSenha($table_iniUsuario["senha"]);
                 $this->setAtivo($table_iniUsuario["ativo"]);
-                $this->setPerfil($table_iniUsuario["perfil"]);
+                $this->setPerfil($table_iniUsuario["codigo_perfil"]);
+                $this->setAltProxLogin($table_iniUsuario["altera_senha_login"]);
             }            
         }
         return $retorno;
@@ -112,7 +137,7 @@ class Usuario extends Database {
     function validaSessao(){        
         session_start();
         include ("../class/header.php");
-
+        
         //Caso o usuário não esteja autenticado, limpa os dados e redireciona
         if ( !isset($_SESSION['login']) and !isset($_SESSION['pass']) ) {
             //Destrói
@@ -125,7 +150,9 @@ class Usuario extends Database {
 
             //Redireciona para a página de autenticação
             echo '<META http-equiv="refresh" content="0;../home/login.php">';
-        }        
+        } else {
+            $this->iniUsuario($_SESSION['login']);
+        }
     }
     
     function imprimiAtivo($_codigo){
