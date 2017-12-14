@@ -11,7 +11,7 @@
             <div class="col-xs-10">
               <?php 
                 $servicos = new Servicos();
-                $servicos->atuAutoRed();
+               
               ?>         
             </div>
         </div>

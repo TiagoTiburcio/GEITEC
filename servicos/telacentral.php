@@ -24,7 +24,7 @@
         $servicos = new Servicos();
         
         //servicos->atualizaAutomaticoTarefasRedmine();
-        $servicos->atuAutoRed();
+        $servicos->atuAutoRed(50);
       // $servicos->iniTarefaHoje();
         $teste = '30';
         date_default_timezone_set('America/Sao_Paulo');

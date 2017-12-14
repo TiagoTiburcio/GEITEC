@@ -650,16 +650,16 @@ class Servicos extends Database {
         $resultado_servicos9 = mysqli_query($this->connect(), $consulta_servicos9);                
     }
     
-    function atuAutoRed(){
+    function atuAutoRed($_qtdTarefas){
         $this->iniEvento(1);
         $tarefa = array();       
         $i = 0;
-        $consulta_atuAutoRed = "SELECT s.id , t.cod_tarefa_redmine, s.title FROM servicos_eventos as s inner join servicos_tarefas as t on t.codigo_tarefa = s.id where t.cod_tarefa_redmine is not null order by id desc limit 1000;";      
+        $consulta_atuAutoRed = "SELECT s.id, t.cod_tarefa_redmine, c.nome_redu_servico  FROM servicos_eventos as s inner join servicos_tarefas as t on t.codigo_tarefa = s.id inner join servicos_cadastro as c on c.codigo_servico = t.codigo_sevico where t.cod_tarefa_redmine is not null order by id desc limit $_qtdTarefas;";      
         $resultado_atuAutoRed = mysqli_query($this->connect(), $consulta_atuAutoRed);
         foreach ($resultado_atuAutoRed as $table_atuAutoRed){
             $tarefa[$i][0] =  $table_atuAutoRed["id"];
             $tarefa[$i][1] =  $table_atuAutoRed["cod_tarefa_redmine"];
-            $tarefa[$i][2] = $table_atuAutoRed["title"];
+            $tarefa[$i][2] = $table_atuAutoRed["nome_redu_servico"];
             $i = $i + 1;
         }       
         $i = 0;
@@ -669,10 +669,8 @@ class Servicos extends Database {
             $consulta = $consulta." '".$tarefa[$i][1]."'";
             $i = $i + 1;
         }
-        $consulta = $consulta.");";
-        //echo $consulta;
-        $redmine = $this->tarefaRedmine->atuTarefas($consulta);
-        //echo count($redmine)."<br>".count($tarefa);
+        $consulta = $consulta.");";        
+        $redmine = $this->tarefaRedmine->atuTarefas($consulta);        
         $situacao = $this->consSituacao();
         $i = 0;
         while (count($tarefa)> $i){
@@ -687,17 +685,15 @@ class Servicos extends Database {
                 if ($redmine[$k2][1] == $situacao[$i2][0]){$k3 = $i2;}
                 $i2 = $i2 + 1;
             }            
-            if($i == 0){
-                $update = "UPDATE `servicos_tarefas` SET `cod_tarefa_redmine` = '".$tarefa[$k1][1]."', `situacao` = '".$redmine[$k2][1]."' WHERE `codigo_tarefa` = '".$tarefa[$k1][0]."';<br>";        
-                $update = $update."UPDATE `servicos_eventos` SET `start` = '".$redmine[$k2][2]."', `title` ='".$tarefa[$k1][2]." - ".$redmine[$k2][4]."', `end` = '".$redmine[$k2][3]."', `color` = '".$situacao[$k3][2]."', `textColor` = '".$situacao[$k3][1]."' WHERE `id` = '".$tarefa[$k1][0]."';<br>";        
-            } else {
-                $update = $update."UPDATE `servicos_tarefas` SET `cod_tarefa_redmine` = '".$tarefa[$k1][1]."', `situacao` = '".$redmine[$k2][1]."' WHERE `codigo_tarefa` = '".$tarefa[$k1][0]."';<br>";        
-            $update = $update."UPDATE `servicos_eventos` SET `start` = '".$redmine[$k2][2]."',`title` ='".$tarefa[$k1][2]." - ".$redmine[$k2][4]."', `end` = '".$redmine[$k2][3]."', `color` = '".$situacao[$k3][2]."', `textColor` = '".$situacao[$k3][1]."' WHERE `id` = '".$tarefa[$k1][0]."';<br>";        
-            }            
+            $update1 = " UPDATE `servicos_tarefas` SET `cod_tarefa_redmine` = '".$tarefa[$k1][1]."', `situacao` = '".$redmine[$k2][1]."' WHERE `codigo_tarefa` = '".$tarefa[$k1][0]."'; ";        
+            $resultado_update112 = mysqli_query($this->connect(), $update1);
+            $update1 = " UPDATE `servicos_eventos` SET `start` = '".$redmine[$k2][2]."',`title` ='".$tarefa[$k1][2]." - ".$redmine[$k2][4]."', `end` = '".$redmine[$k2][3]."', `color` = '".$situacao[$k3][2]."', `textColor` = '".$situacao[$k3][1]."' WHERE `id` = '".$tarefa[$k1][0]."'; ";        
+            $resultado_update112 = mysqli_query($this->connect(), $update1);            
             $i = $i + 1;            
         }
-        $resultado_update = mysqli_query($this->connect(), $update);
-        echo  mysqli_affected_rows($resultado_update);
+        $resultado_update112 = mysqli_query($this->connect(), $update1);
+        return $resultado_update112;
+        
     }
     
     function consSituacao(){

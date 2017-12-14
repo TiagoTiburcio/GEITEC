@@ -52,6 +52,7 @@
                         <li><a href="../servicos/servico_novo.php">Cadastrar Novo Servi&ccedil;o</a></li>                       
                         <li><a href="../servicos/telacentral.php">Painel Central</a></li>
                         <li><a href="../servicos/ini_tarefas.php">For&ccedil;ar Inicializar tarefas do dia</a></li>
+                        <li><a href="../servicos/atualizaRedmine.php">For&ccedil;ar Atualizar Tarefas do Redmine</a></li>
                     </ul>
                   </li>  
                   <li><a href="../servidor/consultaservidor.php">Consulta Servidor</a></li>
