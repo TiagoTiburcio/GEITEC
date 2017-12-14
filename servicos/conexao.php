@@ -3,7 +3,7 @@
 $hostname = '10.24.0.59';
 $username = 'root';
 $password = 'seedqawsed';
-$database = 'sis_geitec';
+$database = 'homo_sis_geitec';
  
 try {
     $conexao = new PDO("mysql:host=$hostname;dbname=$database", $username, $password,

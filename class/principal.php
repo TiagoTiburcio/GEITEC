@@ -405,7 +405,22 @@ class Redmine extends DatabaseRed {
             }
         }
         return $resultado;
-    } 
+    }
+    //retorno 
+    function atuTarefas($_consulta){
+        $resultado_redmine2 = mysqli_query($this->connectRed(), $_consulta);
+        $resultado = array();
+        $i = 0;
+        foreach ($resultado_redmine2 as $table_redmine2){
+            $resultado[$i][0] = $table_redmine2["id"];
+            $resultado[$i][1] = $table_redmine2["status_id"];                 
+            $resultado[$i][2] = $table_redmine2["start_date"]; //data formatadata yyyy-MM-dd padrão BD
+            $resultado[$i][3] = $table_redmine2["due_date"]; //data formatadata yyyy-MM-dd padrão BD
+            $resultado[$i][4] = $table_redmine2["login"];
+            $i = $i + 1;
+        }
+        return $resultado;
+    }
     function __destruct() {}
 }
 
@@ -634,9 +649,73 @@ class Servicos extends Database {
         $consulta_servicos9 = "UPDATE `servicos_cadastro` SET `data_prox_exec` = '$_dataFim', `data_ult_criacao` = '$_dataInicio', `id_ultimo_evento` = '$_numTarefa'  WHERE `codigo_servico` = '$_codigoServico';";
         $resultado_servicos9 = mysqli_query($this->connect(), $consulta_servicos9);                
     }
-                    
+    
+    function atuAutoRed(){
+        $this->iniEvento(1);
+        $tarefa = array();       
+        $i = 0;
+        $consulta_atuAutoRed = "SELECT s.id , t.cod_tarefa_redmine, s.title FROM servicos_eventos as s inner join servicos_tarefas as t on t.codigo_tarefa = s.id where t.cod_tarefa_redmine is not null order by id desc limit 1000;";      
+        $resultado_atuAutoRed = mysqli_query($this->connect(), $consulta_atuAutoRed);
+        foreach ($resultado_atuAutoRed as $table_atuAutoRed){
+            $tarefa[$i][0] =  $table_atuAutoRed["id"];
+            $tarefa[$i][1] =  $table_atuAutoRed["cod_tarefa_redmine"];
+            $tarefa[$i][2] = $table_atuAutoRed["title"];
+            $i = $i + 1;
+        }       
+        $i = 0;
+        while (count($tarefa)> $i){
+            if ($i != 0){$consulta = $consulta.",";}
+            else { $consulta = "SELECT i.id ,tec.login ,i.due_date ,i.start_date ,i.status_id  from issues as i left join users as tec on i.assigned_to_id = tec.id where i.id in (";}
+            $consulta = $consulta." '".$tarefa[$i][1]."'";
+            $i = $i + 1;
+        }
+        $consulta = $consulta.");";
+        //echo $consulta;
+        $redmine = $this->tarefaRedmine->atuTarefas($consulta);
+        //echo count($redmine)."<br>".count($tarefa);
+        $situacao = $this->consSituacao();
+        $i = 0;
+        while (count($tarefa)> $i){
+            $k1 = $i;
+            $i2 = 0;
+            while (count($redmine) > $i2 ){                
+                if ($tarefa[$i][1] == $redmine[$i2][0]){$k2 = $i2;}
+                $i2 = $i2 + 1;
+            }
+            $i2 = 0;
+            while (count($situacao) > $i2 ){                
+                if ($redmine[$k2][1] == $situacao[$i2][0]){$k3 = $i2;}
+                $i2 = $i2 + 1;
+            }            
+            if($i == 0){
+                $update = "UPDATE `servicos_tarefas` SET `cod_tarefa_redmine` = '".$tarefa[$k1][1]."', `situacao` = '".$redmine[$k2][1]."' WHERE `codigo_tarefa` = '".$tarefa[$k1][0]."';<br>";        
+                $update = $update."UPDATE `servicos_eventos` SET `start` = '".$redmine[$k2][2]."', `title` ='".$tarefa[$k1][2]." - ".$redmine[$k2][4]."', `end` = '".$redmine[$k2][3]."', `color` = '".$situacao[$k3][2]."', `textColor` = '".$situacao[$k3][1]."' WHERE `id` = '".$tarefa[$k1][0]."';<br>";        
+            } else {
+                $update = $update."UPDATE `servicos_tarefas` SET `cod_tarefa_redmine` = '".$tarefa[$k1][1]."', `situacao` = '".$redmine[$k2][1]."' WHERE `codigo_tarefa` = '".$tarefa[$k1][0]."';<br>";        
+            $update = $update."UPDATE `servicos_eventos` SET `start` = '".$redmine[$k2][2]."',`title` ='".$tarefa[$k1][2]." - ".$redmine[$k2][4]."', `end` = '".$redmine[$k2][3]."', `color` = '".$situacao[$k3][2]."', `textColor` = '".$situacao[$k3][1]."' WHERE `id` = '".$tarefa[$k1][0]."';<br>";        
+            }            
+            $i = $i + 1;            
+        }
+        $resultado_update = mysqli_query($this->connect(), $update);
+        echo  mysqli_affected_rows($resultado_update);
+    }
+    
+    function consSituacao(){
+        $situacao = array();       
+        $i = 0;
+        $consulta_consSituacao = "SELECT * FROM servicos_sit_tarefa;";      
+        $resultado_consSituacao = mysqli_query($this->connect(), $consulta_consSituacao);
+        foreach ($resultado_consSituacao as $table_consSituacao){
+            $situacao[$i][0] =  $table_consSituacao["codigo"];
+            $situacao[$i][1] =  $table_consSituacao["cor_texto"];
+            $situacao[$i][2] =  $table_consSituacao["cor"];
+            $i = $i + 1;
+        }
+        return $situacao;
+    }
+            
     function atualizaAutomaticoTarefasRedmine(){
-        $consulta_servicos10 = "SELECT * FROM servicos_eventos as s inner join servicos_tarefas as t on t.codigo_tarefa = s.id where t.cod_tarefa_redmine is not null order by id desc limit 30;";      
+        $consulta_servicos10 = "SELECT * FROM servicos_eventos as s inner join servicos_tarefas as t on t.codigo_tarefa = s.id where t.cod_tarefa_redmine is not null order by id desc limit 100;";      
         $resultado_servicos10 = mysqli_query($this->connect(), $consulta_servicos10);
         foreach ($resultado_servicos10 as $table_servicos10){
             $this->iniEvento($table_servicos10["id"]);

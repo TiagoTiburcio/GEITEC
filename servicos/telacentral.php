@@ -22,8 +22,9 @@
 
         $usuario = new Usuario();    
         $servicos = new Servicos();
-
-        $servicos->atualizaAutomaticoTarefasRedmine();
+        
+        //servicos->atualizaAutomaticoTarefasRedmine();
+        $servicos->atuAutoRed();
       // $servicos->iniTarefaHoje();
         $teste = '30';
         date_default_timezone_set('America/Sao_Paulo');
@@ -71,4 +72,5 @@
         </div>        
     </div>
 <?php
+
 include ("../class/footer.php");
