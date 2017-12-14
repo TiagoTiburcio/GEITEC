@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <meta lang="pt-BR">
-  <meta http-equiv="refresh" content="50" url="">  
+  <meta http-equiv="refresh" content="30" url="">  
   <title>CODIN - GEITEC</title>  
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../css/bootstrap.min.css">
