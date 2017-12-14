@@ -636,7 +636,7 @@ class Servicos extends Database {
     }
                     
     function atualizaAutomaticoTarefasRedmine(){
-        $consulta_servicos10 = "SELECT * FROM servicos_eventos as s inner join servicos_tarefas as t on t.codigo_tarefa = s.id where t.cod_tarefa_redmine is not null;";      
+        $consulta_servicos10 = "SELECT * FROM servicos_eventos as s inner join servicos_tarefas as t on t.codigo_tarefa = s.id where t.cod_tarefa_redmine is not null order by id desc limit 30;";      
         $resultado_servicos10 = mysqli_query($this->connect(), $consulta_servicos10);
         foreach ($resultado_servicos10 as $table_servicos10){
             $this->iniEvento($table_servicos10["id"]);
