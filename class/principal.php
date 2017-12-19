@@ -425,7 +425,7 @@ class Redmine extends DatabaseRed {
 }
 
 /**
- * Description of usuario
+ * Description of servico
  *
  * @author tiagoc
  */
@@ -654,12 +654,13 @@ class Servicos extends Database {
         $this->iniEvento(1);
         $tarefa = array();       
         $i = 0;
-        $consulta_atuAutoRed = "SELECT s.id, t.cod_tarefa_redmine, c.nome_redu_servico  FROM servicos_eventos as s inner join servicos_tarefas as t on t.codigo_tarefa = s.id inner join servicos_cadastro as c on c.codigo_servico = t.codigo_sevico where t.cod_tarefa_redmine is not null order by id desc limit $_qtdTarefas;";      
+        $consulta_atuAutoRed = "SELECT s.id, t.cod_tarefa_redmine, c.nome_redu_servico, c.repeticao  FROM servicos_eventos as s inner join servicos_tarefas as t on t.codigo_tarefa = s.id inner join servicos_cadastro as c on c.codigo_servico = t.codigo_sevico where t.cod_tarefa_redmine is not null order by id desc limit $_qtdTarefas;";      
         $resultado_atuAutoRed = mysqli_query($this->connect(), $consulta_atuAutoRed);
         foreach ($resultado_atuAutoRed as $table_atuAutoRed){
             $tarefa[$i][0] =  $table_atuAutoRed["id"];
             $tarefa[$i][1] =  $table_atuAutoRed["cod_tarefa_redmine"];
             $tarefa[$i][2] = $table_atuAutoRed["nome_redu_servico"];
+            $tarefa[$i][3] = $table_atuAutoRed["repeticao"];
             $i = $i + 1;
         }       
         $i = 0;
@@ -687,7 +688,7 @@ class Servicos extends Database {
             }            
             $update1 = " UPDATE `servicos_tarefas` SET `cod_tarefa_redmine` = '".$tarefa[$k1][1]."', `situacao` = '".$redmine[$k2][1]."' WHERE `codigo_tarefa` = '".$tarefa[$k1][0]."'; ";        
             $resultado_update112 = mysqli_query($this->connect(), $update1);
-            $update1 = " UPDATE `servicos_eventos` SET `start` = '".$redmine[$k2][2]."',`title` ='".$tarefa[$k1][2]." - ".$redmine[$k2][4]."', `end` = '".$redmine[$k2][3]."', `color` = '".$situacao[$k3][2]."', `textColor` = '".$situacao[$k3][1]."' WHERE `id` = '".$tarefa[$k1][0]."'; ";        
+            $update1 = " UPDATE `servicos_eventos` SET `start` = '".$redmine[$k2][2]."',`title` ='".$tarefa[$k1][2]." - ".$redmine[$k2][4]." - ".$tarefa[$k1][3]."', `end` = '".$redmine[$k2][3]."', `color` = '".$situacao[$k3][2]."', `textColor` = '".$situacao[$k3][1]."' WHERE `id` = '".$tarefa[$k1][0]."'; ";        
             $resultado_update112 = mysqli_query($this->connect(), $update1);            
             $i = $i + 1;            
         }
@@ -753,3 +754,81 @@ class Servicos extends Database {
 }
 
 
+class Servico extends Database {
+    private $codigo;
+    
+    private $nomeRedu;
+    
+    private $descricaoComp;
+    
+    private $repeticao;
+    
+    private $dataProxExec;
+    
+    private $dataUltExec;
+    
+    private $falhou;
+    
+    private $idEventoAnt;
+    
+    function getCodigo(){ return $this->codigo; }
+    
+    function setCodigo($_codigo){ $this->codigo = $_codigo; }
+    
+    function getNomeRedu(){ return $this->nomeRedu; }
+    
+    function setNomeRedu($_nomeRedu){ $this->nomeRedu = $_nomeRedu; }
+    
+    function getDescricaoComp(){ return $this->descricaoComp; }
+    
+    function setDescricaoComp($_descricaoComp){ $this->descricaoComp = $_descricaoComp; }
+    
+    function getRepeticao(){ return $this->repeticao; }
+    
+    function setRepeticao($_repeticao){ $this->repeticao = $_repeticao; }
+    
+    function getDataProxExec(){ return $this->dataProxExec;}
+    
+    function setDataProxExec($_data){ $this->dataProxExec = $_data; }
+    
+    function getDataUltExec(){ return $this->dataUltExec;}
+    
+    function setDataUltExec($_data){ $this->dataUltExec = $_data; }
+    
+    function getFalhou(){ return $this->falhou;}
+    
+    function setFalhou ($_falhou){ $this->falhou = $_falhou; }
+    
+    function getidEventoAnt(){ return $this->idEventoAnt;}
+        
+    function setIdEventoAnt ($_id){ $this->idEventoAnt = $_id; }
+    
+    function listaServicos($_id, $_nome){
+        $consulta_listaServicos = "SELECT * FROM servicos_cadastro "
+                            . " where codigo_servico like '%$_id%' and nome_redu_servico like '%$_nome%';";
+        $resultado_listaServicos = mysqli_query($this->connect(), $consulta_listaServicos);
+        return $resultado_listaServicos;
+    }
+    function iniServico($_codigo){
+        $consulta_iniServico = "SELECT * FROM servicos_cadastro where codigo_servico = '$_codigo';";
+        $resultado_iniServico = mysqli_query($this->connect(), $consulta_iniServico);
+        foreach ($resultado_iniServico as $table_iniServico){
+           $this->setCodigo($table_iniServico["codigo_servico"]);
+           $this->setNomeRedu($table_iniServico["nome_redu_servico"]);
+           $this->setDescricaoComp($table_iniServico["descricao_tipo_servico"]);
+           $this->setRepeticao($table_iniServico["repeticao"]);
+           $this->setdataProxExec($table_iniServico["data_prox_exec"]);
+           $this->setdataUltExec($table_iniServico["data_ult_criacao"]);
+           $this->setfalhou($table_iniServico["falhou"]);
+           $this->setidEventoAnt($table_iniServico["id_ultimo_evento"]);            
+        }
+    }    
+    function manutServico($_codigo, $_nome, $_descricao, $_repeticao){        
+        $consulta_manutServico = "UPDATE `servicos_cadastro` SET `nome_redu_servico` = '".$_nome."', `descricao_tipo_servico` = '".$_descricao."', `repeticao` = '".$_repeticao."' WHERE `codigo_servico` = '".$_codigo."'";
+        $resultado_manutServico = mysqli_query($this->connect(), $consulta_manutServico);
+    }
+            
+    function formataDataBR($_data){
+       return date('d/m/Y',strtotime($_data));
+    }
+}
