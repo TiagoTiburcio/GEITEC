@@ -744,6 +744,11 @@ class Servicos extends Database {
         }
         return $retorno;
     }
+    function cunsultaProxAntUlt($_tarefa){
+        $consulta_cunsultaProxAntUlt = "select st.id_evento , st.id_evento_anterior ,pt.id_evento as id_prox_evento , sc.id_ultimo_evento from `servicos_tarefas` as st inner join `servicos_cadastro` as sc on st.codigo_sevico = sc.codigo_servico left join `servicos_tarefas` as pt on st.id_evento = pt.id_evento_anterior where st.id_evento = '$_tarefa';";
+        $resultado_cunsultaProxAntUlt = mysqli_query($this->connect(), $consulta_cunsultaProxAntUlt);
+        return $resultado_cunsultaProxAntUlt;
+    }
     
     function formataDataBR($_data){
        return date('d/m/Y',strtotime($_data));
