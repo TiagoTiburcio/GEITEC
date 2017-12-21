@@ -337,6 +337,20 @@ class Circuitos extends Database {
         $resultado_circuito3 = mysqli_query($this->connect(), $consulta_circuito3);
         return $resultado_circuito3;
     }
+    
+    function listaContaZabbix(){        
+        $consulta_listaContaZabbix = " select c.DRE, c.cidade, c.circuito, l.descricao, "
+                . " c.nome_unidade, c.periodo_ref, c.fatura, c.valor_conta "
+                . " from `sis_geitec`.`circuitos_contas` as c "
+                . " join `circuitos_localizacao` as l on c.localizacao = l.id "
+                . " join `circuitos_contrato` as cc on cc.codigo = c.fatura where "
+                . " c.periodo_ref = '2017-11-01' "
+                . " and cc.descricao_servico = 'Link de Dados' order by fatura, DRE, cidade, nome_unidade; ";
+        $resultado_listaContaZabbix = mysqli_query($this->connect(), $consulta_listaContaZabbix);
+        return $resultado_listaContaZabbix;
+        
+    }
+    
     function __destruct() {}
 }
 
@@ -835,5 +849,34 @@ class Servico extends Database {
             
     function formataDataBR($_data){
        return date('d/m/Y',strtotime($_data));
+    }
+}
+
+/**
+ * Description of Zabbix SEED
+ *
+ * @author tiagoc
+ */
+class ZabbixSEED extends DatabaseZbx {
+    function listLinksPagos(){
+        
+        $consulta_listLinksPagos = " SELECT h.name, t.value, (CASE t.value WHEN 1 THEN 'Down(1)' ELSE 'Up(0)' END) AS situacao, "
+                                ." FROM_UNIXTIME(t.lastchange) AS data, TIMESTAMPDIFF(day, FROM_UNIXTIME(t.lastchange), NOW()) AS tempo_inativo, " 
+                                ." g.name AS grupo, hi.os AS diretoria, hi.name AS escola, inte.ip, hi.serialno_a, h.status "
+                                ." FROM zabbix3.hosts h JOIN zabbix3.hosts_groups hg ON h.hostid = hg.hostid JOIN zabbix3.groups g ON hg.groupid = g.groupid LEFT JOIN zabbix3.host_inventory hi ON hi.hostid = h.hostid "
+                                ." LEFT JOIN zabbix3.interface inte ON inte.hostid = h.hostid JOIN zabbix3.items i ON i.hostid = h.hostid JOIN zabbix3.functions f ON f.itemid = i.itemid JOIN zabbix3.triggers t ON t.triggerid = f.triggerid "
+                                ." WHERE g.groupid IN ('28', '31', '29', '32', '30', '33') AND t.templateid IN ('19524' , '13554') AND inte.main = '1'; ";                
+        $resultado_listLinksPagos = mysqli_query($this->connectZbx(), $consulta_listLinksPagos);
+        
+        return $resultado_listLinksPagos;
+    }
+    function imprimiAtivo($_codigo){
+        if($_codigo == '1'){
+            return '<span class="glyphicon glyphicon-remove-circle btn-danger">';
+        }elseif ($_codigo == '0') {
+            return '<span class="glyphicon glyphicon-ok-circle btn-success">';
+        } else {
+            return '<span class="glyphicon glyphicon-ban-circle">';
+        }
     }
 }

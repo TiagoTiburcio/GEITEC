@@ -42,6 +42,7 @@
                         <li><a href="../circuitos/contaanalitico.php">Conta OI Anal&iacute;tico</a></li>
                         <li><a href="../circuitos/contadetalhada.php">Conta OI Detalhado</a></li>
                         <li><a href="../circuitos/escolas.php">Consulta Escolas</a></li>
+                        <li><a href="../circuitos/zabbix.php">Consultas Zabbix</a></li>
                     </ul>
                   </li>
                   <li class="dropdown">

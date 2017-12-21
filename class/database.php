@@ -102,3 +102,36 @@ abstract class DatabaseRed {
     function close(){              
     } 
 }
+
+abstract class DatabaseZbx {
+    
+    private static $hostzbx     = "10.24.0.59";   
+    private static $userzbx     = "root";
+    private static $passwordzbx = "seedqawsed";
+    private static $dbzbx       = "zabbix3";
+     
+    /*Metodos que trazem o conteudo da variavel desejada
+    @return   $xxx = conteudo da variavel solicitada*/
+    
+    private function getHost()    {return self::$hostzbx;}   
+    private function getUser()    {return self::$userzbx;}
+    private function getPassword(){return self::$passwordzbx;}
+    private function getDB()      {return self::$dbzbx;}
+     
+    function connectZbx(){
+        $conexaoZbx = mysqli_connect($this->getHost(), $this->getUser(), $this->getPassword(), $this->getDB());
+        if (mysqli_connect_errno()){
+                echo "Falha na conexão: ". mysqli_connect_errno() ;
+        }
+        if (!mysqli_set_charset($conexaoZbx, "utf8")) {
+            printf("Error loading character set utf8: %s\n", mysqli_error($conexaoZbx));
+            exit();
+        } else {
+            mysqli_character_set_name($conexaoZbx);
+        }
+        return $conexaoZbx;
+    }
+    function close(){              
+    } 
+}
+

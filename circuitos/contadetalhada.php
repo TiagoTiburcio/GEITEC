@@ -7,6 +7,8 @@
 
     $circuitos = new Circuitos();
     
+    $zabbix = new ZabbixSEED();
+    
     $diretoria = $_POST ["diretoria"];
     $unidade	= $_POST ["unidade"];	
     $fatura	= $_POST ["fatura"];
@@ -56,6 +58,9 @@
                 </div>
                   <a type="button" class="btn btn-danger"  href="">Limpar <span class="glyphicon glyphicon-erase"></span></a>                 
                   <button type="submit" class="btn btn-primary">Pesquisar <span class="glyphicon glyphicon-search"></span></button>                  
+                  <label> Cad. no ZBX Funcionando: <span class="glyphicon glyphicon-ok-circle btn-success"></label> 
+                  <label> Cad. ZBX Inoperante: <span class="glyphicon glyphicon-remove-circle btn-danger"></label> 
+                  <label> Não Cad ZBX: <span class="glyphicon glyphicon-ban-circle"></label>  
                </div>
              </div>  
             </form>
@@ -71,12 +76,20 @@
                         <th>Periodo</th>
                         <th>Fatura</th>
                         <th>valor</th>
+                        <th>Zabbix</th>
+                        <th>Dias Sit.</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php
+                      <?php                        
                         $resultado_detalhada2 = $circuitos->listaConsultaDetalhada($unidade,$fatura,$circuito,$diretoria,$mescad);
-                        foreach ($resultado_detalhada2 as $table){                        
+                        $consultaZabbix = $zabbix->listLinksPagos(); 
+                        foreach ($resultado_detalhada2 as $table){
+                            $cadzbx = 3;
+                            $sitZbx = 0;
+                            foreach ($consultaZabbix as $tableZbx){ 
+                                if($tableZbx["name"]==$table["circuito"]){$cadzbx = $tableZbx["value"]; $sitZbx = $tableZbx["tempo_inativo"];}
+                            } 
                     ?>                
                     <tr>
                         <td><?php echo $table["DRE"]; ?></td>
@@ -86,6 +99,8 @@
                         <td><?php echo $table["periodo_ref"]; ?></td>
                         <td><?php echo $table["fatura"]; ?></td>
                         <td><?php echo $table["valor_conta"]; ?></td>
+                        <td><?php echo $zabbix->imprimiAtivo($cadzbx); ?></td>
+                        <td><?php echo $sitZbx; ?></td>
                     </tr>  
                 <?php
                         }
