@@ -295,7 +295,21 @@ class Circuitos extends Database {
     function getValor(){
         return $this->valor;
     }
-          
+    
+    // retorna lista com todos os usuarios cadastrados
+    function listaUnidades($_dre,$_unidade){        
+        $consulta_listaUnidades = "SELECT u.codigo_siig, u.codigo_inep, u.descricao,"
+                . " u.sigla, d.descricao descricao_dre, d.sigla as sigla_dre, "
+                . " d.codigo_siig as codigo_siig_dre, e.descricao as cidade "
+                . " FROM circuitos_unidades as u "
+                . " inner join circuitos_unidades as d on u.codigo_unidade_pai = d.codigo_siig "
+                . " inner join EscolasSiteCompleta as e on e.codigo_mec = u.codigo_inep "
+                . " where d.sigla like '%$_dre%' and u.descricao like '%$_unidade%' "
+                . " order by d.sigla, e.descricao, u.descricao; ";                              
+        $resultado_listaUnidades = mysqli_query($this->connect(), $consulta_listaUnidades);
+        return $resultado_listaUnidades;
+    }
+    
     // retorna lista com todos os usuarios cadastrados
     function listaCircuitos($_mescad,$_fatura){        
         $consulta_circuito1 = "SELECT cp.periodo_ref,"
@@ -865,11 +879,50 @@ class ZabbixSEED extends DatabaseZbx {
                                 ." g.name AS grupo, hi.os AS diretoria, hi.name AS escola, inte.ip, hi.serialno_a, h.status "
                                 ." FROM zabbix3.hosts h JOIN zabbix3.hosts_groups hg ON h.hostid = hg.hostid JOIN zabbix3.groups g ON hg.groupid = g.groupid LEFT JOIN zabbix3.host_inventory hi ON hi.hostid = h.hostid "
                                 ." LEFT JOIN zabbix3.interface inte ON inte.hostid = h.hostid JOIN zabbix3.items i ON i.hostid = h.hostid JOIN zabbix3.functions f ON f.itemid = i.itemid JOIN zabbix3.triggers t ON t.triggerid = f.triggerid "
-                                ." WHERE g.groupid IN ('28', '31', '29', '32', '30', '33') AND t.templateid IN ('19524' , '13554') AND inte.main = '1'; ";                
+                                ." WHERE g.groupid IN ('28', '31', '29', '32', '30', '33', '392', '394', '395', '396') AND t.templateid IN ('19524' , '13554') AND inte.main = '1'; ";                
         $resultado_listLinksPagos = mysqli_query($this->connectZbx(), $consulta_listLinksPagos);
         
         return $resultado_listLinksPagos;
     }
+    
+    function listLinksPBLE(){
+        $consulta_listLinksPBLE = " SELECT h.name, t.value, (CASE t.value WHEN 1 THEN 'Down(1)' ELSE 'Up(0)' END) AS situacao, "
+                                ." FROM_UNIXTIME(t.lastchange) AS data, TIMESTAMPDIFF(day, FROM_UNIXTIME(t.lastchange), NOW()) AS tempo_inativo, " 
+                                ." g.name AS grupo, hi.os AS diretoria, hi.name AS escola, inte.ip, hi.serialno_a, h.status "
+                                ." FROM zabbix3.hosts h JOIN zabbix3.hosts_groups hg ON h.hostid = hg.hostid JOIN zabbix3.groups g ON hg.groupid = g.groupid LEFT JOIN zabbix3.host_inventory hi ON hi.hostid = h.hostid "
+                                ." LEFT JOIN zabbix3.interface inte ON inte.hostid = h.hostid JOIN zabbix3.items i ON i.hostid = h.hostid JOIN zabbix3.functions f ON f.itemid = i.itemid JOIN zabbix3.triggers t ON t.triggerid = f.triggerid "
+                                ." WHERE g.groupid IN ('28') AND t.templateid IN ('19524' , '13554') AND inte.main = '1'; ";                
+        $resultado_listLinksPBLE = mysqli_query($this->connectZbx(), $consulta_listLinksPBLE);
+        
+        return $resultado_listLinksPBLE;
+    }
+    
+    function imprimiAtivo($_codigo){
+        if($_codigo == '1'){
+            return '<span class="glyphicon glyphicon-remove-circle btn-danger">';
+        }elseif ($_codigo == '0') {
+            return '<span class="glyphicon glyphicon-ok-circle btn-success">';
+        } else {
+            return '<span class="glyphicon glyphicon-ban-circle">';
+        }
+    }
+}
+
+/**
+ * Description of Switchs Ativos Rede Local
+ *
+ * @author tiagoc
+ */
+class Switchs extends Database {
+    function listModelosSwitch(){
+        $consulta_listModelosSwitch = " SELECT `codigo_marca`, `codigo_modelo`, "
+                      . " `marca`, `modelo`, `qtd_portas`, `qtd_portas_fb`, "
+                      . " `velocidade_padrao` FROM `redelocal_sw_modelo`; ";
+        $resultado_listModelosSwitch = mysqli_query($this->connect(), $consulta_listModelosSwitch);
+        
+        return $resultado_listModelosSwitch;
+    }
+    
     function imprimiAtivo($_codigo){
         if($_codigo == '1'){
             return '<span class="glyphicon glyphicon-remove-circle btn-danger">';

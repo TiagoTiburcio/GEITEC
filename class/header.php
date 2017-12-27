@@ -41,7 +41,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="../circuitos/contaanalitico.php">Conta OI Anal&iacute;tico</a></li>
                         <li><a href="../circuitos/contadetalhada.php">Conta OI Detalhado</a></li>
-                        <li><a href="../circuitos/escolas.php">Consulta Escolas</a></li>
+                        <li><a href="../circuitos/pble.php">Consulta PBLE</a></li>
                         <li><a href="../circuitos/zabbix.php">Consultas Zabbix</a></li>
                     </ul>
                   </li>
@@ -57,6 +57,12 @@
                     </ul>
                   </li>  
                   <li><a href="../servidor/consultaservidor.php">Consulta Servidor</a></li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Rede Local<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../redelocal/listarmodelosw.php">Modelos Switch</a></li>                        
+                    </ul>
+                  </li>  
                   <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Manuten&ccedil;&atilde;o Usu&aacute;rios<span class="caret"></span></a>
                     <ul class="dropdown-menu">

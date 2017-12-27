@@ -12,7 +12,7 @@
               <?php 
                 $servicos = new Servicos();
                
-              ?>         
+              ?>
             </div>
         </div>
 <?php
