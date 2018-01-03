@@ -914,16 +914,96 @@ class ZabbixSEED extends DatabaseZbx {
  * @author tiagoc
  */
 class Switchs extends Database {
-    function listModelosSwitch(){
-        $consulta_listModelosSwitch = " SELECT `codigo_marca`, `codigo_modelo`, "
-                      . " `marca`, `modelo`, `qtd_portas`, `qtd_portas_fb`, "
-                      . " `velocidade_padrao` FROM `redelocal_sw_modelo`; ";
-        $resultado_listModelosSwitch = mysqli_query($this->connect(), $consulta_listModelosSwitch);
+    function listaSwitch($_marca, $_modelo,$_ip){
+        $consulta_listSwitch = " SELECT sw.codigo as codigo_sw, sw.ip,"
+                . " sw.empilhado, sw.numero_empilhamento, sw.ativo as ativo_sw, "
+                . " sw.vlan_padrao, sw.data_incl as data_alt_sw, "
+                . " msw.descricao as modelo_sw, msw.qtd_portas_eth, "
+                . " msw.qtd_portas_fc, msw.gerenciavel, m.descricao as marca_sw, "
+                . " r.descricao as descricao_rack, r.setor as setor_rack, "
+                . " b.nome as nome_bloco, b.descricao as descricao_bloco "
+                . " FROM redelocal_switch as sw "
+                . " join redelocal_modelo_switch as msw on msw.codigo = sw.codigo_modelo "
+                . " join redelocal_marca as m on m.codigo =  msw.codigo_marca "
+                . " join redelocal_rack as r on r.codigo = sw.codigo_rack "
+                . " join redelocal_bloco as b on b.codigo = r.codigo_bloco "
+                . " where m.descricao like '%$_marca%' and msw.descricao like '%$_modelo%' and sw.ip like '%$_ip%'; ";
+        $resultado_listSwitch = mysqli_query($this->connect(), $consulta_listSwitch);
         
-        return $resultado_listModelosSwitch;
+        return $resultado_listSwitch;
+    }
+    function dadosSwitch($_codigo){
+        $consulta_listSwitch = " SELECT sw.codigo as codigo_sw, sw.ip,"
+                . " sw.empilhado, sw.numero_empilhamento, sw.ativo as ativo_sw, "
+                . " sw.vlan_padrao, sw.data_incl as data_alt_sw, "
+                . " msw.descricao as modelo_sw, msw.qtd_portas_eth, "
+                . " msw.qtd_portas_fc, msw.gerenciavel, m.descricao as marca_sw, "
+                . " r.descricao as descricao_rack, r.setor as setor_rack, "
+                . " b.nome as nome_bloco, b.descricao as descricao_bloco "
+                . " FROM redelocal_switch as sw "
+                . " join redelocal_modelo_switch as msw on msw.codigo = sw.codigo_modelo "
+                . " join redelocal_marca as m on m.codigo =  msw.codigo_marca "
+                . " join redelocal_rack as r on r.codigo = sw.codigo_rack "
+                . " join redelocal_bloco as b on b.codigo = r.codigo_bloco "
+                . " where sw.codigo = '$_codigo'; ";
+        $resultado_listSwitch = mysqli_query($this->connect(), $consulta_listSwitch);
+        
+        return $resultado_listSwitch;
     }
     
-    function imprimiAtivo($_codigo){
+    function listPortasSwitch(){
+        $consulta_listPortaSwitch = " SELECT `codigo_switch`, `codigo_porta_switch`, "
+                . " `tipo_porta`, `velocidade`, `codigo_vlan`, `observacao`, "
+                . " `texto_tela`, `data_alt`, cor, fonte  FROM `redelocal_porta_switch` as psw  inner join redelocal_vlan as v on psw.codigo_vlan = v.codigo; ";
+        $resultado_listPortaSwitch = mysqli_query($this->connect(), $consulta_listPortaSwitch);        
+        return $resultado_listPortaSwitch;
+    }
+    
+    function listVlan(){
+        $consulta_listVlan = " SELECT `codigo`, `nome`, `qtd_hosts`, `descricao`, `rede`, `mascara`, `gateway`,`cor`,`fonte` FROM `redelocal_vlan`; ";
+        $resultado_listVlan = mysqli_query($this->connect(), $consulta_listVlan);        
+        return $resultado_listVlan;
+    }
+    
+    function testePorta($_porta, $_switch, $_tipoPorta){
+        $consulta_testePorta = " SELECT count(codigo_switch) as cont FROM redelocal_porta_switch "
+                . " where codigo_switch = '$_switch' and codigo_porta_switch = '$_porta' and tipo_porta = '$_tipoPorta'; ";
+        $resultado_testePorta = mysqli_query($this->connect(), $consulta_testePorta);
+        foreach ($resultado_testePorta as $table_testePorta){
+            $resutaldo = $table_testePorta["cont"];
+        }
+        return $resutaldo;
+    }
+    
+    function iniPorta($_porta, $_switch, $_tipoPorta){
+        $resultado = $this->testePorta($_porta, $_switch, $_tipoPorta);        
+        if ($resultado == '1'){
+            $consulta_iniPorta = " SELECT * FROM redelocal_porta_switch "
+                . " where codigo_switch = '$_switch' and codigo_porta_switch = '$_porta' and tipo_porta = '$_tipoPorta'; ";
+            $resultado_iniPorta = mysqli_query($this->connect(), $consulta_iniPorta);        
+        } else {
+                $consulta_iniPorta = " SELECT sw.codigo as 'codigo_switch', '$_porta' as 'codigo_porta_switch', '$_tipoPorta' as 'tipo_porta',  msw.velocidade_padrao_portas as 'velocidade', sw.vlan_padrao as 'codigo_vlan', '' as 'observacao' , sw.vlan_padrao as 'texto_tela', now() as 'data_alt'  FROM redelocal_switch as sw join redelocal_modelo_switch as msw on msw.codigo = sw.codigo_modelo where sw.codigo = '$_switch'; ";
+            $resultado_iniPorta = mysqli_query($this->connect(), $consulta_iniPorta);        
+        }
+        return $resultado_iniPorta;
+    }
+    function manutPortaSwitch($_porta, $_switch, $_tipoPorta, $_velocidade, $_codigoVlan, $_observacao, $_textoTela, $_dataAlt){
+        $resultado = $this->testePorta($_porta, $_switch, $_tipoPorta);        
+        if ($resultado == '1'){
+            $consulta_manutPortaSwitch2 = " UPDATE `redelocal_porta_switch` SET "
+                . "`velocidade` = '$_velocidade', `codigo_vlan` = '$_codigoVlan', "
+                . "`observacao` = '$_observacao', `texto_tela` = '$_textoTela', `data_alt` = '$_dataAlt' "
+                . " where codigo_switch = '$_switch' and codigo_porta_switch = '$_porta' and tipo_porta = '$_tipoPorta'; ";
+        $resultado_manutPortaSwitch2 = mysqli_query($this->connect(), $consulta_manutPortaSwitch2);            
+        } elseif ($resultado == '0'){
+            $consulta_manutPortaSwitch2 = " INSERT INTO `redelocal_porta_switch` "
+                    . " (`codigo_switch`,`codigo_porta_switch`,`tipo_porta`,`velocidade`,`codigo_vlan`,`observacao`,`texto_tela`,`data_alt`)"
+                    . " VALUES('$_switch','$_porta','$_tipoPorta','$_velocidade','$_codigoVlan','$_observacao','$_textoTela','$_dataAlt'); ";
+        $resultado_manutPortaSwitch2 = mysqli_query($this->connect(), $consulta_manutPortaSwitch2);
+        }
+        
+    }
+            function imprimiAtivo($_codigo){
         if($_codigo == '1'){
             return '<span class="glyphicon glyphicon-remove-circle btn-danger">';
         }elseif ($_codigo == '0') {

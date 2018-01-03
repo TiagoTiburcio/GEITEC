@@ -60,7 +60,7 @@
                   <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Rede Local<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="../redelocal/listarmodelosw.php">Modelos Switch</a></li>                        
+                        <li><a href="../redelocal/listarsw.php">Layout Switchs Rede Local</a></li>                        
                     </ul>
                   </li>  
                   <li class="dropdown">
