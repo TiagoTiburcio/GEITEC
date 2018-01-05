@@ -1,7 +1,7 @@
 <?php
 
-$hostname = '10.24.0.59';
-$username = 'root';
+$hostname = '172.25.76.85';
+$username = 'geitec';
 $password = 'seedqawsed';
 $database = 'homo_sis_geitec';
  

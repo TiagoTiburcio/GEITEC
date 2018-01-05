@@ -914,7 +914,7 @@ class ZabbixSEED extends DatabaseZbx {
  * @author tiagoc
  */
 class Switchs extends Database {
-    function listaSwitch($_marca, $_modelo,$_ip){
+    function listaSwitch($_marca, $_modelo,$_ip,$_bloco,$_setor){
         $consulta_listSwitch = " SELECT sw.codigo as codigo_sw, sw.ip,"
                 . " sw.empilhado, sw.numero_empilhamento, sw.ativo as ativo_sw, "
                 . " sw.vlan_padrao, sw.data_incl as data_alt_sw, "
@@ -927,7 +927,8 @@ class Switchs extends Database {
                 . " join redelocal_marca as m on m.codigo =  msw.codigo_marca "
                 . " join redelocal_rack as r on r.codigo = sw.codigo_rack "
                 . " join redelocal_bloco as b on b.codigo = r.codigo_bloco "
-                . " where m.descricao like '%$_marca%' and msw.descricao like '%$_modelo%' and sw.ip like '%$_ip%'; ";
+                . " where m.descricao like '%$_marca%' and msw.descricao like '%$_modelo%' "
+                . " and sw.ip like '%$_ip%' and b.nome like '%$_bloco%' and r.setor like '%$_setor%' ;";
         $resultado_listSwitch = mysqli_query($this->connect(), $consulta_listSwitch);
         
         return $resultado_listSwitch;

@@ -13,8 +13,8 @@
  */
 abstract class Database {
            
-    private static $host     = "10.24.0.59";   
-    private static $user     = "root";
+    private static $host     = "172.25.76.85";   
+    private static $user     = "geitec";
     private static $password = "seedqawsed";
     private static $db       = "homo_sis_geitec";
      
@@ -105,8 +105,8 @@ abstract class DatabaseRed {
 
 abstract class DatabaseZbx {
     
-    private static $hostzbx     = "10.24.0.59";   
-    private static $userzbx     = "root";
+    private static $hostzbx     = "172.25.76.85";  
+    private static $userzbx     = "geitec";
     private static $passwordzbx = "seedqawsed";
     private static $dbzbx       = "zabbix3";
      

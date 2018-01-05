@@ -50,7 +50,7 @@
         </div>
         <div class="col-xs-10">
             <div class="col-xs-12">
-               <?php $resultado_sws = $switch->listaSwitch($marca,$modelo,$ip);
+               <?php $resultado_sws = $switch->listaSwitch($marca,$modelo,$ip,$bloco,$setor);
                      $resultado_portas_sws = $switch->listPortasSwitch();  
                         foreach ($resultado_sws as $table_sws){
                             $portasFC = 'FC';
