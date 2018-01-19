@@ -29,28 +29,49 @@
     function escondeSenha(){
         document.getElementById("senha").style.display = "none";        
     }
-    
-
-    function confereVisual(){         
-        if (document.cadastro.admin.value === "0" ){        
-            escondeAdmin();
-        } else if (document.cadastro.lte.value === "0" ){
-            escondeLte();
-        } else if (document.cadastro.wifi.value === "0" ){
-            escondeWifi();
-        } else if (document.cadastro.diario.value === "0" ){        
-            escondeDiario();
-        } else if (document.cadastro.admin.value === "1" ){        
-            mostraAdmin();
-        } else if (document.cadastro.lte.value === "1" ){
-            mostraLte();
-        } else if (document.cadastro.wifi.value === "1" ){
-            mostraWifi();
-        } else if (document.cadastro.diario.value === "1" ){        
-            mostraDiario();
-        }
+    function mostraCadImp(){
+        document.getElementById("senha").style.display = "block";        
+    }
+    function escondeCadImp(){
+        document.getElementById("senha").style.display = "none";        
+    }
+    function testeVlan(){
+        if( document.getElementById("vlan").value  == '300'){
+            document.getElementById("cadImp").style.display = "block";
+        }else{
+           document.getElementById("cadImp").style.display = "none"; 
+        } 
     }
     
+    function validaCadastroPortaSw(){
+        if((document.getElementById("vlan").value  == '300')&&(document.getElementById("Imp").value  == '0')){           
+            alert("ERRO Cadastro - Impressora Não Selecionada!!!");        
+            return false;
+        }else if ((document.getElementById("vlan").value  == '300')&&(document.getElementById("modImp").value  == '0')) {
+            alert("ERRO Cadastro - Modelo Impressora não Selecionado!!!");        
+            return false;
+        }else{
+            return true;
+        }
+ 
+        
+    }
+    
+    function mostraOpcaoTela(){
+        if( document.getElementById("opcaoTexto").value  === '1'){
+            document.getElementById("divTela").style.display = "none";
+        } else if ( document.getElementById("opcaoTexto").value  === '0' ) {
+            document.getElementById("divTela").style.display = "block";
+        }
+
+    }
+    
+    function mostraTelaPorta(){
+        document.getElementById("limpaTela").style.display = "block";        
+    }
+    function escondeTelaPorta(){
+        document.getElementById("limpaTela").style.display = "none";        
+    }
     function validaSenha(){
         if(document.renoveSenha.pass.value === "") {
                 alert("Digite uma senha!");
