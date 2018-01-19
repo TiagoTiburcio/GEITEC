@@ -44,7 +44,9 @@
     }
     
     function validaCadastroPortaSw(){
-        if((document.getElementById("vlan").value  == '300')&&(document.getElementById("Imp").value  == '0')){           
+        if(document.getElementById("limpar").value  == '1'){
+            return true;
+        } else if((document.getElementById("vlan").value  == '300')&&(document.getElementById("Imp").value  == '0')){           
             alert("ERRO Cadastro - Impressora Não Selecionada!!!");        
             return false;
         }else if ((document.getElementById("vlan").value  == '300')&&(document.getElementById("modImp").value  == '0')) {
