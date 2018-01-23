@@ -73,75 +73,30 @@
                                     $IpZbx = $tableZbx["ip"];
                                 }
                                 }                                
-                                if(($zbx == 2)){
-                                    echo  " <tr> <td>".$table["bloco"]."</td> "
-                                        . " <td>".$table["rack"]."</td>"
-                                        . ' <td><a title="Abrir Interface Configuração Switch" target="_blank" href="'."http://".$table["ip"].'">'.$table["ip"]."</a></td>"
-                                        . ' <td><a title="Abrir Tela Configuração Porta Switch Sistema" target="_blank" href="../redelocal/editportasw.php?sw='.$table["codigo_switch"].'&port='.$table["codigo_porta_switch"].'&tipo='.$table["tipo_porta"].'">'.$table["codigo_porta_switch"].'</a></td>'
-                                        . " <td>".$table["tipo_porta_desc"]."</td> "
-                                        . " <td>".$table["codigo_vlan"]."</td>"
-                                        . ' <td><a title="Abrir Interface Configuração Impressora" target="_blank" href="'."http://".$IpZbx.'">'.$nomeImpzbx."</a></td>"
-                                        . " <td>".$table["marca"]." - ".$table["modelo"]."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["laser"])."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["tinta"])."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["colorida"])."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["scanner"])."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["rede"])."</td>"        
-                                        . " <td>".$tipoZbx."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($cadzbx)."</td>"
-                                        . " <td>".$sitZbx."</td> </tr>";
-                                } elseif (($zbx == 0) && ($zbx == $cadzbx)) {
-                                    echo   " <tr> <td>".$table["bloco"]."</td> "
-                                        . " <td>".$table["rack"]."</td>"
-                                        . ' <td><a title="Abrir Interface Configuração Switch" target="_blank" href="'."http://".$table["ip"].'">'.$table["ip"]."</a></td>"
-                                        . ' <td><a title="Abrir Tela Configuração Porta Switch Sistema" target="_blank" href="../redelocal/editportasw.php?sw='.$table["codigo_switch"].'&port='.$table["codigo_porta_switch"].'&tipo='.$table["tipo_porta"].'">'.$table["codigo_porta_switch"].'</a></td>'
-                                        . " <td>".$table["tipo_porta_desc"]."</td> "
-                                        . " <td>".$table["codigo_vlan"]."</td>"
-                                        . ' <td><a title="Abrir Interface Configuração Impressora" target="_blank" href="'."http://".$IpZbx.'">'.$nomeImpzbx."</a></td>"
-                                        . " <td>".$table["marca"]." - ".$table["modelo"]."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["laser"])."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["tinta"])."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["colorida"])."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["scanner"])."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["rede"])."</td>"        
-                                        . " <td>".$tipoZbx."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($cadzbx)."</td>"
-                                        . " <td>".$sitZbx."</td> </tr>";
-                                } elseif (($zbx == 1) && ($zbx == $cadzbx)) {
-                                    echo   " <tr> <td>".$table["bloco"]."</td> "
-                                        . " <td>".$table["rack"]."</td>"
-                                        . ' <td><a title="Abrir Interface Configuração Switch" target="_blank" href="'."http://".$table["ip"].'">'.$table["ip"]."</a></td>"
-                                        . ' <td><a title="Abrir Tela Configuração Porta Switch Sistema" target="_blank" href="../redelocal/editportasw.php?sw='.$table["codigo_switch"].'&port='.$table["codigo_porta_switch"].'&tipo='.$table["tipo_porta"].'">'.$table["codigo_porta_switch"].'</a></td>'
-                                        . " <td>".$table["tipo_porta_desc"]."</td> "
-                                        . " <td>".$table["codigo_vlan"]."</td>"
-                                        . ' <td><a title="Abrir Interface Configuração Impressora" target="_blank" href="'."http://".$IpZbx.'">'.$nomeImpzbx."</a></td>"
-                                        . " <td>".$table["marca"]." - ".$table["modelo"]."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["laser"])."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["tinta"])."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["colorida"])."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["scanner"])."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["rede"])."</td>"        
-                                        . " <td>".$tipoZbx."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($cadzbx)."</td>"
-                                        . " <td>".$sitZbx."</td> </tr>";
-                                } elseif (($zbx == 3) && ($zbx == $cadzbx)) {
-                                    echo  " <tr> <td>".$table["bloco"]."</td> "
-                                        . " <td>".$table["rack"]."</td>"
-                                        . ' <td><a title="Abrir Interface Configuração Switch" target="_blank" href="'."http://".$table["ip"].'">'.$table["ip"]."</a></td>"
-                                        . ' <td><a title="Abrir Tela Configuração Porta Switch Sistema" target="_blank" href="../redelocal/editportasw.php?sw='.$table["codigo_switch"].'&port='.$table["codigo_porta_switch"].'&tipo='.$table["tipo_porta"].'">'.$table["codigo_porta_switch"].'</a></td>'
-                                        . " <td>".$table["tipo_porta_desc"]."</td> "
-                                        . " <td>".$table["codigo_vlan"]."</td>"
-                                        . ' <td><a title="Abrir Interface Configuração Impressora" target="_blank" href="'."http://".$IpZbx.'">'.$nomeImpzbx."</a></td>"
-                                        . " <td>".$table["marca"]." - ".$table["modelo"]."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["laser"])."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["tinta"])."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["colorida"])."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["scanner"])."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($table["rede"])."</td>"        
-                                        . " <td>".$tipoZbx."</td>"
-                                        . " <td>".$zabbix->imprimiSitu($cadzbx)."</td>"
-                                        . " <td>".$sitZbx."</td> </tr>";
-                                }
+                                if($cadzbx == '1'){
+                                   echo '<tr class="danger">';
+                                } elseif ($cadzbx == '0') {
+                                   echo '<tr class="success">';
+                                } else {
+                                   echo '<tr>';    
+                                }                                  
+                                echo  " <td>".$table["bloco"]."</td> "
+                                    . " <td>".$table["rack"]."</td>"
+                                    . ' <td><a title="Abrir Interface Configuração Switch" target="_blank" href="'."http://".$table["ip"].'">'.$table["ip"]."</a></td>"
+                                    . ' <td><a title="Abrir Tela Configuração Porta Switch Sistema" target="_blank" href="../redelocal/editportasw.php?sw='.$table["codigo_switch"].'&port='.$table["codigo_porta_switch"].'&tipo='.$table["tipo_porta"].'">'.$table["codigo_porta_switch"].'</a></td>'
+                                    . " <td>".$table["tipo_porta_desc"]."</td> "
+                                    . " <td>".$table["codigo_vlan"]."</td>"
+                                    . ' <td><a title="Abrir Interface Configuração Impressora" target="_blank" href="'."http://".$IpZbx.'">'.$nomeImpzbx."</a></td>"
+                                    . " <td>".$table["marca"]." - ".$table["modelo"]."</td>"
+                                    . " <td>".$zabbix->imprimiSitu($table["laser"])."</td>"
+                                    . " <td>".$zabbix->imprimiSitu($table["tinta"])."</td>"
+                                    . " <td>".$zabbix->imprimiSitu($table["colorida"])."</td>"
+                                    . " <td>".$zabbix->imprimiSitu($table["scanner"])."</td>"
+                                    . " <td>".$zabbix->imprimiSitu($table["rede"])."</td>"        
+                                    . " <td>".$tipoZbx."</td>"
+                                    . " <td>".$zabbix->imprimiSitu($cadzbx)."</td>"
+                                    . " <td>".$sitZbx."</td> </tr>";
+                                
                         }
                 ?>                                          
                     </tbody>
