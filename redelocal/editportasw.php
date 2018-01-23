@@ -40,18 +40,18 @@
                 </div>
                 <div class="form-group">
                   <label for="empilha">Número Empilhamento / Número Porta / Tipo Porta:</label>
-                  <input type="text" class="form-control centraltd" readonly="true" id="empilha" name="Empilha" value="<?php echo $table_sws["numero_empilhamento"].' / '.$table_porta["codigo_porta_switch"].' / '; if($table_porta["tipo_porta"]=='1'){echo 'ETH';}else{echo 'FC';}?>">
+                  <input type="text" class="form-control centraltd" readonly="true" id="empilha" name="empilha" value="<?php echo $table_sws["numero_empilhamento"].' / '.$table_porta["codigo_porta_switch"].' / '; if($table_porta["tipo_porta"]=='1'){echo 'ETH';}else{echo 'FC';}?>">
                 </div>   
                        <?php
                 }?>
                 <div class="form-group">
                     <label for="limpar">Gravar configuração Default na porta?</label><br/>
                     <div class="radio-inline">
-                        <label><input type="radio" name="limpar" onclick="return escondeTelaPorta();" value="1">Limpar Configuração.</label>
+                        <label><input type="radio" id="limpar" name="limpar" onclick="return mostraTelaPorta();" checked="" value="0">Manter Configuração Atual.</label>
                     </div>
                     <div class="radio-inline">
-                        <label><input type="radio" name="limpar" onclick="return mostraTelaPorta();" checked="" value="0">Manter Configuração Atual.</label>
-                    </div>                    
+                        <label><input type="radio" id="limpar" name="limpar" onclick="return escondeTelaPorta();" value="1">Limpar Configuração.</label>
+                    </div>                                        
                 </div>   
                    <div id="limpaTela" name="limpaTela">
                 <div class="input-group centraliza">
@@ -132,8 +132,8 @@
                         </select>                       
                     </div>
                     <div class="form-group">
-                        <label for="setor">Setor Impressora:</label>
-                        <input type="text" class="form-control centraltd" id="setor" name="setor" value="<?php echo $table_porta["setor"];?>">
+                        <label for="setorImp">Setor Impressora:</label>
+                        <input type="text" class="form-control centraltd" id="setorImp" name="setorImp" value="<?php echo $table_porta["setor"];?>">
                     </div>
                 </div>
                    

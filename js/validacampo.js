@@ -43,13 +43,11 @@
         } 
     }
     
-    function validaCadastroPortaSw(){
-        if(document.getElementById("limpar").value  == '1'){
-            return true;
-        } else if((document.getElementById("vlan").value  == '300')&&(document.getElementById("Imp").value  == '0')){           
+    function validaCadastroPortaSw(){        
+       if((document.getElementById("vlan").value  == '300')&&(document.getElementById("Imp").value  == '0')&&(document.getElementById("limpar").value  == '0')){           
             alert("ERRO Cadastro - Impressora Não Selecionada!!!");        
             return false;
-        }else if ((document.getElementById("vlan").value  == '300')&&(document.getElementById("modImp").value  == '0')) {
+        }else if ((document.getElementById("vlan").value  == '300')&&(document.getElementById("modImp").value  == '0')&&(document.getElementById("limpar").value  == '0')) {
             alert("ERRO Cadastro - Modelo Impressora não Selecionado!!!");        
             return false;
         }else{
@@ -69,10 +67,12 @@
     }
     
     function mostraTelaPorta(){
-        document.getElementById("limpaTela").style.display = "block";        
+        document.getElementById("limpaTela").style.display = "block"; 
+        document.getElementById("limpar").value = '0';
     }
     function escondeTelaPorta(){
-        document.getElementById("limpaTela").style.display = "none";        
+        document.getElementById("limpaTela").style.display = "none";
+        document.getElementById("limpar").value = '1';
     }
     function validaSenha(){
         if(document.renoveSenha.pass.value === "") {

@@ -59,7 +59,7 @@
                    echo '<label for="sw">'
                         .'Bloco / Rack : '.$table_sws["nome_bloco"].' '.$table_sws["descricao_bloco"].' / '.$table_sws["descricao_rack"].' '.$table_sws["setor_rack"].' '
                         .' <br/> Marca / Modelo : '.$table_sws["marca_sw"].' / '.$table_sws["modelo_sw"]
-               .' <br/> IP Acesso / Empilhado: '.$table_sws["ip"].' / '.$empilhado.' </label>'; }?>
+               .' <br/> IP Acesso / Empilhado: '.'<a target="_blank" href="http://'.$table_sws["ip"].'">'.$table_sws["ip"].'</a> / '.$empilhado.' </label>'; }?>
                 <table class="table table-hover table-striped table-condensed centraltd" id="sw">                    
                     <tbody>
                         <tr>                       

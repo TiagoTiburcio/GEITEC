@@ -924,6 +924,16 @@ class ZabbixSEED extends DatabaseZbx {
             return '<span class="glyphicon glyphicon-ban-circle">';
         }
     }
+    
+    function imprimiSitu($_codigo){
+        if($_codigo == '1'){
+            return 'Não';
+        }elseif ($_codigo == '0') {
+            return 'Sim';
+        } else {
+            return 'N/C';
+        }
+    }
 }
 
 /**
@@ -1022,7 +1032,11 @@ class Switchs extends Database {
         $resultado_listVlan = mysqli_query($this->connect(), $consulta_listVlan);        
         return $resultado_listVlan;
     }
-    
+    function listImpressoras($_bloco, $_rack){
+        $consulta_listImpressoras = " select c0.*, c1.codigo_host_zabbix, c1.marca, c1.modelo, c1.colorida, c1.laser, c1.tinta, c1.rede, c1.scanner from (SELECT tpsw.descricao AS 'tipo_porta_desc', r.descricao AS 'rack', b.nome AS 'bloco', b.descricao AS 'bloco_descricao', sw.numero_empilhamento, sw.ip, psw.codigo_switch, psw.codigo_porta_switch, psw.codigo_vlan, psw.tipo_porta FROM redelocal_porta_switch AS psw JOIN redelocal_switch AS sw ON psw.codigo_switch = sw.codigo JOIN redelocal_rack AS r ON sw.codigo_rack = r.codigo JOIN redelocal_bloco AS b ON r.codigo_bloco = b.codigo JOIN redelocal_tipo_porta_sw AS tpsw ON tpsw.codigo = psw.tipo_porta) as c0 left join (SELECT i.codigo_host_zabbix, mi.descricao AS 'modelo', m.descricao AS 'marca', tpsw.descricao AS 'tipo_porta_desc', mi.colorida, mi.laser, mi.tinta, mi.rede, mi.scanner, psw.codigo_switch, psw.codigo_porta_switch, psw.codigo_vlan, psw.tipo_porta FROM redelocal_impressora AS i JOIN redelocal_modelo_impressora AS mi ON mi.codigo = i.codigo_modelo JOIN redelocal_marca AS m ON m.codigo = mi.codigo_marca JOIN redelocal_switch AS sw ON i.codigo_switch = sw.codigo JOIN redelocal_porta_switch AS psw ON psw.codigo_switch = i.codigo_switch AND psw.codigo_porta_switch = i.codigo_porta_switch AND psw.tipo_porta = i.tipo_porta JOIN redelocal_rack AS r ON sw.codigo_rack = r.codigo JOIN redelocal_bloco AS b ON r.codigo_bloco = b.codigo JOIN redelocal_tipo_porta_sw AS tpsw ON tpsw.codigo = psw.tipo_porta) as c1 on c1.codigo_switch = c0.codigo_switch and c0.codigo_porta_switch = c1.codigo_porta_switch and c0.tipo_porta = c1.tipo_porta where c0.codigo_vlan = '300' and c0.bloco like '%$_bloco%' and c0.rack like '%$_rack%' order by c0.bloco, c0.rack, c0.ip; ";
+        $resultado_listImpressoras = mysqli_query($this->connect(), $consulta_listImpressoras);        
+        return $resultado_listImpressoras;
+    }
     function testePorta($_porta, $_switch, $_tipoPorta){
         $consulta_testePorta = " SELECT count(codigo_switch) as cont FROM redelocal_porta_switch "
                 . " where codigo_switch = '$_switch' and codigo_porta_switch = '$_porta' and tipo_porta = '$_tipoPorta'; ";
@@ -1044,7 +1058,7 @@ class Switchs extends Database {
     function iniPorta($_porta, $_switch, $_tipoPorta){
         $resultado = $this->testePorta($_porta, $_switch, $_tipoPorta);        
         if ($resultado == '1'){
-            $consulta_iniPorta = " SELECT p_sw.*, imp.codigo_modelo,imp.setor , imp.codigo_host_zabbix as cod_imp FROM redelocal_porta_switch as p_sw "
+            $consulta_iniPorta = " SELECT p_sw.*, imp.codigo_modelo, imp.setor , imp.codigo_host_zabbix as cod_imp FROM redelocal_porta_switch as p_sw "
                     . " left join redelocal_impressora as imp on imp.codigo_porta_switch = p_sw.codigo_porta_switch and imp.codigo_switch = p_sw.codigo_switch and imp.tipo_porta = p_sw.tipo_porta "
                     . " where p_sw.codigo_switch = '$_switch' and p_sw.codigo_porta_switch = '$_porta' and p_sw.tipo_porta = '$_tipoPorta'; ";
             $resultado_iniPorta = mysqli_query($this->connect(), $consulta_iniPorta);        

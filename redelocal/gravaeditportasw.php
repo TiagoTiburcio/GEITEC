@@ -15,6 +15,7 @@
     $opcaoTexto = $_POST['opcaoTexto'];
     $impressora = $_POST['Imp'];
     $modeloImp = $_POST['modImp'];
+    $setor = $_POST['setorImp'];
     $data = date_default_timezone_set("America/Bahia");
     $data = date('Y-m-d H:i:s');    
     
@@ -46,12 +47,16 @@
        if($contador != '0'){
             $switch->limpaImpPorta($impPorta);           
        } 
-       if($vlan == '300'){
+       if(($vlan == '300')){
+           if (($impressora != '0')&($modeloImp != '0')){
            $switch->limpaImpPorta($impressora);
            $switch->limpaPortaSwitch($swImp, $portImp, $tipoPortImp);
            $switch->cadImpressora($porta, $sw, $tipo, $setor, $impressora, $modeloImp);
+           $switch->manutPortaSwitch($porta, $sw, $tipo, $velocidade, $vlan, $observacao, $tela, $data);}
+       } else {
+           $switch->manutPortaSwitch($porta, $sw, $tipo, $velocidade, $vlan, $observacao, $tela, $data);
        }
-       $switch->manutPortaSwitch($porta, $sw, $tipo, $velocidade, $vlan, $observacao, $tela, $data);
+       
     } elseif ($limpar == '1') {
         $switch->limpaPortaSwitch($sw, $porta, $tipo);
         if($contador != '0'){
