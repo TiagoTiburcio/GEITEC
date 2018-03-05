@@ -16,73 +16,124 @@ foreach($arquivos as $key2 => $img){
         $colunas = explode(";", $value);    
         if ($key == '0'){
            foreach ($colunas as $key1 => $v1){ 
-               echo $v1."<br/>";
+               echo $key1.' : '.$v1."<br/>";
                 switch ($key1) {
                 case 0:
-                    $data_hora = $v1;
+                    $site = $v1;
                     break;
                 case 1:
-                    $data_hora = $v1; 
+                    $nome_cliente = $v1; 
                     break;
                 case 2:
-                    $sitename = $v1;
+                    $finalidade = $v1;
                     break;
                 case 3:
-                    $computername = $v1;
+                    $contrato = $v1;
                     break;
                 case 4:
-                    $ip_srv = $v1;
+                    $ciclo_faturamento = $v1;
                     break;
                 case 5:
-                    $metodo = $v1;
+                    $num_fatura = $v1;
                     break;
                 case 6:
-                    $url_acesso = $v1;
+                    $num_nota_fiscal = $v1;
                     break;
                 case 7:
-                    $parametro_acesso = $v1;
+                    $cod_ddd = $v1;
                     break;
                 case 8:
-                    $porta_acesso = $v1;
+                    $num_telefone = $v1;
                     break;
                 case 9:
-                    $usuario_logado = $v1;
+                    $designacao = $v1;
                     break;
                 case 10:
-                    $ip_cliente = $v1;
+                    $valor_a_pagar = $v1;
                     break;
                 case 11:
-                    $versao_http = $v1;
+                    $nome_cidade = $v1;
                     break;
                 case 12:
-                    $browser = $v1;
+                    $tip_logradouro = $v1;
                     break;
                 case 13:
-                    $cookie = $v1;
+                    $nome_logradouro = $v1;
                     break;
                 case 14:
-                    $site_encaminha = $v1;
+                    $num_imovel = $v1;
                     break;
                 case 15:
-                    $dns_acesso = $v1;
+                    $nome_bairro = $v1;
                     break;
                 case 16:
-                    $status_solic = $v1;
+                    $cep = $v1;
                     break;
                 case 17:
-                    $sub_status_solic = $v1;
+                    $sigla_uf = $v1;
                     break;
                 case 18:
-                    $win32_status = $v1;
+                    $nome_cidade1 = $v1;
                     break;
                 case 19:
-                    $bytes_enviados = $v1;
+                    $tip_logradouro1 = $v1;
                     break;
                 case 20:
-                    $bytes_recebidos = $v1;
+                    $nome_logradouro1 = $v1;
                     break;
                 case 21:
-                    $tempo_solic = $v1;
+                    $num_imovel1 = $v1;
+                    break;
+                case 22:
+                    $nome_bairro1 = $v1;
+                    break;
+                case 23:
+                    $cep1 = $v1;
+                    break;
+                case 24:
+                    $sigla_uf1 = $v1;
+                    break;
+                case 25:
+                    $prod_telefone = $v1;
+                    break;
+                case 26:
+                    $velocidade_circuito = $v1;
+                    break;
+                case 27:
+                    $num_pagina = $v1;
+                    break;
+                case 28:
+                    $num_linha = $v1;
+                    break;
+                case 29:
+                    $data_servico = $v1;
+                    break;
+                case 30:
+                    $servico = $v1;
+                    break;
+                case 31:
+                    $degrau = $v1;
+                    break;
+                case 32:
+                    $num_tel_origem = $v1;
+                    break;
+                case 33:
+                    $cod_selecao = $v1;
+                    break;
+                case 34:
+                    $ddd_tel_origem = $v1;
+                    break;
+                case 35:
+                    $telefone_destino = $v1;
+                    break;
+                case 36:
+                    $hr_qtd_chamada = $v1;
+                    break;
+                case 37:
+                    $duracao = $v1;
+                    break;
+                case 38:
+                    $s = $v1;
                     break;
                 default:                       
                 }
