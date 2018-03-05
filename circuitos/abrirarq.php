@@ -1,81 +1,95 @@
 <?php
-   include_once '../class/principal.php';
-    
-    $usuario = new Usuario();
-    
-    $usuario->validaSessao();   
 
-    $circuitos = new Circuitos();   
-    if(!isset($_POST['fatura'])) { $_POST['fatura'] = ''; }
-    if(!isset($_POST['mes'])) { $_POST['mes'] = ''; }
-    $fatura	= $_POST ["fatura"];    
-    $mescad    = $_POST ["mes"];    
-?>
-    <div class="col-xs-2">                        
-            <form class="form-horizontal" method="post" action="">
-             <div class="form-group">
-               <div class="col-xs-10 col-xs-offset-2">                                  
-                <div class="form-group">
-                  <label for="fatura">Contrato</label>
-                  <input type="text" class="form-control" id="fatura" name="fatura" value="<?php echo $fatura;?>">
-                </div>
-                <div class="form-group">
-                    <label for="mes">M&ecirc;s Cobran&ccedil;a</label>
-                  <select class="form-control" id="mes" name="mes">
-                    
-                <?php
-                        $resultado_analitico1 = $circuitos->listaPeriodoRef();
-                        foreach ($resultado_analitico1 as $mes){
-                        if($mes["periodo_ref"] == $mescad){
-                    ?> 
-                      <option value="<?php echo $mes["periodo_ref"]; ?>" selected><?php echo $mes["mes"]; ?></option>                    
-                <?php
-                        } else {
-                    ?> 
-                      <option value="<?php echo $mes["periodo_ref"]; ?>" ><?php echo $mes["mes"]; ?></option>                    
-                <?php
-                            
-                        }}
-                ?>                                       
-                  </select>
-                </div>
-                  <a type="button" class="btn btn-danger"  href="">Limpar <span class="glyphicon glyphicon-erase"></span></a>                 
-                  <button type="submit" class="btn btn-primary">Pesquisar <span class="glyphicon glyphicon-search"></span></button>                  
-               </div>
-             </div>  
-            </form>
-        </div>
-        <div class="col-xs-10">
-            <div class="col-xs-12">
-                <table class="table table-hover table-striped table-condensed">
-                    <thead>
-                      <tr>
-                          <th>M&ecirc;s Referencia</th>  
-                        <th>Servi&ccedil;o Contrato</th>
-                        <th>Numero Contrato</th>
-                        <th>Tipo Unidade</th>
-                        <th>Valor</th>                       
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php
-                        $resultado_analitico2 = $circuitos->listaCircuitos($mescad, $fatura);
-                        foreach ($resultado_analitico2 as $table){                        
-                    ?>                
-                   <tr>
-                        <td><?php echo $table["mes"]; ?></td>
-                        <td><?php echo $table["descricao_servico"]; ?></td>
-                        <td><?php echo $table["fatura"]; ?></td>
-                        <td><?php echo $table["descricao"]; ?></td>
-                        <td><?php echo $table["valor"]; ?></td>                        
-                   </tr>  
-                <?php
-                        }
-                ?>                                          
-                    </tbody>
-                </table>
-            </div>
-           </div>
-        </div>
-<?php
-include ("../class/footer.php");
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+require_once '../class/principal.php';
+$circuito = new Circuitos();
+chdir( "uploads" );
+$arquivos = glob("{*.txt}", GLOB_BRACE);
+foreach($arquivos as $key2 => $img){  
+    $sql = array(); 
+    $linhas = explode("\n", file_get_contents($img));
+    foreach ($linhas as $key => $value){
+        $colunas = explode(";", $value);    
+        if ($key == '0'){
+           foreach ($colunas as $key1 => $v1){ 
+               echo $v1."<br/>";
+                switch ($key1) {
+                case 0:
+                    $data_hora = $v1;
+                    break;
+                case 1:
+                    $data_hora = $v1; 
+                    break;
+                case 2:
+                    $sitename = $v1;
+                    break;
+                case 3:
+                    $computername = $v1;
+                    break;
+                case 4:
+                    $ip_srv = $v1;
+                    break;
+                case 5:
+                    $metodo = $v1;
+                    break;
+                case 6:
+                    $url_acesso = $v1;
+                    break;
+                case 7:
+                    $parametro_acesso = $v1;
+                    break;
+                case 8:
+                    $porta_acesso = $v1;
+                    break;
+                case 9:
+                    $usuario_logado = $v1;
+                    break;
+                case 10:
+                    $ip_cliente = $v1;
+                    break;
+                case 11:
+                    $versao_http = $v1;
+                    break;
+                case 12:
+                    $browser = $v1;
+                    break;
+                case 13:
+                    $cookie = $v1;
+                    break;
+                case 14:
+                    $site_encaminha = $v1;
+                    break;
+                case 15:
+                    $dns_acesso = $v1;
+                    break;
+                case 16:
+                    $status_solic = $v1;
+                    break;
+                case 17:
+                    $sub_status_solic = $v1;
+                    break;
+                case 18:
+                    $win32_status = $v1;
+                    break;
+                case 19:
+                    $bytes_enviados = $v1;
+                    break;
+                case 20:
+                    $bytes_recebidos = $v1;
+                    break;
+                case 21:
+                    $tempo_solic = $v1;
+                    break;
+                default:                       
+                }
+            }
+            //$sql[] = "('".$data_hora."', '".$sitename."', '".$computername."', '".$ip_srv."', '".$metodo."', '".$url_acesso."', '".$parametro_acesso."', '".$porta_acesso."', '".$usuario_logado."', '".$ip_cliente."', '".$versao_http."', '".$browser."', '".$cookie."', '".$site_encaminha."', '".$dns_acesso."', '".$status_solic."', '".$sub_status_solic."', '".$win32_status."', '".$bytes_enviados."', '".$bytes_recebidos."', '".$tempo_solic."')";
+        }
+    }
+    //$sw->arrayLogWebIIS($sql);
+    //unlink($img);
+}
