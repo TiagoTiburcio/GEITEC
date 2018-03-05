@@ -6,7 +6,8 @@
     $usuario->validaSessao();   
 
     $circuitos = new Circuitos();   
-    
+    if(!isset($_POST['fatura'])) { $_POST['fatura'] = ''; }
+    if(!isset($_POST['mes'])) { $_POST['mes'] = ''; }
     $fatura	= $_POST ["fatura"];    
     $mescad    = $_POST ["mes"];     
 

@@ -9,7 +9,8 @@
     
     $zabbix = new ZabbixSEED();
     $switch = new Switchs();
-    
+    if(!isset($_POST['bloco'])) { $_POST['bloco'] = ''; } 
+    if(!isset($_POST['rack'])) { $_POST['rack'] = ''; } 
     $bloco  = $_POST ["bloco"];
     $rack   = $_POST ["rack"];	    
     $zbx = '2';

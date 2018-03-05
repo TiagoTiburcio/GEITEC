@@ -6,6 +6,8 @@
     $redmine = new Redmine();
     
     $usuario->validaSessao();
+    if(!isset($_POST['nome'])) { $_POST['nome'] = ''; }
+    if(!isset($_POST['id'])) { $_POST['id'] = ''; }
     $nome	= $_POST ["nome"];	
     $id         = $_POST ["id"];    
 ?>

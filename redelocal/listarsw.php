@@ -6,7 +6,12 @@
     $usuario->validaSessao();
     
     $switch = new Switchs();
-        
+    
+    if(!isset($_POST['marca'])) { $_POST['marca'] = ''; }
+    if(!isset($_POST['modelo'])) { $_POST['modelo'] = ''; }
+    if(!isset($_POST['ip'])) { $_POST['ip'] = ''; }
+    if(!isset($_POST['bloco'])) { $_POST['bloco'] = ''; } 
+    if(!isset($_POST['setor'])) { $_POST['setor'] = ''; }
     $marca	= $_POST ["marca"];	
     
     $modelo      = $_POST ["modelo"];

@@ -7,7 +7,10 @@
     
     $servidores = new Servidores();
     
-    
+    if(!isset($_POST['cpf'])) { $_POST['cpf'] = ''; }
+    if(!isset($_POST['nome'])) { $_POST['nome'] = ''; }
+    if(!isset($_POST['setor'])) { $_POST['setor'] = ''; }
+    if(!isset($_POST['siglasetor'])) { $_POST['siglasetor'] = ''; }
     $cpf        = $_POST ["cpf"];
     $nome	= $_POST ["nome"];	
     $setor	= $_POST ["setor"];

@@ -2,7 +2,7 @@
     include ("../class/header.php");         
 ?>
         <div class="col-xs-12 text-center">
-            <form class="form-horizontal" method="post" action="../home/testalogin.php">
+            <form class="form-horizontal" method="post" action="../home/testead.php">
              <div class="form-group">
                <div class="col-xs-4 col-xs-offset-4 col-lg-2 col-lg-offset-5">                                  
                 <div class="input-group login">

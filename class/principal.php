@@ -295,7 +295,27 @@ class Circuitos extends Database {
     function getValor(){
         return $this->valor;
     }
-    
+
+    function insertImportContas($_linhas){
+        $consulta_insertImportContas = "INSERT INTO `circuito_arquivo_import`"
+                . "(`nome_arquivo`,`num_linha_arquivo`,`site`,"
+                . " `nome_cliente`,`finalidade`,`contrato`,"
+                . " `ciclo_faturamento`, `num_fatura`,`num_nota_fiscal`,"
+                . " `cod_ddd`,`num_telefone`,`designacao`,"
+                . " `valor_a_pagar`,`tip_logradouro`,`nome_local`,"
+                . " `nome_logradouro`, `num_imovel`,`cep`,`nome_bairro`,`uf`,`nome_local2`,`tip_logradouro2`,"
+                . " `nome_logradouro2`,`nome_bairro2`,`cep2`,`num_imovel2`,`uf2`,`prod_telefone`,"
+                . " `velocidade_circuito`,`num_pagina`,`num_linha`,`data_servico`,"
+                . " `cod_servico_descricao_servico`,`degrau`,`num_tel_origem`,"
+                . " `cod_selecao`,`ddd_tel_destino`,`tel_destino`,`hr_qtd_chamada`,"
+                . " `duracao`,`s`,`valor_servico`,`aliquota_icms`,`conta`,`num_detalhe`,"
+                . " `cod_l_origem_chamada`,`cod_l_destino_chamada`,`vencimento`,`contestar`,"
+                . " `valor_contestar`,`localidade`,`telefone_origem`,`sigla_orgao_analise`) VALUES "
+                . implode(', ', $_linhas) . ";";              
+            $resultado_insertImportContas = mysqli_query($this->connect(), $consulta_insertImportContas);
+            return $resultado_insertImportContas;
+    }
+
     // retorna lista com todos os usuarios cadastrados
     function listaUnidades($_dre,$_unidade){        
         $consulta_listaUnidades = "SELECT u.codigo_siig, u.codigo_inep, u.descricao,"

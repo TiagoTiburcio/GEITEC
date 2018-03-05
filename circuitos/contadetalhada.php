@@ -8,7 +8,11 @@
     $circuitos = new Circuitos();
     
     $zabbix = new ZabbixSEED();
-    
+    if(!isset($_POST['diretoria'])) { $_POST['diretoria'] = ''; }
+    if(!isset($_POST['unidade'])) { $_POST['unidade'] = ''; }
+    if(!isset($_POST['fatura'])) { $_POST['fatura'] = ''; }
+    if(!isset($_POST['circuito'])) { $_POST['circuito'] = ''; }
+    if(!isset($_POST['mes'])) { $_POST['mes'] = ''; }    
     $diretoria  = $_POST ["diretoria"];
     $unidade	= $_POST ["unidade"];	
     $fatura	= $_POST ["fatura"];

@@ -6,6 +6,8 @@
        
     $usuario->validaSessao();
     
+    if(!isset($_POST['tarefa_redmine'])) { $_POST['tarefa_redmine'] = ''; }
+    if(!isset($_POST['evento'])) { $_POST['evento'] = ''; }
     $tarefa_redmine	= $_POST ["tarefa_redmine"];    
     $evento             = $_POST ["evento"];
     if ($tarefa_redmine != "" && $evento != ""){

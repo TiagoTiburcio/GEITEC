@@ -73,7 +73,7 @@
                   </li>                  
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                  <li><a href="../home/novasenha.php"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['nome_usuario']; ?></a></li>
+                  <li><a href="../home/novasenha.php"><span class="glyphicon glyphicon-user"></span> <?php if(!isset($_SESSION['nome_usuario'])) { $_SESSION['nome_usuario'] = ''; } echo $_SESSION['nome_usuario'];  ?></a></li>
                   <li><a href="../home/sairlogin.php"><span class="glyphicon glyphicon-log-in"></span> Sair</a></li>
                 </ul>
               </div>

@@ -1,0 +1,6 @@
+{
+    "require": {
+        "monolog/monolog": "1.0.*",
+        "adldap2/adldap2": "v8.1.3"
+    }
+}

@@ -16,13 +16,7 @@ if ($teste == 1 && $usuario->getSenha() == $usuario->getSenhaEncriptada($pass_br
 	$_SESSION['login'] = $usuario->getUsuario();
 	$_SESSION['pass'] = $usuario->getSenha();
         $_SESSION['nome_usuario'] = $usuario->getNome();
-        if ($usuario->getAltProxLogin() == '1') {
-            echo '<META http-equiv="refresh" content="0;../home/novasenha.php">';
-        } else {
-            echo '<META http-equiv="refresh" content="0;../home/index.php">';
-        }
-        
-        
+        echo '<META http-equiv="refresh" content="0;../home/index.php">';        
 }
 //Caso contrário redireciona para a página de autenticação
 else {

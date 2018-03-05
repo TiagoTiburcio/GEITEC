@@ -9,6 +9,9 @@
     
     $zabbix = new ZabbixSEED();
     
+    if(!isset($_POST['diretoria'])) { $_POST['diretoria'] = ''; }
+    if(!isset($_POST['unidade'])) { $_POST['unidade'] = ''; }
+    if(!isset($_POST['circuito'])) { $_POST['circuito'] = ''; }    
     $diretoria  = $_POST ["diretoria"];
     $unidade	= $_POST ["unidade"];
     $circuito   = $_POST ["circuito"];
