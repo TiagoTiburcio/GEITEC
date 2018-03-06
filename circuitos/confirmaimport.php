@@ -46,36 +46,7 @@
             </form>
         </div>
         <div class="col-xs-10">
-            <div class="col-xs-12">
-                <table class="table table-hover table-striped table-condensed">
-                    <thead>
-                      <tr>
-                          <th>M&ecirc;s Referencia</th>  
-                        <th>Servi&ccedil;o Contrato</th>
-                        <th>Numero Contrato</th>
-                        <th>Tipo Unidade</th>
-                        <th>Valor</th>                       
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php
-                        $resultado_analitico2 = $circuitos->listaCircuitos($mescad, $fatura);
-                        foreach ($resultado_analitico2 as $table){                        
-                    ?>                
-                   <tr>
-                        <td><?php echo $table["mes"]; ?></td>
-                        <td><?php echo $table["descricao_servico"]; ?></td>
-                        <td><?php echo $table["fatura"]; ?></td>
-                        <td><?php echo $table["descricao"]; ?></td>
-                        <td><?php echo $table["valor"]; ?></td>                        
-                   </tr>  
-                <?php
-                        }
-                ?>                                          
-                    </tbody>
-                </table>
-            </div>
-           </div>
+           
         </div>
 <?php
 include ("../class/footer.php");
