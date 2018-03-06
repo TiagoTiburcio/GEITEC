@@ -332,19 +332,17 @@ class Circuitos extends Database {
     
     // retorna lista com todos os usuarios cadastrados
     function listaCircuitos($_mescad,$_fatura){        
-        $consulta_circuito1 = "SELECT cp.periodo_ref,"
-                             . " cp.fatura, cp.localizacao,"
-                             . "CONCAT('R$ ', REPLACE(REPLACE(REPLACE(FORMAT(SUM(cp.valor_conta), 2),'.',';'),',','.'),';',',')) as valor,"
-                             . "date_format(cp.periodo_ref,'%m/%Y') as mes,"
-                             . " lo.descricao, co.descricao_servico"
-                             . " FROM circuitos_contas"
-                             . " as cp join circuitos_contrato as co on co.codigo = cp.fatura "
-                             . "join circuitos_localizacao as lo on lo.id = cp.localizacao "
-                             . "where"
-                             . " cp.periodo_ref = '$_mescad'"
-                             . " and cp.fatura like '%$_fatura%'"
-                             . "GROUP BY cp.periodo_ref, cp.fatura, cp.localizacao "
-                             . "ORDER BY cp.periodo_ref desc, cp.fatura ,cp.localizacao";                              
+        $consulta_circuito1 =  " SELECT c.periodo_ref, c.fatura, rc.localizacao,"
+                . " CONCAT('R$ ', REPLACE(REPLACE(REPLACE(FORMAT(SUM(c.valor_conta), 2),'.',';'),',','.'),';',',')) as valor, "
+                . " date_format(c.periodo_ref,'%m/%Y') as mes, lo.descricao, "
+                . " co.descricao_servico FROM circuitos_contas as c "
+                . " join circuitos_registro_consumo as rc on rc.codigo = c.designacao "
+                . " join circuitos_unidades as u on u.codigo_ut_siig = rc.codigo_unidade "
+                . " join circuitos_localizacao as lo on lo.codigo = rc.localizacao "
+                . " join circuitos_contrato as co on co.codigo = c.fatura "
+                . " where c.periodo_ref = '$_mescad' and c.fatura like '%$_fatura%' "
+                . " GROUP BY c.periodo_ref, c.fatura, rc.localizacao "
+                . " ORDER BY c.periodo_ref desc, c.fatura , rc.localizacao; ";                              
         $resultado_circuito1 = mysqli_query($this->connect(), $consulta_circuito1);
         return $resultado_circuito1;
     }
@@ -356,30 +354,35 @@ class Circuitos extends Database {
     }
     
     function listaConsultaDetalhada($_unidade,$_fatura,$_circuito,$_diretoria,$_mescad){        
-        $consulta_circuito3 = "SELECT `circuitos_contas`.`DRE`,"
-                            . " `circuitos_contas`.`cidade`, `circuitos_contas`.`circuito`,"
-                            . "`circuitos_contas`.`nome_unidade`, date_format(periodo_ref,'%m/%Y') as `periodo_ref`,"
-                            . "`circuitos_contas`.`fatura`, "
-                            . " CONCAT('R$ ', REPLACE(REPLACE(REPLACE(FORMAT(valor_conta, 2),'.',';'),',','.'),';',',')) as `valor_conta`FROM `circuitos_contas`"
-                            . " where "
-                            . "`circuitos_contas`.`nome_unidade` like '%$_unidade%'"
-                            . " and `circuitos_contas`.`fatura` like '%$_fatura%'"
-                            . " and `circuitos_contas`.`circuito` like '%$_circuito%'"
-                            . " and `circuitos_contas`.`DRE` like '%$_diretoria%'"
-                            . " and `circuitos_contas`.`periodo_ref` = '$_mescad'"
-                            . "order by DRE, cidade, nome_unidade;";
+        $consulta_circuito3 = " SELECT u_sup.sigla as `DRE`, u.cidade as `cidade`,"
+                . " c.designacao as `circuito`, u.descricao as `nome_unidade`, "
+                . " date_format(c.periodo_ref,'%m/%Y') as `periodo_ref`,c.`fatura`, "
+                . " CONCAT('R$ ', REPLACE(REPLACE(REPLACE(FORMAT(c.valor_conta, 2),'.',';'),',','.'),';',',')) as `valor_conta` "
+                . " FROM `circuitos_contas` as c "
+                . " join `circuitos_registro_consumo` as rc on rc.codigo = c.designacao "
+                . " join `circuitos_unidades` as u on u.codigo_ut_siig = rc.codigo_unidade "
+                . " join `circuitos_unidades` as u_sup on u.codigo_unidade_pai = u_sup.codigo_siig "
+                . " where u.descricao like '%$_unidade%' "
+                . " and c.`fatura` like '%$_fatura%' "
+                . " and c.designacao like '%$_circuito%' "
+                . " and u_sup.sigla like '%$_diretoria%' "
+                . " and c.periodo_ref = '$_mescad' "
+                . " order by u_sup.sigla, u.cidade, u.descricao;  ";
         $resultado_circuito3 = mysqli_query($this->connect(), $consulta_circuito3);
         return $resultado_circuito3;
     }
     
     function listaContaZabbix(){        
-        $consulta_listaContaZabbix = " select c.DRE, c.cidade, c.circuito, l.descricao, "
-                . " c.nome_unidade, c.periodo_ref, c.fatura, c.valor_conta "
-                . " from `sis_geitec`.`circuitos_contas` as c "
-                . " join `circuitos_localizacao` as l on c.localizacao = l.id "
-                . " join `circuitos_contrato` as cc on cc.codigo = c.fatura where "
-                . " c.periodo_ref = '2017-11-01' "
-                . " and cc.descricao_servico = 'Link de Dados' order by fatura, DRE, cidade, nome_unidade; ";
+        $consulta_listaContaZabbix = " select u_sup.sigla as DRE, u.cidade, "
+                . " c.designacao as 'circuito', l.descricao, u.descricao as nome_unidade, "
+                . " c.periodo_ref, c.fatura, c.valor_conta "
+                . " from `circuitos_contas` as c "
+                . " join `circuitos_registro_consumo` as rc on rc.codigo = c.designacao "
+                . " join `circuitos_unidades` as u on u.codigo_ut_siig = rc.codigo_unidade "
+                . " left join `circuitos_unidades` as u_sup on u.codigo_unidade_pai = u_sup.codigo_siig "
+                . " join `circuitos_localizacao` as l on l.codigo = rc.localizacao "
+                . " join `circuitos_contrato` as cc on cc.codigo = c.fatura "
+                . " where c.periodo_ref = '2017-11-01' and cc.descricao_servico = 'Link de Dados'; ";
         $resultado_listaContaZabbix = mysqli_query($this->connect(), $consulta_listaContaZabbix);
         return $resultado_listaContaZabbix;
         
