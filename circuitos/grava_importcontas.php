@@ -4,7 +4,7 @@ $_SESSION['importcontas'] = '';
 // Numero de campos de upload
 $numeroCampos = 5;
 // Tamanho máximo do arquivo (em bytes)
-$tamanhoMaximo = 10000000;
+$tamanhoMaximo = 10485760;
 // Extensões aceitas
 $extensoes = array(".csv", ".txt");
 // Caminho para onde o arquivo será enviado
