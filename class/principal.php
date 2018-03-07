@@ -330,6 +330,43 @@ class Circuitos extends Database {
     }
     
     // retorna lista com todos os usuarios cadastrados
+    function listaLinhaArquivo($_arquivo,$_num_linha){        
+        $consulta_listaLinhaArquivo = "SELECT * FROM circuito_arquivo_import_temp where nome_arquivo = '$_arquivo' and num_linha_arquivo = '$_num_linha'; ";                
+        $resultado_listaLinhaArquivo = mysqli_query($this->connect(), $consulta_listaLinhaArquivo);
+        return $resultado_listaLinhaArquivo;
+    }
+    
+    // retorna lista com todos os usuarios cadastrados
+    function listaUnidadesCadastradas(){        
+        $consulta_listaUnidadesCadastradas = "SELECT u_sup.sigla as dre, u.descricao as nome, u.codigo_ut_siig as codigo, u.cidade "
+                . " FROM circuitos_unidades as u left join circuitos_unidades as u_sup on u.codigo_unidade_pai = u_sup.codigo_siig where u.ativo = '1' order by u_sup.sigla, u.cidade, u.descricao;";                
+        $resultado_listaUnidadesCadastradas = mysqli_query($this->connect(), $consulta_listaUnidadesCadastradas);
+        return $resultado_listaUnidadesCadastradas;
+    }
+    // retorna lista com todos os usuarios cadastrados
+    function listaLocalizacao(){        
+        $consulta_listaLocalizacao = "SELECT * FROM circuitos_localizacao;";                
+        $resultado_listaLocalizacao = mysqli_query($this->connect(), $consulta_listaLocalizacao);
+        return $resultado_listaLocalizacao;
+    }
+    
+    // retorna lista com todos os usuarios cadastrados
+    function editLinhaArquivo($_arquivo,$_num_linha,$_designacao){        
+        $consulta_editLinhaArquivo = " UPDATE `circuito_arquivo_import_temp` SET `designacao` = '$_designacao' WHERE `nome_arquivo` = '$_arquivo' AND `num_linha_arquivo` = '$_num_linha'; ";                
+        $resultado_editLinhaArquivo = mysqli_query($this->connect(), $consulta_editLinhaArquivo);
+        return $resultado_editLinhaArquivo;
+    }
+    
+    // retorna lista com todos os usuarios cadastrados
+    function addRegistroConsumo($_designacao,$_localizacao,$_codigo_unidade){ 
+        $data = date_default_timezone_set("America/Bahia");
+        $data = date('Y-m-d');
+        $consulta_editLinhaArquivo = " INSERT INTO `circuitos_registro_consumo`(`codigo`,`localizacao`,`codigo_unidade`,`data_ativacao`) VALUES('$_designacao','$_localizacao','$_codigo_unidade','$data'); ";                
+        $resultado_editLinhaArquivo = mysqli_query($this->connect(), $consulta_editLinhaArquivo);
+        return $resultado_editLinhaArquivo;
+    }
+    
+    // retorna lista com todos os usuarios cadastrados
     function listaCircuitos($_mescad,$_fatura){        
         $consulta_circuito1 =  " SELECT c.periodo_ref, c.fatura, rc.localizacao,"
                 . " CONCAT('R$ ', REPLACE(REPLACE(REPLACE(FORMAT(SUM(c.valor_conta), 2),'.',';'),',','.'),';',',')) as valor, "
@@ -394,7 +431,7 @@ class Circuitos extends Database {
     }
             
     function listaProblemaImport(){        
-        $consulta_listaProblemaImport = "SELECT * FROM circuito_arquivo_import_temp as ai left join circuitos_registro_consumo as rc on rc.codigo = ai.designacao where rc.codigo is null;";
+        $consulta_listaProblemaImport = "SELECT ai.* , date_format(ai.conta, '%m/%Y') as conta, date_format(ai.vencimento, '%d/%m') as vencimento FROM circuito_arquivo_import_temp as ai left join circuitos_registro_consumo as rc on rc.codigo = ai.designacao where rc.codigo is null;";
         $resultado_listaProblemaImport = mysqli_query($this->connect(), $consulta_listaProblemaImport);
         return $resultado_listaProblemaImport;
     }

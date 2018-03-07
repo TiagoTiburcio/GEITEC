@@ -11,6 +11,7 @@
     $fatura	= $_POST ["fatura"];    
     $mescad    = $_POST ["mes"];
     $circuitos->limpaImport();
+    $resultado_analitico2 = $circuitos->listaProblemaImport();
 ?>  
 
     <div class="col-xs-5 col-xs-offset-1">                        
@@ -31,11 +32,22 @@
                    <tr>
                         <td><?php echo $table1["contrato"]; ?></td>
                         <td><?php echo $table1["conta"]; ?></td>
-                        <td><?php 
+                        <td><?php                   
+                            $aviso = '';
+                            foreach ($resultado_analitico2 as $table){
+                                if($table["contrato"] == $table1["contrato"]){
+                                    $aviso = $aviso.' Possui circuitos com Pendência';
+                                }
+                            }
                             if ($table1["periodo_ref"] == ''){
-                                echo 'Liberado para Cadastro';        
+                                $aviso = '' .$aviso;        
                             } else {
-                                echo 'Já possui Dados Cadastrados';        
+                                $aviso = 'Já possui Dados Cadastrados | '.$aviso;        
+                            }
+                            if($aviso == ''){
+                                echo '<span class="btn-success glyphicon glyphicon-ok-circle"></span>';
+                            } else {
+                                echo '<span class=" btn-danger glyphicon glyphicon-remove-circle"></span>'.$aviso;
                             }
                         ?></td>
                    </tr>  
@@ -51,42 +63,35 @@
                 <table class="table table-hover table-striped table-condensed">
                     <thead>
                       <tr>
-                        <th>Nome Arquivo</th>  
-                        <th>Numero Linha</th>
                         <th>Contrato</th>
-                        <th>Per. Ref.</th>
-                        <th>Vencimento</th>
-                        <th>Designacao</th>
-                        <th>Tipo Serviço</th>
-                        <th>Velocidade Circuito</th>
+                        <th>Per. Ref.</th>                       
+                        <th>Designacao</th>                        
                         <th>Cidade</th>
                         <th>Tipo Logradouro</th>
                         <th>Logradouro</th>
                         <th>Num Imovel</th>
                         <th>Bairro</th>
-                        <th>Valor</th>                       
+                        <th>Valor</th>
+                        <th>Edit. Arq.</th>
+                        <th>Adic. Circuito</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php
-                        $resultado_analitico2 = $circuitos->listaProblemaImport();
+                      <?php                        
                         foreach ($resultado_analitico2 as $table){                        
                     ?>                
-                   <tr>
-                        <td><?php echo $table["nome_arquivo"]; ?></td>
-                        <td><?php echo $table["num_linha_arquivo"]; ?></td>
+                   <tr>                        
                         <td><?php echo $table["contrato"]; ?></td>
-                        <td><?php echo $table["conta"]; ?></td>
-                        <td><?php echo $table["vencimento"]; ?></td>   
-                        <td><?php echo $table["designacao"]; ?></td>
-                        <td><?php echo $table["prod_telefone"]; ?></td>  
-                        <td><?php echo $table["velocidade_circuito"]; ?></td>  
+                        <td><?php echo $table["conta"]; ?></td>                        
+                        <td><?php echo $table["designacao"]; ?></td> 
                         <td><?php echo $table["nome_local"]; ?></td>  
                         <td><?php echo $table["tip_logradouro"]; ?></td>  
                         <td><?php echo $table["nome_logradouro"]; ?></td>  
                         <td><?php echo $table["num_imovel"]; ?></td>  
-                        <td><?php echo $table["nome_bairro"]; ?></td>  
-                        <td><?php echo $table["valor_servico"]; ?></td>  
+                        <td><?php echo $table["nome_bairro"]; ?></span></td>  
+                        <td><?php echo 'R$' . number_format($table["valor_servico"], 2, ',', '.'); ?></td> 
+                        <td><?php echo '<a type="button" class="btn btn-primary" href="../circuitos/editlinhaarq.php?arquivo='.$table["nome_arquivo"].'&num_linha='.$table["num_linha_arquivo"].'"><span class="glyphicon glyphicon-edit"></span></a>';?></td> 
+                        <td><?php echo '<a type="button" class="btn btn-success" href="../circuitos/addregistroconsumo.php?arquivo='.$table["nome_arquivo"].'&num_linha='.$table["num_linha_arquivo"].'"><span class="glyphicon glyphicon-plus-sign"></span></a>';?></td> 
                    </tr>  
                 <?php
                         }
