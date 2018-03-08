@@ -12,9 +12,10 @@
     $mescad    = $_POST ["mes"];
     $circuitos->limpaImport();
     $resultado_analitico2 = $circuitos->listaProblemaImport();
+    
 ?>  
 
-    <div class="col-xs-5 col-xs-offset-1">                        
+    <div class="col-xs-6 col-xs-offset-3">                        
         <div class="col-xs-12">
                 <table class="table table-hover table-striped table-condensed">
                     <thead>
@@ -45,7 +46,7 @@
                                 $aviso = 'Já possui Dados Cadastrados | '.$aviso;        
                             }
                             if($aviso == ''){
-                                echo '<span class="btn-success glyphicon glyphicon-ok-circle"></span>';
+                                echo '<a type="button" class="btn btn-success" href="../circuitos/addregistroconsumo.php?arquivo='.$table1['nome_arquivo'].'"><span class="glyphicon glyphicon-ok-circle"></span> Confirma Importação Conta!!</a>';
                             } else {
                                 echo '<span class=" btn-danger glyphicon glyphicon-remove-circle"></span>'.$aviso;
                             }

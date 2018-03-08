@@ -19,7 +19,7 @@ foreach($arquivos as $key2 => $img){
     $arq = $num."-".$key2.".txt";
     rename($img , $arq);
     unlink($img);
-    $ch = curl_init("http://localhost/homogeitec/redelocal/abrirarq.php?arq=$arq");
+    $ch = curl_init('http://'. $_SERVER['SERVER_NAME'] . str_replace("teste.php","",$_SERVER['REQUEST_URI']) .'abrirarq.php?arq='.$arq);
     $fp = fopen("example_homepage.txt", "w");
 
     curl_setopt($ch, CURLOPT_FILE, $fp);

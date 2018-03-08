@@ -436,7 +436,7 @@ class Circuitos extends Database {
         return $resultado_listaProblemaImport;
     }
     function listaContasImport(){        
-        $consulta_listaContasImport = " SELECT ai.contrato, date_format(ai.conta, '%m/%Y') as conta, c.periodo_ref FROM circuito_arquivo_import_temp as ai left join circuitos_contas as c on c.fatura = ai.contrato and c.periodo_ref = ai.conta group by ai.contrato,ai.conta, c.periodo_ref; ";
+        $consulta_listaContasImport = " SELECT ai.nome_arquivo , ai.contrato, date_format(ai.conta, '%m/%Y') as conta, c.periodo_ref FROM circuito_arquivo_import_temp as ai left join circuitos_contas as c on c.fatura = ai.contrato and c.periodo_ref = ai.conta group by ai.contrato,ai.conta, c.periodo_ref; ";
         $resultado_listaContasImport = mysqli_query($this->connect(), $consulta_listaContasImport);
         return $resultado_listaContasImport;
     }

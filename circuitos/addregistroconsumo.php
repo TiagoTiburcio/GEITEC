@@ -61,8 +61,8 @@
         </div> 
            
         <div class="form-group">
-            <label for="localizacao">Escolha a Localização vinculada ao Serviço: </label>
-             <select class="form-control" id="localizacao" name="localizacao">
+            <label for="localizacao" style="width: 310px;">Escolha a Localização vinculada ao Serviço: </label>
+             <select style="margin: 0; padding: 5px 10px; width: 950px;" id="localizacao" name="localizacao">
             <option value="">Escolha Localizacao</option>
             <?php              
              $consulta_localizacao = $circuitos->listaLocalizacao();
