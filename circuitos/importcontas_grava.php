@@ -1,4 +1,5 @@
 <?php
+session_start();
 $_SESSION['importcontas'] = '';
 // DEFINIÇÕES
 // Numero de campos de upload
@@ -43,7 +44,8 @@ for ($i = 0; $i < $numeroCampos; $i++) {
 			// Move o arquivo para o caminho definido
 			move_uploaded_file($nomeTemporario, ($caminho . $nomeArquivo));
 			// Mensagem de sucesso
-			$menssagem = $menssagem . 'O arquivo <b>' .$nomeArquivo. '</b> foi enviado com sucesso. <br />';                         
+			$menssagem = $menssagem . 'O arquivo <b>' .$nomeArquivo. '</b> foi enviado com sucesso. <br />'; 
+                        $_SESSION ['arquivo'] = $nomeArquivo;
 		} 
 		// Se houver erro 
 		else {
