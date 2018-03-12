@@ -3,26 +3,34 @@
     
     $usuario = new Usuario();
     
-    $usuario->validaSessao();   
-
+    $usuario->validaSessao();      
     $circuitos = new Circuitos();   
     if(!isset($_POST['fatura'])) { $_POST['fatura'] = ''; }
     if(!isset($_POST['mes'])) { $_POST['mes'] = ''; }
     $fatura	= $_POST ["fatura"];    
-    $mescad    = $_POST ["mes"];
+    $mescad    = $_POST ["mes"];   
+    if(!isset($_SESSION ['pendente'])) { $_SESSION ['pendente'] = ''; }
+    
+    if($_SESSION ['pendente'] == 'S'){
+        echo '<meta http-equiv="refresh" content=0;url="'.'http://'. $_SERVER['SERVER_NAME'] . str_replace("confirmaimport.php","",$_SERVER['REQUEST_URI']) .'abrirarq.php">'; 
+    }
+ 
     $circuitos->limpaImport();
     $resultado_analitico2 = $circuitos->listaProblemaImport();
     
 ?>  
 
-    <div class="col-xs-6 col-xs-offset-3">                        
+    <div class="col-xs-7 col-xs-offset-1"> 
+        <?php //echo $_SESSION ['linha_inicio1'];?>
         <div class="col-xs-12">
                 <table class="table table-hover table-striped table-condensed">
                     <thead>
                       <tr>
                         <th>Contrato</th>
                         <th>Per. Ref.</th>
-                        <th>Aviso</th>                       
+                        <th>Valor Total</th>
+                        <th>Aviso</th>
+                        <th>Cancelar</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -33,6 +41,7 @@
                    <tr>
                         <td><?php echo $table1["contrato"]; ?></td>
                         <td><?php echo $table1["conta"]; ?></td>
+                        <td><?php echo $table1["valor_total"]; ?></td>
                         <td><?php                   
                             $aviso = '';
                             foreach ($resultado_analitico2 as $table){
@@ -43,14 +52,15 @@
                             if ($table1["periodo_ref"] == ''){
                                 $aviso = '' .$aviso;        
                             } else {
-                                $aviso = 'Já possui Dados Cadastrados | '.$aviso;        
+                                $aviso = '<a type="button" class="btn btn-danger" href="../circuitos/limpaArquivo.php?contrato='.$table1['contrato'].'&conta='.$table1['periodo_ref'].'&tipo=2 "><span class="glyphicon glyphicon-erase"></span> Limpa Dados Conta para Reimportar</a>'.$aviso;        
                             }
                             if($aviso == ''){
                                 echo '<a type="button" class="btn btn-success" href="../circuitos/addregistroconsumo.php?arquivo='.$table1['nome_arquivo'].'"><span class="glyphicon glyphicon-ok-circle"></span> Confirma Importação Conta!!</a>';
                             } else {
-                                echo '<span class=" btn-danger glyphicon glyphicon-remove-circle"></span>'.$aviso;
+                                echo $aviso;
                             }
                         ?></td>
+                        <td><?php echo '<a type="button" class="btn btn-primary" href="../circuitos/limpaArquivo.php?arquivo='.$table1['nome_arquivo'].'&tipo=1 "><span class="glyphicon glyphicon-erase"></span> Limpa '.$table1['nome_arquivo'].'!!</a>'; ?></td>
                    </tr>  
                 <?php
                         }
@@ -58,6 +68,13 @@
                     </tbody>
                 </table>
             </div>
+    </div>
+    <div class="col-xs-4">
+        <label>Upload Arquivos Contas Oi</label>
+        <form action="importcontas_grava.php" method="post" enctype="multipart/form-data">
+        <p><input type="file" name="arquivo[]" /></p>        
+        <p><input type="submit" value="Enviar" /></p>
+        </form>
     </div>
     <div class="col-xs-10 col-xs-offset-1">                        
         <div class="col-xs-12">

@@ -10,8 +10,9 @@ ignore_user_abort(true);
 require_once '../class/principal.php';
 $circuito = new Circuitos();
 chdir( "uploads" );
-$img = $_GET['arq'];
 $sql = array(); 
+$arquivos = glob("{*.txt}", GLOB_BRACE);
+foreach($arquivos as $key2 => $img){
 $linhas = explode("\n", file_get_contents($img));
 foreach ($linhas as $key => $value){
     $colunas = explode(";", $value);    
@@ -232,4 +233,5 @@ foreach ($linhas as $key => $value){
 }
 $circuito->insertImportContas($sql);
 unlink($img);
-
+}
+header("Location: confirmaimport.php");

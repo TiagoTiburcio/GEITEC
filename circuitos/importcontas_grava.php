@@ -2,7 +2,7 @@
 $_SESSION['importcontas'] = '';
 // DEFINIÇÕES
 // Numero de campos de upload
-$numeroCampos = 6;
+$numeroCampos = 1;
 // Tamanho máximo do arquivo (em bytes)
 $tamanhoMaximo = 10485760;
 // Extensões aceitas
@@ -43,17 +43,7 @@ for ($i = 0; $i < $numeroCampos; $i++) {
 			// Move o arquivo para o caminho definido
 			move_uploaded_file($nomeTemporario, ($caminho . $nomeArquivo));
 			// Mensagem de sucesso
-			$menssagem = $menssagem . 'O arquivo <b>' .$nomeArquivo. '</b> foi enviado com sucesso. <br />'; 
-                        $ch = curl_init('http://'. $_SERVER['SERVER_NAME'] . str_replace("importcontas_grava.php","",$_SERVER['REQUEST_URI']) .'abrirarq.php?arq='.$nomeArquivo);
-                        $fp = fopen("example_homepage.txt", "w");
-
-                        curl_setopt($ch, CURLOPT_FILE, $fp);
-                        curl_setopt($ch, CURLOPT_HEADER, 0);
-
-                        curl_exec($ch);
-                        curl_close($ch);
-                        fclose($fp);
-                        unlink("example_homepage.txt");
+			$menssagem = $menssagem . 'O arquivo <b>' .$nomeArquivo. '</b> foi enviado com sucesso. <br />';                         
 		} 
 		// Se houver erro 
 		else {
@@ -63,5 +53,5 @@ for ($i = 0; $i < $numeroCampos; $i++) {
                 $_SESSION['importcontas'] = $_SESSION['importcontas'] . ' | ' . $menssagem;  
 	}
 }
-header("Location: confirmaimport.php");
+header("Location: abrirarq.php");
 
