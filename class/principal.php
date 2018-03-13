@@ -456,7 +456,7 @@ class Circuitos extends Database {
     }
     
     function insertContasImport($_nom_arquivo){        
-        $consulta_insertContasImport = "  INSERT INTO `circuitos_contas` (`designacao`, `periodo_ref`, `fatura`,`valor_conta`, `nome_arquivo`,`num_linha_arquivo`) select designacao,conta,contrato,sum(valor_servico) as valor_conta,nome_arquivo, num_linha_arquivo from circuito_arquivo_import_temp where `nome_arquivo` = '$_nom_arquivo'  group by designacao,conta,contrato; ";
+        $consulta_insertContasImport = "  INSERT INTO `circuitos_contas` (`designacao`, `periodo_ref`, `fatura`,`valor_conta`, `nome_arquivo`,`num_linha_arquivo`,`vencimento` ) select designacao,conta,contrato,sum(valor_servico) as valor_conta,nome_arquivo, num_linha_arquivo,vencimento from circuito_arquivo_import_temp where `nome_arquivo` = '$_nom_arquivo'  group by designacao,conta,contrato; ";
         $resultado_insertContasImport = mysqli_query($this->connect(), $consulta_insertContasImport);
         return $resultado_insertContasImport;
     }

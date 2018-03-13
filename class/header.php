@@ -46,7 +46,7 @@
                         <li><a href="../circuitos/contaanalitico.php">Conta OI Anal&iacute;tico</a></li>
                         <li><a href="../circuitos/contadetalhada.php">Conta OI Detalhado</a></li>
                         <li><a href="../circuitos/pble.php">Consulta PBLE</a></li>
-                        <li><a href="../circuitos/zabbix.php">Consultas Zabbix</a></li>
+                        <li><a href="../circuitos/confirmaimport.php">Importar Contas</a></li>
                     </ul>
                   </li>
                   <li class="dropdown">

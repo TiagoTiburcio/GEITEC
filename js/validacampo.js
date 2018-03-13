@@ -43,6 +43,12 @@
         } 
     }
     
+    function pegaMes(){
+       document.getElementById("linkprint").href = 'http://geitec002.seed.se.gov/hgeitec/contas_analitico.php?periodo=' + document.getElementById("mes").value ;        
+    }
+    function pegaMesSint(){
+       document.getElementById("linkprint").href = 'http://geitec002.seed.se.gov/hgeitec/contas_sintetico.php?periodo=' + document.getElementById("mes").value ;        
+    }
     function validaCadastroPortaSw(){        
        if((document.getElementById("vlan").value  == '300')&&(document.getElementById("Imp").value  == '0')&&(document.getElementById("limpar").value  == '0')){           
             alert("ERRO Cadastro - Impressora Não Selecionada!!!");        
