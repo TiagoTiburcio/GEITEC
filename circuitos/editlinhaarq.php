@@ -46,7 +46,19 @@
                 <div class="form-group">
                   <label for="cidade">Cidade Serviço</label>
                   <input type="text" class="form-control" readonly="true" id="cidade" name="cidade" value="<?php echo $cidade;?>">
-                </div>                  
+                </div>
+                <div class="form-group ui-widget">
+                <label for="combobox" >Escolha a Unidade vinculada ao Serviço: </label>
+                    <select class="form-control" id="combobox" name="combobox">
+                    <option value="">Escolha Unidade</option>
+                    <?php              
+                        $consulta_unidade = $circuitos->listaRegConsumo();
+                        foreach ($consulta_unidade as $unidades){
+                        echo '<option value="'.$unidades['codigo'].'">'.$unidades['codigo'].' </option>';        
+                        }
+                    ?>
+                    </select>
+                </div>
                 <div class="text-center col-xs-12">
                     <a type="button" class="btn btn-danger" href="confirmaimport.php">voltar <span class="glyphicon glyphicon-backward"></span></a>                    
                     <button type="submit" class="btn btn-success">Salvar <span class="glyphicon glyphicon-floppy-disk"></span></button>                  

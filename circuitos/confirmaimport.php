@@ -48,7 +48,7 @@
                         <td><?php                   
                             $aviso = '';
                             foreach ($resultado_analitico2 as $table){
-                                if($table["contrato"] == $table1["contrato"]){
+                                if(($table["contrato"] == $table1["contrato"])&&($aviso == '')){
                                     $aviso = $aviso.' Possui circuitos com Pendência';
                                 }
                             }
