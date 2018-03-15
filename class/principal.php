@@ -1123,7 +1123,7 @@ class Switchs extends Database {
                 . " join redelocal_rack as r on r.codigo = sw.codigo_rack "
                 . " join redelocal_bloco as b on b.codigo = r.codigo_bloco "
                 . " where m.descricao like '%$_marca%' and msw.descricao like '%$_modelo%' "
-                . " and sw.ip like '%$_ip%' and b.nome like '%$_bloco%' and r.setor like '%$_setor%' ;";
+                . " and sw.ip like '%$_ip%' and b.nome like '%$_bloco%' and r.setor like '%$_setor%' order by b.nome asc, r.descricao asc, msw.descricao ;";
         $resultado_listSwitch = mysqli_query($this->connect(), $consulta_listSwitch);
         
         return $resultado_listSwitch;

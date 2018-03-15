@@ -1,0 +1,933 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<architect-project version="1.0" appversion="1.0.8">
+ <project-name>tabelasRedeLocal</project-name>
+ <print-settings printerName="Adobe PDF" numCopies="2" zoom="0.94" pageNumbersPrinted="true" orientation="1" paperWidth="612.0" paperHeight="792.0" leftBorder="50.0" rightBorder="50.0" topBorder="50.0" bottomBorder="50.0" />
+ <project-data-sources>
+  <data-source id="DS0">
+   <property key="Logical" value="Modelo de Dados" />
+  </data-source>
+  <data-source id="DS2">
+   <property key="Connection Type" value="MySQL" />
+   <property key="Logical" value="Zabbix" />
+   <property key="JDBC URL" value="jdbc:mysql://172.25.76.85:3306/sis_geitec" />
+   <property key="UID" value="root" />
+   <property key="PWD" value="seedqawsed" />
+   <property key="ca.sqlpower.architect.etl.kettle.database" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.port" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.hostname" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.repos.login" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.repos.password" value="" />
+  </data-source>
+ </project-data-sources>
+ <source-databases>
+  <database id="DB0" populated="true" UUID="613197dd-21f0-486d-92ec-9eb8744c0e47" dbcs-ref="DS2" name="Zabbix" physicalName="Zabbix" >
+   <catalog id="CAT1" populated="false" UUID="0eb98de6-1e0f-4254-9c4a-868ad6c1b21b" name="information_schema" nativeTerm="database" physicalName="information_schema" >
+   </catalog>
+   <catalog id="CAT2" populated="false" UUID="ca548e93-da16-45af-b05a-aebfafa4d45e" name="dblhc" nativeTerm="database" physicalName="dblhc" >
+   </catalog>
+   <catalog id="CAT3" populated="false" UUID="96b26f1c-a42f-48d1-89b4-8648a75a690e" name="dblhc2" nativeTerm="database" physicalName="dblhc2" >
+   </catalog>
+   <catalog id="CAT4" populated="false" UUID="ee2a3128-842d-442d-b895-691f376e946e" name="dbsuporte" nativeTerm="database" physicalName="dbsuporte" >
+   </catalog>
+   <catalog id="CAT5" populated="false" UUID="96a5ba76-5383-4a7c-b4da-d2df193cba9b" name="escolas" nativeTerm="database" physicalName="escolas" >
+   </catalog>
+   <catalog id="CAT6" populated="false" UUID="094fd118-25e7-4561-81c0-bc1f02e1baa3" name="homo2_sis_geitec" nativeTerm="database" physicalName="homo2_sis_geitec" >
+   </catalog>
+   <catalog id="CAT7" populated="false" UUID="3dfc5f0b-5528-4513-b626-1eb84133e137" name="homo_sis_geitec" nativeTerm="database" physicalName="homo_sis_geitec" >
+   </catalog>
+   <catalog id="CAT8" populated="false" UUID="39e8cf02-c09f-4b16-a946-dde056a8f3cd" name="mysql" nativeTerm="database" physicalName="mysql" >
+   </catalog>
+   <catalog id="CAT9" populated="false" UUID="02409484-b4ea-49db-9a79-efc7e9077e44" name="performance_schema" nativeTerm="database" physicalName="performance_schema" >
+   </catalog>
+   <catalog id="CAT10" populated="false" UUID="c1e2e4b2-b2fc-4d22-aeea-86330c2bffb8" name="radius_SEED" nativeTerm="database" physicalName="radius_SEED" >
+   </catalog>
+   <catalog id="CAT11" populated="false" UUID="4ab86ea6-beb4-4489-98a8-16c05854132d" name="restorebitnami_redmine" nativeTerm="database" physicalName="restorebitnami_redmine" >
+   </catalog>
+   <catalog id="CAT12" populated="false" UUID="ee91d337-3ef8-4862-9948-915ee177aa20" name="restoredbsuporte" nativeTerm="database" physicalName="restoredbsuporte" >
+   </catalog>
+   <catalog id="CAT13" populated="false" UUID="138032a0-a2ae-461e-bb88-7544360d9a66" name="restoretcexam" nativeTerm="database" physicalName="restoretcexam" >
+   </catalog>
+   <catalog id="CAT14" populated="false" UUID="47ee9f9f-d5f3-4559-908d-8b747a6a779a" name="restorezabbix" nativeTerm="database" physicalName="restorezabbix" >
+   </catalog>
+   <catalog id="CAT15" populated="true" UUID="a0255f10-578e-4f6e-af9d-10cd56767a8a" name="sis_geitec" nativeTerm="database" physicalName="sis_geitec" >
+    <table id="TAB16" populated="false" UUID="b20744ae-ecb9-46c6-8b85-2ed574a18735" name="EscolasDBSEEDCompleta" objectType="TABLE" physicalName="EscolasDBSEEDCompleta" >
+     <remarks></remarks>
+     <folder id="FOLTAB161" populated="false" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX17" populated="true" UUID="303a19e2-7aff-4a28-8c28-8716a31bf6ed" clustered="false" name="EscolasDBSEEDCompleta_pk" physicalName="EscolasDBSEEDCompleta_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+    <table id="TAB18" populated="false" UUID="c202b505-bf5a-4cab-a6d6-7d3d65710b02" name="EscolasSiteCompleta" objectType="TABLE" physicalName="EscolasSiteCompleta" >
+     <remarks></remarks>
+     <folder id="FOLTAB181" populated="false" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX19" populated="true" UUID="bbaaaa4c-93f4-4e42-b597-277c519bc8da" clustered="false" name="EscolasSiteCompleta_pk" physicalName="EscolasSiteCompleta_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+    <table id="TAB20" populated="false" UUID="617cd2f4-a4ac-4a65-b73c-3accc557a562" name="circuitos_contas" objectType="TABLE" physicalName="circuitos_contas" >
+     <remarks></remarks>
+     <folder id="FOLTAB201" populated="false" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX21" populated="true" UUID="19de181f-61dd-45f9-a08b-2d6184d3e5f5" clustered="false" name="circuitos_contas_pk" physicalName="circuitos_contas_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+    <table id="TAB22" populated="false" UUID="62b41f59-5cdf-4fd8-8e4d-18f218d1b62d" name="circuitos_contrato" objectType="TABLE" physicalName="circuitos_contrato" >
+     <remarks></remarks>
+     <folder id="FOLTAB221" populated="false" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX23" populated="true" UUID="4f360740-8c45-4846-bad1-00869b5091ed" clustered="false" name="circuitos_contrato_pk" physicalName="circuitos_contrato_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+    <table id="TAB24" populated="false" UUID="745d426f-608a-4bc4-9d75-da5e8e1fc6a4" name="circuitos_localizacao" objectType="TABLE" physicalName="circuitos_localizacao" >
+     <remarks></remarks>
+     <folder id="FOLTAB241" populated="false" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX25" populated="true" UUID="81de774a-e8a9-4b6d-9531-8eb8e919f892" clustered="false" name="circuitos_localizacao_pk" physicalName="circuitos_localizacao_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+    <table id="TAB26" populated="false" UUID="7d3bf034-e5b8-4d47-b491-b2a96b511737" name="circuitos_unidades" objectType="TABLE" physicalName="circuitos_unidades" >
+     <remarks></remarks>
+     <folder id="FOLTAB261" populated="false" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX27" populated="true" UUID="166981ed-c300-4c2d-98c7-19b64698e367" clustered="false" name="circuitos_unidades_pk" physicalName="circuitos_unidades_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+    <table id="TAB28" populated="false" UUID="7a15cbd7-a97d-4dab-be1e-0c8bc9a01358" name="escolas_cadastro" objectType="TABLE" physicalName="escolas_cadastro" >
+     <remarks></remarks>
+     <folder id="FOLTAB281" populated="false" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX29" populated="true" UUID="75210a6e-41ac-432d-b6e3-2b71c2b54451" clustered="false" name="escolas_cadastro_pk" physicalName="escolas_cadastro_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+    <table id="TAB30" populated="false" UUID="7e63797d-7bd8-4574-ad26-fdbbe9430c87" name="home_modulo" objectType="TABLE" physicalName="home_modulo" >
+     <remarks></remarks>
+     <folder id="FOLTAB301" populated="false" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX31" populated="true" UUID="0bc0fccf-ff75-4809-bfb6-d21507ae5612" clustered="false" name="home_modulo_pk" physicalName="home_modulo_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+    <table id="TAB32" populated="false" UUID="600d7332-7afd-4695-b3fd-65bd2d2f5df6" name="home_pagina" objectType="TABLE" physicalName="home_pagina" >
+     <remarks></remarks>
+     <folder id="FOLTAB321" populated="false" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX33" populated="true" UUID="92459268-56a2-4380-9b52-f98d9447c91c" clustered="false" name="home_pagina_pk" physicalName="home_pagina_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+    <table id="TAB34" populated="false" UUID="adc5648c-a834-4d53-907b-fe94bd03da91" name="home_pagina_perfil" objectType="TABLE" physicalName="home_pagina_perfil" >
+     <remarks></remarks>
+     <folder id="FOLTAB341" populated="false" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX35" populated="true" UUID="e365fb93-8a66-4132-9506-ac38edf15851" clustered="false" name="home_pagina_perfil_pk" physicalName="home_pagina_perfil_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+    <table id="TAB36" populated="false" UUID="c266f4da-6b22-41f3-a86b-61b6bdd761e4" name="home_perfil" objectType="TABLE" physicalName="home_perfil" >
+     <remarks></remarks>
+     <folder id="FOLTAB361" populated="false" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX37" populated="true" UUID="41961839-5cc4-4876-8463-132c1275d904" clustered="false" name="home_perfil_pk" physicalName="home_perfil_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+    <table id="TAB38" populated="false" UUID="3f1d8eda-2aba-408f-a38c-3431947a090a" name="home_usuario" objectType="TABLE" physicalName="home_usuario" >
+     <remarks></remarks>
+     <folder id="FOLTAB381" populated="false" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX39" populated="true" UUID="57eb9c46-e456-4fc9-8672-234a6be4bbd5" clustered="false" name="home_usuario_pk" physicalName="home_usuario_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+    <table id="TAB40" populated="true" UUID="f7ee1489-908e-4381-9cec-45bd3e9a1e2f" name="redelocal_bloco" objectType="TABLE" physicalName="redelocal_bloco" >
+     <remarks></remarks>
+     <folder id="FOLTAB401" populated="true" name="Columns" physicalName="Columns" type="1">
+      <column id="COL41" populated="true" UUID="f5ccb3a1-da6c-475e-bc9d-3a0c9c123f95" autoIncrement="false" name="codigo" nullable="0" physicalName="codigo" precision="10" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL42" populated="true" UUID="c180da2d-91d3-4add-b71a-e25840b9d123" autoIncrement="false" name="nome" nullable="0" physicalName="nome" precision="45" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      <column id="COL43" populated="true" UUID="727f4f48-c8cd-4ae1-9a69-afc4bd909aa1" autoIncrement="false" name="descricao" nullable="0" physicalName="descricao" precision="150" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      <column id="COL44" populated="true" UUID="ba7b1ea6-0dad-4155-b6cd-9b3798530ef0" autoIncrement="false" name="ativo" nullable="0" physicalName="ativo" precision="0" referenceCount="1" scale="0" sourceDataTypeName="BIT" type="-7" >
+       <remarks></remarks>
+      </column>
+      </folder>
+      <folder id="FOLTAB403" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+      </folder>
+      <folder id="FOLTAB402" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+      </folder>
+      <folder id="FOLTAB404" populated="true" name="Indices" physicalName="Indices" type="4">
+      <index id="IDX45" populated="true" UUID="110214f7-7764-4e16-92f9-db2fa5138f7d" clustered="false" name="redelocal_bloco_PK" physicalName="redelocal_bloco_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+       <index-column id="IDC46" populated="true" UUID="b91620df-56ba-40f5-83ef-6bce3abecc71" ascendingOrDescending="UNSPECIFIED" column-ref="COL41" name="codigo" physicalName="codigo" />
+      </index>
+     </folder>
+    </table>
+    <table id="TAB47" populated="true" UUID="43a93167-bf46-4660-9ec3-b6a51d072294" name="redelocal_equip_tipo" objectType="TABLE" physicalName="redelocal_equip_tipo" sql-exception="ca.sqlpower.sqlobject.SQLObjectException: Failed to populate columns of tables" >
+     <remarks></remarks>
+     <folder id="FOLTAB471" populated="true" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX48" populated="true" UUID="19381ee0-407f-415f-b056-702d106c8eaa" clustered="false" name="redelocal_equip_tipo_pk" physicalName="redelocal_equip_tipo_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+    <table id="TAB49" populated="true" UUID="ad37a408-ef34-4e66-8bd5-0056e93fbc3e" name="redelocal_impressora" objectType="TABLE" physicalName="redelocal_impressora" >
+     <remarks></remarks>
+     <folder id="FOLTAB491" populated="true" name="Columns" physicalName="Columns" type="1">
+      <column id="COL50" populated="true" UUID="0e3cd559-ef11-4e22-962e-b2c885616109" autoIncrement="false" name="codigo_host_zabbix" nullable="0" physicalName="codigo_host_zabbix" precision="10" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL51" populated="true" UUID="af3a31df-98c1-4fe7-a302-0454a76e59b3" autoIncrement="false" name="codigo_modelo" nullable="0" physicalName="codigo_modelo" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL52" populated="true" UUID="12ff81a1-1d08-425b-b377-adc6d675cdf9" autoIncrement="false" name="codigo_switch" nullable="0" physicalName="codigo_switch" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL53" populated="true" UUID="9c09cc5d-17f9-41a2-a9d8-7b8260806a64" autoIncrement="false" name="codigo_porta_switch" nullable="0" physicalName="codigo_porta_switch" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL54" populated="true" UUID="a543571e-dc08-4349-8f07-a5eab084a5e8" autoIncrement="false" name="tipo_porta" nullable="0" physicalName="tipo_porta" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL55" populated="true" UUID="3fbe4c98-da64-4158-a163-f49e31590832" autoIncrement="false" name="setor" nullable="1" physicalName="setor" precision="250" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      </folder>
+      <folder id="FOLTAB493" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+      </folder>
+      <folder id="FOLTAB492" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+      </folder>
+      <folder id="FOLTAB494" populated="true" name="Indices" physicalName="Indices" type="4">
+      <index id="IDX56" populated="true" UUID="95e36ccf-fe15-4025-9cd9-348be15bf9a3" clustered="false" name="redelocal_impressora_PK" physicalName="redelocal_impressora_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+       <index-column id="IDC57" populated="true" UUID="ec2db254-baaf-47b2-b74c-6a0c69c0ec9d" ascendingOrDescending="UNSPECIFIED" column-ref="COL50" name="codigo_host_zabbix" physicalName="codigo_host_zabbix" />
+      </index>
+      <index id="IDX58" populated="true" UUID="6a90b25f-41ee-4d57-9168-ff0f0c0737fa" clustered="false" index-type="BTREE" name="codigo_host_zabbix_UNIQUE" physicalName="codigo_host_zabbix_UNIQUE" primaryKeyIndex="false" qualifier="" unique="true" >
+       <index-column id="IDC59" populated="true" UUID="d4303e3a-d112-4944-97ff-90b7a5528a7f" ascendingOrDescending="ASCENDING" column-ref="COL50" name="codigo_host_zabbix" physicalName="codigo_host_zabbix" />
+      </index>
+     </folder>
+    </table>
+    <table id="TAB60" populated="true" UUID="3f82908f-0bde-42e8-b42f-2e579929c18f" name="redelocal_marca" objectType="TABLE" physicalName="redelocal_marca" >
+     <remarks></remarks>
+     <folder id="FOLTAB601" populated="true" name="Columns" physicalName="Columns" type="1">
+      <column id="COL61" populated="true" UUID="e28098b2-756f-4775-893c-33c5f26807ba" autoIncrement="false" name="codigo" nullable="0" physicalName="codigo" precision="10" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL62" populated="true" UUID="6f7f188e-d83c-4280-8ab3-a9ae8c7913a2" autoIncrement="false" name="descricao" nullable="0" physicalName="descricao" precision="90" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      <column id="COL63" populated="true" UUID="33dbe872-9a6a-4eef-b10f-d36c9956602b" autoIncrement="false" name="ativo" nullable="0" physicalName="ativo" precision="0" referenceCount="1" scale="0" sourceDataTypeName="BIT" type="-7" >
+       <remarks></remarks>
+      </column>
+      <column id="COL64" populated="true" UUID="7483de0e-eb26-4efc-a6aa-14b9dc00a0ce" autoIncrement="false" name="data_incl" nullable="0" physicalName="data_incl" precision="19" referenceCount="1" scale="0" sourceDataTypeName="DATETIME" type="93" >
+       <remarks></remarks>
+      </column>
+      </folder>
+      <folder id="FOLTAB603" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+      </folder>
+      <folder id="FOLTAB602" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+      </folder>
+      <folder id="FOLTAB604" populated="true" name="Indices" physicalName="Indices" type="4">
+      <index id="IDX65" populated="true" UUID="3ef9563a-19f7-4701-a899-b641f2d4e528" clustered="false" name="redelocal_marca_PK" physicalName="redelocal_marca_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+       <index-column id="IDC66" populated="true" UUID="d4a6295e-1ffd-4a12-a8d3-63f6f018947c" ascendingOrDescending="UNSPECIFIED" column-ref="COL61" name="codigo" physicalName="codigo" />
+      </index>
+     </folder>
+    </table>
+    <table id="TAB67" populated="true" UUID="5384bfeb-61f7-4505-b5a2-0b6244237f88" name="redelocal_modelo_impressora" objectType="TABLE" physicalName="redelocal_modelo_impressora" >
+     <remarks></remarks>
+     <folder id="FOLTAB671" populated="true" name="Columns" physicalName="Columns" type="1">
+      <column id="COL68" populated="true" UUID="5b2088dc-560b-4498-b61d-ae749de8daca" autoIncrement="true" name="codigo" nullable="0" physicalName="codigo" precision="10" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL69" populated="true" UUID="f46e19ce-85c8-4567-b31a-57d730a46a2d" autoIncrement="false" name="codigo_marca" nullable="0" physicalName="codigo_marca" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL70" populated="true" UUID="3943f34c-5002-4f01-9942-ddb97735de23" autoIncrement="false" name="codigo_equip_tipo" nullable="0" physicalName="codigo_equip_tipo" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL71" populated="true" UUID="94b3b72c-a820-4382-a563-40392b08029c" autoIncrement="false" name="descricao" nullable="0" physicalName="descricao" precision="90" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      <column id="COL72" populated="true" UUID="4d8805d2-48ed-4d95-92bb-278e683afd06" autoIncrement="false" name="ativo" nullable="0" physicalName="ativo" precision="3" referenceCount="1" scale="0" sourceDataTypeName="TINYINT" type="-6" >
+       <remarks></remarks>
+      </column>
+      <column id="COL73" populated="true" UUID="8e1ae6ee-f055-4d9b-8d1e-e6c24abef633" autoIncrement="false" name="colorida" nullable="0" physicalName="colorida" precision="3" referenceCount="1" scale="0" sourceDataTypeName="TINYINT" type="-6" >
+       <remarks></remarks>
+      </column>
+      <column id="COL74" populated="true" UUID="81097bc8-bcc0-4dca-beba-6122a4b1458a" autoIncrement="false" name="laser" nullable="0" physicalName="laser" precision="3" referenceCount="1" scale="0" sourceDataTypeName="TINYINT" type="-6" >
+       <remarks></remarks>
+      </column>
+      <column id="COL75" populated="true" UUID="c0d2f831-d828-478d-84ab-8a48bb54b4b2" autoIncrement="false" name="tinta" nullable="0" physicalName="tinta" precision="3" referenceCount="1" scale="0" sourceDataTypeName="TINYINT" type="-6" >
+       <remarks></remarks>
+      </column>
+      <column id="COL76" populated="true" UUID="22d1db54-6960-4c77-8a92-ca337b61a209" autoIncrement="false" name="rede" nullable="0" physicalName="rede" precision="3" referenceCount="1" scale="0" sourceDataTypeName="TINYINT" type="-6" >
+       <remarks></remarks>
+      </column>
+      <column id="COL77" populated="true" UUID="2e833554-cfdf-4a6d-8e7a-0f2b25a26e63" autoIncrement="false" name="scanner" nullable="0" physicalName="scanner" precision="3" referenceCount="1" scale="0" sourceDataTypeName="TINYINT" type="-6" >
+       <remarks></remarks>
+      </column>
+      <column id="COL78" populated="true" UUID="7d14eb5d-5fab-47a4-a01c-68a624b39363" autoIncrement="false" name="data_incl" nullable="0" physicalName="data_incl" precision="19" referenceCount="1" scale="0" sourceDataTypeName="DATETIME" type="93" >
+       <remarks></remarks>
+      </column>
+      </folder>
+      <folder id="FOLTAB673" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+      </folder>
+      <folder id="FOLTAB672" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+      </folder>
+      <folder id="FOLTAB674" populated="true" name="Indices" physicalName="Indices" type="4">
+      <index id="IDX79" populated="true" UUID="5216e6ad-3926-4f4a-bb94-9f1024bd721d" clustered="false" name="redelocal_modelo_impressora_PK" physicalName="redelocal_modelo_impressora_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+       <index-column id="IDC80" populated="true" UUID="dd1d7a47-e7e4-4afe-af32-f5ccd59f2e98" ascendingOrDescending="UNSPECIFIED" column-ref="COL68" name="codigo" physicalName="codigo" />
+      </index>
+     </folder>
+    </table>
+    <table id="TAB81" populated="true" UUID="24ab1571-20c3-44f3-909a-0cd74e900c3c" name="redelocal_modelo_switch" objectType="TABLE" physicalName="redelocal_modelo_switch" >
+     <remarks></remarks>
+     <folder id="FOLTAB811" populated="true" name="Columns" physicalName="Columns" type="1">
+      <column id="COL82" populated="true" UUID="4f71dccf-3ac4-492f-9336-46a37fa06711" autoIncrement="false" name="codigo" nullable="0" physicalName="codigo" precision="10" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL83" populated="true" UUID="2f930145-a77c-4310-ac80-28d1f4e46f42" autoIncrement="false" name="codigo_marca" nullable="0" physicalName="codigo_marca" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL84" populated="true" UUID="c7b7f9c6-b228-41d5-815e-af808d41d28f" autoIncrement="false" name="codigo_equip_tipo" nullable="0" physicalName="codigo_equip_tipo" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL85" populated="true" UUID="5a216893-eb69-49e0-b8c2-abbe2c35de75" autoIncrement="false" name="descricao" nullable="0" physicalName="descricao" precision="90" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      <column id="COL86" populated="true" UUID="1fab8ee2-2f83-4810-9845-6248f927c967" autoIncrement="false" name="ativo" nullable="0" physicalName="ativo" precision="0" referenceCount="1" scale="0" sourceDataTypeName="BIT" type="-7" >
+       <remarks></remarks>
+      </column>
+      <column id="COL87" populated="true" UUID="e65ac889-6822-41ce-8a6e-6d81e0cbf8e4" autoIncrement="false" name="qtd_portas_eth" nullable="0" physicalName="qtd_portas_eth" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL88" populated="true" UUID="0c094912-465f-42e8-93c5-a01218f57659" autoIncrement="false" name="qtd_portas_fc" nullable="0" physicalName="qtd_portas_fc" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL89" populated="true" UUID="29652422-3f0d-4a5e-91b7-bbf47166802c" autoIncrement="false" name="gerenciavel" nullable="0" physicalName="gerenciavel" precision="0" referenceCount="1" scale="0" sourceDataTypeName="BIT" type="-7" >
+       <remarks></remarks>
+      </column>
+      <column id="COL90" populated="true" UUID="ed5726a6-8d36-4b3e-b86f-838c75b90a49" autoIncrement="false" name="data_incl" nullable="0" physicalName="data_incl" precision="19" referenceCount="1" scale="0" sourceDataTypeName="DATETIME" type="93" >
+       <remarks></remarks>
+      </column>
+      <column id="COL91" populated="true" UUID="51ea535a-4232-4007-8f6b-10a9087e9923" autoIncrement="false" defaultValue="1000" name="velocidade_padrao_portas" nullable="0" physicalName="velocidade_padrao_portas" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      </folder>
+      <folder id="FOLTAB813" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+      </folder>
+      <folder id="FOLTAB812" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+      </folder>
+      <folder id="FOLTAB814" populated="true" name="Indices" physicalName="Indices" type="4">
+      <index id="IDX92" populated="true" UUID="6d2e8765-40c5-43c7-9172-4ca612a50382" clustered="false" name="redelocal_modelo_switch_PK" physicalName="redelocal_modelo_switch_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+       <index-column id="IDC93" populated="true" UUID="a914dfcd-5488-46bd-bc89-7254f239d070" ascendingOrDescending="UNSPECIFIED" column-ref="COL82" name="codigo" physicalName="codigo" />
+      </index>
+     </folder>
+    </table>
+    <table id="TAB94" populated="true" UUID="b06a7486-4921-4d4a-be3c-1706b212f9a9" name="redelocal_porta_switch" objectType="TABLE" physicalName="redelocal_porta_switch" >
+     <remarks></remarks>
+     <folder id="FOLTAB941" populated="true" name="Columns" physicalName="Columns" type="1">
+      <column id="COL95" populated="true" UUID="b7bd957b-5c30-4087-a423-59cb81515f23" autoIncrement="false" name="codigo_switch" nullable="0" physicalName="codigo_switch" precision="10" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL96" populated="true" UUID="e8a07083-4073-4605-abc4-cf5acde8035d" autoIncrement="false" name="codigo_porta_switch" nullable="0" physicalName="codigo_porta_switch" precision="10" primaryKeySeq="1" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL97" populated="true" UUID="af5e60e2-1787-4cf7-bd1e-19c56cebfecb" autoIncrement="false" name="tipo_porta" nullable="0" physicalName="tipo_porta" precision="10" primaryKeySeq="2" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL98" populated="true" UUID="caaac63c-6b87-4ee2-a2b1-0885d8322287" autoIncrement="false" name="velocidade" nullable="0" physicalName="velocidade" precision="45" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      <column id="COL99" populated="true" UUID="f110546f-e45d-4ab8-90ee-31796b7336c3" autoIncrement="false" name="codigo_vlan" nullable="0" physicalName="codigo_vlan" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL100" populated="true" UUID="a08effa4-96ae-41a3-8f0d-d3a558535485" autoIncrement="false" name="observacao" nullable="1" physicalName="observacao" precision="150" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      <column id="COL101" populated="true" UUID="359bffb1-fa40-47e7-bb2e-e892fcca343d" autoIncrement="false" name="texto_tela" nullable="0" physicalName="texto_tela" precision="5" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      <column id="COL102" populated="true" UUID="f4f86523-2630-46a4-bf53-aff05adc2495" autoIncrement="false" name="data_alt" nullable="1" physicalName="data_alt" precision="19" referenceCount="1" scale="0" sourceDataTypeName="DATETIME" type="93" >
+       <remarks></remarks>
+      </column>
+      </folder>
+      <folder id="FOLTAB943" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+      </folder>
+      <folder id="FOLTAB942" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+      </folder>
+      <folder id="FOLTAB944" populated="true" name="Indices" physicalName="Indices" type="4">
+      <index id="IDX103" populated="true" UUID="7b6b309f-bfc6-4fd1-9472-59d70985e0b2" clustered="false" name="redelocal_porta_switch_PK" physicalName="redelocal_porta_switch_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+       <index-column id="IDC104" populated="true" UUID="1369d66d-8fea-4f4a-8fe5-0f88b4a12601" ascendingOrDescending="UNSPECIFIED" column-ref="COL95" name="codigo_switch" physicalName="codigo_switch" />
+       <index-column id="IDC105" populated="true" UUID="f0b127a4-1c26-4704-8c41-dcb76af9a309" ascendingOrDescending="UNSPECIFIED" column-ref="COL96" name="codigo_porta_switch" physicalName="codigo_porta_switch" />
+       <index-column id="IDC106" populated="true" UUID="c31d9008-9310-49e1-855a-2f91f0ee0b45" ascendingOrDescending="UNSPECIFIED" column-ref="COL97" name="tipo_porta" physicalName="tipo_porta" />
+      </index>
+     </folder>
+    </table>
+    <table id="TAB107" populated="true" UUID="e294beac-0416-45dd-b88a-c9b057c27938" name="redelocal_rack" objectType="TABLE" physicalName="redelocal_rack" >
+     <remarks></remarks>
+     <folder id="FOLTAB1071" populated="true" name="Columns" physicalName="Columns" type="1">
+      <column id="COL108" populated="true" UUID="9f7b7175-e74b-4874-b483-c20542792346" autoIncrement="false" name="codigo" nullable="0" physicalName="codigo" precision="10" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL109" populated="true" UUID="203b071a-49b9-43b4-aec0-ddfc6f23a3ad" autoIncrement="false" name="descricao" nullable="0" physicalName="descricao" precision="45" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      <column id="COL110" populated="true" UUID="676855a3-cedf-461f-b1af-cf073288dd1a" autoIncrement="false" name="setor" nullable="0" physicalName="setor" precision="45" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      <column id="COL111" populated="true" UUID="0516af23-8af7-427c-baff-715e87e7b54c" autoIncrement="false" name="codigo_bloco" nullable="0" physicalName="codigo_bloco" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      </folder>
+      <folder id="FOLTAB1073" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+      </folder>
+      <folder id="FOLTAB1072" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+      </folder>
+      <folder id="FOLTAB1074" populated="true" name="Indices" physicalName="Indices" type="4">
+      <index id="IDX112" populated="true" UUID="ff512832-7848-4364-8a8c-03d06f703cae" clustered="false" name="redelocal_rack_PK" physicalName="redelocal_rack_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+       <index-column id="IDC113" populated="true" UUID="ef510375-f8ed-47ef-a491-5eaccfe2eca1" ascendingOrDescending="UNSPECIFIED" column-ref="COL108" name="codigo" physicalName="codigo" />
+      </index>
+     </folder>
+    </table>
+    <table id="TAB114" populated="true" UUID="90eb655f-971d-41bc-82b9-1571acdd0a8c" name="redelocal_switch" objectType="TABLE" physicalName="redelocal_switch" >
+     <remarks></remarks>
+     <folder id="FOLTAB1141" populated="true" name="Columns" physicalName="Columns" type="1">
+      <column id="COL115" populated="true" UUID="863f01d5-bb8f-470c-a724-00f823aaec1a" autoIncrement="false" name="codigo" nullable="0" physicalName="codigo" precision="10" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL116" populated="true" UUID="67a2ea2f-40f9-4751-ad7a-d88be86ca320" autoIncrement="false" name="codigo_modelo" nullable="0" physicalName="codigo_modelo" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL117" populated="true" UUID="d337a018-27d3-4d1b-9a2f-f2d01358b6a0" autoIncrement="false" name="ip" nullable="0" physicalName="ip" precision="45" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      <column id="COL118" populated="true" UUID="39d22d7b-07a9-4b61-96a6-e899dee9be8a" autoIncrement="false" name="codigo_rack" nullable="0" physicalName="codigo_rack" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL119" populated="true" UUID="2966a875-09a8-4f0a-b7db-e118d349b871" autoIncrement="false" name="numero_empilhamento" nullable="1" physicalName="numero_empilhamento" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL120" populated="true" UUID="806056e9-f425-4fcb-8566-df7269f05d0c" autoIncrement="false" name="empilhado" nullable="0" physicalName="empilhado" precision="0" referenceCount="1" scale="0" sourceDataTypeName="BIT" type="-7" >
+       <remarks></remarks>
+      </column>
+      <column id="COL121" populated="true" UUID="7ab91d7a-9b0a-46c6-aa9f-3adbffc24905" autoIncrement="false" name="ativo" nullable="0" physicalName="ativo" precision="0" referenceCount="1" scale="0" sourceDataTypeName="BIT" type="-7" >
+       <remarks></remarks>
+      </column>
+      <column id="COL122" populated="true" UUID="a22a35a5-13a8-4c75-b8c7-411fc591e9d9" autoIncrement="false" name="data_incl" nullable="0" physicalName="data_incl" precision="19" referenceCount="1" scale="0" sourceDataTypeName="DATETIME" type="93" >
+       <remarks></remarks>
+      </column>
+      <column id="COL123" populated="true" UUID="d7f6b30b-c577-4006-996e-bc5e755dd136" autoIncrement="false" defaultValue="1" name="vlan_padrao" nullable="0" physicalName="vlan_padrao" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      </folder>
+      <folder id="FOLTAB1143" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+      </folder>
+      <folder id="FOLTAB1142" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+      </folder>
+      <folder id="FOLTAB1144" populated="true" name="Indices" physicalName="Indices" type="4">
+      <index id="IDX124" populated="true" UUID="99f4046f-9067-4c06-8cc9-7039d1b2f760" clustered="false" name="redelocal_switch_PK" physicalName="redelocal_switch_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+       <index-column id="IDC125" populated="true" UUID="6767cfcc-c262-44f6-996c-7a4b056e5777" ascendingOrDescending="UNSPECIFIED" column-ref="COL115" name="codigo" physicalName="codigo" />
+      </index>
+     </folder>
+    </table>
+    <table id="TAB126" populated="true" UUID="10004543-742c-4e58-843a-6576be0ea55a" name="redelocal_tipo_porta_sw" objectType="TABLE" physicalName="redelocal_tipo_porta_sw" >
+     <remarks></remarks>
+     <folder id="FOLTAB1261" populated="true" name="Columns" physicalName="Columns" type="1">
+      <column id="COL127" populated="true" UUID="276a7188-3908-453d-a689-feb41cb120f9" autoIncrement="false" name="codigo" nullable="0" physicalName="codigo" precision="10" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL128" populated="true" UUID="febe0a31-0374-446c-86af-65c6cb4ed1ed" autoIncrement="false" name="descricao" nullable="0" physicalName="descricao" precision="45" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      </folder>
+      <folder id="FOLTAB1263" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+      </folder>
+      <folder id="FOLTAB1262" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+      </folder>
+      <folder id="FOLTAB1264" populated="true" name="Indices" physicalName="Indices" type="4">
+      <index id="IDX129" populated="true" UUID="613b1cc6-bb63-4e10-8055-46350f309034" clustered="false" name="redelocal_tipo_porta_sw_PK" physicalName="redelocal_tipo_porta_sw_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+       <index-column id="IDC130" populated="true" UUID="7daf9d95-86e6-465b-930a-59b128d80def" ascendingOrDescending="UNSPECIFIED" column-ref="COL127" name="codigo" physicalName="codigo" />
+      </index>
+     </folder>
+    </table>
+    <table id="TAB131" populated="true" UUID="77237a72-6505-477c-a27a-1ce9621f1851" name="redelocal_vlan" objectType="TABLE" physicalName="redelocal_vlan" >
+     <remarks></remarks>
+     <folder id="FOLTAB1311" populated="true" name="Columns" physicalName="Columns" type="1">
+      <column id="COL132" populated="true" UUID="31c0cc03-5d92-4497-a42a-c9729e9f9cae" autoIncrement="false" name="codigo" nullable="0" physicalName="codigo" precision="10" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL133" populated="true" UUID="3aec238e-d352-4ff5-8d8f-f91fc587f817" autoIncrement="false" name="nome" nullable="0" physicalName="nome" precision="45" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      <column id="COL134" populated="true" UUID="2c81d0f6-944e-47fe-923e-3a7214505c15" autoIncrement="false" name="qtd_hosts" nullable="0" physicalName="qtd_hosts" precision="10" referenceCount="1" scale="0" sourceDataTypeName="INT" type="4" >
+       <remarks></remarks>
+      </column>
+      <column id="COL135" populated="true" UUID="94764648-573b-4d6c-aeb2-6979e7f0a7f7" autoIncrement="false" name="descricao" nullable="1" physicalName="descricao" precision="150" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      <column id="COL136" populated="true" UUID="690f6401-c0fe-4cb7-a9a2-fdecef362679" autoIncrement="false" name="rede" nullable="1" physicalName="rede" precision="45" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      <column id="COL137" populated="true" UUID="21c36963-d525-4791-b383-99579fd4364e" autoIncrement="false" name="mascara" nullable="1" physicalName="mascara" precision="45" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      <column id="COL138" populated="true" UUID="6b5ac736-75b8-4e5f-99e0-b0f89c1b6794" autoIncrement="false" name="gateway" nullable="1" physicalName="gateway" precision="45" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      <column id="COL139" populated="true" UUID="51c94c85-cbae-4e1c-a7cc-a3d589722e76" autoIncrement="false" defaultValue="&apos;#337ab7&apos;" name="cor" nullable="1" physicalName="cor" precision="45" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      <column id="COL140" populated="true" UUID="f2efbd55-3d1b-4ab8-8158-536e0af402ac" autoIncrement="false" defaultValue="&apos;#ffffff&apos;" name="fonte" nullable="1" physicalName="fonte" precision="45" referenceCount="1" scale="0" sourceDataTypeName="VARCHAR" type="12" >
+       <remarks></remarks>
+      </column>
+      </folder>
+      <folder id="FOLTAB1313" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+      </folder>
+      <folder id="FOLTAB1312" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+      </folder>
+      <folder id="FOLTAB1314" populated="true" name="Indices" physicalName="Indices" type="4">
+      <index id="IDX141" populated="true" UUID="28a05d91-b5f1-4010-8dfd-9e3c4aa2a072" clustered="false" name="redelocal_vlan_PK" physicalName="redelocal_vlan_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+       <index-column id="IDC142" populated="true" UUID="c85df9fc-1791-4f98-a169-2b4dc0427690" ascendingOrDescending="UNSPECIFIED" column-ref="COL132" name="codigo" physicalName="codigo" />
+      </index>
+     </folder>
+    </table>
+    <table id="TAB143" populated="false" UUID="ff858ba6-7e1f-4f0d-bccd-0372b275ad22" name="servicos_cadastro" objectType="TABLE" physicalName="servicos_cadastro" >
+     <remarks></remarks>
+     <folder id="FOLTAB1431" populated="false" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX144" populated="true" UUID="f9031bee-2b33-45cb-ba70-4d8d202d2745" clustered="false" name="servicos_cadastro_pk" physicalName="servicos_cadastro_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+    <table id="TAB145" populated="false" UUID="f30bd3e4-c992-423f-a6f9-ef191394300f" name="servicos_eventos" objectType="TABLE" physicalName="servicos_eventos" >
+     <remarks></remarks>
+     <folder id="FOLTAB1451" populated="false" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX146" populated="true" UUID="ffeb5b37-4a0c-480e-8e9c-7df0ba64c247" clustered="false" name="servicos_eventos_pk" physicalName="servicos_eventos_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+    <table id="TAB147" populated="false" UUID="da1fb1c6-d3bb-46be-8ac8-537566aff44b" name="servicos_sit_tarefa" objectType="TABLE" physicalName="servicos_sit_tarefa" >
+     <remarks></remarks>
+     <folder id="FOLTAB1471" populated="false" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX148" populated="true" UUID="025d9c66-1369-40e7-a523-b76951b17021" clustered="false" name="servicos_sit_tarefa_pk" physicalName="servicos_sit_tarefa_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+    <table id="TAB149" populated="false" UUID="24c0f4e6-8a39-4d9f-8718-39ab674a577d" name="servicos_tarefas" objectType="TABLE" physicalName="servicos_tarefas" >
+     <remarks></remarks>
+     <folder id="FOLTAB1491" populated="false" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX150" populated="true" UUID="cf63f571-d976-4810-a27c-96322d45503e" clustered="false" name="servicos_tarefas_pk" physicalName="servicos_tarefas_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+    <table id="TAB151" populated="false" UUID="7c22af59-0669-4161-9ad3-1342f390484f" name="servidor_lista" objectType="TABLE" physicalName="servidor_lista" >
+     <remarks></remarks>
+     <folder id="FOLTAB1511" populated="false" name="Columns" physicalName="Columns" type="1">
+      <index id="IDX152" populated="true" UUID="4dd751b6-b8eb-4373-af70-4c4b87c74d77" clustered="false" name="servidor_lista_pk" physicalName="servidor_lista_pk" primaryKeyIndex="true" unique="false" >
+      </index>
+     </folder>
+    </table>
+   </catalog>
+   <catalog id="CAT153" populated="false" UUID="67140e8f-a3f0-40e9-af17-678e7ea0111c" name="tcexam" nativeTerm="database" physicalName="tcexam" >
+   </catalog>
+   <catalog id="CAT154" populated="false" UUID="9a78566b-b2c6-488f-99b2-462e168b19aa" name="test" nativeTerm="database" physicalName="test" >
+   </catalog>
+   <catalog id="CAT155" populated="false" UUID="44e146dc-800b-4567-944c-a52dd0e1b6d7" name="zabbix3" nativeTerm="database" physicalName="zabbix3" >
+   </catalog>
+   <catalog id="CAT156" populated="false" UUID="3b7b7ed1-ec87-40a3-9bec-f7345e72588b" name="zabbixcofre" nativeTerm="database" physicalName="zabbixcofre" >
+   </catalog>
+   <relationships>
+   </relationships>
+  </database>
+ </source-databases>
+ <target-database id="ppdb" dbcs-ref="DS0">
+  <table id="TAB158" populated="true" UUID="91e4b3e7-edce-40f6-bcec-cb957f17560e" name="redelocal_vlan" objectType="TABLE" physicalName="redelocal_vlan" >
+   <remarks></remarks>
+   <folder id="FOLTAB1581" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL159" populated="true" UUID="92c65125-f168-419b-824e-aa89974a795e" autoIncrement="false" defaultValue="" name="codigo" nullable="0" physicalName="codigo" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" source-column-ref="COL132" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL160" populated="true" UUID="f28c33b8-7643-4f76-bc7b-699e72f4a0f4" autoIncrement="false" defaultValue="" name="nome" nullable="0" physicalName="nome" precision="45" referenceCount="1" scale="0" source-column-ref="COL133" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL161" populated="true" UUID="fee2bd8e-4591-4f5e-9314-12d81ec92275" autoIncrement="false" defaultValue="" name="qtd_hosts" nullable="0" physicalName="qtd_hosts" precision="0" referenceCount="1" scale="0" source-column-ref="COL134" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL162" populated="true" UUID="a590a7b7-9e03-4305-8949-20968e0b611a" autoIncrement="false" defaultValue="" name="descricao" nullable="1" physicalName="descricao" precision="150" referenceCount="1" scale="0" source-column-ref="COL135" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL163" populated="true" UUID="697ba041-d5be-457d-976f-1253adeca336" autoIncrement="false" defaultValue="" name="rede" nullable="1" physicalName="rede" precision="45" referenceCount="1" scale="0" source-column-ref="COL136" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL164" populated="true" UUID="db6ede8e-bb2a-4ca9-afb1-91fe6637e6c5" autoIncrement="false" defaultValue="" name="mascara" nullable="1" physicalName="mascara" precision="45" referenceCount="1" scale="0" source-column-ref="COL137" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL165" populated="true" UUID="1e36e84f-5c21-43eb-add3-ea23c023a6fc" autoIncrement="false" defaultValue="" name="gateway" nullable="1" physicalName="gateway" precision="45" referenceCount="1" scale="0" source-column-ref="COL138" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL166" populated="true" UUID="37c8da0b-4cf1-4c5e-baa1-db501e45344c" autoIncrement="false" defaultValue="&apos;#337ab7&apos;" name="cor" nullable="1" physicalName="cor" precision="45" referenceCount="1" scale="0" source-column-ref="COL139" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL167" populated="true" UUID="29c9787b-791f-4b0b-9336-b2f55d06ab3d" autoIncrement="false" defaultValue="&apos;#ffffff&apos;" name="fonte" nullable="1" physicalName="fonte" precision="45" referenceCount="1" scale="0" source-column-ref="COL140" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1583" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1582" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1584" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX168" populated="true" UUID="e334a717-d22a-40d8-96cd-10208f0ca291" clustered="false" name="redelocal_vlan_PK" physicalName="redelocal_vlan_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+     <index-column id="IDC169" populated="true" UUID="c18febf1-9c50-44f6-bf40-4624f6f1910b" ascendingOrDescending="UNSPECIFIED" column-ref="COL159" name="codigo" physicalName="codigo" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB170" populated="true" UUID="95854992-beef-4174-9f4f-c31b67b2f49a" name="redelocal_modelo_switch" objectType="TABLE" physicalName="redelocal_modelo_switch" >
+   <remarks></remarks>
+   <folder id="FOLTAB1701" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL171" populated="true" UUID="105e57db-56c7-49d8-ac2a-599f05712982" autoIncrement="false" defaultValue="" name="codigo" nullable="0" physicalName="codigo" precision="0" primaryKeySeq="0" referenceCount="2" scale="0" source-column-ref="COL82" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL172" populated="true" UUID="d51695b0-3327-43a2-a9a5-97c6b86da9a8" autoIncrement="false" defaultValue="" name="codigo_marca" nullable="0" physicalName="codigo_marca" precision="0" referenceCount="1" scale="0" source-column-ref="COL83" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL173" populated="true" UUID="bce37ceb-21f8-4982-84bb-d99f0f814091" autoIncrement="false" defaultValue="" name="codigo_equip_tipo" nullable="0" physicalName="codigo_equip_tipo" precision="0" referenceCount="1" scale="0" source-column-ref="COL84" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL174" populated="true" UUID="0e612d01-b950-4cc1-8cab-c86d204de10e" autoIncrement="false" defaultValue="" name="descricao" nullable="0" physicalName="descricao" precision="90" referenceCount="1" scale="0" source-column-ref="COL85" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL175" populated="true" UUID="83d8f104-86a2-406e-a236-da9883dbaa08" autoIncrement="false" defaultValue="" name="ativo" nullable="0" physicalName="ativo" precision="0" referenceCount="1" scale="0" source-column-ref="COL86" sourceDataTypeName="BIT" type="-7" userDefinedTypeUUID="936cd049-d1df-44fc-ab05-b47cabe09060" >
+     <remarks></remarks>
+    </column>
+    <column id="COL176" populated="true" UUID="c6543ad2-3b58-461c-ada1-479355a49676" autoIncrement="false" defaultValue="" name="qtd_portas_eth" nullable="0" physicalName="qtd_portas_eth" precision="0" referenceCount="1" scale="0" source-column-ref="COL87" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL177" populated="true" UUID="158be75f-55ef-4f0c-9475-65d0b0c3ed53" autoIncrement="false" defaultValue="" name="qtd_portas_fc" nullable="0" physicalName="qtd_portas_fc" precision="0" referenceCount="1" scale="0" source-column-ref="COL88" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL178" populated="true" UUID="66957ae5-ebae-45fe-9cf0-3616946dc69b" autoIncrement="false" defaultValue="" name="gerenciavel" nullable="0" physicalName="gerenciavel" precision="0" referenceCount="1" scale="0" source-column-ref="COL89" sourceDataTypeName="BIT" type="-7" userDefinedTypeUUID="936cd049-d1df-44fc-ab05-b47cabe09060" >
+     <remarks></remarks>
+    </column>
+    <column id="COL179" populated="true" UUID="09cd8a77-022e-4519-8e73-9d15b4d0e7ba" autoIncrement="false" defaultValue="" name="data_incl" nullable="0" physicalName="data_incl" precision="0" referenceCount="1" scale="0" source-column-ref="COL90" sourceDataTypeName="DATETIME" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
+     <remarks></remarks>
+    </column>
+    <column id="COL180" populated="true" UUID="8393adc9-4e94-4da8-8878-7fed407c5b3a" autoIncrement="false" defaultValue="1000" name="velocidade_padrao_portas" nullable="0" physicalName="velocidade_padrao_portas" precision="0" referenceCount="1" scale="0" source-column-ref="COL91" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1703" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1702" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1704" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX181" populated="true" UUID="a59d9dc6-3cd6-49e9-8dc1-8251587c9cb0" clustered="false" name="redelocal_modelo_switch_PK" physicalName="redelocal_modelo_switch_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+     <index-column id="IDC182" populated="true" UUID="c88fadf3-6727-4952-baba-868dd6d89b6b" ascendingOrDescending="UNSPECIFIED" column-ref="COL171" name="codigo" physicalName="codigo" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB183" populated="true" UUID="795e648f-96bd-425f-b553-240e57938c4c" name="redelocal_tipo_porta_sw" objectType="TABLE" physicalName="redelocal_tipo_porta_sw" >
+   <remarks></remarks>
+   <folder id="FOLTAB1831" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL184" populated="true" UUID="32d452a8-de4f-43b1-b410-0162b542a477" autoIncrement="false" defaultValue="" name="codigo" nullable="0" physicalName="codigo" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" source-column-ref="COL127" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL185" populated="true" UUID="f1ee1203-38bd-4888-af71-7d2355c47b78" autoIncrement="false" defaultValue="" name="descricao" nullable="0" physicalName="descricao" precision="45" referenceCount="1" scale="0" source-column-ref="COL128" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1833" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1832" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1834" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX186" populated="true" UUID="3d3352b6-863c-4ddd-acb2-40f3159dc4ca" clustered="false" name="redelocal_tipo_porta_sw_PK" physicalName="redelocal_tipo_porta_sw_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+     <index-column id="IDC187" populated="true" UUID="c6af6cf3-afba-42e1-9878-a650ab342ee8" ascendingOrDescending="UNSPECIFIED" column-ref="COL184" name="codigo" physicalName="codigo" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB188" populated="true" UUID="5b28d757-2843-4456-8c51-1c41c65fb776" name="redelocal_switch" objectType="TABLE" physicalName="redelocal_switch" >
+   <remarks></remarks>
+   <folder id="FOLTAB1881" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL189" populated="true" UUID="e541fd69-d4d9-483d-bb30-9d3672092750" autoIncrement="false" defaultValue="" name="codigo" nullable="0" physicalName="codigo" precision="0" primaryKeySeq="0" referenceCount="3" scale="0" source-column-ref="COL115" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL190" populated="true" UUID="268580f5-71e3-4bdf-aa69-cfecc65b521f" autoIncrement="false" defaultValue="" name="codigo_modelo" nullable="0" physicalName="codigo_modelo" precision="0" referenceCount="1" scale="0" source-column-ref="COL116" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL191" populated="true" UUID="4d1c2b81-8568-4361-b8e2-32cb34843be1" autoIncrement="false" defaultValue="" name="ip" nullable="0" physicalName="ip" precision="45" referenceCount="1" scale="0" source-column-ref="COL117" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL192" populated="true" UUID="805c859e-2af5-4632-aa99-20cac8f09784" autoIncrement="false" defaultValue="" name="codigo_rack" nullable="0" physicalName="codigo_rack" precision="0" referenceCount="1" scale="0" source-column-ref="COL118" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL193" populated="true" UUID="7e856ef8-d217-42ee-902c-88ac5bcea372" autoIncrement="false" defaultValue="" name="numero_empilhamento" nullable="1" physicalName="numero_empilhamento" precision="0" referenceCount="1" scale="0" source-column-ref="COL119" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL194" populated="true" UUID="91895fd8-f8ca-4280-ba91-18147da1e4c6" autoIncrement="false" defaultValue="" name="empilhado" nullable="0" physicalName="empilhado" precision="0" referenceCount="1" scale="0" source-column-ref="COL120" sourceDataTypeName="BIT" type="-7" userDefinedTypeUUID="936cd049-d1df-44fc-ab05-b47cabe09060" >
+     <remarks></remarks>
+    </column>
+    <column id="COL195" populated="true" UUID="ba75a0bf-849f-4ea2-943f-639d1cf51281" autoIncrement="false" defaultValue="" name="ativo" nullable="0" physicalName="ativo" precision="0" referenceCount="1" scale="0" source-column-ref="COL121" sourceDataTypeName="BIT" type="-7" userDefinedTypeUUID="936cd049-d1df-44fc-ab05-b47cabe09060" >
+     <remarks></remarks>
+    </column>
+    <column id="COL196" populated="true" UUID="cdd1f6bb-643c-4328-b649-56ea3950f148" autoIncrement="false" defaultValue="" name="data_incl" nullable="0" physicalName="data_incl" precision="0" referenceCount="1" scale="0" source-column-ref="COL122" sourceDataTypeName="DATETIME" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
+     <remarks></remarks>
+    </column>
+    <column id="COL197" populated="true" UUID="087f57e4-6cb0-4c5a-afb6-e44eea23c600" autoIncrement="false" defaultValue="1" name="vlan_padrao" nullable="0" physicalName="vlan_padrao" precision="0" referenceCount="1" scale="0" source-column-ref="COL123" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1883" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1882" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1884" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX198" populated="true" UUID="5f76ae17-3bfa-4a86-9e80-521e5eaa1598" clustered="false" name="redelocal_switch_PK" physicalName="redelocal_switch_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+     <index-column id="IDC199" populated="true" UUID="84ef418e-010c-4fae-bf32-4c7790ce6ee6" ascendingOrDescending="UNSPECIFIED" column-ref="COL189" name="codigo" physicalName="codigo" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB200" populated="true" UUID="cf71b43d-207e-4674-b5ed-35d8029d9c48" name="redelocal_porta_switch" objectType="TABLE" physicalName="redelocal_porta_switch" >
+   <remarks></remarks>
+   <folder id="FOLTAB2001" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL201" populated="true" UUID="79821112-dfaa-4dd0-9bca-4c3b05f2166d" autoIncrement="false" defaultValue="" name="codigo_switch" nullable="0" physicalName="codigo_switch" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" source-column-ref="COL95" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL202" populated="true" UUID="a1e072bc-ec6d-48d0-a40f-ccf91ac3b99d" autoIncrement="false" defaultValue="" name="codigo_porta_switch" nullable="0" physicalName="codigo_porta_switch" precision="0" primaryKeySeq="1" referenceCount="1" scale="0" source-column-ref="COL96" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL203" populated="true" UUID="e79d0f97-c254-4093-b14d-99d537fc88fb" autoIncrement="false" defaultValue="" name="tipo_porta" nullable="0" physicalName="tipo_porta" precision="0" primaryKeySeq="2" referenceCount="1" scale="0" source-column-ref="COL97" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL204" populated="true" UUID="d58e8ec4-32d0-4321-83ed-f3e5e7085845" autoIncrement="false" defaultValue="" name="velocidade" nullable="0" physicalName="velocidade" precision="45" referenceCount="1" scale="0" source-column-ref="COL98" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL205" populated="true" UUID="bf92c50f-631d-400e-a786-67702fe275cf" autoIncrement="false" defaultValue="" name="codigo_vlan" nullable="0" physicalName="codigo_vlan" precision="0" referenceCount="1" scale="0" source-column-ref="COL99" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL206" populated="true" UUID="66ae322b-b38e-48c3-8768-e85bc6f6a3d3" autoIncrement="false" defaultValue="" name="observacao" nullable="1" physicalName="observacao" precision="150" referenceCount="1" scale="0" source-column-ref="COL100" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL207" populated="true" UUID="bbec1e54-791d-42d1-9e11-36f910be88c6" autoIncrement="false" defaultValue="" name="texto_tela" nullable="0" physicalName="texto_tela" precision="5" referenceCount="1" scale="0" source-column-ref="COL101" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL208" populated="true" UUID="42e1ce60-e2d9-49c0-8696-747994b9f59c" autoIncrement="false" defaultValue="" name="data_alt" nullable="1" physicalName="data_alt" precision="0" referenceCount="1" scale="0" source-column-ref="COL102" sourceDataTypeName="DATETIME" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB2003" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB2002" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB2004" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX209" populated="true" UUID="3d8d4092-a5bf-4053-8fc6-5c43821bb2e7" clustered="false" name="redelocal_porta_switch_PK" physicalName="redelocal_porta_switch_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+     <index-column id="IDC210" populated="true" UUID="c320a4aa-d6d9-4a66-9b2c-f00190cf73cc" ascendingOrDescending="UNSPECIFIED" column-ref="COL201" name="codigo_switch" physicalName="codigo_switch" />
+     <index-column id="IDC211" populated="true" UUID="14375135-e259-4e53-84d0-30871940b13b" ascendingOrDescending="UNSPECIFIED" column-ref="COL202" name="codigo_porta_switch" physicalName="codigo_porta_switch" />
+     <index-column id="IDC212" populated="true" UUID="8aa09ba8-8c9a-4e4e-b6b8-8a79d5e1de14" ascendingOrDescending="UNSPECIFIED" column-ref="COL203" name="tipo_porta" physicalName="tipo_porta" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB213" populated="true" UUID="508b118e-c4c3-4b08-8d49-b285aa1e8786" name="redelocal_rack" objectType="TABLE" physicalName="redelocal_rack" >
+   <remarks></remarks>
+   <folder id="FOLTAB2131" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL214" populated="true" UUID="7c888646-b186-4102-b6e8-a02a8d8d5dac" autoIncrement="false" defaultValue="" name="codigo" nullable="0" physicalName="codigo" precision="0" primaryKeySeq="0" referenceCount="2" scale="0" source-column-ref="COL108" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL215" populated="true" UUID="61e8c44f-8519-4bb3-a55b-ceccae66a7d4" autoIncrement="false" defaultValue="" name="descricao" nullable="0" physicalName="descricao" precision="45" referenceCount="1" scale="0" source-column-ref="COL109" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL216" populated="true" UUID="6a0f98c1-5bf4-4942-b8ff-8a389771262e" autoIncrement="false" defaultValue="" name="setor" nullable="0" physicalName="setor" precision="45" referenceCount="1" scale="0" source-column-ref="COL110" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL217" populated="true" UUID="4cf80e7d-8bae-4cad-ac57-975fc116dd75" autoIncrement="false" defaultValue="" name="codigo_bloco" nullable="0" physicalName="codigo_bloco" precision="0" referenceCount="1" scale="0" source-column-ref="COL111" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB2133" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB2132" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB2134" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX218" populated="true" UUID="0c65fb01-1124-452a-bf03-26679826b0f8" clustered="false" name="redelocal_rack_PK" physicalName="redelocal_rack_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+     <index-column id="IDC219" populated="true" UUID="158b2a67-42d3-455b-baf0-63f020f896fe" ascendingOrDescending="UNSPECIFIED" column-ref="COL214" name="codigo" physicalName="codigo" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB220" populated="true" UUID="151c4bb4-3355-4756-b219-e681950cef7e" name="redelocal_marca" objectType="TABLE" physicalName="redelocal_marca" >
+   <remarks></remarks>
+   <folder id="FOLTAB2201" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL221" populated="true" UUID="25e67b11-8cae-449e-bbab-30ce4549a1bf" autoIncrement="false" defaultValue="" name="codigo" nullable="0" physicalName="codigo" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" source-column-ref="COL61" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL222" populated="true" UUID="49689c56-4d9b-4e9c-b310-9b46882a8f7d" autoIncrement="false" defaultValue="" name="descricao" nullable="0" physicalName="descricao" precision="90" referenceCount="1" scale="0" source-column-ref="COL62" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL223" populated="true" UUID="cb30639a-0d5a-4c73-b584-e4ab604f56be" autoIncrement="false" defaultValue="" name="ativo" nullable="0" physicalName="ativo" precision="0" referenceCount="1" scale="0" source-column-ref="COL63" sourceDataTypeName="BIT" type="-7" userDefinedTypeUUID="936cd049-d1df-44fc-ab05-b47cabe09060" >
+     <remarks></remarks>
+    </column>
+    <column id="COL224" populated="true" UUID="8d02acbd-de45-46d5-86ad-04e31158261b" autoIncrement="false" defaultValue="" name="data_incl" nullable="0" physicalName="data_incl" precision="0" referenceCount="1" scale="0" source-column-ref="COL64" sourceDataTypeName="DATETIME" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB2203" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB2202" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB2204" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX225" populated="true" UUID="c82f23ce-c39d-4112-a745-f6f0d1189f40" clustered="false" name="redelocal_marca_PK" physicalName="redelocal_marca_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+     <index-column id="IDC226" populated="true" UUID="77cc929d-4ce9-4b24-b06a-59842279c524" ascendingOrDescending="UNSPECIFIED" column-ref="COL221" name="codigo" physicalName="codigo" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB227" populated="true" UUID="67ab3144-b430-4dc0-b507-35a5a6eacc11" name="redelocal_bloco" objectType="TABLE" physicalName="redelocal_bloco" >
+   <remarks></remarks>
+   <folder id="FOLTAB2271" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL228" populated="true" UUID="c2fcd79c-a52e-4fc8-9afb-84ead75b4c7b" autoIncrement="false" defaultValue="" name="codigo" nullable="0" physicalName="codigo" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" source-column-ref="COL41" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL229" populated="true" UUID="92329b59-409f-4db2-9d53-2be011e38bbb" autoIncrement="false" defaultValue="" name="nome" nullable="0" physicalName="nome" precision="45" referenceCount="1" scale="0" source-column-ref="COL42" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL230" populated="true" UUID="3644994d-bdb5-4957-bea0-184e6c9397b6" autoIncrement="false" defaultValue="" name="descricao" nullable="0" physicalName="descricao" precision="150" referenceCount="1" scale="0" source-column-ref="COL43" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL231" populated="true" UUID="fff2aabf-ecc7-4558-8222-773e6b00f3a1" autoIncrement="false" defaultValue="" name="ativo" nullable="0" physicalName="ativo" precision="0" referenceCount="1" scale="0" source-column-ref="COL44" sourceDataTypeName="BIT" type="-7" userDefinedTypeUUID="936cd049-d1df-44fc-ab05-b47cabe09060" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB2273" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB2272" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB2274" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX232" populated="true" UUID="295676cb-9e75-424f-916c-7e6d54abe2fe" clustered="false" name="redelocal_bloco_PK" physicalName="redelocal_bloco_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+     <index-column id="IDC233" populated="true" UUID="e1862b12-3090-4c48-82a3-8a41f22a08b0" ascendingOrDescending="UNSPECIFIED" column-ref="COL228" name="codigo" physicalName="codigo" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB234" populated="true" UUID="241bb05c-b7a7-43ad-97ef-759398bb8f07" name="redelocal_impressora" objectType="TABLE" physicalName="redelocal_impressora" >
+   <remarks></remarks>
+   <folder id="FOLTAB2341" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL235" populated="true" UUID="8bd444ed-1585-4a98-a534-a00fafff3c63" autoIncrement="false" defaultValue="" name="codigo_host_zabbix" nullable="0" physicalName="codigo_host_zabbix" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" source-column-ref="COL50" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL236" populated="true" UUID="b6b3410e-b5b4-48b8-b2a7-b4d033da3313" autoIncrement="false" defaultValue="" name="codigo_modelo" nullable="0" physicalName="codigo_modelo" precision="0" referenceCount="1" scale="0" source-column-ref="COL51" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL237" populated="true" UUID="02d2897b-ef5f-4f6d-a4d0-0eb25030056a" autoIncrement="false" defaultValue="" name="codigo_switch" nullable="0" physicalName="codigo_switch" precision="0" referenceCount="1" scale="0" source-column-ref="COL52" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL238" populated="true" UUID="09c5eb72-5a30-4109-a714-65183db77928" autoIncrement="false" defaultValue="" name="codigo_porta_switch" nullable="0" physicalName="codigo_porta_switch" precision="0" referenceCount="1" scale="0" source-column-ref="COL53" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL239" populated="true" UUID="0c05868e-dd8b-418f-b3d7-0b066d7848c3" autoIncrement="false" defaultValue="" name="tipo_porta" nullable="0" physicalName="tipo_porta" precision="0" referenceCount="1" scale="0" source-column-ref="COL54" sourceDataTypeName="INT" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL240" populated="true" UUID="6fcae2e9-299a-4243-bc72-0ff1bcbeb9dc" autoIncrement="false" defaultValue="" name="setor" nullable="1" physicalName="setor" precision="250" referenceCount="1" scale="0" source-column-ref="COL55" sourceDataTypeName="VARCHAR" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB2343" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB2342" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB2344" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX241" populated="true" UUID="2c08d13e-cf79-4d4e-ae39-100352596789" clustered="false" name="redelocal_impressora_PK" physicalName="redelocal_impressora_PK" primaryKeyIndex="true" qualifier="" unique="true" >
+     <index-column id="IDC242" populated="true" UUID="e2b7c174-b8a0-4afb-9c70-e1b960dc8645" ascendingOrDescending="UNSPECIFIED" column-ref="COL235" name="codigo_host_zabbix" physicalName="codigo_host_zabbix" />
+    </index>
+    <index id="IDX243" populated="true" UUID="169b2149-2dcb-4ffb-8338-90990809109d" clustered="false" index-type="BTREE" name="codigo_host_zabbix_UNIQUE" physicalName="codigo_host_zabbix_UNIQUE" primaryKeyIndex="false" qualifier="" unique="true" >
+     <index-column id="IDC244" populated="true" UUID="3a0b30a3-7fa7-4b29-a8e2-7c88e0aa98e4" ascendingOrDescending="ASCENDING" column-ref="COL235" name="codigo_host_zabbix" physicalName="codigo_host_zabbix" />
+    </index>
+   </folder>
+  </table>
+  <relationships>
+   <relationship id="REL245" populated="true" UUID="2d33f380-e2b6-422a-9053-6cf005949b4b" deferrability="7" deleteRule="3" fk-table-ref="TAB200" fkCardinality="7" identifying="false" name="redelocal_vlan_redelocal_porta_switch_fk" physicalName="redelocal_vlan_redelocal_porta_switch_fk" pk-table-ref="TAB158" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP246" populated="true" UUID="4483cef6-375f-4d30-8cb5-9675499f2784" fk-column-ref="COL205" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL159" />
+   </relationship>
+   <relationship id="REL247" populated="true" UUID="4c932814-0758-4f9e-a827-745089e5806b" deferrability="7" deleteRule="3" fk-table-ref="TAB188" fkCardinality="7" identifying="true" name="redelocal_modelo_switch_redelocal_switch_fk" physicalName="redelocal_modelo_switch_redelocal_switch_fk" pk-table-ref="TAB170" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP248" populated="true" UUID="d3cc11db-ab31-4546-b9d4-382d6e009bf1" fk-column-ref="COL190" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL171" />
+   </relationship>
+   <relationship id="REL249" populated="true" UUID="cacd9d60-79d6-4241-aff9-e78300702963" deferrability="7" deleteRule="3" fk-table-ref="TAB200" fkCardinality="7" identifying="false" name="redelocal_tipo_porta_sw_redelocal_porta_switch_fk" physicalName="redelocal_tipo_porta_sw_redelocal_porta_switch_fk" pk-table-ref="TAB183" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP250" populated="true" UUID="92cf5c89-925f-426b-bf9e-b4de7657f3a6" fk-column-ref="COL203" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL184" />
+   </relationship>
+   <relationship id="REL251" populated="true" UUID="5795216f-49f6-4c19-9f05-8a28ce211e4e" deferrability="7" deleteRule="3" fk-table-ref="TAB200" fkCardinality="7" identifying="false" name="redelocal_switch_redelocal_porta_switch_fk" physicalName="redelocal_switch_redelocal_porta_switch_fk" pk-table-ref="TAB188" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP252" populated="true" UUID="56602334-7925-42d0-b4be-21e540096f7b" fk-column-ref="COL201" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL189" />
+   </relationship>
+   <relationship id="REL253" populated="true" UUID="28efa9bb-3a74-4a45-b5a9-59ff20465a47" deferrability="7" deleteRule="3" fk-table-ref="TAB188" fkCardinality="7" identifying="false" name="redelocal_rack_redelocal_switch_fk" physicalName="redelocal_rack_redelocal_switch_fk" pk-table-ref="TAB213" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP254" populated="true" UUID="931c1996-5c9b-431c-8641-72dcb20c365a" fk-column-ref="COL192" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL214" />
+   </relationship>
+   <relationship id="REL255" populated="true" UUID="066bbfc2-9496-4435-8080-94c53e654042" deferrability="7" deleteRule="3" fk-table-ref="TAB170" fkCardinality="7" identifying="false" name="redelocal_marca_redelocal_modelo_switch_fk" physicalName="redelocal_marca_redelocal_modelo_switch_fk" pk-table-ref="TAB220" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP256" populated="true" UUID="b64dc0cf-7552-41b6-9b2e-243b339edd66" fk-column-ref="COL172" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL221" />
+   </relationship>
+   <relationship id="REL257" populated="true" UUID="e16af8e6-2416-46d5-ba63-12dc13ca6ce5" deferrability="7" deleteRule="3" fk-table-ref="TAB213" fkCardinality="7" identifying="true" name="redelocal_bloco_redelocal_rack_fk" physicalName="redelocal_bloco_redelocal_rack_fk" pk-table-ref="TAB227" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP258" populated="true" UUID="61998b19-2ac1-4d1d-bfe3-c0787e1c8edd" fk-column-ref="COL217" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL228" />
+   </relationship>
+  </relationships>
+ </target-database>
+ <ddl-generator type="ca.sqlpower.architect.ddl.GenericDDLGenerator" allow-connection="true"> </ddl-generator>
+ <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
+ <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
+ <play-pen zoom="1.0" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+  <table-pane table-ref="TAB158" x="335" y="469" bgColor="0xf0f0f0" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB170" x="288" y="163" bgColor="0xf0f0f0" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB183" x="308" y="355" bgColor="0xf0f0f0" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB188" x="20" y="288" bgColor="0xf0f0f0" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB200" x="20" y="494" bgColor="0xf0f0f0" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB213" x="22" y="160" bgColor="0xf0f0f0" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB220" x="263" y="20" bgColor="0xf0f0f0" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB227" x="41" y="21" bgColor="0xf0f0f0" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB234" x="520" y="33" bgColor="0xf0f0f0" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-link relationship-ref="REL257" pkConnection="0.46524064171123" fkConnection="0.5193370165745856" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL253" pkConnection="0.43902439024390244" fkConnection="0.5887850467289719" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL247" pkConnection="0.7218934911242604" fkConnection="0.2903225806451613" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL251" pkConnection="0.5280373831775701" fkConnection="0.47107438016528924" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL249" pkConnection="0.40331491712707185" fkConnection="0.9256198347107438" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL245" pkConnection="0.5483870967741935" fkConnection="0.6903225806451613" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL255" pkConnection="0.4530386740331492" fkConnection="0.401673640167364" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+ </play-pen>
+ <critic-manager>
+  <critic-grouping platformType="Generic" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PrimaryKeyCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.RelationshipMappingTypeCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.EmptyRelationshipCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericSequenceNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetDefaultOnColumnWithNoDefaultCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetNullOnNonNullableColumnCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DuplicateNameCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="DB2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DB2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="H2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.H2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="HSQLDB" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.HSQLDBUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="MySQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLCommentCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="Oracle" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OraclePhysicalNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="PostgreSQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PostgreSQLReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerUnsupportedFeaturesCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2000" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2000UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2005" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2005UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+ </critic-manager>
+ <profiles topNCount="10">
+  </profiles>
+  <olap>
+  </olap>
+  <olap-gui>
+  </olap-gui>
+</architect-project>

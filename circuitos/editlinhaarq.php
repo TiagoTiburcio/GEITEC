@@ -48,7 +48,7 @@
                   <input type="text" class="form-control" readonly="true" id="cidade" name="cidade" value="<?php echo $cidade;?>">
                 </div>
                 <div class="form-group ui-widget">
-                <label for="combobox" >Escolha a Unidade vinculada ao Serviço: </label>
+                <label for="combobox" >Pesquise um registro consumo vinculado: </label>
                     <select class="form-control" id="combobox" name="combobox">
                     <option value="">Escolha Unidade</option>
                     <?php              
