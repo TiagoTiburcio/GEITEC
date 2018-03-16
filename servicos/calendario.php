@@ -3,7 +3,7 @@
     
     $usuario = new Usuario();
     
-    $usuario->validaSessao();
+    $usuario->validaSessao('1');
     
 ?>
     <div class="col-xs-offset-1 col-xs-10">                        

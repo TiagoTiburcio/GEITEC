@@ -5,7 +5,7 @@
     $servico = new Servico();
     $redmine = new Redmine();
     
-    $usuario->validaSessao();
+    $usuario->validaSessao('1');
     if(!isset($_POST['nome'])) { $_POST['nome'] = ''; }
     if(!isset($_POST['id'])) { $_POST['id'] = ''; }
     $nome	= $_POST ["nome"];	

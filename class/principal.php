@@ -1,5 +1,6 @@
 <?php
 include_once '../class/database.php';
+
 /**
  * Description of usuario
  *
@@ -134,11 +135,18 @@ class Usuario extends Database {
         return $retorno;
     }
     
-    function validaSessao(){        
-        session_start();
-        include ("../class/header.php");
+    function validaSessao($_teste){               
+        session_start();        
+        if($_teste == '1'){
+            include ("../class/headerCircuitos.php");
+            include ("../class/baropc.php");
+        } else {
+            include ("../class/header.php");
+            include ("../class/baropc.php");
+        }
         
-        //Caso o usuário não esteja autenticado, limpa os dados e redireciona
+        
+//Caso o usuário não esteja autenticado, limpa os dados e redireciona
         if ( !isset($_SESSION['login']) and !isset($_SESSION['pass']) ) {
             //Destrói
             session_destroy();
@@ -1101,6 +1109,19 @@ class ZabbixSEED extends DatabaseZbx {
             return 'N/C';
         }
     }
+}
+
+/**
+ * Description of Zabbix Cofre
+ *
+ * @author tiagoc
+ */
+class ZabbixCofre extends DatabaseZbxCofre {
+    function listArquivosExcluidos(){        
+        $consulta_listArquivosExcluidos = " SELECT * , FROM_UNIXTIME(timestamp) AS data_hora, REPLACE(REPLACE(value, '	',''),'','') AS log FROM zabbixcofre.history_log where value like '%Accesses:		DELETE%' and logeventid = '4663' limit 5; ";                
+        $resultado_listArquivosExcluidos = mysqli_query($this->connectZbxCofre(), $consulta_listArquivosExcluidos);        
+        return $resultado_listArquivosExcluidos;
+    }    
 }
 
 /**

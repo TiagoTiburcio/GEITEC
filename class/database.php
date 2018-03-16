@@ -135,3 +135,36 @@ abstract class DatabaseZbx {
     } 
 }
 
+abstract class DatabaseZbxCofre {
+    
+    private static $hostZbxCofre     = "172.25.76.85";  
+    private static $userZbxCofre     = "geitec";
+    private static $passwordZbxCofre = "seedqawsed";
+    private static $dbZbxCofre       = "zabbix3";
+     
+    /*Metodos que trazem o conteudo da variavel desejada
+    @return   $xxx = conteudo da variavel solicitada*/
+    
+    private function getHost()    {return self::$hostZbxCofre;}   
+    private function getUser()    {return self::$userZbxCofre;}
+    private function getPassword(){return self::$passwordZbxCofre;}
+    private function getDB()      {return self::$dbZbxCofre;}
+     
+    function connectZbxCofre(){
+        $conexaoZbxCofre = mysqli_connect($this->getHost(), $this->getUser(), $this->getPassword(), $this->getDB());
+        if (mysqli_connect_errno()){
+                echo "Falha na conexão: ". mysqli_connect_errno() ;
+        }
+        if (!mysqli_set_charset($conexaoZbxCofre, "utf8")) {
+            printf("Error loading character set utf8: %s\n", mysqli_error($conexaoZbxCofre));
+            exit();
+        } else {
+            mysqli_character_set_name($conexaoZbxCofre);
+        }
+        return $conexaoZbxCofre;
+    }
+    function close(){              
+    } 
+}
+
+

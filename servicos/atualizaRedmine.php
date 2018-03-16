@@ -5,7 +5,7 @@
     $servicos = new Servicos();
     $redmine = new Redmine();
     
-    $usuario->validaSessao();
+    $usuario->validaSessao('1');
 
 ?>                
     <div class="col-xs-12">

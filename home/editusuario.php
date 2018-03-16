@@ -5,7 +5,7 @@
     
     $usuarioEdit = new Usuario();
     
-    $usuario->validaSessao();
+    $usuario->validaSessao('');
     if(!isset($_GET ["usuario"])) { $_GET ["usuario"] = ''; }
     $usuarioEdit->iniUsuario($_GET ["usuario"]);
 ?>

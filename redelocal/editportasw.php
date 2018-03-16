@@ -6,7 +6,7 @@
     $switch = new Switchs();
     
     $zabbix = new ZabbixSEED();
-    $usuario->validaSessao();
+    $usuario->validaSessao('');
     $codigo_sw	= $_GET ["sw"];
     $porta_sw	= $_GET ["port"];
     $tipo_porta = $_GET ["tipo"];

@@ -3,7 +3,7 @@
     
     $usuario = new Usuario();
     
-    $usuario->validaSessao();   
+    $usuario->validaSessao('');   
 
     $circuitos = new Circuitos();   
     

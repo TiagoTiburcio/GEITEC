@@ -4,7 +4,7 @@
     $usuario = new Usuario();    
     $servicos = new Servicos();    
     
-    $usuario->validaSessao(); 
+    $usuario->validaSessao('1'); 
 ?>
     <div class="col-xs-offset-3 col-xs-6">
         <form class="form-horizontal" method="post" action="../servicos/servico_novo_grava.php">

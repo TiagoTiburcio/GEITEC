@@ -4,7 +4,7 @@
     $usuario = new Usuario();    
     $servicos = new Servicos();
        
-    $usuario->validaSessao();
+    $usuario->validaSessao('1');
     
     if(!isset($_POST['tarefa_redmine'])) { $_POST['tarefa_redmine'] = ''; }
     if(!isset($_POST['evento'])) { $_POST['evento'] = ''; }

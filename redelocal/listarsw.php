@@ -3,28 +3,44 @@
     
     $usuario = new Usuario();
     
-    $usuario->validaSessao();
+    $usuario->validaSessao('');
     
     $switch = new Switchs();
     
-    if(!isset($_POST['marca'])) { $_POST['marca'] = ''; }
-    if(!isset($_POST['modelo'])) { $_POST['modelo'] = ''; }
-    if(!isset($_POST['ip'])) { $_POST['ip'] = ''; }
-    if(!isset($_POST['bloco'])) { $_POST['bloco'] = ''; } 
-    if(!isset($_POST['setor'])) { $_POST['setor'] = ''; }
-    $marca	= $_POST ["marca"];	
+    if(!isset($_GET['limpa'])) { $_GET['limpa'] = ''; } 
+    elseif ($_POST['limpa'] = '1') {
+       unset($_SESSION['marca']);
+       unset($_SESSION['modelo']);
+       unset($_SESSION['ip']);
+       unset($_SESSION['bloco']);
+       unset($_SESSION['bloco']);
+    }
     
-    $modelo      = $_POST ["modelo"];
     
-    $ip      = $_POST ["ip"];
+    if(!isset($_SESSION['marca'])) { $_SESSION['marca'] = ''; }
+    if(!isset($_SESSION['modelo'])) { $_SESSION['modelo'] = ''; }
+    if(!isset($_SESSION['ip'])) { $_SESSION['ip'] = ''; }
+    if(!isset($_SESSION['bloco'])) { $_SESSION['bloco'] = ''; } 
+    if(!isset($_SESSION['setor'])) { $_SESSION['setor'] = ''; }
+    if(isset($_POST['marca'])) { $_SESSION ["marca"] =  $_POST ["marca"]; }
+    if(isset($_POST['modelo'])) { $_SESSION ["modelo"] = $_POST ["modelo"]; }
+    if(isset($_POST['ip'])) { $_SESSION ["ip"] = $_POST ["ip"]; }
+    if(isset($_POST['bloco'])) { $_SESSION ["bloco"] = $_POST ["bloco"]; } 
+    if(isset($_POST['setor'])) { $_SESSION ["setor"] = $_POST ["setor"]; }
     
-    $bloco      = $_POST ["bloco"];
+    $marca	= $_SESSION ["marca"];	
     
-    $setor      = $_POST ["setor"];
+    $modelo      = $_SESSION ["modelo"];
+    
+    $ip      = $_SESSION ["ip"];
+    
+    $bloco      = $_SESSION ["bloco"];
+    
+    $setor      = $_SESSION ["setor"];
     
 ?>
         <div class="col-xs-2">                        
-            <form class="form-horizontal" method="post" action="">
+            <form class="form-horizontal" method="post" action="listarsw.php">
              <div class="form-group">
                <div class="col-xs-10 col-xs-offset-2">                
                 <div class="form-group">
@@ -47,7 +63,7 @@
                     <label for="setor">Setor</label>
                   <input type="text" class="form-control" id="setor" name="setor" value="<?php echo $setor;?>">
                 </div>   
-                  <a type="button" class="btn btn-danger"  href="">Limpar <span class="glyphicon glyphicon-erase"></span></a>                 
+                   <a type="button" class="btn btn-danger"  href="listarsw.php?limpa=1">Limpar <span class="glyphicon glyphicon-erase"></span></a>                 
                   <button type="submit" class="btn btn-primary" >Pesquisar <span class="glyphicon glyphicon-search"></span></button>                  
                </div>
              </div>  

@@ -1,5 +1,6 @@
 <?php
-    include ("../class/header.php");         
+    include ("../class/header.php");
+    include ("../class/baropc.php");   
 ?>
         <div class="col-xs-12 text-center">
             <form class="form-horizontal" method="post" action="../home/testead.php">

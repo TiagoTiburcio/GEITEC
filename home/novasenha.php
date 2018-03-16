@@ -3,7 +3,7 @@
     
     $usuario = new Usuario();
     
-    $usuario->validaSessao();
+    $usuario->validaSessao('');
 ?>
         <div class="col-xs-12 text-center">
             <form id="renoveSenha" name="renoveSenha" onsubmit="return validaSenha();" class="form-horizontal" method="post" action="gravasenha.php">

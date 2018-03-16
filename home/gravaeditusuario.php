@@ -3,7 +3,7 @@
     
     $usuario = new Usuario();
     
-    $usuario->validaSessao();
+    $usuario->validaSessao('');
     
     $login = $_POST['login'];
     $nome_usuario = $_POST['nome_usuario'];

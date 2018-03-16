@@ -4,7 +4,7 @@
     $usuario = new Usuario();    
     $servicos = new Servico();
     
-    $usuario->validaSessao();
+    $usuario->validaSessao('1');
     
     $codigo = $_GET ["codigo"];
    

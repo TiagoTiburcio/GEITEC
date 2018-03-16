@@ -4,7 +4,7 @@
     $usuario = new Usuario();    
     $servicos = new Servicos();
     
-    $usuario->validaSessao();
+    $usuario->validaSessao('1');
     
     $evento = $_GET ["evento"];
     

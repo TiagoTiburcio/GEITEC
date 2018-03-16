@@ -4,7 +4,7 @@
     $usuario = new Usuario();    
     $servicos = new Servico();
        
-    $usuario->validaSessao();
+    $usuario->validaSessao('1');
     
     $repeticao	= $_POST ["repeticao"];    
     $descricao  = $_POST ["descricao"];

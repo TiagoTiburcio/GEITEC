@@ -3,7 +3,7 @@
     
     $usuario = new Usuario();
     
-    $usuario->validaSessao();   
+    $usuario->validaSessao('');   
 
     $circuitos = new Circuitos();   
      if(!isset($_POST['fatura'])) { $_POST['fatura'] = ''; }
