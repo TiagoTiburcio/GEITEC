@@ -111,8 +111,8 @@
                         <td><?php echo $table["num_imovel"]; ?></td>  
                         <td><?php echo $table["nome_bairro"]; ?></span></td>  
                         <td><?php echo 'R$' . number_format($table["valor_servico"], 2, ',', '.'); ?></td> 
-                        <td><?php echo '<a  type="button" class="btn btn-primary" href="../circuitos/editlinhaarq.php?arquivo='.$table["nome_arquivo"].'&num_linha='.$table["num_linha_arquivo"].'"><span class="glyphicon glyphicon-edit"></span></a>';?></td> 
-                        <td><?php echo '<a type="button" class="btn btn-success" href="../circuitos/novoregconsumo.php?arquivo='.$table["nome_arquivo"].'&num_linha='.$table["num_linha_arquivo"].'"><span class="glyphicon glyphicon-plus-sign"></span></a>';?></td> 
+                        <td><?php echo '<a  type="button" '.$disable_btn.' class="btn btn-primary" href="../circuitos/editlinhaarq.php?arquivo='.$table["nome_arquivo"].'&num_linha='.$table["num_linha_arquivo"].'"><span class="glyphicon glyphicon-edit"></span></a>';?></td> 
+                        <td><?php echo '<a type="button" '.$disable_btn.' class="btn btn-success" href="../circuitos/novoregconsumo.php?arquivo='.$table["nome_arquivo"].'&num_linha='.$table["num_linha_arquivo"].'"><span class="glyphicon glyphicon-plus-sign"></span></a>';?></td> 
                    </tr>  
                 <?php
                         }

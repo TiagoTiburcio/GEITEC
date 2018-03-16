@@ -26,12 +26,12 @@
         //servicos->atualizaAutomaticoTarefasRedmine();
         $servicos->atuAutoRed(50);
       // $servicos->iniTarefaHoje();
-        $teste = '30';
-        date_default_timezone_set('America/Sao_Paulo');
-        $date = date('i');   
-        if($teste == $date){        
+       // $teste = '30';
+        date_default_timezone_set('America/Bahia');
+       // $date = date('i');   
+       // if($teste == $date){        
             $servicos->iniTarefaHoje();
-        }
+       // }
     ?>    
     <div class="row">
         <div class="col-xs-2">

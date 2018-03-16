@@ -473,10 +473,10 @@ class Circuitos extends Database {
     }
     
     function excluiImport($_arquivo){
-        $consulta_excluiImport = " delete FROM homo_sis_geitec.circuito_arquivo_import where nome_arquivo = '$_arquivo' and num_linha_arquivo > '0'; ";
+        $consulta_excluiImport = " delete FROM circuito_arquivo_import where nome_arquivo = '$_arquivo' and num_linha_arquivo > '0'; ";
         $resultado_excluiImport = mysqli_query($this->connect(), $consulta_excluiImport);
         
-        $consulta_excluiImport2 = " delete FROM homo_sis_geitec.circuito_arquivo_import_temp where nome_arquivo = '$_arquivo' and num_linha_arquivo > '0'; ";
+        $consulta_excluiImport2 = " delete FROM circuito_arquivo_import_temp where nome_arquivo = '$_arquivo' and num_linha_arquivo > '0'; ";
         $resultado_excluiImport2 = mysqli_query($this->connect(), $consulta_excluiImport2);
         return $resultado_excluiImport.$resultado_excluiImport2;
     }
@@ -802,7 +802,7 @@ class Servicos extends Database {
             $url = "edittarefa.php?evento=$valor";            
             $this->inserirNovoEvento($valor, $table_servicos6["title"], $table_servicos6["start"], $data_fim, $url, $table_servicos6["codigo_servico"], $table_servicos6["cod_situacao_tarefa"]);
         }
-        return count($table_servicos6);        
+        return count($resultado_servicos6);        
     }
     
     function iniTarefas($_data){
