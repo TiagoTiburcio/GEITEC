@@ -3,7 +3,7 @@
     
     $usuario = new Usuario();
     
-    $usuario->validaSessao('');   
+   if ($usuario->validaSessao('') == 1){
 
     $circuitos = new Circuitos();   
     if(!isset($_GET ['arquivo'])) { $_GET ['arquivo'] = ''; }
@@ -79,4 +79,4 @@
         </form>
     </div>
 <?php
-include ("../class/footer.php");
+   include ("../class/footer.php");}

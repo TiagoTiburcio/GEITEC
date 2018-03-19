@@ -2,10 +2,10 @@
     include_once '../class/principal.php';
     
     $usuario = new Usuario();    
+       
+    if ($usuario->validaSessao('1') == 1){
+            
     $servicos = new Servico();
-    
-    $usuario->validaSessao('1');
-    
     $codigo = $_GET ["codigo"];
    
     $servicos->iniServico($codigo);
@@ -55,4 +55,5 @@
     </div>
     </div>
 <?php
-include ("../class/footer.php");
+    include ("../class/footer.php");
+    }

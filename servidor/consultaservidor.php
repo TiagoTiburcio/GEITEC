@@ -3,8 +3,8 @@
     
     $usuario = new Usuario();
     
-    $usuario->validaSessao('');   
-    
+       
+    if($usuario->validaSessao('') == 1 ){
     $servidores = new Servidores();
     
     if(!isset($_POST['cpf'])) { $_POST['cpf'] = ''; }
@@ -88,3 +88,4 @@
     <script type="text/javascript" src="js/jquery.mask.test.js"></script>
 <?php 
     include ("../class/footer.php");
+    }    

@@ -5,7 +5,7 @@
     
     $usuarioEdit = new Usuario();
     
-    $usuario->validaSessao('');
+    if ($usuario->validaSessao('') == 1){
     if(!isset($_GET ["usuario"])) { $_GET ["usuario"] = ''; }
     $usuarioEdit->iniUsuario($_GET ["usuario"]);
 ?>
@@ -88,3 +88,4 @@
 <?php
     include ("../class/footer.php");
 
+    }

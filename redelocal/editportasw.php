@@ -2,11 +2,11 @@
     include_once '../class/principal.php';
     
     $usuario = new Usuario();
-    
+    if ($usuario->validaSessao('') == 1){
     $switch = new Switchs();
     
     $zabbix = new ZabbixSEED();
-    $usuario->validaSessao('');
+  
     $codigo_sw	= $_GET ["sw"];
     $porta_sw	= $_GET ["port"];
     $tipo_porta = $_GET ["tipo"];
@@ -163,3 +163,4 @@
     <?php }
     include ("../class/footer.php");
 
+    }

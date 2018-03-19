@@ -3,7 +3,7 @@
     
     $usuario = new Usuario();
     
-    $usuario->validaSessao('');      
+    if ($usuario->validaSessao('') == 1){     
     $circuitos = new Circuitos();   
     if(!isset($_POST['fatura'])) { $_POST['fatura'] = ''; }
     if(!isset($_POST['mes'])) { $_POST['mes'] = ''; }
@@ -123,3 +123,4 @@
     </div>
 <?php
 include ("../class/footer.php");
+    }

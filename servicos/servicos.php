@@ -5,7 +5,7 @@
     $servico = new Servico();
     $redmine = new Redmine();
     
-    $usuario->validaSessao('1');
+    if($usuario->validaSessao('1') == 1 ){
     if(!isset($_POST['nome'])) { $_POST['nome'] = ''; }
     if(!isset($_POST['id'])) { $_POST['id'] = ''; }
     $nome	= $_POST ["nome"];	
@@ -71,3 +71,4 @@
     <script type="text/javascript" src="js/jquery.mask.test.js"></script>
 <?php
 include ("../class/footer.php");
+}

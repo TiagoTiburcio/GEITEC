@@ -1,6 +1,6 @@
 <?php
 session_start();
-// as vari�veis login e senha recebem os dados digitados na p�gina anterior
+// as variaveis login e senha recebem os dados digitados na pagina anterior
 
 session_destroy();
 
@@ -9,7 +9,7 @@ session_destroy();
 if (isset($_SESSION['pass'])){unset ($_SESSION['pass']);}
 
 
-//Redireciona para a p�gina de autentica��o
+//Redireciona para a pagina de autenticacao
 header('location:login.php');
 	
 

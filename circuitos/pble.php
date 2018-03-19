@@ -3,7 +3,7 @@
     
     $usuario = new Usuario();
     
-    $usuario->validaSessao('');   
+    if ($usuario->validaSessao('') == 1){
 
     $circuitos = new Circuitos();
     
@@ -114,3 +114,4 @@
         </div>
 <?php 
     include ("../class/footer.php");
+    }

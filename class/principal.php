@@ -137,14 +137,6 @@ class Usuario extends Database {
     
     function validaSessao($_teste){               
         session_start();        
-        if($_teste == '1'){
-            include ("../class/headerCircuitos.php");
-            include ("../class/baropc.php");
-        } else {
-            include ("../class/header.php");
-            include ("../class/baropc.php");
-        }
-        
         
 //Caso o usuário não esteja autenticado, limpa os dados e redireciona
         if ( !isset($_SESSION['login']) and !isset($_SESSION['pass']) ) {
@@ -158,8 +150,17 @@ class Usuario extends Database {
 
             //Redireciona para a página de autenticação
             echo '<META http-equiv="refresh" content="0;../home/login.php">';
+            return 0;
         } else {
             $this->iniUsuario($_SESSION['login']);
+            if($_teste == '1'){
+            include ("../class/headerCircuitos.php");
+            include ("../class/baropc.php");
+            } else {
+            include ("../class/header.php");
+            include ("../class/baropc.php");
+            }
+            return 1;
         }
     }
     

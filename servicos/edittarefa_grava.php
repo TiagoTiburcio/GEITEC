@@ -2,10 +2,10 @@
     include_once '../class/principal.php';
         
     $usuario = new Usuario();    
-    $servicos = new Servicos();
-       
-    $usuario->validaSessao('1');
+           
+    if ($usuario->validaSessao('1') == 1){
     
+    $servicos = new Servicos();
     if(!isset($_POST['tarefa_redmine'])) { $_POST['tarefa_redmine'] = ''; }
     if(!isset($_POST['evento'])) { $_POST['evento'] = ''; }
     $tarefa_redmine	= $_POST ["tarefa_redmine"];    
@@ -16,6 +16,8 @@
             $servicos->atualizaTarefaRedimine();            
             if ($servicos->atualizaEventoBD()== '0') {
                 $menssagem = "Tarefa Não gravada. <br/> Fora do prazo  predefinido de Execuçao do Serviço!!!";
+            } else {
+                $menssagem = "";
             }
         }
     } else {
@@ -73,4 +75,5 @@
     </div>
     </div>
 <?php
-include ("../class/footer.php");
+    include ("../class/footer.php");
+    }

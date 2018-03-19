@@ -3,7 +3,7 @@
     
     $usuario = new Usuario();
     
-    $usuario->validaSessao('');
+    if ($usuario->validaSessao('') == 1){
     
     $login = $_POST['login'];
     $nome_usuario = $_POST['nome_usuario'];
@@ -22,4 +22,4 @@
     }
     
     header('location:listarusuarios.php');
-    
+    }  

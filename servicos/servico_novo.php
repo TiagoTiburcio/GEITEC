@@ -2,9 +2,10 @@
     include_once '../class/principal.php'; 
     
     $usuario = new Usuario();    
-    $servicos = new Servicos();    
+      
+    if($usuario->validaSessao('1')== 1) {
     
-    $usuario->validaSessao('1'); 
+    $servicos = new Servicos();  
 ?>
     <div class="col-xs-offset-3 col-xs-6">
         <form class="form-horizontal" method="post" action="../servicos/servico_novo_grava.php">
@@ -38,3 +39,4 @@
     </div>
 <?php
 include ("../class/footer.php");
+    }

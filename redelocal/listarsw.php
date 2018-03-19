@@ -3,7 +3,7 @@
     
     $usuario = new Usuario();
     
-    $usuario->validaSessao('');
+    if ($usuario->validaSessao('') == 1){
     
     $switch = new Switchs();
     
@@ -198,3 +198,4 @@
 <?php 
     include ("../class/footer.php");
 
+    }

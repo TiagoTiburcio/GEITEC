@@ -2,10 +2,12 @@
     include_once '../class/principal.php';
     
     $usuario = new Usuario();    
+    
+    if ($usuario->validaSessao('1') == 1){
+    
     $servicos = new Servicos();
     $redmine = new Redmine();
     
-    $usuario->validaSessao('1');
 
 ?>                
     <div class="col-xs-12">
@@ -18,3 +20,4 @@
     </div>
 <?php
 include ("../class/footer.php");
+    }

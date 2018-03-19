@@ -2,10 +2,10 @@
     include_once '../class/principal.php';
         
     $usuario = new Usuario();    
-    $servicos = new Servico();
-       
-    $usuario->validaSessao('1');
+           
+    if ($usuario->validaSessao('1') == 1){
     
+    $servicos = new Servico();
     $repeticao	= $_POST ["repeticao"];    
     $descricao  = $_POST ["descricao"];
     $nome_redu  = $_POST ["nome_redu"];
@@ -16,4 +16,5 @@
     echo '<META http-equiv="refresh" content="0;../servicos/servicos.php">';
     
    
-include ("../class/footer.php");
+    include ("../class/footer.php");
+    }

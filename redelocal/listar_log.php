@@ -3,7 +3,7 @@
     
     $usuario = new Usuario();
     
-    $usuario->validaSessao('');
+    if ($usuario->validaSessao('') == 1){
     
     $zbxCofre = new ZabbixCofre();
     
@@ -71,3 +71,4 @@
 <?php 
     include ("../class/footer.php");
 
+    }

@@ -3,7 +3,8 @@
     
     $usuario = new Usuario();
     
-    $usuario->validaSessao('1');
+    if($usuario->validaSessao('1') == 1){
+    
     
 ?>
     <div class="col-xs-offset-1 col-xs-10">                        
@@ -16,3 +17,4 @@
     </div>
 <?php
 include ("../class/footer.php");
+    }

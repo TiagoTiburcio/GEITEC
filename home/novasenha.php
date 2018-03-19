@@ -3,7 +3,7 @@
     
     $usuario = new Usuario();
     
-    $usuario->validaSessao('');
+   if ($usuario->validaSessao('') == 1){
 ?>
         <div class="col-xs-12 text-center">
             <form id="renoveSenha" name="renoveSenha" onsubmit="return validaSenha();" class="form-horizontal" method="post" action="gravasenha.php">
@@ -32,3 +32,4 @@
         </div>    
 <?php
     include ("../class/footer.php");
+   }
