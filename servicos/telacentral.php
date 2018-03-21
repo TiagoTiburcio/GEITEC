@@ -25,13 +25,14 @@
         
         //servicos->atualizaAutomaticoTarefasRedmine();
         $servicos->atuAutoRed(50);
-      // $servicos->iniTarefaHoje();
-       // $teste = '30';
+        $servicos->iniTarefaHoje();
+        $teste = '30';
         date_default_timezone_set('America/Bahia');
-       // $date = date('i');   
-       // if($teste == $date){        
+        $date = date('i');   
+        if($teste == $date){        
             $servicos->iniTarefaHoje();
-       // }
+            echo '<meta http-equiv="refresh" content=0;url="'.'http://'. $_SERVER['SERVER_NAME'] . str_replace("circuitos/confirmaimport.php","",$_SERVER['REQUEST_URI']) .'redelocal/atu_log_arquivo.php">';
+        }
     ?>    
     <div class="row">
         <div class="col-xs-2">

@@ -138,7 +138,7 @@ class Usuario extends Database {
     function validaSessao($_teste){               
         session_start();        
         
-//Caso o usuário não esteja autenticado, limpa os dados e redireciona
+        //Caso o usuário não esteja autenticado, limpa os dados e redireciona
         if ( !isset($_SESSION['login']) and !isset($_SESSION['pass']) ) {
             //Destrói
             session_destroy();
@@ -156,6 +156,7 @@ class Usuario extends Database {
             if($_teste == '1'){
             include ("../class/headerCircuitos.php");
             include ("../class/baropc.php");
+            } elseif ($_teste == '2') {
             } else {
             include ("../class/header.php");
             include ("../class/baropc.php");
@@ -1118,10 +1119,84 @@ class ZabbixSEED extends DatabaseZbx {
  * @author tiagoc
  */
 class ZabbixCofre extends DatabaseZbxCofre {
-    function listArquivosExcluidos(){        
-        $consulta_listArquivosExcluidos = " SELECT * , FROM_UNIXTIME(timestamp) AS data_hora, REPLACE(REPLACE(value, '	',''),'','') AS log FROM zabbixcofre.history_log where value like '%Accesses:		DELETE%' and logeventid = '4663' limit 5; ";                
+    function listArquivosExcluidos($_data){        
+        if($_data == ''){
+            $_data = '2010-01-01 00:00:00';
+        }
+        $consulta_listArquivosExcluidos = "   select * from (SELECT * , FROM_UNIXTIME(timestamp) AS data_hora FROM zabbixcofre.history_log) as a1 where a1.value like '%Access Mask:		0x10000%' and a1.logeventid = '4663' and a1.data_hora > '$_data' order by  a1.id asc ; ";                
         $resultado_listArquivosExcluidos = mysqli_query($this->connectZbxCofre(), $consulta_listArquivosExcluidos);        
         return $resultado_listArquivosExcluidos;
+    }
+    function listArquivosAdicionados($_data){        
+        if($_data == ''){
+            $_data = '2010-01-01 00:00:00';
+        }
+        $consulta_listArquivosExcluidos = "   select * from (SELECT * , FROM_UNIXTIME(timestamp) AS data_hora FROM zabbixcofre.history_log) as a1 where a1.value like '%Access Mask:		0x2%' and a1.logeventid = '4663' and a1.data_hora > '$_data' order by  a1.id asc ; ";                
+        $resultado_listArquivosExcluidos = mysqli_query($this->connectZbxCofre(), $consulta_listArquivosExcluidos);        
+        return $resultado_listArquivosExcluidos;
+    }        
+}
+
+/**
+ * Description of Log Arquivos Rede Local
+ *
+ * @author tiagoc
+ */
+class LogArquivos extends Database {
+    function insertImportLogArquivo($_linhas){
+    $consulta_insertImportLogArquivo = " INSERT INTO `redelocal_log_arquivos` (`codigo_acao`,`data_hora`,`usuario`,`arquivo`,`descricao_acao`) VALUES "
+            . implode(',', $_linhas) . ";";                 
+    $resultado_insertImportLogArquivo = mysqli_query($this->connect(), $consulta_insertImportLogArquivo);        
+    $consulta_insertImportLogArquivo1 = " delete FROM redelocal_log_arquivos where arquivo like '%.tmp%' and codigo > 0";    
+    $resultado_insertImportLogArquivo1 = mysqli_query($this->connect(), $consulta_insertImportLogArquivo1);
+    $consulta_insertImportLogArquivo2 = " delete FROM redelocal_log_arquivos where arquivo like '%~$%' and codigo > 0";    
+    $resultado_insertImportLogArquivo2 = mysqli_query($this->connect(), $consulta_insertImportLogArquivo2);
+    $consulta_insertImportLogArquivo3 = " delete FROM redelocal_log_arquivos where arquivo like '%DFSR%' and codigo > 0";    
+    $resultado_insertImportLogArquivo3 = mysqli_query($this->connect(), $consulta_insertImportLogArquivo3);  
+    $consulta_insertImportLogArquivo4 = " delete FROM redelocal_log_arquivos where arquivo like '%RECYCLE.BIN%' and codigo > 0";    
+    $resultado_insertImportLogArquivo4 = mysqli_query($this->connect(), $consulta_insertImportLogArquivo4); 
+    $consulta_insertImportLogArquivo5 = " delete FROM redelocal_log_arquivos where arquivo like '%Thumbs.db%' and codigo > 0";    
+    $resultado_insertImportLogArquivo5 = mysqli_query($this->connect(), $consulta_insertImportLogArquivo5); 
+    return $resultado_insertImportLogArquivo5.$resultado_insertImportLogArquivo.$resultado_insertImportLogArquivo1.$resultado_insertImportLogArquivo2.$resultado_insertImportLogArquivo3.$resultado_insertImportLogArquivo4;
+    }
+    
+    function consArquivos($_data_inicio, $_data_fim, $_usuario, $_arquivo, $_acao){
+        $consulta_consArquivos = " select codigo_acao, data_hora, usuario, arquivo, descricao_acao, count(arquivo) as cont_arq "
+                . " FROM redelocal_log_arquivos "
+                . " where data_hora >= '$_data_inicio' and data_hora <= '$_data_fim' "
+                . " and usuario like '%$_usuario%' and arquivo like '%$_arquivo%' and descricao_acao like '%$_acao%' "
+                . " group by  codigo_acao, data_hora, usuario, arquivo "
+                . " order by  data_hora desc, usuario ,arquivo, codigo_acao; ";           
+        $resultado_consArquivos = mysqli_query($this->connect(), $consulta_consArquivos);                
+        return $resultado_consArquivos;
+    }
+    
+    function consUltDataDel(){
+        $consulta_consUltDataDel = " SELECT max(data_hora) as ult_data FROM homo_sis_geitec.redelocal_log_arquivos where codigo_acao = '0x10000'; ";           
+        $resultado_consUltDataDel = mysqli_query($this->connect(), $consulta_consUltDataDel);        
+        foreach ($resultado_consUltDataDel as $value) {
+            $data_Del = $value['ult_data'];
+        }
+        return $data_Del;
+    }
+    
+    function consUltDataAdd(){
+        $consulta_consUltDataAdd = " SELECT max(data_hora) as ult_data FROM homo_sis_geitec.redelocal_log_arquivos where codigo_acao = '0x2'; ";           
+        $resultado_consUltDataAdd = mysqli_query($this->connect(), $consulta_consUltDataAdd);        
+        foreach ($resultado_consUltDataAdd as $value1) {
+            $data_Add = $value1['ult_data'];
+        }
+        return $data_Add;
+    }
+    
+    function convert_data_BR_US($_data){
+        $dataEN = DateTime::createFromFormat('d/m/Y H:i:s', $_data);
+        return $dataEN->format('Y-m-d H:i:s');
+    }
+    
+    function convert_data_US_BR($_data){
+        $dataBR = new DateTime($_data);
+        return $dataBR->format('d/m/Y H:i:s');
     }    
 }
 
@@ -1131,6 +1206,7 @@ class ZabbixCofre extends DatabaseZbxCofre {
  * @author tiagoc
  */
 class Switchs extends Database {
+    
     function listaSwitch($_marca, $_modelo,$_ip,$_bloco,$_setor){
         $consulta_listSwitch = " SELECT sw.codigo as codigo_sw, sw.ip,"
                 . " sw.empilhado, sw.numero_empilhamento, sw.ativo as ativo_sw, "

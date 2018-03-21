@@ -42,6 +42,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="../redelocal/listarsw.php">Layout Switchs Rede Local</a></li>                        
                         <li><a href="../redelocal/listarimpressoras.php">Lista Impressoras</a></li>
+                        <li><a href="../redelocal/listar_log.php">Lista Arquvos</a></li>
                     </ul>
                   </li>  
                   <li class="dropdown">

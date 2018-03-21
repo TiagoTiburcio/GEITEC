@@ -30,13 +30,18 @@
     $resultado_consImp = $switch->consImpressoraZbx($impressora);
     foreach ($resultado_consImp as $table_consImp){
         $contador2 = $table_consImp['contador'];
+        
         if($table_consImp['contador'] != '0'){
             $swImp  = $table_consImp['codigo_switch'];
             $portImp = $table_consImp['codigo_porta_switch'];
-            $tipoPortImp = $table_consImp['tipo_porta'];
+            $tipoPortImp = $table_consImp['tipo_porta'];            
+        } else {
+            $swImp = '';
+            $portImp = '';
+            $tipoPortImp = '';            
         }
     }
-    
+  
      if ($opcaoTexto == '1'){
         $tela = $vlan;
     } elseif (($opcaoTexto == '0')&($tela == '')) {
