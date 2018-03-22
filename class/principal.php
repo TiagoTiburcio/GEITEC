@@ -1167,7 +1167,7 @@ class LogArquivos extends Database {
                 . " where data_hora >= '$_data_inicio' and data_hora <= '$_data_fim' "
                 . " and usuario like '%$_usuario%' and arquivo like '%$_arquivo%' and descricao_acao like '%$_acao%' "
                 . " group by  codigo_acao, data_hora, usuario, arquivo "
-                . " order by  data_hora desc, usuario ,arquivo, codigo_acao; ";           
+                . " order by  data_hora desc, usuario ,arquivo, codigo_acao limit 100; ";           
         $resultado_consArquivos = mysqli_query($this->connect(), $consulta_consArquivos);                
         return $resultado_consArquivos;
     }
