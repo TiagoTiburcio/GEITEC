@@ -1123,7 +1123,7 @@ class ZabbixCofre extends DatabaseZbxCofre {
         if($_data == ''){
             $_data = '2010-01-01 00:00:00';
         }
-        $consulta_listArquivosExcluidos = "   select * from (SELECT * , FROM_UNIXTIME(timestamp) AS data_hora FROM zabbixcofre.history_log) as a1 where a1.value like '%Access Mask:		0x10000%' and a1.logeventid = '4663' and a1.data_hora > '$_data' order by  a1.id asc ; ";                
+        $consulta_listArquivosExcluidos = "   select * from (SELECT * , FROM_UNIXTIME(timestamp) AS data_hora FROM history_log) as a1 where a1.value like '%Access Mask:		0x10000%' and a1.logeventid = '4663' and a1.data_hora > '$_data' order by  a1.timestamp asc limit 1000  ; ";                
         $resultado_listArquivosExcluidos = mysqli_query($this->connectZbxCofre(), $consulta_listArquivosExcluidos);        
         return $resultado_listArquivosExcluidos;
     }
@@ -1131,7 +1131,7 @@ class ZabbixCofre extends DatabaseZbxCofre {
         if($_data == ''){
             $_data = '2010-01-01 00:00:00';
         }
-        $consulta_listArquivosExcluidos = "   select * from (SELECT * , FROM_UNIXTIME(timestamp) AS data_hora FROM zabbixcofre.history_log) as a1 where a1.value like '%Access Mask:		0x2%' and a1.logeventid = '4663' and a1.data_hora > '$_data' order by  a1.id asc ; ";                
+        $consulta_listArquivosExcluidos = "   select * from (SELECT * , FROM_UNIXTIME(timestamp) AS data_hora FROM history_log) as a1 where a1.value like '%Access Mask:		0x2%' and a1.logeventid = '4663' and a1.data_hora > '$_data' order by  a1.timestamp asc limit 1000  ; ";                
         $resultado_listArquivosExcluidos = mysqli_query($this->connectZbxCofre(), $consulta_listArquivosExcluidos);        
         return $resultado_listArquivosExcluidos;
     }        
@@ -1147,17 +1147,18 @@ class LogArquivos extends Database {
     $consulta_insertImportLogArquivo = " INSERT INTO `redelocal_log_arquivos` (`codigo_acao`,`data_hora`,`usuario`,`arquivo`,`descricao_acao`) VALUES "
             . implode(',', $_linhas) . ";";                 
     $resultado_insertImportLogArquivo = mysqli_query($this->connect(), $consulta_insertImportLogArquivo);        
-    $consulta_insertImportLogArquivo1 = " delete FROM redelocal_log_arquivos where arquivo like '%.tmp%' and codigo > 0";    
+    $consulta_insertImportLogArquivo1 = " delete FROM redelocal_log_arquivos where arquivo like '%.tmp%' and codigo > 0;";    
     $resultado_insertImportLogArquivo1 = mysqli_query($this->connect(), $consulta_insertImportLogArquivo1);
-    $consulta_insertImportLogArquivo2 = " delete FROM redelocal_log_arquivos where arquivo like '%~$%' and codigo > 0";    
+    $consulta_insertImportLogArquivo2 = " delete FROM redelocal_log_arquivos where arquivo like '%~$%' and codigo > 0;";    
     $resultado_insertImportLogArquivo2 = mysqli_query($this->connect(), $consulta_insertImportLogArquivo2);
     $consulta_insertImportLogArquivo3 = " delete FROM redelocal_log_arquivos where arquivo like '%DFSR%' and codigo > 0";    
     $resultado_insertImportLogArquivo3 = mysqli_query($this->connect(), $consulta_insertImportLogArquivo3);  
-    $consulta_insertImportLogArquivo4 = " delete FROM redelocal_log_arquivos where arquivo like '%RECYCLE.BIN%' and codigo > 0";    
+    $consulta_insertImportLogArquivo4 = " delete FROM redelocal_log_arquivos where arquivo like '%RECYCLE.BIN%' and codigo > 0;";    
     $resultado_insertImportLogArquivo4 = mysqli_query($this->connect(), $consulta_insertImportLogArquivo4); 
-    $consulta_insertImportLogArquivo5 = " delete FROM redelocal_log_arquivos where arquivo like '%Thumbs.db%' and codigo > 0";    
+    $consulta_insertImportLogArquivo5 = " delete FROM redelocal_log_arquivos where arquivo like '%Thumbs.db%' and codigo > 0;";    
     $resultado_insertImportLogArquivo5 = mysqli_query($this->connect(), $consulta_insertImportLogArquivo5); 
-    return $resultado_insertImportLogArquivo5.$resultado_insertImportLogArquivo.$resultado_insertImportLogArquivo1.$resultado_insertImportLogArquivo2.$resultado_insertImportLogArquivo3.$resultado_insertImportLogArquivo4;
+    return $resultado_insertImportLogArquivo5.$resultado_insertImportLogArquivo.$resultado_insertImportLogArquivo1.$resultado_insertImportLogArquivo2.$resultado_insertImportLogArquivo3.$resultado_insertImportLogArquivo4;    
+    
     }
     
     function consArquivos($_data_inicio, $_data_fim, $_usuario, $_arquivo, $_acao){

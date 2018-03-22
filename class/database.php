@@ -140,7 +140,7 @@ abstract class DatabaseZbxCofre {
     private static $hostZbxCofre     = "172.25.76.85";  
     private static $userZbxCofre     = "geitec";
     private static $passwordZbxCofre = "seedqawsed";
-    private static $dbZbxCofre       = "zabbix3";
+    private static $dbZbxCofre       = "zabbixcofre";
      
     /*Metodos que trazem o conteudo da variavel desejada
     @return   $xxx = conteudo da variavel solicitada*/

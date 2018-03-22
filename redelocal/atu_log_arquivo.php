@@ -50,6 +50,6 @@ $consulta_arq_add = $zbxCofre->listArquivosAdicionados($logArquivos->consUltData
             }
         }
         $log[] = "('".trim(str_replace("'", "",str_replace("Access Mask:", "", $cod_acao_log)))."', '".$data_hora_log."', '".trim(str_replace("'", "",str_replace("Account Name:", "", $usuario_log)))."', '".trim(str_replace("\\", "\\",trim(str_replace("Ã­", "i",str_replace("Ãª", "e",str_replace("Ã", "I",str_replace("Ã", "A",str_replace("Ãš", "O",str_replace("Ãº", "u",str_replace("Ã•", "O",str_replace("Âª", "",str_replace("ÃŠ", "E",str_replace("Ã‚", "A",str_replace("Ã³", "o",str_replace("Âº", "",str_replace("Ã”", "O",str_replace("Ã£", "a",str_replace("Ã‡", "C",str_replace("Ãƒ", "A",str_replace("Ãµ", "o",str_replace("Ã“", "O",str_replace("Ã‰", "E",str_replace("Ã¡", "a",str_replace("Ã§", "c",str_replace("Ã©", "e",str_replace("\\", "\\\\",str_replace("'", "",str_replace("Object Name:", "", $arquivo_log))))))))))))))))))))))))))))."', '".trim(str_replace("'", "",str_replace("Accesses:", "", $acao_log)))."')";
-    }
+    }      
 $logArquivos->insertImportLogArquivo($log);
 header("Location: ../servicos/telacentral.php");

@@ -1,8 +1,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta lang="pt-BR">
-  <meta http-equiv="refresh" content="30" url="">  
+  <meta lang="pt-BR">  
   <title>CODIN - GEITEC</title>  
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -26,13 +25,13 @@
         //servicos->atualizaAutomaticoTarefasRedmine();
         $servicos->atuAutoRed(50);
         $servicos->iniTarefaHoje();
-        $teste = '30';
-        date_default_timezone_set('America/Bahia');
-        $date = date('i');   
-        if($teste == $date){        
+        //$teste = '30';
+        //date_default_timezone_set('America/Bahia');
+        //$date = date('i');   
+        //if($teste == $date){        
             $servicos->iniTarefaHoje();
-            echo '<meta http-equiv="refresh" content=0;url="'.'http://'. $_SERVER['SERVER_NAME'] . str_replace("circuitos/confirmaimport.php","",$_SERVER['REQUEST_URI']) .'redelocal/atu_log_arquivo.php">';
-        }
+            echo '<meta http-equiv="refresh" content=30;url="'.'http://'. $_SERVER['SERVER_NAME'] . str_replace("servicos/telacentral.php","",$_SERVER['REQUEST_URI']) .'redelocal/atu_log_arquivo.php">';
+        //}
     ?>    
     <div class="row">
         <div class="col-xs-2">
