@@ -13,7 +13,7 @@
     <div class="col-xs-12">
           
     <?php
-        echo "Atualiza as utilams 10.000 tarefas: ".$servicos->atuAutoRed(10000);
+        echo "Atualiza as utilams 1.000 tarefas: ".$servicos->atuAutoRed(1000);
     ?>
         
     </div>

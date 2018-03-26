@@ -13,25 +13,36 @@
   <script src='../fullcalendar/lib/moment.min.js'></script>
   <script src='../fullcalendar/fullcalendar.js'></script>
   <script src='../fullcalendar/lang/pt-br.js'></script>
-  <script src="../js/calendarioservicos.js" type="text/javascript"></script>  
+  <script src="../js/calendarioservicos.js" type="text/javascript"></script>
 </head>
-<body>    
+<body>
     <?php
         include_once '../class/principal.php';
-
-        $usuario = new Usuario();    
-        $servicos = new Servicos();
+        session_start();
         
-        //servicos->atualizaAutomaticoTarefasRedmine();
+        $usuario = new Usuario();    
+        $servicos = new Servicos();     
         $servicos->atuAutoRed(50);
         $servicos->iniTarefaHoje();
-        //$teste = '30';
-        //date_default_timezone_set('America/Bahia');
-        //$date = date('i');   
-        //if($teste == $date){        
-            $servicos->iniTarefaHoje();
-            echo '<meta http-equiv="refresh" content=30;url="'.'http://'. $_SERVER['SERVER_NAME'] . str_replace("servicos/telacentral.php","",$_SERVER['REQUEST_URI']) .'redelocal/atu_log_arquivo.php">';
-        //}
+        if(!isset($_SESSION['qtd_atu'])) { $_SESSION['qtd_atu'] = '0'; }
+        date_default_timezone_set('America/Bahia');
+        $date = date('i');   
+        if(($date % 3) == 0){            
+           if  ($_SESSION['qtd_atu'] == '0'){
+                $servicos->iniTarefaHoje();
+                $_SESSION['qtd_atu'] = '1';
+                header("Location: ../redelocal/atu_log_arquivo.php");            
+           } else {
+           //    echo 'Sessao != 0';
+            echo '<meta http-equiv="refresh" content="30" url=""/>';
+           }
+            
+        } else {
+           // echo 'data ajkhasdklahdlak | '.($date % 3);
+           $_SESSION['qtd_atu'] = '0';
+           echo '<meta http-equiv="refresh" content="30" url=""/>';
+        }
+        
     ?>    
     <div class="row">
         <div class="col-xs-2">
