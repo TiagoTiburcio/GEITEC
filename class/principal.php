@@ -815,6 +815,23 @@ class Servicos extends Database {
         return count($resultado_servicos6);        
     }
     
+    function testeTelaCentralArquivos($_codigo){
+        $consulta_testeTelaCentralArquivos = "SELECT count(`servicos_valida`.`codigo`) as cont , `servicos_valida`.`codigo` ,  `servicos_valida`.`resultado` FROM `servicos_valida` where `servicos_valida`.`codigo` = '$_codigo';";      
+        $resultado_testeTelaCentralArquivos = mysqli_query($this->connect(), $consulta_testeTelaCentralArquivos);
+        foreach ($resultado_testeTelaCentralArquivos as $table_testeTelaCentralArquivos){            
+            if($table_testeTelaCentralArquivos['cont'] == '1'){
+               $resultado =  $table_testeTelaCentralArquivos['resultado'];
+            } 
+        }        
+        return $resultado;        
+    }
+    
+    function editTelaCentralArquivos($_codigo, $_resultado){
+        $consulta_testeTelaCentralArquivos = " UPDATE `servicos_valida` SET `resultado` = '$_resultado' WHERE `codigo` = '$_codigo'; ";      
+        $resultado_testeTelaCentralArquivos = mysqli_query($this->connect(), $consulta_testeTelaCentralArquivos);
+        return $resultado_testeTelaCentralArquivos;        
+    }
+    
     function iniTarefas($_data){
         $consulta_servicos6 = "select codigo_servico, repeticao, concat(nome_redu_servico,' - ',repeticao) as title, date_format(now(), '%Y-%m-%d') as start, '0' as cod_situacao_tarefa from servicos_cadastro as s where data_prox_exec = '$_data';";      
         $resultado_servicos6 = mysqli_query($this->connect(), $consulta_servicos6);

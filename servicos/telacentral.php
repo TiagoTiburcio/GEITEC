@@ -17,30 +17,27 @@
 </head>
 <body>
     <?php
-        include_once '../class/principal.php';
-        session_start();
-        
-        $usuario = new Usuario();    
+       include_once '../class/principal.php';
+       
         $servicos = new Servicos();     
-        $servicos->atuAutoRed(50);
-        $servicos->iniTarefaHoje();
-        if(!isset($_SESSION['qtd_atu'])) { $_SESSION['qtd_atu'] = '0'; }
+               
         date_default_timezone_set('America/Bahia');
         $date = date('i');   
-        if(($date % 3) == 0){            
-           if  ($_SESSION['qtd_atu'] == '0'){
+        if(($date % 4) == 0){            
+           if  ($servicos->testeTelaCentralArquivos('1') == '0'){
                 $servicos->iniTarefaHoje();
-                $_SESSION['qtd_atu'] = '1';
+                $servicos->editTelaCentralArquivos('1', '1');
                 header("Location: ../redelocal/atu_log_arquivo.php");            
            } else {
-           //    echo 'Sessao != 0';
-            echo '<meta http-equiv="refresh" content="30" url=""/>';
-           }
-            
-        } else {
-           // echo 'data ajkhasdklahdlak | '.($date % 3);
-           $_SESSION['qtd_atu'] = '0';
-           echo '<meta http-equiv="refresh" content="30" url=""/>';
+               echo ($date % 4).' Arquivos Já Atualizados !!br/>';
+               echo '<meta http-equiv="refresh" content="20" url=""/>';
+           }            
+        } else {           
+			$servicos->editTelaCentralArquivos('1', '0');
+			$servicos->atuAutoRed(50);
+			$servicos->iniTarefaHoje();
+			echo ($date % 4).'  Atualizando Somente Redmine <br/>';
+			echo '<meta http-equiv="refresh" content="20" url=""/>';
         }
         
     ?>    
