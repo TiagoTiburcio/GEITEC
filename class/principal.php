@@ -1090,19 +1090,52 @@ class ZabbixSEED extends DatabaseZbx {
         
         return $resultado_listLinksPBLE;
     }
+    
+    function consultAtividadeGraficoPortaSW($_ip, $_porta, $_empilha ){
+        if ($_empilha == '0'){
+            $_empilha = '1';
+        }
+        $consulta_consultTrafegoGraficoPortaSW = " SELECT i.itemid "
+                . " FROM hosts as h join items as i on h.hostid = i.hostid "
+                . " join interface as ip on ip.hostid = h.hostid "
+                . " where ip.ip = '$_ip' and i.status = '0' and i.key_ like '%ifOperStatus[Unit: $_empilha Slot: 0 Port: $_porta %';  ";
+        $resultado_consultTrafegoGraficoPortaSW = mysqli_query($this->connectZbx(), $consulta_consultTrafegoGraficoPortaSW);
+        foreach ($resultado_consultTrafegoGraficoPortaSW as $value) {
+            $resultado = $value["itemid"];
+        }
+        return $resultado;
+    }
+    
+    function consultTrafegoGraficoPortaSW($_ip, $_porta, $_empilha ){
+        if ($_empilha == '0'){
+            $_empilha = '1';
+        }
+        $consulta_consultAtividadeGraficoPortaSW = " SELECT g.graphid FROM hosts as h"
+                . " join items as i on h.hostid = i.hostid "
+                . " join interface as ip on ip.hostid = h.hostid "
+                . " join graphs_items as gi on gi.itemid = i.itemid "
+                . " join graphs as g on g.graphid = gi.graphid "
+                . " where ip.ip = '$_ip' and i.status = '0'  and g.name like '%Trafego na interface Unit: $_empilha Slot: 0 Port: $_porta %'  limit 1;";
+        $resultado_consultAtividadeGraficoPortaSW = mysqli_query($this->connectZbx(), $consulta_consultAtividadeGraficoPortaSW);
+        foreach ($resultado_consultAtividadeGraficoPortaSW as $value) {
+            $resultado = $value["graphid"];
+        }
+        return $resultado;
+    }
+    
     function listImpr(){
         $consulta_listImpr = " SELECT h.hostid, h.host, h.name, t.value, "
                 . " (CASE t.value WHEN 1 THEN 'Down(1)' ELSE 'Up(0)' END) AS situacao, "
                 . " FROM_UNIXTIME(t.lastchange) AS data, "
                 . " TIMESTAMPDIFF(day, FROM_UNIXTIME(t.lastchange), NOW()) AS tempo_inativo, "
                 . " g.name AS grupo, inte.ip, h.status FROM zabbix3.hosts h "
-                . " JOIN zabbix3.hosts_groups hg ON h.hostid = hg.hostid "
-                . " JOIN zabbix3.groups g ON hg.groupid = g.groupid LEFT "
-                . " JOIN zabbix3.host_inventory hi ON hi.hostid = h.hostid "
-                . " LEFT JOIN zabbix3.interface inte ON inte.hostid = h.hostid "
-                . " JOIN zabbix3.items i ON i.hostid = h.hostid "
-                . " JOIN zabbix3.functions f ON f.itemid = i.itemid "
-                . " JOIN zabbix3.triggers t ON t.triggerid = f.triggerid "
+                . " JOIN hosts_groups hg ON h.hostid = hg.hostid "
+                . " JOIN groups g ON hg.groupid = g.groupid LEFT "
+                . " JOIN host_inventory hi ON hi.hostid = h.hostid "
+                . " LEFT JOIN interface inte ON inte.hostid = h.hostid "
+                . " JOIN items i ON i.hostid = h.hostid "
+                . " JOIN functions f ON f.itemid = i.itemid "
+                . " JOIN triggers t ON t.triggerid = f.triggerid "
                 . " WHERE g.groupid IN ('15') AND t.templateid IN ('19524' , '13554') AND inte.main = '1' and h.name like '%%' order by ip;  ";                
         $resultado_listImpr = mysqli_query($this->connectZbx(), $consulta_listImpr);
         

@@ -16,7 +16,7 @@ $teste = $u1->iniUsuario($user);
 if ($teste == 1 ){        
     $ad = new \Adldap\Adldap();
     $config = [  
-      'domain_controllers'    => ['seed-srv-001.seed.se.gov', 'seed-srv-002.seed.se.gov'],
+      'domain_controllers'    => ['172.25.76.51', 'seed-srv-002.seed.se.gov'],
       'base_dn'               => 'DC=seed,DC=se,DC=gov',
       'admin_username'        => $login,
       'admin_password'        => $senha,

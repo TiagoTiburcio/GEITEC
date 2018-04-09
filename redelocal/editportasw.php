@@ -14,6 +14,7 @@
     foreach ($resultado_porta as $table_porta){
 ?>
         <div class="col-xs-12 text-center">
+                
             <h2>Manuten&ccedil;&atilde;o Porta Switch</h2>
             <h2></h2>
             <form class="form-horizontal" method="post" id="cadPorta" name="cadPorta" onsubmit="return validaCadastroPortaSw();" action="gravaeditportasw.php">
@@ -21,14 +22,26 @@
              <input type="text" id="porta" name="porta" style=" visibility: hidden;" value="<?php echo $table_porta["codigo_porta_switch"];?>">
              <input type="text" id="tipo_porta" name="tipo_porta" style=" visibility: hidden;" value="<?php echo $table_porta["tipo_porta"];?>">                   
              <div class="form-group">
-               <div class="col-xs-4 col-xs-offset-4">
-                <?php
+                 <?php
                 $resultado_sws = $switch->dadosSwitch($codigo_sw);
-                foreach ($resultado_sws as $table_sws){ ?>
+                foreach ($resultado_sws as $table_sws){
+                  $ip = $table_sws["ip"];  
+                  $num_emp = $table_sws["numero_empilhamento"];
+                    ?>
+               <div class="col-xs-4">
+                   <h4>Trafego Rede Última Hora</h4> 
+                   <img src="http://10.24.0.59/zabbix/chart2.php?graphid=<?php echo $zabbix->consultTrafegoGraficoPortaSW($ip, $porta_sw, $num_emp);?>&period=7200&width=500"/>               
+               </div> 
+               <div class="col-xs-4">
+                
                 <div class="form-group">
                   <label for="bloco">Localização</label>
                   <input type="text" class="form-control centraltd" readonly="true" id="bloco" name="bloco" value="<?php echo ''.$table_sws["nome_bloco"].' - '.$table_sws["descricao_bloco"].' / '.$table_sws["descricao_rack"].' - '.$table_sws["setor_rack"];?>">
                 </div>
+                <div class="form-group">
+                  <label for="vlan_sw">Vlan Configurada SW</label>
+                  <input type="text" class="form-control centraltd" readonly="true" id="vlan_sw" name="vlan_sw" value="<?php echo '';?>">
+                </div>   
                 <input type="text" id="vlansw" name="vlansw" style=" visibility: hidden;" value="<?php echo $table_sws["vlan_padrao"];?>">         
                 <div class="form-group">
                   <label for="tiposw">Tipo Switch</label>
@@ -156,8 +169,13 @@
                    <br/><a type="button" class="btn btn-danger" href="listarsw.php">voltar <span class="glyphicon glyphicon-backward"></span></a>                                       
                     <button type="submit" class="btn btn-success" >Gravar <span class="glyphicon glyphicon-save"></span></button>                  
                </div>
-             </div>
-              
+                <div class="col-xs-4">    
+                    <h4>Atividade Porta Switch Último dia</h4>
+                    <img src="http://10.24.0.59/zabbix/chart.php?period=36000&itemids[0]=<?php echo $zabbix->consultAtividadeGraficoPortaSW($ip, $porta_sw, $num_emp);?>&width=500"/>
+                <br/>
+                
+                </div> 
+             </div>               
             </form>
         </div>    
     <?php }
