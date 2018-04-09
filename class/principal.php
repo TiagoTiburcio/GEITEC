@@ -1095,13 +1095,17 @@ class ZabbixSEED extends DatabaseZbx {
         if ($_empilha == '0'){
             $_empilha = '1';
         }
-        $consulta_consultTrafegoGraficoPortaSW = " SELECT i.itemid "
+        $consulta_consultTrafegoGraficoPortaSW = " SELECT count(i.itemid) as cont, i.itemid "
                 . " FROM hosts as h join items as i on h.hostid = i.hostid "
                 . " join interface as ip on ip.hostid = h.hostid "
                 . " where ip.ip = '$_ip' and i.status = '0' and i.key_ like '%ifOperStatus[Unit: $_empilha Slot: 0 Port: $_porta %';  ";
         $resultado_consultTrafegoGraficoPortaSW = mysqli_query($this->connectZbx(), $consulta_consultTrafegoGraficoPortaSW);
         foreach ($resultado_consultTrafegoGraficoPortaSW as $value) {
-            $resultado = $value["itemid"];
+            if ($value["itemid"] == '0' ){
+                $resultado = '0';
+            } else {
+                $resultado = $value["itemid"];
+            }
         }
         return $resultado;
     }
@@ -1110,7 +1114,7 @@ class ZabbixSEED extends DatabaseZbx {
         if ($_empilha == '0'){
             $_empilha = '1';
         }
-        $consulta_consultAtividadeGraficoPortaSW = " SELECT g.graphid FROM hosts as h"
+        $consulta_consultAtividadeGraficoPortaSW = " SELECT count(g.graphid) as cont, g.graphid FROM hosts as h"
                 . " join items as i on h.hostid = i.hostid "
                 . " join interface as ip on ip.hostid = h.hostid "
                 . " join graphs_items as gi on gi.itemid = i.itemid "
@@ -1118,7 +1122,12 @@ class ZabbixSEED extends DatabaseZbx {
                 . " where ip.ip = '$_ip' and i.status = '0'  and g.name like '%Trafego na interface Unit: $_empilha Slot: 0 Port: $_porta %'  limit 1;";
         $resultado_consultAtividadeGraficoPortaSW = mysqli_query($this->connectZbx(), $consulta_consultAtividadeGraficoPortaSW);
         foreach ($resultado_consultAtividadeGraficoPortaSW as $value) {
-            $resultado = $value["graphid"];
+            if ($value["graphid"] == '0' ){
+                $resultado = '0';
+            } else {
+                $resultado = $value["graphid"];
+            }
+            
         }
         return $resultado;
     }
@@ -1329,6 +1338,12 @@ class Switchs extends Database {
         return $resultado_listPortaSwitch;
     }
     
+    function listavlans(){
+        $consulta_listaVlans = " SELECT codigo, descricao, cor, fonte FROM homo_sis_geitec.redelocal_vlan; ";
+        $resultado_listaVlans = mysqli_query($this->connect(), $consulta_listaVlans);        
+        return $resultado_listaVlans;
+    }
+            
     function listVlan(){
         $consulta_listVlan = " SELECT `codigo`, `nome`, `qtd_hosts`, `descricao`, `rede`, `mascara`, `gateway`,`cor`,`fonte` FROM `redelocal_vlan`; ";
         $resultado_listVlan = mysqli_query($this->connect(), $consulta_listVlan);        

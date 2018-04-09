@@ -38,6 +38,7 @@
     
     $setor      = $_SESSION ["setor"];
     
+    $listalegendas = $switch->listavlans();
 ?>
         <div class="col-xs-2">                        
             <form class="form-horizontal" method="post" action="listarsw.php">
@@ -68,6 +69,20 @@
                </div>
              </div>  
             </form>
+         <table class="table table-hover table-striped table-condensed centraltd" id="legend">                    
+            <tbody>
+                <tr>
+                 <th class="centraltd">Modelo</th>
+                 <th class="centraltd">Descricao</th>
+                </tr>
+                <?php foreach ($listalegendas as $value){?>    
+                <tr>                
+                    <td> <a type="button" class="btn btn-default fonteSw" <?php echo 'style=" background: '.$value["cor"].'; color: '.$value["fonte"].';"'; ?> ><?php echo $value['codigo'];?></a></td>
+                    <td> <?PHP echo $value['descricao'];?> </td>
+                </tr>
+                <?php } ?>                
+            </tbody>        
+        </table>            
         </div>
         <div class="col-xs-10">
             <div class="col-xs-12">
