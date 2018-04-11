@@ -1412,3 +1412,47 @@ class Switchs extends Database {
         }
     }
 }
+
+/**
+ * Description of Rotinas Referentes A Descritivo Rede LOCAL
+ * 
+ * @author tiagoc
+ */
+class RedeLocal extends Database {
+    /**
+     * Dados `codigo` | `tipo` | `descricao` | `usuario` | `senha` | `local_alocado` 
+     * Filtro `tipo` | `descricao` | `local_alocado` 
+     * @return array consulta
+     */
+    function listaCredenciais($_tipo, $_descricao, $_local) {        
+        $consulta_listaCredenciais = " SELECT * FROM redelocal_credenciais where tipo like '%$_tipo%' and descricao like '%$_descricao%' and local_alocado like '%$_local%'"
+                . " order by `tipo`, `descricao`, `local_alocado`; ";        
+        $resultado_listaCredenciais = mysqli_query($this->connect(), $consulta_listaCredenciais);        
+        return $resultado_listaCredenciais;  
+    }
+    
+    /**
+     * Dados `codigo` | `tipo` | `descricao` | `usuario` | `senha` | `local_alocado` 
+     * Filtro `tipo` | `descricao` | `local_alocado` 
+     * @return array consulta com 1 registro
+     */
+    function dadosCredencial($_codigo) {        
+        $consulta_dadosCredencial = " SELECT c.* , count(c.codigo) as cont  FROM redelocal_credenciais as c where c.codigo = '$_codigo'; ";        
+        $resultado_dadosCredencial = mysqli_query($this->connect(), $consulta_dadosCredencial);        
+        return $resultado_dadosCredencial;  
+    }
+    
+    function manuCredencial($_codigo, $_tipo, $_descricao, $_usuario, $_senha, $_local_alocado) {        
+        $resultDados = $this->dadosCredencial($_codigo);
+        foreach ($resultDados as $dados) {
+            if ($dados['cont'] == '0'){
+                $consulta_manuCredencial = " INSERT INTO `redelocal_credenciais`(`tipo`,`descricao`,`usuario`,`senha`,`local_alocado`)VALUES('$_tipo','$_descricao','$_usuario','$_senha','$_local_alocado'); ";        
+                $resultado_manuCredencial = mysqli_query($this->connect(), $consulta_manuCredencial);       
+            } else {
+                $consulta_manuCredencial = " UPDATE `redelocal_credenciais` SET `tipo` = '$_tipo', `descricao` = '$_descricao', `usuario` = '$_usuario', `senha` = '$_senha', `local_alocado` = '$_local_alocado' WHERE `codigo` = '$_codigo'; ";        
+                $resultado_manuCredencial = mysqli_query($this->connect(), $consulta_manuCredencial);       
+            }
+            return $resultado_manuCredencial;
+        }
+    }
+}
