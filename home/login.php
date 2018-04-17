@@ -5,7 +5,7 @@
         <div class="col-xs-12 text-center">
             <form class="form-horizontal" method="post" action="../home/testead.php">
              <div class="form-group">
-               <div class="col-xs-4 col-xs-offset-4 col-lg-2 col-lg-offset-5">                                  
+               <div class="col-xs-12 col-md-4 col-md-offset-4 col-lg-2 col-lg-offset-5">                                  
                 <div class="input-group login">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                   <input type="text" class="form-control text-center" id="login" name="login" value="" placeholder="login">                

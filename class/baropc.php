@@ -1,3 +1,4 @@
+    <?php if(!isset($_SESSION['nome_usuario'])) { $_SESSION['nome_usuario'] = ''; } ?>
     <div class="row">
         <div class="col-xs-12 col-lg-2">
             <img src="../images/seed/seed_colorida.svg"/>                   
@@ -36,6 +37,7 @@
                 <ul class="nav navbar-nav navbar-left">
                     <!-- Menu dropdown Inicio -->
                     <li><a href="../home/index.php"><span class="glyphicon glyphicon-home"></span></a></li>
+                    <?php if ($_SESSION['nome_usuario'] != ''){?>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Contas<span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -72,10 +74,10 @@
                             <li><a href="../home/listarusuarios.php">Listar Todos os Usu&aacute;rios</a></li>
                             <li><a href="../home/editusuario.php">Novo Usu&aacute;rio</a></li>
                         </ul>
-                      </li>                  
+                    </li>  <?php }?>                
                     </ul>
                 <ul class="nav navbar-nav navbar-right"> 
-                     <li><a href="../home/novasenha.php"><span class="glyphicon glyphicon-user"></span> <?php if(!isset($_SESSION['nome_usuario'])) { $_SESSION['nome_usuario'] = ''; } echo $_SESSION['nome_usuario'];  ?></a></li>
+                     <li><a href="../home/novasenha.php"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['nome_usuario'];  ?></a></li>
                       <li><a href="../home/sairlogin.php"><span class="glyphicon glyphicon-log-in"></span> Sair</a></li>
 
                 </ul>
