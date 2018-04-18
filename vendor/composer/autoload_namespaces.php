@@ -7,5 +7,4 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Monolog' => array($vendorDir . '/monolog/monolog/src'),
-    'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
 );

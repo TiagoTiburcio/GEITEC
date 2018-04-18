@@ -82,7 +82,7 @@ if ($usuario->validaSessao('') == 1){
                 ?>                                       
                   </select>
                 <div class="col-xs-6 col-xs-3" >                     
-                    <br/><a id="linkprint"  type="button" class="btn btn-info" target="_blank" href="http://geitec002.seed.se.gov/hgeitec/contas_sintetico.php?periodo=<?php echo $mescad;?>">Imprimir Relatótio <span class="glyphicon glyphicon-print"></span></a>    
+                    <br/><a id="linkprint"  type="button" class="btn btn-info" target="_blank" href="relatorios/contas_sintetico.php?periodo=<?php echo $mescad;?>">Imprimir Relatótio <span class="glyphicon glyphicon-print"></span></a>    
                 </div>  
                 </div>
                   <a type="button" class="btn btn-danger"  href="">Limpar <span class="glyphicon glyphicon-erase"></span></a>                 
