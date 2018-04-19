@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2018-04-18T16:26:28 -->
+<!-- 2018-04-19T17:19:01 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="a4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1694b566-086b-4c66-9537-dadcd68bc497">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sis_geitec"/>
@@ -58,7 +58,7 @@
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{somaTotalMes}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[java.text.NumberFormat.getCurrencyInstance(new Locale("pt","br")).format($V{somaTotalMes}.doubleValue())]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -157,7 +157,7 @@
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{somaContrato}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[java.text.NumberFormat.getCurrencyInstance(new Locale("pt","br")).format($V{somaContrato}.doubleValue())]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -234,7 +234,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fatura}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤#,##0.##;¤-#,##0.##">
+			<textField pattern="">
 				<reportElement x="440" y="0" width="120" height="15" uuid="4290534c-08ec-488f-b04a-4f996eca3a1a">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
@@ -249,7 +249,7 @@
 				<textElement textAlignment="Right">
 					<paragraph lineSpacingSize="2.0" firstLineIndent="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[java.text.NumberFormat.getCurrencyInstance(new Locale("pt","br")).format($F{valor}.doubleValue())]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="280" y="0" width="160" height="15" uuid="315b891f-ca7b-4791-acb4-ac3ca7e9f9b0">

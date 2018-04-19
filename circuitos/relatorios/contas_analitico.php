@@ -3,7 +3,7 @@ require '../../vendor/autoload.php';
 
 use PHPJasper\PHPJasper;
 
-$input = __DIR__ . '/analitico.jrxml';   
+$input = __DIR__ .'/analitico.jrxml';   
 
 $jasper = new PHPJasper;
 $jasper->compile($input)->execute();
@@ -13,8 +13,8 @@ $periodo = date('m/Y',strtotime($periodo1));
 
 
 
-$input = __DIR__ . '/analitico.jasper';  
-$output = __DIR__ . '/analitico';    
+$input = __DIR__ .'/analitico.jasper';  
+$output = __DIR__ .'/analitico';    
 $options = [
     'format' => ['pdf'],    
     'params' => ['periodo' => $periodo],
