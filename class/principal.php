@@ -541,7 +541,24 @@ class Circuitos extends Database {
             }
         }
     }
-            
+    function listaValorContasAno(){
+        $consulta_c= " SELECT c.periodo_ref, c.fatura, SUM(c.valor_conta) as valor_double,CONCAT('R$ ', REPLACE(REPLACE(REPLACE(FORMAT(SUM(c.valor_conta), 2),'.',';'),',','.'),';',',')) as valor, date_format(c.periodo_ref,'%m/%Y') as mes, co.descricao_servico FROM circuitos_contas as c join circuitos_registro_consumo as rc on rc.codigo = c.designacao join circuitos_unidades as u on u.codigo_ut_siig = rc.codigo_unidade join circuitos_localizacao as lo on lo.codigo = rc.localizacao join circuitos_contrato as co on co.codigo = c.fatura WHERE c.periodo_ref > (date_sub(now(), interval 12 month))  and c.fatura like '%%' GROUP BY c.periodo_ref, c.fatura ORDER BY c.periodo_ref asc, c.fatura;";
+        $resultado_c = mysqli_query($this->connect(), $consulta_c);
+        return $resultado_c;
+    }
+    
+    function listaMesesContasAno() {
+        $consulta_listaMesesContasAno = " SELECT distinct date_format(c.periodo_ref,'%m/%Y') as mes FROM circuitos_contas as c join circuitos_registro_consumo as rc on rc.codigo = c.designacao join circuitos_unidades as u on u.codigo_ut_siig = rc.codigo_unidade join circuitos_localizacao as lo on lo.codigo = rc.localizacao join circuitos_contrato as co on co.codigo = c.fatura WHERE c.periodo_ref > (date_sub(now(), interval 12 month))  and c.fatura like '%%' GROUP BY c.periodo_ref, c.fatura ORDER BY c.periodo_ref asc, c.fatura; ";
+        $resultado_listaMesesContasAno = mysqli_query($this->connect(), $consulta_listaMesesContasAno);
+        return $resultado_listaMesesContasAno;
+    }
+    
+    function listaContratosContasAno() {
+        $consulta_listaContratosContasAno = " SELECT distinct c.fatura FROM circuitos_contas as c join circuitos_registro_consumo as rc on rc.codigo = c.designacao join circuitos_unidades as u on u.codigo_ut_siig = rc.codigo_unidade join circuitos_localizacao as lo on lo.codigo = rc.localizacao join circuitos_contrato as co on co.codigo = c.fatura WHERE c.periodo_ref > (date_sub(now(), interval 12 month))  and c.fatura like '%%' GROUP BY c.periodo_ref, c.fatura ORDER BY c.periodo_ref asc, c.fatura; ";
+        $resultado_listaContratosContasAno = mysqli_query($this->connect(), $consulta_listaContratosContasAno);
+        return $resultado_listaContratosContasAno;
+    }
+    
     function __destruct() {}
 }
 

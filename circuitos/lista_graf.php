@@ -1,51 +1,8 @@
 <?php
-    include_once '../class/principal.php';
-    
-    $usuario = new Usuario();
-    
-    if ($usuario->validaSessao('') == 1){
     //Conectando ao banco de dados
-   
-?>
-<!--        <div class="col-xs-6">                        
-            <canvas id="myChart"></canvas>
-        </div>
-        <div class="col-xs-6">              
-            <canvas id="primeiroGrafico"></canvas> 
-        </div>-->
-        <div class="col-xs-12">              
-            <canvas id="chart-0" style="display: block; width: 800px; height: 600px;" ></canvas> 
-        </div>
-        </div>
-        <link rel="stylesheet" type="text/css" href="../css/chart-style.css">
-        <script src="../js/Chart.bundle.js"></script>
-        <script src="../js/chart-utils.js"></script>
-        <script src="../js/charts_area_analyser.js"></script>
-        <script src="../js/grafico.js"  type="text/javascript"></script>
-        <script>
-		var presets = window.chartColors;
-		var utils = Samples.utils;
-		var inputs = {
-			min: 20,
-			max: 80,
-			count: 8,
-			decimals: 2,
-			continuity: 1
-		};
-
-		function generateData() {
-			return utils.numbers(inputs);
-		}
-
-		function generateLabels() {
-			return utils.months({count: inputs.count});
-		}
-
-		utils.srand(42);
-
-		var data = {                   
-                       <?php 
-                         $circuito =  new Circuitos();
+    include "../class/principal.php"; 
+    
+    $circuito =  new Circuitos();
     
     $meses = $circuito->listaMesesContasAno();
     foreach ($meses as $meses_table) {
@@ -87,35 +44,3 @@
         echo "],  hidden: false,  label: '$value',  fill: true} "      ;
     }
     echo ']';
-                       ?>
-       };
-
-		var options = {
-			maintainAspectRatio: false,
-			spanGaps: false,
-			elements: {
-				line: {
-					tension: 0.4 
-				}
-			},
-			scales: {
-				yAxes: [{
-					stacked: true
-				}]
-			},
-			plugins: {
-				filler: {
-					propagate: false
-				}
-			}
-		};
-
-		var chart1 = new Chart('chart-0', {
-			type: 'line',
-			data: data,
-			options: options
-		});		
-	</script>           
-<?php
-include ("../class/footer.php");
-    }
