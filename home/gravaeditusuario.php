@@ -3,7 +3,7 @@
     
     $usuario = new Usuario();
     
-    if ($usuario->validaSessao('') == 1){
+    if ($usuario->validaSessao('2') == 1){
     
     $login = $_POST['login'];
     $nome_usuario = $_POST['nome_usuario'];

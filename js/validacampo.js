@@ -47,7 +47,7 @@
        document.getElementById("linkprint").href = './relatorios/contas_analitico.php?periodo=' + document.getElementById("mes").value ;        
     }
     function pegaMesSint(){
-       document.getElementById("linkprint").href = './relatorios/contas_sintetico.php?periodo=' + document.getElementById("mes").value ;        
+       document.getElementById("linkprint").href = './relatorios/contas_sintetico.php?periodo=' + document.getElementById("mes").value + '&fatura=' + document.getElementById("fatura").value ;        
     }
     function validaCadastroPortaSw(){        
        if((document.getElementById("vlan").value  == '300')&&(document.getElementById("Imp").value  == '0')&&(document.getElementById("limpar").value  == '0')){           

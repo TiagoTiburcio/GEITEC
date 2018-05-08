@@ -17,7 +17,10 @@ $input = __DIR__ .'/analitico.jasper';
 $output = __DIR__ .'/analitico';    
 $options = [
     'format' => ['pdf'],    
-    'params' => ['periodo' => $periodo],
+    'params' => [
+            'periodo' => $periodo,
+            'REPORT_LOCALE' => 'pt_BR'
+        ],
     'db_connection' => [
         'driver' => 'mysql',
         'username' => 'geitec',

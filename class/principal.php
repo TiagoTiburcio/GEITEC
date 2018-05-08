@@ -86,10 +86,11 @@ class Usuario extends Database {
     
     // 0 - Usuário Novo 1 - Editou Usuário
     function manutUsuario($_usuario,$_nome,$_senhaBranco, $_ativo, $_perfil, $_altProxLogin, $_usuarioAlt, $_dataAlt){
-        $resultado = $this->testeUsuarioCadatrado($_usuario);       
+        $resultado = $this->testeUsuarioCadatrado($_usuario);            
         if( $resultado == 0){            
-            $consulta_manutUsuario = " INSERT INTO `home_usuario`(`codigo`,`usuario`,`senha`,`nome`,`ativo`,`codigo_perfil`,`altera_senha_login`,`usuario_edit`,`data_edit`) "
-                    . " VALUES( '".$this->proxUsuario()."' , '".$_usuario."' , '". $this->getSenhaEncriptada($_senhaBranco)."' , '".$_nome."' ,'".$_ativo."','".$_perfil."','".$_altProxLogin."','".$_usuarioAlt."','".$_dataAlt."'); ";
+            $consulta_manutUsuario = " INSERT INTO `home_usuario`(`usuario`,`senha`,`nome`,`ativo`,`codigo_perfil`,`altera_senha_login`,`usuario_edit`,`data_edit`) "
+                    . " VALUES('".$_usuario."' , '". $this->getSenhaEncriptada($_senhaBranco)."' , '".$_nome."' ,'".$_ativo."','".$_perfil."','".$_altProxLogin."','".$_usuarioAlt."','".$_dataAlt."'); ";
+            
             $resultado_manutUsuario = mysqli_query($this->connect(), $consulta_manutUsuario);
             
         } else {               
@@ -399,6 +400,14 @@ class Circuitos extends Database {
         $consulta_editLinhaArquivo = " INSERT INTO `circuitos_registro_consumo`(`codigo`,`localizacao`,`codigo_unidade`,`data_ativacao`) VALUES('$_designacao','$_localizacao','$_codigo_unidade','$data'); ";                
         $resultado_editLinhaArquivo = mysqli_query($this->connect(), $consulta_editLinhaArquivo);
         return $resultado_editLinhaArquivo;
+    }
+    
+    function listaCircuitosCadstrados($_contrato, $_dre, $_unidade, $_circuito) {
+        $consulta = "SELECT rc.codigo as designacao ,c.fatura, rc.data_ativacao ,rc.data_ult_ref ,rc.velocidade ,rc.tipo_servico ,rc.tip_logradouro ,rc.nome_logradouro ,rc.nome_cidade ,rc.num_imovel ,rc.nome_bairro    ,lo.descricao as localizacao ,u.descricao as nome_unidade ,u.ativo as status_unidade ,dre.sigla as sigla_dre FROM circuitos_registro_consumo as rc join circuitos_localizacao as lo on lo.codigo = rc.localizacao  join circuitos_unidades as u on u.codigo_ut_siig = rc.codigo_unidade join circuitos_unidades as dre on dre.codigo_siig = u.codigo_unidade_pai join circuitos_contas as c on c.designacao = rc.codigo and c.periodo_ref = rc.data_ult_ref where tipo_servico is not null "
+                . " and rc.codigo like '%$_circuito%' and c.fatura like '%$_contrato%' and dre.sigla like '%$_dre%' and u.descricao like '%$_unidade%' "
+                . " order by dre.sigla, u.descricao, rc.codigo;";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;                
     }
     
     // retorna lista com todos os usuarios cadastrados
@@ -1237,7 +1246,7 @@ class LogArquivos extends Database {
                 . " where data_hora >= '$_data_inicio' and data_hora <= '$_data_fim' "
                 . " and usuario like '%$_usuario%' and arquivo like '%$_arquivo%' and descricao_acao like '%$_acao%' "
                 . " group by  codigo_acao, data_hora, usuario, arquivo "
-                . " order by  data_hora desc, usuario ,arquivo, codigo_acao limit 100; ";           
+                . " order by  data_hora desc, usuario ,arquivo, codigo_acao limit 1000; ";           
         $resultado_consArquivos = mysqli_query($this->connect(), $consulta_consArquivos);                
         return $resultado_consArquivos;
     }

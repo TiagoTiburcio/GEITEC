@@ -13,9 +13,13 @@
         <div class="col-xs-6">              
             <canvas id="primeiroGrafico"></canvas> 
         </div>-->
-        <div class="col-xs-12">              
+        <div class="col-xs-6">              
+            <iframe src="https://www.google.com/maps/d/embed?mid=1xyYVwo84tvTywKOwNOszGWPmy-8NW8N2&hl=pt-BR" width="100%" height="600"></iframe> 
+        </div>
+        <div class="col-xs-6">              
             <canvas id="chart-0" style="display: block; width: 800px; height: 600px;" ></canvas> 
         </div>
+        
         </div>
         <link rel="stylesheet" type="text/css" href="../css/chart-style.css">
         <script src="../js/Chart.bundle.js"></script>
@@ -60,7 +64,7 @@
     foreach ($contratos as $contratos_table) {
         $contratos_graph[] =  $contratos_table['fatura'] ;        
     }
-    $cores = array("red", "orange", "yellow", "green", "blue", "purple", "grey");
+    $cores = array("red", "orange", "yellow", "green", "blue", "grey", "purple" );
     $ind_cor = "0";
     //echo '["' . implode('", "', $contratos_graph) . '"]';    
    // echo '';
@@ -95,7 +99,7 @@
 			spanGaps: false,
 			elements: {
 				line: {
-					tension: 0.4 
+					tension: 0.0001
 				}
 			},
 			scales: {

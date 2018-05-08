@@ -2,6 +2,7 @@
 require '../../vendor/autoload.php';
 
 $periodo1 = $_GET['periodo'];
+$contrato = $_GET['fatura']; 
 $periodo = date('m/Y',strtotime($periodo1));
 
 use PHPJasper\PHPJasper;
@@ -15,7 +16,11 @@ $input = __DIR__ . '/sintetico.jasper';
 $output = __DIR__ . '/sintetico';    
 $options = [
     'format' => ['pdf'],    
-    'params' => ['periodo' => $periodo],
+    'params' => [
+        'periodo' => $periodo,
+        'contrato' => $contrato,
+        'REPORT_LOCALE' => 'pt_BR'
+        ],
     'db_connection' => [
         'driver' => 'mysql',
         'username' => 'geitec',

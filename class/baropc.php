@@ -45,6 +45,7 @@
                             <li><a href="../circuitos/contadetalhada.php">Conta OI Detalhado</a></li>
                             <li><a href="../circuitos/pble.php">Consulta PBLE</a></li>
                             <li><a href="../circuitos/confirmaimport.php">Importar Contas</a></li>
+                            <li><a href="../circuitos/circuitos_cadastrados.php">Circuitos Cadastrados</a></li>
                         </ul>
                       </li>
                       <li class="dropdown">
