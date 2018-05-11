@@ -14,7 +14,32 @@
     $cpf        = $_POST ["cpf"];
     $nome	= $_POST ["nome"];	
     $setor	= $_POST ["setor"];
-    $siglasetor = $_POST ["siglasetor"];         
+    $siglasetor = $_POST ["siglasetor"];
+    
+    if(!@($conexao = pg_connect("host=172.25.76.67 dbname=seednet port=5432 user=usrappacademico password=12347")))
+{
+   print "Não foi possível estabelecer uma conexão com o banco de dados.";
+}
+else
+{
+     $query =  " SELECT * FROM ( SELECT distinct s.nome as Nome_Servidor, replace(to_char(s.cpf, '000:000:000-00'), ':', '.') as cpf, "
+             . " s.pispasep as PIS, e4.sigla as Nivel_4, e3.sigla as Nivel_3, e2.sigla as Nivel_2, e1.sigla as Nivel_1, "
+             . " e1.nome_abreviado as Nome_Setor, tv.descricao as Tipo_Vinculo, c.descricao as Cargo "
+             . " FROM administrativo.servidor as s "
+             . " join administrativo.vinculo_servidor as vs on s.cdservidor = vs.cdservidor "
+             . " join administrativo.tipo_vinculo as tv on tv.cdtipo_vinculo = vs.cdtipo_vinculo "
+             . " join administrativo.cargo as c on c.cdcargo = vs.cdcargo and c.cdcargo_grupo = vs.cdcargo_grupo "
+             . " left join administrativo.estrutura_organizacional as e1 on vs.cdlotacao = e1.cdestrutura "
+             . " left join administrativo.estrutura_organizacional as e2 on e1.cdestrutura_pai = e2.cdestrutura "
+             . " left join administrativo.estrutura_organizacional as e3 on e2.cdestrutura_pai = e3.cdestrutura "
+             . " left join administrativo.estrutura_organizacional as e4 on e3.cdestrutura_pai = e4.cdestrutura "
+             . " where  vs.ativo = '1') as c1 where nome_servidor ilike '%$nome%' and nome_setor ilike '%$setor%' and cpf ilike '%$cpf%' "
+             . " and (nivel_4 ilike '%$siglasetor%' or nivel_3 ilike '%$siglasetor%' or nivel_2 ilike '%$siglasetor%' or nivel_1 ilike '%$siglasetor%') "
+             . " order by nome_servidor, nivel_4, nivel_3, nivel_2, nivel_1, nome_setor limit 150; ";    
+    
+
+     $result = pg_query($conexao, $query);
+}    
 ?>
         <div class="col-xs-2">                        
             <form class="form-horizontal" method="post" action="">
@@ -59,18 +84,18 @@
                     </thead>
                     <tbody>
                       <?php
-                        $resultado_servidor1 = $servidores->listaServidores($cpf, $nome, $setor, $siglasetor);
-                        foreach ($resultado_servidor1 as $table){                        
+                        while($consulta = pg_fetch_assoc($result))
+                        { //print "Saldo: ".$consulta['cdsituacao'];                            
                     ?>                
                    <tr>
-                        <td><?php echo $table["nome_servidor"]; ?></td>
-                        <td><?php echo $table["formatcpf"]; ?></td>                      
-                        <td><?php echo $table["nivel_3"]; ?></td>
-                        <td><?php echo $table["nivel_2"]; ?></td>
-                        <td><?php echo $table["nivel_1"]; ?></td>
-                        <td><?php echo $table["nome_setor"]; ?></td>
-                        <td><?php echo $table["tipo_vinculo"]; ?></td>
-                        <td><?php echo $table["cargo"]; ?></td>
+                        <td><?php echo $consulta["nome_servidor"]; ?></td>
+                        <td><?php echo $consulta["cpf"]; ?></td>                      
+                        <td><?php echo $consulta["nivel_3"]; ?></td>
+                        <td><?php echo $consulta["nivel_2"]; ?></td>
+                        <td><?php echo $consulta["nivel_1"]; ?></td>
+                        <td><?php echo $consulta["nome_setor"]; ?></td>
+                        <td><?php echo $consulta["tipo_vinculo"]; ?></td>
+                        <td><?php echo $consulta["cargo"]; ?></td>
                    </tr>  
                 <?php
                         }
@@ -86,6 +111,7 @@
     <script type="text/javascript" src="js/sinon-qunit-1.0.0.js"></script>
     <script type="text/javascript" src="js/jquery.mask.js"></script>
     <script type="text/javascript" src="js/jquery.mask.test.js"></script>
-<?php 
+<?php
+    pg_close($conexao);
     include ("../class/footer.php");
     }    
