@@ -24,7 +24,7 @@ else
 {
      $query =  " SELECT * FROM ( SELECT distinct s.nome as Nome_Servidor, replace(to_char(s.cpf, '000:000:000-00'), ':', '.') as cpf, "
              . " s.pispasep as PIS, e4.sigla as Nivel_4, e3.sigla as Nivel_3, e2.sigla as Nivel_2, e1.sigla as Nivel_1, "
-             . " e1.nome_abreviado as Nome_Setor, tv.descricao as Tipo_Vinculo, c.descricao as Cargo "
+             . " e1.nome_abreviado as Nome_Setor, tv.descricao as Tipo_Vinculo, c.descricao as Cargo, vs.ativo  "
              . " FROM administrativo.servidor as s "
              . " join administrativo.vinculo_servidor as vs on s.cdservidor = vs.cdservidor "
              . " join administrativo.tipo_vinculo as tv on tv.cdtipo_vinculo = vs.cdtipo_vinculo "
@@ -32,8 +32,8 @@ else
              . " left join administrativo.estrutura_organizacional as e1 on vs.cdlotacao = e1.cdestrutura "
              . " left join administrativo.estrutura_organizacional as e2 on e1.cdestrutura_pai = e2.cdestrutura "
              . " left join administrativo.estrutura_organizacional as e3 on e2.cdestrutura_pai = e3.cdestrutura "
-             . " left join administrativo.estrutura_organizacional as e4 on e3.cdestrutura_pai = e4.cdestrutura "
-             . " where  vs.ativo = '1') as c1 where nome_servidor ilike '%$nome%' and nome_setor ilike '%$setor%' and cpf ilike '%$cpf%' "
+             . " left join administrativo.estrutura_organizacional as e4 on e3.cdestrutura_pai = e4.cdestrutura) as c1 "
+             . " where nome_servidor ilike '%$nome%' and nome_setor ilike '%$setor%' and cpf ilike '%$cpf%' "
              . " and (nivel_4 ilike '%$siglasetor%' or nivel_3 ilike '%$siglasetor%' or nivel_2 ilike '%$siglasetor%' or nivel_1 ilike '%$siglasetor%') "
              . " order by nome_servidor, nivel_4, nivel_3, nivel_2, nivel_1, nome_setor limit 150; ";    
     
@@ -60,7 +60,19 @@ else
                 <div class="form-group">
                   <label for="setor">Setor</label>
                   <input type="text" class="form-control" id="setor" name="setor" value="<?php echo $setor;?>">
-                </div>   
+                </div>
+                <div class="form-group">
+                    <label for="ativo">Situação Vinculo</label><br/>
+                    <div class="radio">
+                        <label><input type="radio" name="ativo" <?php if($zbx == 2){echo 'checked=""';}?> value="2">Todos</label>
+                    </div><br/>
+                    <div class="radio">
+                        <label><input type="radio" name="ativo" <?php if($zbx == 1){echo 'checked=""';}?> value="1">Ativo</label>
+                    </div><br/>
+                    <div class="radio">
+                        <label><input type="radio" name="ativo" <?php if($zbx == 0){echo 'checked=""';}?> value="0">Inativo</label>
+                    </div><br/>                    
+                </div>    
                   <a type="button" class="btn btn-danger"  href="">Limpar <span class="glyphicon glyphicon-erase"></span></a>                 
                   <button type="submit" class="btn btn-primary">Pesquisar <span class="glyphicon glyphicon-search"></span></button>                  
                </div>
@@ -80,6 +92,7 @@ else
                         <th>Nome Setor</th>
                         <th>Tipo Vinculo</th>
                         <th>Cargo</th>
+                        <th>Situacao</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -96,6 +109,7 @@ else
                         <td><?php echo $consulta["nome_setor"]; ?></td>
                         <td><?php echo $consulta["tipo_vinculo"]; ?></td>
                         <td><?php echo $consulta["cargo"]; ?></td>
+                        <td><?php echo $consulta["ativo"]; ?></td>
                    </tr>  
                 <?php
                         }

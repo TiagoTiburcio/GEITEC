@@ -57,7 +57,7 @@
                 <table class="table table-hover table-striped table-condensed">
                     <thead>
                       <tr>
-                          <th>M&ecirc;s Referencia</th>  
+                        <th>M&ecirc;s Referencia</th>  
                         <th>Servi&ccedil;o Contrato</th>
                         <th>Numero Contrato</th>
                         <th>Tipo Unidade</th>

@@ -11,10 +11,10 @@
     
     if(!isset($_POST['diretoria'])) { $_POST['diretoria'] = ''; }
     if(!isset($_POST['unidade'])) { $_POST['unidade'] = ''; }
-    if(!isset($_POST['circuito'])) { $_POST['circuito'] = ''; }    
+    if(!isset($_POST['cidade'])) { $_POST['cidade'] = ''; }    
     $diretoria  = $_POST ["diretoria"];
     $unidade	= $_POST ["unidade"];
-    $circuito   = $_POST ["circuito"];
+    $cidade   = $_POST ["cidade"];
     if(!isset($_POST ["zabbix"])){
         $zbx    = 2;
     } else {
@@ -34,8 +34,8 @@
                   <input type="text" class="form-control" id="unidade" name="unidade" value="<?php echo $unidade;?>">
                 </div>
                 <div class="form-group">
-                  <label for="circuito">Circuito</label>
-                  <input type="text" class="form-control" id="circuito" name="circuito" value="<?php echo $circuito;?>">
+                  <label for="cidade">Cidade</label>
+                  <input type="text" class="form-control" id="cidade" name="cidade" value="<?php echo $cidade;?>">
                 </div>                
                 <div class="form-group">
                     <label for="zabbix">Cadastro Zabbix</label><br/>
@@ -75,11 +75,14 @@
                     </thead>
                     <tbody>
                       <?php                        
-                        $resultado_detalhada2 = $circuitos->listaUnidades($diretoria,$unidade);
+                        $resultado_detalhada2 = $circuitos->listaUnidades($diretoria,$unidade,$cidade);
                         $consultaZabbix = $zabbix->listLinksPBLE(); 
                         foreach ($resultado_detalhada2 as $table){
-                            foreach ($consultaZabbix as $tableZbx){ 
-                                if($tableZbx["serialno_a"] == $table["codigo_inep"]){
+                            $cadzbx = 3;
+                            $sitZbx = 0;
+                            $tipoZbx = "N/C";
+                            foreach ($consultaZabbix as $tableZbx){                                
+                                if($tableZbx["inep"] == $table["codigo_inep"]){
                                     $cadzbx = $tableZbx["value"]; 
                                     $sitZbx = $tableZbx["tempo_inativo"]; 
                                     $tipoZbx = $tableZbx["name"];}
@@ -106,6 +109,7 @@
                                         . " <td>".$zabbix->imprimiAtivo($cadzbx)."</td>"
                                         . " <td>".$sitZbx."</td> </tr>";
                                 } 
+                                //echo 'cadzbx: '.$cadzbx."| sitzbx: ".$sitZbx." | tipozbx: ".$tipoZbx."| desc: ". $tableZbx["inep"]. " | " . $table["codigo_inep"].'|<br/>' ;
                         }
                 ?>                                          
                     </tbody>

@@ -9,29 +9,21 @@
         </div>        
     </div>
     <div class="row">
-        <div class="col-lg-12">
-            
-    <div class="navbar navbar-inverse navbar-static-top">
- 
+        <div class="col-lg-12">            
+    <div class="navbar navbar-inverse navbar-static-top"> 
         <div class="container-fluid">
-
             <!-- Menu hamburger Inicio -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#exemplo-navbar-collapse" aria-expanded="false">
-
                     <span class="sr-only">Navegacao</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-
                 </button>
-
                 <!-- Título Direita do menu-->
                 <a class="navbar-brand" href="#" target="_blank">GEITEC</a>
-
             </div>
             <!-- Menu hamburger Fim -->
-
             <div class="collapse navbar-collapse" id="exemplo-navbar-collapse"> 
                 <!-- Links Inicio -->
                 <ul class="nav navbar-nav navbar-left">
@@ -80,7 +72,6 @@
                 <ul class="nav navbar-nav navbar-right"> 
                      <li><a href="../home/novasenha.php"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['nome_usuario'];  ?></a></li>
                       <li><a href="../home/sairlogin.php"><span class="glyphicon glyphicon-log-in"></span> Sair</a></li>
-
                 </ul>
                     <!-- Menu dropdown Fim --> 
                      <!-- Links Fim -->

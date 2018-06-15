@@ -203,7 +203,14 @@ class Servidores extends Database {
                                 . "limit 30;";                              
         $resultado_servidores1 = mysqli_query($this->connect(), $consulta_servidores1);
         return $resultado_servidores1;
-    } 
+    }
+    
+    // retorna lista com todos os usuarios cadastrados
+    function listaExpresso($_usuario, $_nome, $_situacao){        
+        $consulta_listaExpresso = " SELECT * FROM sis_geitec.temp_listaexpresso where login like '%$_usuario%' and nome like '%$_nome%' and situacao like '%$_situacao%' limit 50; ";                              
+        $resultado_listaExpresso = mysqli_query($this->connect(), $consulta_listaExpresso);
+        return $resultado_listaExpresso;
+    }
     
     function __destruct() {}
 }
@@ -328,14 +335,14 @@ class Circuitos extends Database {
     }
 
     // retorna lista com todos os usuarios cadastrados
-    function listaUnidades($_dre,$_unidade){        
+    function listaUnidades($_dre,$_unidade,$_cidade){        
         $consulta_listaUnidades = "SELECT u.codigo_siig, u.codigo_inep, u.descricao,"
                 . " u.sigla, d.descricao descricao_dre, d.sigla as sigla_dre, "
                 . " d.codigo_siig as codigo_siig_dre, e.descricao as cidade "
                 . " FROM circuitos_unidades as u "
                 . " inner join circuitos_unidades as d on u.codigo_unidade_pai = d.codigo_siig "
                 . " inner join EscolasSiteCompleta as e on e.codigo_mec = u.codigo_inep "
-                . " where d.sigla like '%$_dre%' and u.descricao like '%$_unidade%' "
+                . " where d.sigla like '%$_dre%' and u.descricao like '%$_unidade%' and e.descricao like '%$_cidade%' "
                 . " order by d.sigla, e.descricao, u.descricao; ";                              
         $resultado_listaUnidades = mysqli_query($this->connect(), $consulta_listaUnidades);
         return $resultado_listaUnidades;
@@ -1108,7 +1115,7 @@ class ZabbixSEED extends DatabaseZbx {
     function listLinksPBLE(){
         $consulta_listLinksPBLE = " SELECT h.name, t.value, (CASE t.value WHEN 1 THEN 'Down(1)' ELSE 'Up(0)' END) AS situacao, "
                                 ." FROM_UNIXTIME(t.lastchange) AS data, TIMESTAMPDIFF(day, FROM_UNIXTIME(t.lastchange), NOW()) AS tempo_inativo, " 
-                                ." g.name AS grupo, hi.os AS diretoria, hi.name AS escola, inte.ip, hi.serialno_a, h.status "
+                                ." g.name AS grupo, hi.os AS diretoria, hi.name AS escola, inte.ip, hi.serialno_a as inep, h.status "
                                 ." FROM zabbix3.hosts h JOIN zabbix3.hosts_groups hg ON h.hostid = hg.hostid JOIN zabbix3.groups g ON hg.groupid = g.groupid LEFT JOIN zabbix3.host_inventory hi ON hi.hostid = h.hostid "
                                 ." LEFT JOIN zabbix3.interface inte ON inte.hostid = h.hostid JOIN zabbix3.items i ON i.hostid = h.hostid JOIN zabbix3.functions f ON f.itemid = i.itemid JOIN zabbix3.triggers t ON t.triggerid = f.triggerid "
                                 ." WHERE g.groupid IN ('28') AND t.templateid IN ('19524' , '13554') AND inte.main = '1'; ";                
