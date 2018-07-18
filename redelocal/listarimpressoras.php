@@ -9,6 +9,7 @@
     
     $zabbix = new ZabbixSEED();
     $switch = new Switchs();
+    $rede = new Rede();
     if(!isset($_POST['bloco'])) { $_POST['bloco'] = ''; } 
     if(!isset($_POST['rack'])) { $_POST['rack'] = ''; } 
     $bloco  = $_POST ["bloco"];
@@ -40,16 +41,10 @@
                         <th>Bloco</th>
                         <th>Rack</th>
                         <th>Ip Switch</th>
-                        <th>Porta Sw</th>
-                        <th>Tipo</th>
+                        <th>Porta Sw</th>                        
                         <th>Vlan</th>
-                        <th>Nome Impressora</th>
+                        <th>Nome Impressora - IP</th>
                         <th>Marca - Modelo</th>
-                        <th>Laser</th>
-                        <th>Tinta</th>
-                        <th>Colorida</th>
-                        <th>Scanner</th>
-                        <th>Rede</th>
                         <th>Grupo</th>
                         <th>Ativo?</th>
                         <th>Dias Sit.</th>                    
@@ -57,47 +52,61 @@
                     </thead>
                     <tbody>
                       <?php                        
+                        $ips = $rede->getArrayIPsRede("300");                        
                         $resultado_detalhada2 = $switch->listImpressoras($bloco,$rack);
-                        $consultaZabbix = $zabbix->listImpr(); 
-                        foreach ($resultado_detalhada2 as $table){
+                        $consultaZabbix = $zabbix->listImpr();
+                        foreach ($ips as $table_ips){
                             $cadzbx = 3;
                             $sitZbx = 0;
-                            $tipoZbx = "N/C";
-                            $IpZbx = "";
-                            $nomeImpzbx = "";
-                            foreach ($consultaZabbix as $tableZbx){ 
-                                if($tableZbx["hostid"]==$table["codigo_host_zabbix"]){
-                                    $nomeImpzbx = $tableZbx["host"];
-                                    $cadzbx = $tableZbx["value"];
-                                    $sitZbx = $tableZbx["tempo_inativo"]; 
-                                    $tipoZbx = $tableZbx["grupo"];
-                                    $IpZbx = $tableZbx["ip"];
-                                }
-                                }                                
-                                if($cadzbx == '1'){
-                                   echo '<tr class="danger">';
-                                } elseif ($cadzbx == '0') {
-                                   echo '<tr class="success">';
-                                } else {
-                                   echo '<tr>';    
-                                }                                  
-                                echo  " <td>".$table["bloco"]."</td> "
-                                    . " <td>".$table["rack"]."</td>"
-                                    . ' <td><a title="Abrir Interface Configuração Switch" target="_blank" href="'."http://".$table["ip"].'">'.$table["ip"]."</a></td>"
-                                    . ' <td><a title="Abrir Tela Configuração Porta Switch Sistema" target="_blank" href="../redelocal/editportasw.php?sw='.$table["codigo_switch"].'&port='.$table["codigo_porta_switch"].'&tipo='.$table["tipo_porta"].'">'.$table["codigo_porta_switch"].'</a></td>'
-                                    . " <td>".$table["tipo_porta_desc"]."</td> "
-                                    . " <td>".$table["codigo_vlan"]."</td>"
-                                    . ' <td><a title="Abrir Interface Configuração Impressora" target="_blank" href="'."http://".$IpZbx.'">'.$nomeImpzbx."</a></td>"
-                                    . " <td>".$table["marca"]." - ".$table["modelo"]."</td>"
-                                    . " <td>".$zabbix->imprimiSitu($table["laser"])."</td>"
-                                    . " <td>".$zabbix->imprimiSitu($table["tinta"])."</td>"
-                                    . " <td>".$zabbix->imprimiSitu($table["colorida"])."</td>"
-                                    . " <td>".$zabbix->imprimiSitu($table["scanner"])."</td>"
-                                    . " <td>".$zabbix->imprimiSitu($table["rede"])."</td>"        
-                                    . " <td>".$tipoZbx."</td>"
-                                    . " <td>".$zabbix->imprimiSitu($cadzbx)."</td>"
-                                    . " <td>".$sitZbx."</td> </tr>";
-                                
+                            $tipoZbx = "N/C";                            
+                            $nomeImpzbx = "Livre";
+                            $blocoLista = "-";
+                            $rackLista = "-";
+                            $ipSwLista = "";
+                            $cdSwLista = "-";
+                            $tpPortSwLista = "";
+                            $cdPortSwLista = "";
+                            $impMarcaLista = "-";
+                            $impModelLista = "-";
+                            foreach ($resultado_detalhada2 as $table){                                
+                                foreach ($consultaZabbix as $tableZbx){                                     
+                                    if(($tableZbx["hostid"]==$table["codigo_host_zabbix"])&&($tableZbx["ip"] == $table_ips)){
+                                        $nomeImpzbx = $tableZbx["host"];
+                                        $cadzbx = $tableZbx["value"];
+                                        $sitZbx = $tableZbx["tempo_inativo"]; 
+                                        $tipoZbx = $tableZbx["grupo"];
+                                        $blocoLista = $table["bloco"]; 
+                                        $rackLista = $table["rack"]; 
+                                        $ipSwLista = $table["ip"]; 
+                                        $impMarcaLista = $table["marca"];
+                                        $impModelLista = $table["modelo"];
+                                        $cdSwLista = $table["codigo_switch"];
+                                        $cdPortSwLista = $table["codigo_porta_switch"];
+                                        $tpPortSwLista = $table["tipo_porta"];
+                                    } elseif($tableZbx["ip"] == $table_ips) {
+                                        $nomeImpzbx = $tableZbx["host"];
+                                        $cadzbx = $tableZbx["value"];
+                                        $sitZbx = $tableZbx["tempo_inativo"]; 
+                                        $tipoZbx = $tableZbx["grupo"];                                        
+                                    }                                    
+                                }                               
+                            }
+                            if($cadzbx == '1'){
+                                echo '<tr class="danger">';
+                            } elseif ($cadzbx == '0') {
+                                echo '<tr class="success">';
+                             } else {
+                                echo '<tr>';    
+                             }                                  
+                            echo  " <td>".$blocoLista."</td> "
+                                . " <td>".$rackLista."</td>"
+                                . ' <td><a title="Abrir Interface Configuração Switch" target="_blank" href="'."http://".$ipSwLista .'">'.$ipSwLista ."</a></td>"
+                                . ' <td><a title="Abrir Tela Configuração Porta Switch Sistema" target="_blank" href="../redelocal/editportasw.php?sw='.$cdSwLista.'&port='.$cdPortSwLista.'&tipo='.$tpPortSwLista.'">'.$cdPortSwLista.'</a></td> <td>300</td>'                                
+                                . ' <td><a title="Abrir Interface Configuração Impressora" target="_blank" href="'."http://".$table_ips.'">'.$nomeImpzbx. "- ".$table_ips."</a></td>"
+                                . " <td>".$impMarcaLista." - ".$impModelLista."</td>"                                
+                                . " <td>".$tipoZbx."</td>"
+                                . " <td>".$zabbix->imprimiSitu($cadzbx)."</td>"
+                                . " <td>".$sitZbx."</td> </tr>";
                         }
                 ?>                                          
                     </tbody>

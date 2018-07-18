@@ -4,14 +4,14 @@
     $usuario = new Usuario();
     if ($usuario->validaSessao('') == 1){
     $switch = new Switchs();
-    
+    $tarefas = new Tarefas();
     $zabbix = new ZabbixSEED();
   
     $codigo_sw	= $_GET ["sw"];
     $porta_sw	= $_GET ["port"];
     $tipo_porta = $_GET ["tipo"];
     $resultado_porta = $switch->iniPorta($porta_sw, $codigo_sw, $tipo_porta);    
-    foreach ($resultado_porta as $table_porta){
+    foreach ($resultado_porta as $table_porta){        
 ?>
         <div class="col-xs-12 text-center">
                 
@@ -25,12 +25,18 @@
                  <?php
                 $resultado_sws = $switch->dadosSwitch($codigo_sw);
                 foreach ($resultado_sws as $table_sws){
-                  $ip = $table_sws["ip"];  
-                  $num_emp = $table_sws["numero_empilhamento"];
-                    ?>
+                    $ip = $table_sws["ip"];  
+                    $num_emp = $table_sws["numero_empilhamento"];
+                    $url1 = "http://10.24.0.59/zabbix/chart2.php?graphid=".$zabbix->consultTrafegoGraficoPortaSW($ip, $porta_sw, $num_emp)."&period=7200&width=500";
+                    $nome1 = "editPort_trafego".$ip."_".$porta_sw."_".$num_emp.".png";
+                    $url2 = "http://10.24.0.59/zabbix/chart.php?period=36000&itemids[0]=".$zabbix->consultAtividadeGraficoPortaSW($ip, $porta_sw, $num_emp)."&width=500";
+                    $nome2 = "editPort_atividade".$ip."_".$porta_sw."_".$num_emp.".png";
+                    $tarefas->getTelas($url1, $nome1);
+                    $tarefas->getTelas($url2, $nome2);  
+                  ?>
                <div class="col-xs-4">
                    <h4>Trafego Rede Última Hora</h4> 
-                   <img src="http://10.24.0.59/zabbix/chart2.php?graphid=<?php echo $zabbix->consultTrafegoGraficoPortaSW($ip, $porta_sw, $num_emp);?>&period=7200&width=500"/>               
+                   <img src="<?php echo '../images/temp/'.$nome1; ?>"/>               
                </div> 
                <div class="col-xs-4">
                 
@@ -171,9 +177,8 @@
                </div>
                 <div class="col-xs-4">    
                     <h4>Atividade Porta Switch Último dia</h4>
-                    <img src="http://10.24.0.59/zabbix/chart.php?period=36000&itemids[0]=<?php echo $zabbix->consultAtividadeGraficoPortaSW($ip, $porta_sw, $num_emp);?>&width=500"/>
+                    <img src="<?php echo '../images/temp/'.$nome2; ?>"/>
                 <br/>
-                
                 </div> 
              </div>               
             </form>

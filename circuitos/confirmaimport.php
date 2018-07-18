@@ -12,7 +12,7 @@
     if(!isset($_SESSION ['pendente'])) { $_SESSION ['pendente'] = ''; }
     
     if($_SESSION ['pendente'] == 'S'){
-        echo '<meta http-equiv="refresh" content=0;url="'.'http://'. $_SERVER['SERVER_NAME'] . str_replace("confirmaimport.php","",$_SERVER['REQUEST_URI']) .'abrirarq.php">';
+        echo '<meta http-equiv="refresh" content=0;url="'.'https://'. $_SERVER['SERVER_NAME'] . str_replace("confirmaimport.php","",$_SERVER['REQUEST_URI']) .'abrirarq.php">';
         $disable_btn = ' disabled="" ';
     } else {
         $disable_btn = '';

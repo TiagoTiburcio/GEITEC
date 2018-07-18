@@ -7,17 +7,11 @@
  */
 set_time_limit(0);
 require_once '../class/principal.php';
-$sw = new Switchs();
-chdir( "log" );
-$inicio = $_GET ["inicio"];
-$fim = $_GET ["fim"];
-$num = $_GET ["num"];
-$arquivos = glob("{*.jpg}", GLOB_BRACE);
-foreach($arquivos as $key2 => $img){
-    echo $key2.'as: '.$img.'<br/>';
-    $string = $img;
-    $string = str_replace(" ","_",$string);
-    $arq = $string;
-    rename($img , $arq);        
+$teste = new Rede();
+$zabbix = new ZabbixSEED();
+//var_dump($teste->getArrayIPsRede("300"));
+$c1 = $zabbix->listImpr();
+foreach ($c1 as $value) {
+    echo $value['ip'].'<br/>';
 }
-header("Refresh:5");
+

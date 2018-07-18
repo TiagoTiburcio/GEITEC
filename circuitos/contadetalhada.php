@@ -106,7 +106,8 @@ if ($usuario->validaSessao('') == 1){
                         <th>Fatura</th>
                         <th>valor</th>
                         <th>Tipo</th>
-                        <th>Zabbix</th>
+                        <th>Velocidade</th>
+                        <th>Zabbix</th>                        
                         <th>Dias Sit.</th>
                       </tr>
                     </thead>
@@ -133,6 +134,7 @@ if ($usuario->validaSessao('') == 1){
                                         . " <td>".$table["fatura"]."</td> "
                                         . " <td>".$table["valor_conta"]."</td>"
                                         . " <td>".$tipoZbx."</td>"
+                                        . " <td>".$table["velocidade"]."</td>"
                                         . " <td>".$zabbix->imprimiAtivo($cadzbx)."</td>"
                                         . " <td>".$sitZbx."</td> </tr>";
                                 } elseif (($zbx == 0) && ($zbx == $cadzbx)) {
@@ -144,6 +146,7 @@ if ($usuario->validaSessao('') == 1){
                                         . " <td>".$table["fatura"]."</td> "
                                         . " <td>".$table["valor_conta"]."</td>"
                                         . " <td>".$tipoZbx."</td>"
+                                        . " <td>".$table["velocidade"]."</td>"
                                         . " <td>".$zabbix->imprimiAtivo($cadzbx)."</td>"
                                         . " <td>".$sitZbx."</td> </tr>";
                                 } elseif (($zbx == 1) && ($zbx == $cadzbx)) {
@@ -155,6 +158,7 @@ if ($usuario->validaSessao('') == 1){
                                         . " <td>".$table["fatura"]."</td> "
                                         . " <td>".$table["valor_conta"]."</td>"
                                         . " <td>".$tipoZbx."</td>"
+                                        . " <td>".$table["velocidade"]."</td>"    
                                         . " <td>".$zabbix->imprimiAtivo($cadzbx)."</td>"
                                         . " <td>".$sitZbx."</td> </tr>";
                                 } elseif (($zbx == 3) && ($zbx == $cadzbx)) {
@@ -166,6 +170,7 @@ if ($usuario->validaSessao('') == 1){
                                         . " <td>".$table["fatura"]."</td> "
                                         . " <td>".$table["valor_conta"]."</td>"
                                         . " <td>".$tipoZbx."</td>"
+                                        . " <td>".$table["velocidade"]."</td>"    
                                         . " <td>".$zabbix->imprimiAtivo($cadzbx)."</td>"
                                         . " <td>".$sitZbx."</td> </tr>";
                                 }
