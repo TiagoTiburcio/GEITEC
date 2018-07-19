@@ -1188,11 +1188,11 @@ class ZabbixSEED extends DatabaseZbx {
     
     function imprimiAtivo($_codigo){
         if($_codigo == '1'){
-            return '<span class="glyphicon glyphicon-remove-circle btn-danger">';
+            return '<span class="glyphicon glyphicon-remove-circle btn-danger">NOK</span>';
         }elseif ($_codigo == '0') {
-            return '<span class="glyphicon glyphicon-ok-circle btn-success">';
+            return '<span class="glyphicon glyphicon-ok-circle btn-success">OK</span>';
         } else {
-            return '<span class="glyphicon glyphicon-ban-circle">';
+            return '<span class="glyphicon glyphicon-ban-circle">N/C</span>';
         }
     }
     

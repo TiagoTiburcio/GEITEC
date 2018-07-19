@@ -56,6 +56,9 @@ if ($usuario->validaSessao('') == 1){
                         <label><input type="radio" name="zabbix" <?php if($zbx == 0){echo 'checked=""';}?> value="0">Funcionando</label>
                     </div><br/>
                     <div class="radio">
+                        <label><input type="radio" name="zabbix" <?php if($zbx == 4){echo 'checked=""';}?> value="4">Cadastrado Zabbix</label>
+                    </div><br/>
+                    <div class="radio">
                         <label><input type="radio" name="zabbix" <?php if($zbx == 3){echo 'checked=""';}?> value="3">Não Cadastrado Zabbix</label>
                     </div><br/>
                 </div>                   
@@ -173,7 +176,20 @@ if ($usuario->validaSessao('') == 1){
                                         . " <td>".$table["velocidade"]."</td>"    
                                         . " <td>".$zabbix->imprimiAtivo($cadzbx)."</td>"
                                         . " <td>".$sitZbx."</td> </tr>";
+                                } elseif (($zbx == 4) && (( '0' == $cadzbx) || ( '1' == $cadzbx))) {
+                                    echo  " <tr> <td>".$table["DRE"]."</td> "
+                                        . " <td>".$table["cidade"]."</td> "
+                                        . " <td>".$table["circuito"]."</td>"
+                                        . " <td>".$table["nome_unidade"]."</td>"
+                                        . " <td>".$table["periodo_ref"]."</td>"
+                                        . " <td>".$table["fatura"]."</td> "
+                                        . " <td>".$table["valor_conta"]."</td>"
+                                        . " <td>".$tipoZbx."</td>"
+                                        . " <td>".$table["velocidade"]."</td>"    
+                                        . " <td>".$zabbix->imprimiAtivo($cadzbx)."</td>"
+                                        . " <td>".$sitZbx."</td> </tr>";
                                 }
+                                
                         }
                 ?>                                          
                     </tbody>
