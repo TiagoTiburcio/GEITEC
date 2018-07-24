@@ -1,9 +1,9 @@
 <?php
     include_once '../class/principal.php';
     
-    $usuario = new Usuario();
+    $tarefas = new RotinasPublicas();
     
-    if ($usuario->validaSessao('') == 1){
+    if ($tarefas->validaSessao('') == 1){
     //Conectando ao banco de dados
    
 ?>

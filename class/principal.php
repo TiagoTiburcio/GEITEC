@@ -2,6 +2,7 @@
 include_once '../class/database.php';
 include_once '../class/padrao.php';
 include_once '../class/redelocal.php';
+include_once '../class/servidor.php';
 
 /**
  * Description of usuario
@@ -67,16 +68,7 @@ class Usuario extends Database {
         } 
         return $resultado;
     }
-    
-    // 0 - usuario não gravado 1 - usuario existente na Base de Dados
-    private function proxUsuario(){
-        $consulta_usuario1 = "SELECT (count(`codigo`) + 1) as cont FROM `home_usuario`";                                
-        $resultado_usuario1 = mysqli_query($this->connect(), $consulta_usuario1);
-        foreach ($resultado_usuario1 as $table_usuario1){                        
-           $resultado = $table_usuario1["cont"]; 
-        } 
-        return $resultado;
-    }
+        
     private function idUsuario($_usuario){
         $consulta_usuario1 = "SELECT `codigo` FROM `home_usuario` where usuario = '$_usuario';";                                
         $resultado_usuario1 = mysqli_query($this->connect(), $consulta_usuario1);
@@ -137,86 +129,9 @@ class Usuario extends Database {
         }
         return $retorno;
     }
-    
-    function validaSessao($_teste){               
-        session_start();        
-        
-        //Caso o usuário não esteja autenticado, limpa os dados e redireciona
-        if ( !isset($_SESSION['login']) and !isset($_SESSION['pass']) ) {
-            //Destrói
-            session_destroy();
-
-            //Limpa
-            unset ($_SESSION['login']);
-            unset ($_SESSION['pass']);
-            unset ($_SESSION['nome_usuario']);
-
-            //Redireciona para a página de autenticação
-            echo '<META http-equiv="refresh" content="0;../home/login.php">';
-            return 0;
-        } else {
-            $this->iniUsuario($_SESSION['login']);
-            if($_teste == '1'){
-            include ("../class/headerCircuitos.php");
-            include ("../class/baropc.php");
-            } elseif ($_teste == '2') {
-            } else {
-            include ("../class/header.php");
-            include ("../class/baropc.php");
-            }
-            return 1;
-        }
-    }
-    
-    function imprimiAtivo($_codigo){
-        if($_codigo == '0'){
-            return '<span class="glyphicon glyphicon-remove-circle btn-danger">';
-        }elseif ($_codigo == '1') {
-            return '<span class="glyphicon glyphicon-ok-circle btn-success">';
-        } else {
-            return '<span class="glyphicon glyphicon-ban-circle">';
-        }
-    }
-    function __destruct() {}
-}
-
-/**
- * Description of Servidores
- *
- * @author tiagoc
- */
-class Servidores extends Database {
        
-    function __construct(){ }
-          
-    // retorna lista com todos os usuarios cadastrados
-    function listaServidores($_cpf, $_nome, $_setor, $_siglasetor){        
-        $consulta_servidores1 = "select * from (SELECT (INSERT(INSERT( INSERT( lpad(cpf, 11, '0'), 10, 0, '-' ), 7, 0, '.' ), 4, 0, '.' )) as formatcpf,"
-                                . "`nome_servidor`, `cpf`, `pis`, `nivel_4`, "
-                                . "`nivel_3`, `nivel_2`, `nivel_1`, `nome_setor`, "
-                                . "`tipo_vinculo`, `cargo` "
-                                . "FROM servidor_lista) as consulta "
-                                . "where "
-                                . "`nome_servidor` like '%$_nome%' "
-                                . "and formatcpf like '%$_cpf%' "
-                                . "and nome_setor like '%$_setor%' "
-                                . "and nivel_1 like '%$_siglasetor%' "
-                                . "order by `nome_servidor` "
-                                . "limit 30;";                              
-        $resultado_servidores1 = mysqli_query($this->connect(), $consulta_servidores1);
-        return $resultado_servidores1;
-    }
-    
-    // retorna lista com todos os usuarios cadastrados
-    function listaExpresso($_usuario, $_nome, $_situacao){        
-        $consulta_listaExpresso = " SELECT * FROM sis_geitec.temp_listaexpresso where login like '%$_usuario%' and nome like '%$_nome%' and situacao like '%$_situacao%' limit 50; ";                              
-        $resultado_listaExpresso = mysqli_query($this->connect(), $consulta_listaExpresso);
-        return $resultado_listaExpresso;
-    }
-    
     function __destruct() {}
 }
-
 
 /**
  * Description of Circuitos
@@ -338,9 +253,8 @@ class Circuitos extends Database {
 
     // retorna lista com todos os usuarios cadastrados
     function listaUnidades($_dre,$_unidade,$_cidade){        
-        $consulta_listaUnidades = "SELECT u.codigo_siig, u.codigo_inep, u.descricao,"
-                . " u.sigla, d.descricao descricao_dre, d.sigla as sigla_dre, "
-                . " d.codigo_siig as codigo_siig_dre, e.descricao as cidade "
+        $consulta_listaUnidades = "SELECT distinctrow u.codigo_inep, u.descricao, d.descricao descricao_dre,"
+                . " d.sigla as sigla_dre, d.codigo_siig as codigo_siig_dre, e.descricao as cidade  "
                 . " FROM circuitos_unidades as u "
                 . " inner join circuitos_unidades as d on u.codigo_unidade_pai = d.codigo_siig "
                 . " inner join EscolasSiteCompleta as e on e.codigo_mec = u.codigo_inep "
@@ -580,7 +494,6 @@ class Circuitos extends Database {
     function __destruct() {}
 }
 
-
 /**
  * Description of Redmine
  *
@@ -665,7 +578,7 @@ class Redmine extends DatabaseRed {
 }
 
 /**
- * Description of servico
+ * Description of servicos
  *
  * @author tiagoc
  */
@@ -1015,7 +928,11 @@ class Servicos extends Database {
     
 }
 
-
+/**
+ * Description of servico
+ *
+ * @author tiagoc
+ */
 class Servico extends Database {
     private $codigo;
     
@@ -1101,9 +1018,15 @@ class Servico extends Database {
  * @author tiagoc
  */
 class ZabbixSEED extends DatabaseZbx {
-    function listLinksPagos(){
-        
-        $consulta_listLinksPagos = " SELECT h.name, t.value, (CASE t.value WHEN 1 THEN 'Down(1)' ELSE 'Up(0)' END) AS situacao, "
+    
+    function listGraphTempoResposta(){
+        $consulta_listGraphTempoResposta = " SELECT g.graphid, i.hostid FROM graphs as g join graphs_items as gi on g.graphid = gi.graphid join items as i on gi.itemid = i.itemid WHERE g.name = 'Tempo de Resposta'; ";                
+        $resultado_listGraphTempoResposta = mysqli_query($this->connectZbx(), $consulta_listGraphTempoResposta);        
+        return $resultado_listGraphTempoResposta;
+    }
+    
+    function listLinksPagos(){        
+        $consulta_listLinksPagos = " SELECT h.hostid, h.name, t.value, (CASE t.value WHEN 1 THEN 'Down(1)' ELSE 'Up(0)' END) AS situacao, "
                                 ." FROM_UNIXTIME(t.lastchange) AS data, TIMESTAMPDIFF(day, FROM_UNIXTIME(t.lastchange), NOW()) AS tempo_inativo, " 
                                 ." g.name AS grupo, hi.os AS diretoria, hi.name AS escola, inte.ip, hi.serialno_a, h.status "
                                 ." FROM zabbix3.hosts h JOIN zabbix3.hosts_groups hg ON h.hostid = hg.hostid JOIN zabbix3.groups g ON hg.groupid = g.groupid LEFT JOIN zabbix3.host_inventory hi ON hi.hostid = h.hostid "
@@ -1222,9 +1145,3 @@ class ZabbixCofre extends DatabaseZbxCofre {
         return $resultado_listArquivosExcluidos;
     }    
 }
-
-/**
- * Description of Log Arquivos Rede Local
- *
- * @author tiagoc
- */

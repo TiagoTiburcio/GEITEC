@@ -1,9 +1,9 @@
     <?php
     include_once '../class/principal.php';
     
-    $usuario = new Usuario();
+    $rotina = new RotinasPublicas();
     
-    if ($usuario->validaSessao('') == 1){
+    if ($rotina->validaSessao('') == 1){
 
     $circuitos = new Circuitos();
     
@@ -12,13 +12,13 @@
     if(!isset($_POST['diretoria'])) { $_POST['diretoria'] = ''; }
     if(!isset($_POST['unidade'])) { $_POST['unidade'] = ''; }
     if(!isset($_POST['cidade'])) { $_POST['cidade'] = ''; }    
-    $diretoria  = $_POST ["diretoria"];
-    $unidade	= $_POST ["unidade"];
-    $cidade   = $_POST ["cidade"];
-    if(!isset($_POST ["zabbix"])){
+    $diretoria  = $_POST ['diretoria'];
+    $unidade	= $_POST ['unidade'];
+    $cidade   = $_POST ['cidade'];
+    if(!isset($_POST ['zabbix'])){
         $zbx    = 2;
     } else {
-        $zbx   = $_POST ["zabbix"];
+        $zbx   = $_POST ['zabbix'];
     }   
     ?>
         <div class="col-xs-2">                        
@@ -82,30 +82,30 @@
                             $sitZbx = 0;
                             $tipoZbx = "N/C";
                             foreach ($consultaZabbix as $tableZbx){                                
-                                if($tableZbx["inep"] == $table["codigo_inep"]){
-                                    $cadzbx = $tableZbx["value"]; 
-                                    $sitZbx = $tableZbx["tempo_inativo"]; 
-                                    $tipoZbx = $tableZbx["name"];}
+                                if($tableZbx['inep'] == $table['codigo_inep']){
+                                    $cadzbx = $tableZbx['value']; 
+                                    $sitZbx = $tableZbx['tempo_inativo']; 
+                                    $tipoZbx = $tableZbx['name'];}
                                 }
                                 if(($zbx == 2)){
-                                    echo  " <tr> <td>".$table["sigla_dre"]."</td> "
-                                        . " <td>".$table["cidade"]."</td> "
+                                    echo  " <tr> <td>".$table['sigla_dre']."</td> "
+                                        . " <td>".$table['cidade']."</td> "
                                         . " <td>".$tipoZbx."</td>"
-                                        . " <td>".$table["descricao"]."</td>"
+                                        . " <td>".$table['descricao']."</td>"
                                         . " <td>".$zabbix->imprimiAtivo($cadzbx)."</td>"
                                         . " <td>".$sitZbx."</td> </tr>";
                                 } elseif (($zbx == 0) && ($zbx == $cadzbx)) {
                                     echo  " <tr> <td>".$table["sigla_dre"]."</td> "
-                                        . " <td>".$table["cidade"]."</td> "
+                                        . " <td>".$table['cidade']."</td> "
                                         . " <td>".$tipoZbx."</td>"
-                                        . " <td>".$table["descricao"]."</td>"
+                                        . " <td>".$table['descricao']."</td>"
                                         . " <td>".$zabbix->imprimiAtivo($cadzbx)."</td>"
                                         . " <td>".$sitZbx."</td> </tr>";
                                 } elseif (($zbx == 1) && ($zbx == $cadzbx)) {
-                                    echo  " <tr> <td>".$table["sigla_dre"]."</td> "
-                                        . " <td>".$table["cidade"]."</td> "
+                                    echo  " <tr> <td>".$table['sigla_dre']."</td> "
+                                        . " <td>".$table['cidade']."</td> "
                                         . " <td>".$tipoZbx."</td>"
-                                        . " <td>".$table["descricao"]."</td>" 
+                                        . " <td>".$table['descricao']."</td>" 
                                         . " <td>".$zabbix->imprimiAtivo($cadzbx)."</td>"
                                         . " <td>".$sitZbx."</td> </tr>";
                                 } 

@@ -1,11 +1,10 @@
     <?php
     include_once '../class/principal.php';
     
-    $usuario = new Usuario();
-    $redeLocal = new RedeLocal();
+    $rotina = new RotinasPublicas();
+    if($rotina->validaSessao('') == 1 ){ 
     
-    if ($usuario->validaSessao('') == 1){  
-
+        $redeLocal = new RedeLocal();
     
     if(!isset($_POST['tipo'])) { $_POST['tipo'] = ''; } 
     if(!isset($_POST['descricao'])) { $_POST['descricao'] = ''; } 

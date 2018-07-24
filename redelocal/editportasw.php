@@ -1,10 +1,9 @@
 <?php
     include_once '../class/principal.php';
     
-    $usuario = new Usuario();
-    if ($usuario->validaSessao('') == 1){
-    $switch = new Switchs();
-    $tarefas = new Tarefas();
+    $rotina = new RotinasPublicas();
+    if($rotina->validaSessao('') == 1 ){ 
+    $switch = new Switchs();    
     $zabbix = new ZabbixSEED();
   
     $codigo_sw	= $_GET ["sw"];
@@ -31,8 +30,8 @@
                     $nome1 = "editPort_trafego".$ip."_".$porta_sw."_".$num_emp.".png";
                     $url2 = "http://10.24.0.59/zabbix/chart.php?period=36000&itemids[0]=".$zabbix->consultAtividadeGraficoPortaSW($ip, $porta_sw, $num_emp)."&width=500";
                     $nome2 = "editPort_atividade".$ip."_".$porta_sw."_".$num_emp.".png";
-                    $tarefas->getTelas($url1, $nome1);
-                    $tarefas->getTelas($url2, $nome2);  
+                    $rotina->getTelas($url1, $nome1);
+                    $rotina->getTelas($url2, $nome2);  
                   ?>
                <div class="col-xs-4">
                    <h4>Trafego Rede Última Hora</h4> 

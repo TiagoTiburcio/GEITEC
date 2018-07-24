@@ -1,9 +1,8 @@
     <?php
     include_once '../class/principal.php';
     
-    $usuario = new Usuario();
-    
-    if ($usuario->validaSessao('') == 1){  
+    $rotina = new RotinasPublicas();
+    if($rotina->validaSessao('') == 1 ){ 
 
     $circuitos = new Circuitos();
     
@@ -68,7 +67,7 @@
                             $cdPortSwLista = "";
                             $impMarcaLista = "-";
                             $impModelLista = "-";
-                            foreach ($resultado_detalhada2 as $table){                                
+                            foreach ($resultado_detalhada2 as $table){                                                         
                                 foreach ($consultaZabbix as $tableZbx){                                     
                                     if(($tableZbx["hostid"]==$table["codigo_host_zabbix"])&&($tableZbx["ip"] == $table_ips)){
                                         $nomeImpzbx = $tableZbx["host"];
@@ -82,14 +81,19 @@
                                         $impModelLista = $table["modelo"];
                                         $cdSwLista = $table["codigo_switch"];
                                         $cdPortSwLista = $table["codigo_porta_switch"];
-                                        $tpPortSwLista = $table["tipo_porta"];
+                                        $tpPortSwLista = $table["tipo_porta"];                                        
                                     } elseif($tableZbx["ip"] == $table_ips) {
                                         $nomeImpzbx = $tableZbx["host"];
                                         $cadzbx = $tableZbx["value"];
                                         $sitZbx = $tableZbx["tempo_inativo"]; 
-                                        $tipoZbx = $tableZbx["grupo"];                                        
-                                    }                                    
-                                }                               
+                                        $tipoZbx = $tableZbx["grupo"];
+                                    }
+                                }
+                                if(($tipoZbx != "N/C")&&($ipSwLista == "")){
+                                $blocoLista = "CADASTRAR";
+                                $rackLista = "PORTA NA";
+                                $ipSwLista = " DOCUMENTACAO";
+                                }
                             }
                             if($cadzbx == '1'){
                                 echo '<tr class="danger">';

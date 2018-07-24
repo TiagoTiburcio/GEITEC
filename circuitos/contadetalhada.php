@@ -1,9 +1,9 @@
     <?php
     include_once '../class/principal.php';
     
-    $usuario = new Usuario();
+    $rotina = new RotinasPublicas();
     
-if ($usuario->validaSessao('') == 1){
+if ($rotina->validaSessao('') == 1){
 
     $circuitos = new Circuitos();
     
@@ -13,15 +13,15 @@ if ($usuario->validaSessao('') == 1){
     if(!isset($_POST['fatura'])) { $_POST['fatura'] = ''; }
     if(!isset($_POST['circuito'])) { $_POST['circuito'] = ''; }
     if(!isset($_POST['mes'])) { $_POST['mes'] = '';}    
-    $diretoria  = $_POST ["diretoria"];
-    $unidade	= $_POST ["unidade"];	
-    $fatura	= $_POST ["fatura"];
-    $circuito   = $_POST ["circuito"];
-    $mescad     = $_POST ["mes"]; 
-    if(!isset($_POST ["zabbix"])){
+    $diretoria  = $_POST ['diretoria'];
+    $unidade	= $_POST ['unidade'];	
+    $fatura	= $_POST ['fatura'];
+    $circuito   = $_POST ['circuito'];
+    $mescad     = $_POST ['mes']; 
+    if(!isset($_POST ['zabbix'])){
         $zbx    = 2;
     } else {
-        $zbx   = $_POST ["zabbix"];
+        $zbx   = $_POST ['zabbix'];
     }   
     ?>
         <div class="col-xs-2">                        
@@ -70,15 +70,15 @@ if ($usuario->validaSessao('') == 1){
                         $resultado_detalhada1 = $circuitos->listaPeriodoRef();
                         foreach ($resultado_detalhada1 as $mes){
                         if ($mescad == ''){
-                           $mescad = $mes["periodo_ref"];
+                           $mescad = $mes['periodo_ref'];
                         }
-                        if($mes["periodo_ref"] == $mescad){
+                        if($mes['periodo_ref'] == $mescad){
                     ?> 
-                      <option value="<?php echo $mes["periodo_ref"]; ?>" selected><?php echo $mes["mes"]; ?></option>                    
+                      <option value="<?php echo $mes['periodo_ref']; ?>" selected><?php echo $mes['mes']; ?></option>                    
                 <?php
                         } else {
                     ?> 
-                      <option value="<?php echo $mes["periodo_ref"]; ?>" ><?php echo $mes["mes"]; ?></option>                    
+                      <option value="<?php echo $mes['periodo_ref']; ?>" ><?php echo $mes['mes']; ?></option>                    
                 <?php
                             
                         }}
@@ -123,69 +123,69 @@ if ($usuario->validaSessao('') == 1){
                             $sitZbx = 0;
                             $tipoZbx = "N/C";
                             foreach ($consultaZabbix as $tableZbx){ 
-                                if($tableZbx["name"]==$table["circuito"]){
-                                    $cadzbx = $tableZbx["value"]; 
-                                    $sitZbx = $tableZbx["tempo_inativo"]; 
-                                    $tipoZbx = $tableZbx["grupo"];}
+                                if($tableZbx['name'] == $table['circuito']){
+                                    $cadzbx = $tableZbx['value']; 
+                                    $sitZbx = $tableZbx['tempo_inativo']; 
+                                    $tipoZbx = $tableZbx['grupo'];}
                                 }
                                 if(($zbx == 2)){
-                                    echo  " <tr> <td>".$table["DRE"]."</td> "
-                                        . " <td>".$table["cidade"]."</td> "
-                                        . " <td>".$table["circuito"]."</td>"
-                                        . " <td>".$table["nome_unidade"]."</td>"
-                                        . " <td>".$table["periodo_ref"]."</td>"
-                                        . " <td>".$table["fatura"]."</td> "
-                                        . " <td>".$table["valor_conta"]."</td>"
+                                    echo  " <tr> <td>".$table['DRE']."</td> "
+                                        . " <td>".$table['cidade']."</td> "
+                                        . " <td>".$table['circuito']."</td>"
+                                        . " <td>".$table['nome_unidade']."</td>"
+                                        . " <td>".$table['periodo_ref']."</td>"
+                                        . " <td>".$table['fatura']."</td> "
+                                        . " <td>".$table['valor_conta']."</td>"
                                         . " <td>".$tipoZbx."</td>"
-                                        . " <td>".$table["velocidade"]."</td>"
+                                        . " <td>".$table['velocidade']."</td>"
                                         . " <td>".$zabbix->imprimiAtivo($cadzbx)."</td>"
                                         . " <td>".$sitZbx."</td> </tr>";
                                 } elseif (($zbx == 0) && ($zbx == $cadzbx)) {
-                                    echo  " <tr> <td>".$table["DRE"]."</td> "
-                                        . " <td>".$table["cidade"]."</td> "
-                                        . " <td>".$table["circuito"]."</td>"
-                                        . " <td>".$table["nome_unidade"]."</td>"
-                                        . " <td>".$table["periodo_ref"]."</td>"
-                                        . " <td>".$table["fatura"]."</td> "
-                                        . " <td>".$table["valor_conta"]."</td>"
+                                    echo  " <tr> <td>".$table['DRE']."</td> "
+                                        . " <td>".$table['cidade']."</td> "
+                                        . " <td>".$table['circuito']."</td>"
+                                        . " <td>".$table['nome_unidade']."</td>"
+                                        . " <td>".$table['periodo_ref']."</td>"
+                                        . " <td>".$table['fatura']."</td> "
+                                        . " <td>".$table['valor_conta']."</td>"
                                         . " <td>".$tipoZbx."</td>"
-                                        . " <td>".$table["velocidade"]."</td>"
+                                        . " <td>".$table['velocidade']."</td>"
                                         . " <td>".$zabbix->imprimiAtivo($cadzbx)."</td>"
                                         . " <td>".$sitZbx."</td> </tr>";
                                 } elseif (($zbx == 1) && ($zbx == $cadzbx)) {
-                                    echo  " <tr> <td>".$table["DRE"]."</td> "
-                                        . " <td>".$table["cidade"]."</td> "
-                                        . " <td>".$table["circuito"]."</td>"
-                                        . " <td>".$table["nome_unidade"]."</td>"
-                                        . " <td>".$table["periodo_ref"]."</td>"
-                                        . " <td>".$table["fatura"]."</td> "
-                                        . " <td>".$table["valor_conta"]."</td>"
+                                    echo  " <tr> <td>".$table['DRE']."</td> "
+                                        . " <td>".$table['cidade']."</td> "
+                                        . " <td>".$table['circuito']."</td>"
+                                        . " <td>".$table['nome_unidade']."</td>"
+                                        . " <td>".$table['periodo_ref']."</td>"
+                                        . " <td>".$table['fatura']."</td> "
+                                        . " <td>".$table['valor_conta']."</td>"
                                         . " <td>".$tipoZbx."</td>"
-                                        . " <td>".$table["velocidade"]."</td>"    
+                                        . " <td>".$table['velocidade']."</td>"    
                                         . " <td>".$zabbix->imprimiAtivo($cadzbx)."</td>"
                                         . " <td>".$sitZbx."</td> </tr>";
                                 } elseif (($zbx == 3) && ($zbx == $cadzbx)) {
-                                    echo  " <tr> <td>".$table["DRE"]."</td> "
-                                        . " <td>".$table["cidade"]."</td> "
-                                        . " <td>".$table["circuito"]."</td>"
-                                        . " <td>".$table["nome_unidade"]."</td>"
-                                        . " <td>".$table["periodo_ref"]."</td>"
-                                        . " <td>".$table["fatura"]."</td> "
-                                        . " <td>".$table["valor_conta"]."</td>"
+                                    echo  " <tr> <td>".$table['DRE']."</td> "
+                                        . " <td>".$table['cidade']."</td> "
+                                        . " <td>".$table['circuito']."</td>"
+                                        . " <td>".$table['nome_unidade']."</td>"
+                                        . " <td>".$table['periodo_ref']."</td>"
+                                        . " <td>".$table['fatura']."</td> "
+                                        . " <td>".$table['valor_conta']."</td>"
                                         . " <td>".$tipoZbx."</td>"
-                                        . " <td>".$table["velocidade"]."</td>"    
+                                        . " <td>".$table['velocidade']."</td>"    
                                         . " <td>".$zabbix->imprimiAtivo($cadzbx)."</td>"
                                         . " <td>".$sitZbx."</td> </tr>";
                                 } elseif (($zbx == 4) && (( '0' == $cadzbx) || ( '1' == $cadzbx))) {
-                                    echo  " <tr> <td>".$table["DRE"]."</td> "
-                                        . " <td>".$table["cidade"]."</td> "
-                                        . " <td>".$table["circuito"]."</td>"
-                                        . " <td>".$table["nome_unidade"]."</td>"
-                                        . " <td>".$table["periodo_ref"]."</td>"
-                                        . " <td>".$table["fatura"]."</td> "
-                                        . " <td>".$table["valor_conta"]."</td>"
+                                    echo  " <tr> <td>".$table['DRE']."</td> "
+                                        . " <td>".$table['cidade']."</td> "
+                                        . " <td>".$table['circuito']."</td>"
+                                        . " <td>".$table['nome_unidade']."</td>"
+                                        . " <td>".$table['periodo_ref']."</td>"
+                                        . " <td>".$table['fatura']."</td> "
+                                        . " <td>".$table['valor_conta']."</td>"
                                         . " <td>".$tipoZbx."</td>"
-                                        . " <td>".$table["velocidade"]."</td>"    
+                                        . " <td>".$table['velocidade']."</td>"    
                                         . " <td>".$zabbix->imprimiAtivo($cadzbx)."</td>"
                                         . " <td>".$sitZbx."</td> </tr>";
                                 }

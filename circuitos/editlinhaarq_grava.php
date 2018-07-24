@@ -1,8 +1,6 @@
 <?php
     include_once '../class/principal.php';
-    
-    $usuario = new Usuario();
-    
+     
     $circuitos = new Circuitos();   
 
     if(!isset($_POST['arquivo'])) { $_POST['arquivo'] = ''; }

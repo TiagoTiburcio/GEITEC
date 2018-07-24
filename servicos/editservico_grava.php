@@ -1,9 +1,8 @@
 <?php
     include_once '../class/principal.php';
         
-    $usuario = new Usuario();    
-           
-    if ($usuario->validaSessao('1') == 1){
+    $rotina = new RotinasPublicas();
+    if ($rotina->validaSessao('') == 1){
     
     $servicos = new Servico();
     $repeticao	= $_POST ["repeticao"];    

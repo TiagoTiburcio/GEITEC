@@ -1,16 +1,14 @@
 <?php
     include_once '../class/principal.php';
     
-    $usuario = new Usuario();
+    $rotina = new RotinasPublicas();            
     
-    if ($usuario->validaSessao('') == 1){  
-
+    if ($rotina->validaSessao('') == 1){  
     $circuitos = new Circuitos();   
     if(!isset($_POST['fatura'])) { $_POST['fatura'] = ''; }
     if(!isset($_POST['mes'])) { $_POST['mes'] = ''; }
     $fatura	= $_POST ["fatura"];    
-    $mescad    = $_POST ["mes"];     
-
+    $mescad    = $_POST ["mes"]; 
 ?>
         <div class="col-xs-2">                        
             <form class="form-horizontal" method="post" action="">

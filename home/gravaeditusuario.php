@@ -2,8 +2,9 @@
      include_once '../class/principal.php';
     
     $usuario = new Usuario();
+    $rotina = new RotinasPublicas();
     
-    if ($usuario->validaSessao('2') == 1){
+    if ($rotina->validaSessao('2') == 1){ 
     
     $login = $_POST['login'];
     $nome_usuario = $_POST['nome_usuario'];

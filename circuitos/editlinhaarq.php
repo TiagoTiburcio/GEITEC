@@ -1,9 +1,9 @@
 <?php
     include_once '../class/principal.php';
     
-    $usuario = new Usuario();
+    $rotina = new RotinasPublicas();
     
- if ($usuario->validaSessao('') == 1){
+if ($rotina->validaSessao('') == 1){
 
     $circuitos = new Circuitos();   
     if(!isset($_GET ['arquivo'])) { $_GET ['arquivo'] = ''; }

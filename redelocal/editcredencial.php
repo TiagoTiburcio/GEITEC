@@ -1,9 +1,9 @@
 <?php
     include_once '../class/principal.php';
         
-    $usuario = new Usuario();    
+    $rotina = new RotinasPublicas();
            
-    if ($usuario->validaSessao('1') == 1){
+    if($rotina->validaSessao('3') == 1 ){ 
     $redeLocal = new RedeLocal();
     
     if(!isset($_GET['codigo'])) { $_GET['codigo'] = '0'; }     

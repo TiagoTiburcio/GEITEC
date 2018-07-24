@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Description of Rede
+ *
+ * @author tiagoc
+ */
 class Rede extends Database{
     function getRede($_codVlan){
         $consulta_getRede = " SELECT count(codigo) as 'qtd_redes', `codigo`, `nome`, `qtd_hosts`, `descricao`, `rede`, `mascara`, `gateway`, `cor`, `fonte` FROM redelocal_vlan "
@@ -25,6 +29,11 @@ class Rede extends Database{
     }
 }
 
+/**
+ * Description of Log Arquivos Rede Local
+ *
+ * @author tiagoc
+ */
 class LogArquivos extends Database {
     function insertImportLogArquivo($_linhas){
     $consulta_insertImportLogArquivo = " INSERT INTO `redelocal_log_arquivos` (`codigo_acao`,`data_hora`,`usuario`,`arquivo`,`descricao_acao`) VALUES "

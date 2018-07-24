@@ -1,9 +1,9 @@
 <?php
     include_once '../class/principal.php';
     
-    $usuario = new Usuario();
+    $rotina = new RotinasPublicas();
     
-    if ($usuario->validaSessao('') == 1){  
+    if ($rotina->validaSessao('') == 1){  
 
     $circuitos = new Circuitos();   
     if(!isset($_POST['diretoria'])) { $_POST['diretoria'] = ''; }
@@ -11,10 +11,10 @@
     if(!isset($_POST['fatura'])) { $_POST['fatura'] = ''; }
     if(!isset($_POST['circuito'])) { $_POST['circuito'] = ''; }
     if(!isset($_POST['mes'])) { $_POST['mes'] = '';}    
-    $diretoria  = $_POST ["diretoria"];
-    $unidade	= $_POST ["unidade"];	
-    $fatura	= $_POST ["fatura"];
-    $circuito   = $_POST ["circuito"];
+    $diretoria  = $_POST ['diretoria'];
+    $unidade	= $_POST ['unidade'];	
+    $fatura	= $_POST ['fatura'];
+    $circuito   = $_POST ['circuito'];
      
 
 ?>
@@ -64,13 +64,13 @@
                         foreach ($resultado_analitico2 as $table){                        
                     ?>                
                    <tr>
-                        <td><?php echo $table["sigla_dre"]; ?></td>
-                        <td><?php echo $table["nome_cidade"]; ?></td>
-                        <td><?php echo $table["nome_unidade"]; ?></td>
-                        <td><?php echo $table["designacao"]; ?></td>
-                        <td><?php echo $table["fatura"]; ?></td>
-                        <td><?php echo $table["velocidade"]; ?></td>
-                        <td><?php echo $table["tip_logradouro"].' '.$table["nome_logradouro"].' '.$table["num_imovel"].', '.$table["nome_bairro"].' '; ?></td>
+                        <td><?php echo $table['sigla_dre']; ?></td>
+                        <td><?php echo $table['nome_cidade']; ?></td>
+                        <td><?php echo $table['nome_unidade']; ?></td>
+                        <td><?php echo $table['designacao']; ?></td>
+                        <td><?php echo $table['fatura']; ?></td>
+                        <td><?php echo $table['velocidade']; ?></td>
+                        <td><?php echo $table['tip_logradouro'].' '.$table['nome_logradouro'].' '.$table['num_imovel'].', '.$table['nome_bairro'].' '; ?></td>
                    </tr>  
                 <?php
                         }

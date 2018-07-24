@@ -1,9 +1,10 @@
 <?php
-
-$hostname = '172.25.76.85';
-$username = 'geitec';
-$password = 'seedqawsed';
-$database = 'homo_sis_geitec';
+include_once '../class/principal.php';
+$conec = new DatabaseCalendar();
+$hostname = $conec::$host;
+$username = $conec::$user;
+$password = $conec::$password;
+$database = $conec::$db;
  
 try {
     $conexao = new PDO("mysql:host=$hostname;dbname=$database", $username, $password,

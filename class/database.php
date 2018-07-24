@@ -16,7 +16,7 @@ abstract class Database {
     private static $host     = "172.25.76.85";   
     private static $user     = "geitec";
     private static $password = "seedqawsed";
-    private static $db       = "sis_geitec";
+    private static $db       = "homo_sis_geitec";
      
     /*Metodos que trazem o conteudo da variavel desejada
     @return   $xxx = conteudo da variavel solicitada*/
@@ -167,4 +167,27 @@ abstract class DatabaseZbxCofre {
     } 
 }
 
+class DatabaseSEEDNET{
+    function listConsulta($_query) {
+        $conexao = pg_connect("host=172.25.76.67 dbname=seednet port=5432 user=usrappacademico password=12347");
+        if(!@($conexao)){ 
+            print "Não foi possível estabelecer uma conexão com o banco de dados."; 
+        } else {
+            $result = pg_query($conexao, $_query);  
+            pg_close($conexao);
+        }
+        return $result;
+    }    
+}
 
+/**
+ * Description of database Calendar
+ *
+ * @author tiagoc
+ */
+class DatabaseCalendar {
+    static $host     = "172.25.76.85";   
+    static $user     = "geitec";
+    static $password = "seedqawsed";
+    static $db       = "homo_sis_geitec";
+}

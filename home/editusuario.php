@@ -1,12 +1,13 @@
 <?php
     include_once '../class/principal.php';
+            
+    $rotina = new RotinasPublicas();
     
-    $usuario = new Usuario();
+    if ($rotina->validaSessao('') == 1){
+    if(!isset($_GET ["usuario"])) { $_GET ["usuario"] = ''; }
     
     $usuarioEdit = new Usuario();
-    
-    if ($usuario->validaSessao('') == 1){
-    if(!isset($_GET ["usuario"])) { $_GET ["usuario"] = ''; }
+    $usuario = new Usuario();
     $usuarioEdit->iniUsuario($_GET ["usuario"]);
 ?>
         <div class="col-xs-12 text-center">

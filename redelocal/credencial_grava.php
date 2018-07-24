@@ -1,7 +1,8 @@
 <?php
  include_once '../class/principal.php';    
-    $usuario = new Usuario();
-    if ($usuario->validaSessao('2') == 1){  
+    $rotina = new RotinasPublicas();
+           
+    if($rotina->validaSessao('2') == 1 ){ 
         $redeLocal = new RedeLocal();
         $tipo =   $_POST['tipo'];
         $descricao = $_POST['descricao'];

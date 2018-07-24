@@ -1,9 +1,11 @@
 <?php
     include_once '../class/principal.php';
     
-    $usuario = new Usuario();
+    $rotina = new RotinasPublicas();
     
-   if ($usuario->validaSessao('') == 1){
+    if ($rotina->validaSessao('') == 1){
+        
+    $usuario = new Usuario();    
     if(!isset($_POST['nome'])) { $_POST['nome'] = ''; }
     if(!isset($_POST['id'])) { $_POST['id'] = ''; }
     if(!isset($_POST['login'])) { $_POST['login'] = ''; }
@@ -55,24 +57,22 @@
                         <td><?php echo $table_usuario["codigo"]; ?></td>
                         <td><?php echo $table_usuario["usuario"]; ?></td> 
                         <td><?php echo $table_usuario["nome"]; ?></td>                      
-                        <td><?php echo $usuario->imprimiAtivo($table_usuario["ativo"]); ?></td>
+                        <td><?php echo $rotina->imprimiAtivo($table_usuario["ativo"]); ?></td>
                         <td><?php echo $table_usuario["descricao_perfil"]; ?></td>
                         <td><?php echo '<a type="button" class="btn btn-primary" href="../home/editusuario.php?usuario='.$table_usuario["usuario"].'"><span class="glyphicon glyphicon-edit"></span></a>';?></td>                        
                     </tr>  
-                        <?php
-                                }
-                        ?>                                          
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
            </div>
         </div>
-    <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
-    <script type="text/javascript" src="js/qunit-1.11.0.js"></script>
-    <script type="text/javascript" src="js/sinon-1.10.3.js"></script>
-    <script type="text/javascript" src="js/sinon-qunit-1.0.0.js"></script>
-    <script type="text/javascript" src="js/jquery.mask.js"></script>
-    <script type="text/javascript" src="js/jquery.mask.test.js"></script>
+    <script type="text/javascript" src="../js/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="../js/qunit-1.11.0.js"></script>
+    <script type="text/javascript" src="../js/sinon-1.10.3.js"></script>
+    <script type="text/javascript" src="../js/sinon-qunit-1.0.0.js"></script>
+    <script type="text/javascript" src="../js/jquery.mask.js"></script>
+    <script type="text/javascript" src="../js/jquery.mask.test.js"></script>
 <?php 
     include ("../class/footer.php");
    }
