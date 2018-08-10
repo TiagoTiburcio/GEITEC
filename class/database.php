@@ -5,7 +5,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+/**
+ * Description of database Calendar
+ *
+ * @author tiagoc
+ */
+class DatabaseCalendar {
+    static $host     = "172.25.76.85";   
+    static $user     = "geitec";
+    static $password = "seedqawsed";
+    static $db       = "sis_geitec";
+}
 /**
  * Description of database
  *
@@ -16,7 +26,7 @@ abstract class Database {
     private static $host     = "172.25.76.85";   
     private static $user     = "geitec";
     private static $password = "seedqawsed";
-    private static $db       = "homo_sis_geitec";
+    private static $db       = "sis_geitec";
      
     /*Metodos que trazem o conteudo da variavel desejada
     @return   $xxx = conteudo da variavel solicitada*/
@@ -178,16 +188,4 @@ class DatabaseSEEDNET{
         }
         return $result;
     }    
-}
-
-/**
- * Description of database Calendar
- *
- * @author tiagoc
- */
-class DatabaseCalendar {
-    static $host     = "172.25.76.85";   
-    static $user     = "geitec";
-    static $password = "seedqawsed";
-    static $db       = "homo_sis_geitec";
 }

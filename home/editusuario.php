@@ -53,7 +53,7 @@
                         <label><input type="radio" name="ativo" <?php if($usuarioEdit->getAtivo() == 0){echo 'checked=""';}?> value="0">Não</label>
                     </div>                    
                 </div>
-                   <div class="input-group login centraliza">
+<!--                <div class="input-group login centraliza">
                     <label for="resetSenha">Resetar Senha Usuário?</label><br/>
                     <div class="radio-inline">
                         <label><input type="radio" name="resetSenha" onclick="return mostraSenha();" value="1">Sim</label>
@@ -62,7 +62,7 @@
                         <label><input type="radio" name="resetSenha" onclick="return escondeSenha();" checked="" value="0">Não</label>
                     </div>                    
                 </div>
-                   <div id="senha" name="senha" style="display: none">
+                <div id="senha" name="senha" style="display: none">
                     <div class="input-group login centraliza">
                         <label for="altProxLogin">Alterar no Próximo Login do Usuário?</label><br/>
                         <div class="radio-inline">
@@ -80,7 +80,7 @@
                       <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                       <input type="password" class="form-control text-center" id="repass" name="repass" value="" placeholder="Repita Nova Senha">
                     </div>
-                </div>   
+                </div>   -->
                   <button type="submit" class="btn btn-success">Gravar <span class="glyphicon glyphicon-save"></span></button>                  
                </div>
              </div>  
