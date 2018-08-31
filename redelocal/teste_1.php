@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -12,6 +12,6 @@ $zabbix = new ZabbixSEED();
 //var_dump($teste->getArrayIPsRede("300"));
 $c1 = $zabbix->listImpr();
 foreach ($c1 as $value) {
-    echo $value['ip'].'<br/>';
+    echo $value['ip'] . '<br/>';
 }
 

@@ -1,26 +1,27 @@
 <?php
+
 require '../../vendor/autoload.php';
 
 use PHPJasper\PHPJasper;
 
-$input = __DIR__ .'/analitico.jrxml';   
+$input = __DIR__ . '/analitico.jrxml';
 
 $jasper = new PHPJasper;
 $jasper->compile($input)->execute();
 
 $periodo1 = $_GET['periodo'];
-$periodo = date('m/Y',strtotime($periodo1));
+$periodo = date('m/Y', strtotime($periodo1));
 
 
 
-$input = __DIR__ .'/analitico.jasper';  
-$output = __DIR__ .'/analitico';    
+$input = __DIR__ . '/analitico.jasper';
+$output = __DIR__ . '/analitico';
 $options = [
-    'format' => ['pdf'],    
+    'format' => ['pdf'],
     'params' => [
-            'periodo' => $periodo,
-            'REPORT_LOCALE' => 'pt_BR'
-        ],
+        'periodo' => $periodo,
+        'REPORT_LOCALE' => 'pt_BR'
+    ],
     'db_connection' => [
         'driver' => 'mysql',
         'username' => 'geitec',
@@ -32,9 +33,7 @@ $options = [
 ];
 
 $jasper->process(
-    $input,
-    $output,
-    $options
+        $input, $output, $options
 )->execute();
 
 header("Location: analitico.pdf");

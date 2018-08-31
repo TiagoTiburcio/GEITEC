@@ -1,27 +1,27 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 require_once '../class/principal.php';
 $sw = new Switchs();
-chdir( "log" );
+chdir("log");
 $arquivos = glob("{*.log}", GLOB_BRACE);
-foreach($arquivos as $key2 => $img){    
-        echo 'arquivo: adsad'.$img;        
-        $linhas = explode("\n", file_get_contents($img));
-        foreach ($linhas as $key => $value){
-            $colunas = explode(" ", $value);    
-            if (substr($value,0,1) != '#'){
-                foreach ($colunas as $key1 => $v1){                    
-                    switch ($key1) {
+foreach ($arquivos as $key2 => $img) {
+    echo 'arquivo: adsad' . $img;
+    $linhas = explode("\n", file_get_contents($img));
+    foreach ($linhas as $key => $value) {
+        $colunas = explode(" ", $value);
+        if (substr($value, 0, 1) != '#') {
+            foreach ($colunas as $key1 => $v1) {
+                switch ($key1) {
                     case 0:
                         $data_hora = $v1;
                         break;
                     case 1:
-                        $data_hora = $data_hora." ".$v1; 
+                        $data_hora = $data_hora . " " . $v1;
                         break;
                     case 2:
                         $sitename = $v1;
@@ -84,12 +84,12 @@ foreach($arquivos as $key2 => $img){
                         $tempo_solic = $v1;
                         break;
                     default:
-                        //echo "Your favorite color is neither red, blue, nor green!";
-                    }
-                } 
-                
-                $sw->cadLogWebIIS($data_hora, $sitename, $computername, $ip_srv, $metodo, $url_acesso, $parametro_acesso, $porta_acesso, $usuario_logado, $ip_cliente, $versao_http, $browser, $cookie, $site_encaminha, $dns_acesso, $status_solic, $sub_status_solic, $win32_status, $bytes_enviados, $bytes_recebidos, $tempo_solic);
-            }    
+                    //echo "Your favorite color is neither red, blue, nor green!";
+                }
+            }
+
+            $sw->cadLogWebIIS($data_hora, $sitename, $computername, $ip_srv, $metodo, $url_acesso, $parametro_acesso, $porta_acesso, $usuario_logado, $ip_cliente, $versao_http, $browser, $cookie, $site_encaminha, $dns_acesso, $status_solic, $sub_status_solic, $win32_status, $bytes_enviados, $bytes_recebidos, $tempo_solic);
         }
-        unlink('../redelocal/log/'.$img);
+    }
+    unlink('../redelocal/log/' . $img);
 }

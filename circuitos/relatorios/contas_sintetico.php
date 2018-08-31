@@ -1,26 +1,27 @@
 <?php
+
 require '../../vendor/autoload.php';
 
 $periodo1 = $_GET['periodo'];
-$contrato = $_GET['fatura']; 
-$periodo = date('m/Y',strtotime($periodo1));
+$contrato = $_GET['fatura'];
+$periodo = date('m/Y', strtotime($periodo1));
 
 use PHPJasper\PHPJasper;
 
-$input = __DIR__ . '/sintetico.jrxml';   
+$input = __DIR__ . '/sintetico.jrxml';
 
 $jasper = new PHPJasper;
 $jasper->compile($input)->execute();
 
-$input = __DIR__ . '/sintetico.jasper';  
-$output = __DIR__ . '/sintetico';    
+$input = __DIR__ . '/sintetico.jasper';
+$output = __DIR__ . '/sintetico';
 $options = [
-    'format' => ['pdf'],    
+    'format' => ['pdf'],
     'params' => [
         'periodo' => $periodo,
         'contrato' => $contrato,
         'REPORT_LOCALE' => 'pt_BR'
-        ],
+    ],
     'db_connection' => [
         'driver' => 'mysql',
         'username' => 'geitec',
@@ -32,9 +33,7 @@ $options = [
 ];
 
 $jasper->process(
-    $input,
-    $output,
-    $options
+        $input, $output, $options
 )->execute();
 
 header("Location: sintetico.pdf");

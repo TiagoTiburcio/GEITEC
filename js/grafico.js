@@ -6,7 +6,7 @@
  */
 
 let primeiroGrafico = document.getElementById('primeiroGrafico').getContext('2d');
-                        
+
 let chart = new Chart(primeiroGrafico, {
     type: 'line',
 
@@ -28,57 +28,57 @@ let chart = new Chart(primeiroGrafico, {
         ]
     }
 
-});  
-    
+});
+
 var ctx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
         datasets: [
             {label: "Red",
-            data: [1],
-            backgroundColor: ['rgba(255, 99, 132, 0.2)'],
-            borderColor: ['rgba(255,99,132,1)'],
-            borderWidth: 1
-        },
+                data: [1],
+                backgroundColor: ['rgba(255, 99, 132, 0.2)'],
+                borderColor: ['rgba(255,99,132,1)'],
+                borderWidth: 1
+            },
             {label: "Blue",
-            data: [2],
-            backgroundColor: ['rgba(54, 162, 235, 0.2)'],
-            borderColor: ['rgba(54, 162, 235, 1)'],
-            borderWidth: 1
-        },
+                data: [2],
+                backgroundColor: ['rgba(54, 162, 235, 0.2)'],
+                borderColor: ['rgba(54, 162, 235, 1)'],
+                borderWidth: 1
+            },
             {label: "Yellow",
-            data: [3],
-            backgroundColor: [ 'rgba(255, 206, 86, 0.2)'],
-            borderColor: [ 'rgba(255, 206, 86, 1)'],
-            borderWidth: 1
-        },{
-            label: "Green",
-            data: [4],
-            backgroundColor: ['rgba(75, 192, 192, 0.2)'],
-            borderColor: ['rgba(75, 192, 192, 1)'],
-            borderWidth: 1
-        },{
-            label: "Purple",
-            data: [5],
-            backgroundColor: ['rgba(153, 102, 255, 0.2)'],
-            borderColor: ['rgba(153, 102, 255, 1)'],
-            borderWidth: 1
-        },{
-            label: "Orange",
-            data: [6],
-            backgroundColor: ['rgba(255, 159, 64, 0.2)'],
-            borderColor: ['rgba(255, 159, 64, 1)'],
-            borderWidth: 1
-        }]
+                data: [3],
+                backgroundColor: ['rgba(255, 206, 86, 0.2)'],
+                borderColor: ['rgba(255, 206, 86, 1)'],
+                borderWidth: 1
+            }, {
+                label: "Green",
+                data: [4],
+                backgroundColor: ['rgba(75, 192, 192, 0.2)'],
+                borderColor: ['rgba(75, 192, 192, 1)'],
+                borderWidth: 1
+            }, {
+                label: "Purple",
+                data: [5],
+                backgroundColor: ['rgba(153, 102, 255, 0.2)'],
+                borderColor: ['rgba(153, 102, 255, 1)'],
+                borderWidth: 1
+            }, {
+                label: "Orange",
+                data: [6],
+                backgroundColor: ['rgba(255, 159, 64, 0.2)'],
+                borderColor: ['rgba(255, 159, 64, 1)'],
+                borderWidth: 1
+            }]
     },
     options: {
         scales: {
             yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
         }
     }
 });
