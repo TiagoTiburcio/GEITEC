@@ -5,11 +5,11 @@ $rotina = new RotinasPublicas();
 
 if ($rotina->validaSessao('3') == 1) {
     $redeLocal = new RedeLocal();
-
-    if (!isset($_GET['codigo'])) {
-        $_GET['codigo'] = '0';
+    
+    $codigo = filter_input(INPUT_GET, 'codigo');
+    if (!isset($codigo)) {
+        $codigo = '0';
     }
-    $codigo = $_GET ["codigo"];
 
     $consultaCredencial = $redeLocal->dadosCredencial($codigo);
     foreach ($consultaCredencial as $dados) {

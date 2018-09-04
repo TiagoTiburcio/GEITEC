@@ -4,14 +4,8 @@ include_once '../class/principal.php';
 $tarefas = new RotinasPublicas();
 
 if ($tarefas->validaSessao('') == 1) {
-    //Conectando ao banco de dados
     ?>
-    <!--        <div class="col-xs-6">                        
-                <canvas id="myChart"></canvas>
-            </div>
-            <div class="col-xs-6">              
-                <canvas id="primeiroGrafico"></canvas> 
-            </div>-->
+
     <div class="col-xs-6">              
         <iframe src="https://www.google.com/maps/d/embed?mid=1NoTEGGHswVsYX0wTFMJK-1OKJAebYGp7&hl=pt-BR" width="100%" height="600"></iframe> 
     </div>

@@ -4,22 +4,20 @@ include_once '../class/principal.php';
 $rotina = new RotinasPublicas();
 
 if ($rotina->validaSessao('') == 1) {
-    if (!isset($_GET ['dre'])) {
-        $_GET ['dre'] = 'Todas';
+
+    $filtro_diretoria = filter_input(INPUT_GET, 'dre');
+    $filtro_situacao = filter_input(INPUT_GET, 'sit');
+    $filtro_tp_ckt = filter_input(INPUT_GET, 'tpckt');
+    $filtro_unidade = filter_input(INPUT_GET, 'unidade');
+    if (!isset($filtro_diretoria)) {
+        $filtro_diretoria = 'Todas';
     }
-    if (!isset($_GET ['sit'])) {
-        $_GET ['sit'] = '2';
+    if (!isset($filtro_situacao)) {
+        $filtro_situacao = '2';
     }
-    if (!isset($_GET ['unidade'])) {
-        $_GET ['unidade'] = '';
+    if (!isset($filtro_tp_ckt)) {
+        $filtro_tp_ckt = '0';
     }
-    if (!isset($_GET ['tpckt'])) {
-        $_GET ['tpckt'] = '0';
-    }
-    $filtro_diretoria = $_GET ['dre'];
-    $filtro_situacao = $_GET ['sit'];
-    $filtro_tp_ckt = $_GET ['tpckt'];
-    $filtro_unidade = $_GET ['unidade'];
     $relatorio = new RelatorioCircuitos();
     $nomesDiretorias = $relatorio->listaNomesDiretorias();
     ?>

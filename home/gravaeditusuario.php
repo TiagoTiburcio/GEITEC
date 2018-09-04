@@ -7,14 +7,14 @@ $rotina = new RotinasPublicas();
 
 if ($rotina->validaSessao('2') == 1) {
 
-    $login = $_POST['login'];
-    $nome_usuario = $_POST['nome_usuario'];
-    $pass_branco = $_POST['pass'];
-    $perfil = $_POST['perfil'];
-    $ativo = $_POST['ativo'];
-    $resetSenha = $_POST['resetSenha'];
-    $altProxLogin = $_POST['altProxLogin'];
-    $data = date_default_timezone_set("America/Bahia");
+    $login = filter_input(INPUT_POST, 'login');
+    $nome_usuario = filter_input(INPUT_POST, 'nome_usuario');
+    $pass_branco = filter_input(INPUT_POST, 'pass');
+    $perfil = filter_input(INPUT_POST, 'perfil');
+    $ativo = filter_input(INPUT_POST, 'ativo');
+    $resetSenha = filter_input(INPUT_POST, 'resetSenha');
+    $altProxLogin = filter_input(INPUT_POST, 'altProxLogin');
+    date_default_timezone_set("America/Bahia");
     $data = date('Y-m-d H:i:s');
     $resutado = $usuario->manutUsuario($login, $nome_usuario, $pass_branco, $ativo, $perfil, $altProxLogin, $usuario->getUsuario(), $data);
     if ($resutado == '1') {

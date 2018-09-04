@@ -9,11 +9,7 @@
         <link rel="stylesheet" href="../css/estilo.css">
         <script src="../js/validacampo.js" type="text/javascript"></script>      
         <script src="../js/jquery.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
-        <!--<link rel="stylesheet" href="../css/jquery-ui.css">-->
-        <!--<script src="../js/jquery-1.12.4.js"></script>-->
-        <!--<script src="../js/jquery-ui.js"></script>-->  
-        <!--<script src="../js/listaunidades.js"></script>-->
+        <script src="../js/bootstrap.min.js"></script>       
         <?php
         if (!isset($_SESSION['pagina'])) {
             $_SESSION['pagina'] = '';
@@ -27,7 +23,7 @@
             <script src='../fullcalendar/lang/pt-br.js'></script>    
             <script src="../js/calendarioservicos.js" type="text/javascript"></script>
             <link rel='stylesheet' href='../fullcalendar/fullcalendar.css' /> 
-<?php } elseif ($dependencias == '2') { ?>                
+        <?php } elseif ($dependencias == '2') { ?>                
             <script src="../js/jquery.min.js"></script>
             <script src="../js/bootstrap.min.js"></script>
             <script src='../fullcalendar/lib/jquery.min.js'></script>
@@ -35,7 +31,8 @@
             <script src='../fullcalendar/fullcalendar.js'></script>
             <script src='../fullcalendar/lang/pt-br.js'></script>    
             <script src="../js/calendarioservicos.js" type="text/javascript"></script> 
-<?php } elseif ($dependencias == '') { ?>    
-<?php } ?>
+        <?php } elseif ($dependencias == '') {
+            
+        } ?>
     </head>
     <body>

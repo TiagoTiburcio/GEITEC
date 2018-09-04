@@ -10,7 +10,7 @@ if ($rotina->validaSessao('') == 1) {
 
     $usuarioEdit = new Usuario();
     $usuario = new Usuario();
-    $usuarioEdit->iniUsuario($_GET ["usuario"]);
+    $usuarioEdit->iniUsuario(filter_input(INPUT_GET,'usuario'));
     ?>
     <div class="col-xs-12 text-center">
         <h2>Manuten&ccedil;&atilde;o Usu&aacute;rio</h2>

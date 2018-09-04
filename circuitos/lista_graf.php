@@ -9,8 +9,6 @@ $meses = $circuito->listaMesesContasAno();
 foreach ($meses as $meses_table) {
     $meses_graph[] = $meses_table['mes'];
 }
-// echo '["' . implode('", "', $meses_graph) . '"]';
-// echo '';
 
 $contratos = $circuito->listaContratosContasAno();
 $contas = $circuito->listaValorContasAno();
@@ -20,8 +18,6 @@ foreach ($contratos as $contratos_table) {
 }
 $cores = array("red", "orange", "yellow", "green", "blue", "purple", "grey");
 $ind_cor = "0";
-//echo '["' . implode('", "', $contratos_graph) . '"]';    
-// echo '';
 echo "labels: ";
 echo '["' . implode('", "', $meses_graph) . '"],  datasets:';
 foreach ($contratos_graph as $key => $value) {

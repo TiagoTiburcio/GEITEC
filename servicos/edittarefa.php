@@ -5,11 +5,11 @@ $rotina = new RotinasPublicas();
 if ($rotina->validaSessao('') == 1) {
 
     $servicos = new Servicos();
-    $evento = $_GET ["evento"];
+    $evento = filter_input(INPUT_GET, 'evento');
 
     if ($evento != "") {
         $teste = $servicos->iniEvento($evento);
-        if ($teste = 0) {
+        if ($teste == 0) {
             echo " Evento Não Cadastrado!!!!!! ";
         } else {
             $resultado = $servicos->cunsultaProxAntUlt($evento);

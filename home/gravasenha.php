@@ -4,7 +4,7 @@ session_start();
 
 //Caso o usu�rio n�o esteja autenticado, limpa os dados e redireciona
 if (!isset($_SESSION['login']) and ! isset($_SESSION['pass'])) {
-    //Destr�i
+    //Destroi
     session_destroy();
 
     //Limpa
@@ -12,15 +12,15 @@ if (!isset($_SESSION['login']) and ! isset($_SESSION['pass'])) {
     unset($_SESSION['pass']);
     unset($_SESSION['nome_usuario']);
 
-    //Redireciona para a p�gina de autentica��o
+    //Redireciona para a pagina de autenticacao
     header('location:login.php');
 } else {
     include_once '../class/principal.php';
 
-    $login = $_POST['login'];
-    $nome_usuario = $_POST['nome_usuario'];
-    $pass_branco = $_POST['pass'];
-    $data = date_default_timezone_set("America/Bahia");
+    $login = filter_input(INPUT_POST, 'login');
+    $nome_usuario = filter_input(INPUT_POST, 'nome_usuario');
+    $pass_branco = filter_input(INPUT_POST,'pass');
+    date_default_timezone_set("America/Bahia");
     $data = date('Y-m-d H:i:s');
     $usuario = new Usuario();
     $usuario->iniUsuario($login);

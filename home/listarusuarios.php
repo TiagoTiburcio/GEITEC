@@ -5,19 +5,10 @@ $rotina = new RotinasPublicas();
 
 if ($rotina->validaSessao('') == 1) {
 
-    $usuario = new Usuario();
-    if (!isset($_POST['nome'])) {
-        $_POST['nome'] = '';
-    }
-    if (!isset($_POST['id'])) {
-        $_POST['id'] = '';
-    }
-    if (!isset($_POST['login'])) {
-        $_POST['login'] = '';
-    }
-    $nome = $_POST ["nome"];
-    $id = $_POST ["id"];
-    $login = $_POST ["login"];
+    $usuario = new Usuario();   
+    $nome = filter_input(INPUT_POST,'nome');
+    $id = filter_input(INPUT_POST,'id');
+    $login = filter_input(INPUT_POST,'login');
     ?>
     <div class="col-xs-2">                        
         <form class="form-horizontal" method="post" action="">

@@ -5,14 +5,8 @@ $rotina = new RotinasPublicas();
 if ($rotina->validaSessao('') == 1) {
 
     $servicos = new Servicos();
-    if (!isset($_POST['tarefa_redmine'])) {
-        $_POST['tarefa_redmine'] = '';
-    }
-    if (!isset($_POST['evento'])) {
-        $_POST['evento'] = '';
-    }
-    $tarefa_redmine = $_POST ["tarefa_redmine"];
-    $evento = $_POST ["evento"];
+    $tarefa_redmine = filter_input(INPUT_POST,'tarefa_redmine');
+    $evento = filter_input(INPUT_POST,'evento');
     if ($tarefa_redmine != "" && $evento != "") {
         if ($servicos->iniEvento($evento) == "1") {
             $servicos->setTarefaRedmine($tarefa_redmine);

@@ -6,14 +6,9 @@ $rotina = new RotinasPublicas();
 if ($rotina->validaSessao('') == 1) {
 
     $circuitos = new Circuitos();
-    if (!isset($_POST['fatura'])) {
-        $_POST['fatura'] = '';
-    }
-    if (!isset($_POST['mes'])) {
-        $_POST['mes'] = '';
-    }
-    $fatura = $_POST ["fatura"];
-    $mescad = $_POST ["mes"];
+    
+    $fatura = filter_input( INPUT_POST, 'fatura');
+    $mescad = filter_input( INPUT_POST, 'mes');
     ?>
     <div class="col-xs-2">                        
         <form class="form-horizontal" method="post" action="">

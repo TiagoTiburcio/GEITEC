@@ -5,12 +5,12 @@ $rotina = new RotinasPublicas();
 
 if ($rotina->validaSessao('2') == 1) {
     $redeLocal = new RedeLocal();
-    $tipo = $_POST['tipo'];
-    $descricao = $_POST['descricao'];
-    $user = $_POST ['usuario'];
-    $senha = $_POST ['senha'];
-    $local = $_POST ['local'];
-    $codigo = $_POST['codigo'];
+    $tipo = filter_input(INPUT_POST,'tipo');
+    $descricao = filter_input(INPUT_POST,'descricao');
+    $user = filter_input(INPUT_POST,'usuario');
+    $senha = filter_input(INPUT_POST,'senha');
+    $local = filter_input(INPUT_POST,'local');
+    $codigo = filter_input(INPUT_POST,'codigo');
     $resultado = $redeLocal->manuCredencial($codigo, $tipo, $descricao, $user, $senha, $local);
 }
 header("Location: listar_creden.php");

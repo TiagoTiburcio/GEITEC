@@ -1,8 +1,8 @@
 <?php
 
 // as variáveis login e senha recebem os dados digitados na página anterior
-$login = $_POST['login'];
-$pass_branco = $_POST['pass'];
+$login = filter_input(INPUT_POST,'login');
+$pass_branco = filter_input(INPUT_POST,'pass');
 
 include_once '../class/principal.php';
 

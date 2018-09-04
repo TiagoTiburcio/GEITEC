@@ -9,22 +9,12 @@ if ($rotina->validaSessao('') == 1) {
 
     $zabbix = new ZabbixSEED();
 
-    if (!isset($_POST['diretoria'])) {
-        $_POST['diretoria'] = '';
-    }
-    if (!isset($_POST['unidade'])) {
-        $_POST['unidade'] = '';
-    }
-    if (!isset($_POST['cidade'])) {
-        $_POST['cidade'] = '';
-    }
-    $diretoria = $_POST ['diretoria'];
-    $unidade = $_POST ['unidade'];
-    $cidade = $_POST ['cidade'];
-    if (!isset($_POST ['zabbix'])) {
+    $diretoria = filter_input(INPUT_POST, 'diretoria');
+    $unidade = filter_input(INPUT_POST, 'unidade');
+    $cidade = filter_input(INPUT_POST, 'cidade');
+    $zbx = filter_input(INPUT_POST, 'zabbix');
+    if (!isset($zbx)) {
         $zbx = 2;
-    } else {
-        $zbx = $_POST ['zabbix'];
     }
     ?>
     <div class="col-xs-2">                        
@@ -46,24 +36,32 @@ if ($rotina->validaSessao('') == 1) {
                     <div class="form-group">
                         <label for="zabbix">Cadastro Zabbix</label><br/>
                         <div class="radio">
-                            <label><input type="radio" name="zabbix" <?php if ($zbx == 2) {
-        echo 'checked=""';
-    } ?> value="2">Todos</label>
+                            <label><input type="radio" name="zabbix" <?php
+                                if ($zbx == 2) {
+                                    echo 'checked=""';
+                                }
+                                ?> value="2">Todos</label>
                         </div><br/>
                         <div class="radio">
-                            <label><input type="radio" name="zabbix" <?php if ($zbx == 1) {
-        echo 'checked=""';
-    } ?> value="1">Inoperante</label>
+                            <label><input type="radio" name="zabbix" <?php
+                                if ($zbx == 1) {
+                                    echo 'checked=""';
+                                }
+                                ?> value="1">Inoperante</label>
                         </div><br/>
                         <div class="radio">
-                            <label><input type="radio" name="zabbix" <?php if ($zbx == 0) {
-        echo 'checked=""';
-    } ?> value="0">Funcionando</label>
+                            <label><input type="radio" name="zabbix" <?php
+                                if ($zbx == 0) {
+                                    echo 'checked=""';
+                                }
+                                ?> value="0">Funcionando</label>
                         </div><br/>
                         <div class="radio">
-                            <label><input type="radio" name="zabbix" <?php if ($zbx == 3) {
-        echo 'checked=""';
-    } ?> value="3">Não Cadastrado Zabbix</label>
+                            <label><input type="radio" name="zabbix" <?php
+                                if ($zbx == 3) {
+                                    echo 'checked=""';
+                                }
+                                ?> value="3">Não Cadastrado Zabbix</label>
                         </div><br/>
                     </div>
                     <a type="button" class="btn btn-danger"  href="">Limpar <span class="glyphicon glyphicon-erase"></span></a>                 

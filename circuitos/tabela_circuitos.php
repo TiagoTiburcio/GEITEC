@@ -3,19 +3,19 @@ include_once '../class/principal.php';
 
 $rotina = new RotinasPublicas();
 
-if ($rotina->validaSessao('4') == 1) {
-    if (!isset($_GET ['dre'])) {
-        $_GET ['dre'] = 'Todas';
+if ($rotina->validaSessao('4') == 1) {    
+    $filtro_diretoria = filtro_input(INPUT_GET, 'dre');
+    $filtro_situacao = filtro_input(INPUT_GET, 'sit');
+    $filtro_tp_ckt = filtro_input(INPUT_GET, 'tpckt');
+    if (!isset($filtro_diretoria)) {
+        $filtro_diretoria = 'Todas';
     }
-    if (!isset($_GET ['sit'])) {
-        $_GET ['sit'] = '2';
+    if (!isset($filtro_situacao)) {
+        $filtro_situacao = '2';
     }
-    if (!isset($_GET ['tpckt'])) {
-        $_GET ['tpckt'] = '0';
+    if (!isset($filtro_tp_ckt)) {
+        $filtro_tp_ckt = '0';
     }
-    $filtro_diretoria = $_GET ['dre'];
-    $filtro_situacao = $_GET ['sit'];
-    $filtro_tp_ckt = $_GET ['tpckt'];
     $relatorio = new RelatorioCircuitos();
     $dadosDiretoria = $relatorio->listaNomesDiretorias();
     $dadosTipoUnidade = $relatorio->listaNomesTiposUnidadePorDRE($filtro_diretoria);

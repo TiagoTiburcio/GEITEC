@@ -3,8 +3,8 @@
 require '../vendor/autoload.php';
 // Construct new Adldap instance.
 include '../class/principal.php';
-$login = $_POST['login'];
-$pass_branco = $_POST['pass'];
+$login = filter_input(INPUT_POST,'login');
+$pass_branco = filter_input(INPUT_POST,'pass');
 $user = $login;
 $domain = "seed.se.gov";
 $login = $user . "@" . $domain;

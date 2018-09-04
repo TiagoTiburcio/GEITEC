@@ -8,30 +8,15 @@ if ($rotina->validaSessao('') == 1) {
     $circuitos = new Circuitos();
 
     $zabbix = new ZabbixSEED();
-    if (!isset($_POST['diretoria'])) {
-        $_POST['diretoria'] = '';
-    }
-    if (!isset($_POST['unidade'])) {
-        $_POST['unidade'] = '';
-    }
-    if (!isset($_POST['fatura'])) {
-        $_POST['fatura'] = '';
-    }
-    if (!isset($_POST['circuito'])) {
-        $_POST['circuito'] = '';
-    }
-    if (!isset($_POST['mes'])) {
-        $_POST['mes'] = '';
-    }
-    $diretoria = $_POST ['diretoria'];
-    $unidade = $_POST ['unidade'];
-    $fatura = $_POST ['fatura'];
-    $circuito = $_POST ['circuito'];
-    $mescad = $_POST ['mes'];
-    if (!isset($_POST ['zabbix'])) {
+
+    $diretoria = filter_input(INPUT_POST, 'diretoria');
+    $unidade = filter_input(INPUT_POST, 'unidade');
+    $fatura = filter_input(INPUT_POST, 'fatura');
+    $circuito = filter_input(INPUT_POST, 'circuito');
+    $mescad = filter_input(INPUT_POST, 'mes');
+    $zbx = filter_input(INPUT_POST, 'zabbix');
+    if (!isset($zbx)) {
         $zbx = 2;
-    } else {
-        $zbx = $_POST ['zabbix'];
     }
     ?>
     <div class="col-xs-2">                        
@@ -57,52 +42,62 @@ if ($rotina->validaSessao('') == 1) {
                     <div class="form-group">
                         <label for="zabbix">Cadastro Zabbix</label><br/>
                         <div class="radio">
-                            <label><input type="radio" name="zabbix" <?php if ($zbx == 2) {
-        echo 'checked=""';
-    } ?> value="2">Todos</label>
+                            <label><input type="radio" name="zabbix" <?php
+                                if ($zbx == 2) {
+                                    echo 'checked=""';
+                                }
+                                ?> value="2">Todos</label>
                         </div><br/>
                         <div class="radio">
-                            <label><input type="radio" name="zabbix" <?php if ($zbx == 1) {
-        echo 'checked=""';
-    } ?> value="1">Inoperante</label>
+                            <label><input type="radio" name="zabbix" <?php
+                                if ($zbx == 1) {
+                                    echo 'checked=""';
+                                }
+                                ?> value="1">Inoperante</label>
                         </div><br/>
                         <div class="radio">
-                            <label><input type="radio" name="zabbix" <?php if ($zbx == 0) {
-        echo 'checked=""';
-    } ?> value="0">Funcionando</label>
+                            <label><input type="radio" name="zabbix" <?php
+                                if ($zbx == 0) {
+                                    echo 'checked=""';
+                                }
+                                ?> value="0">Funcionando</label>
                         </div><br/>
                         <div class="radio">
-                            <label><input type="radio" name="zabbix" <?php if ($zbx == 4) {
-                            echo 'checked=""';
-                        } ?> value="4">Cadastrado Zabbix</label>
+                            <label><input type="radio" name="zabbix" <?php
+                                if ($zbx == 4) {
+                                    echo 'checked=""';
+                                }
+                                ?> value="4">Cadastrado Zabbix</label>
                         </div><br/>
                         <div class="radio">
-                            <label><input type="radio" name="zabbix" <?php if ($zbx == 3) {
-                            echo 'checked=""';
-                        } ?> value="3">Não Cadastrado Zabbix</label>
+                            <label><input type="radio" name="zabbix" <?php
+                                if ($zbx == 3) {
+                                    echo 'checked=""';
+                                }
+                                ?> value="3">Não Cadastrado Zabbix</label>
                         </div><br/>
                     </div>                   
                     <div class="form-group">
                         <label for="mes">Mes Cobranca</label>
                         <select class="form-control" id="mes" name="mes" onchange="pegaMesSint()">
 
-    <?php
-    $resultado_detalhada1 = $circuitos->listaPeriodoRef();
-    foreach ($resultado_detalhada1 as $mes) {
-        if ($mescad == '') {
-            $mescad = $mes['periodo_ref'];
-        }
-        if ($mes['periodo_ref'] == $mescad) {
-            ?> 
+                            <?php
+                            $resultado_detalhada1 = $circuitos->listaPeriodoRef();
+                            foreach ($resultado_detalhada1 as $mes) {
+                                if ($mescad == '') {
+                                    $mescad = $mes['periodo_ref'];
+                                }
+                                if ($mes['periodo_ref'] == $mescad) {
+                                    ?> 
                                     <option value="<?php echo $mes['periodo_ref']; ?>" selected><?php echo $mes['mes']; ?></option>                    
-            <?php
-        } else {
-            ?> 
+                                    <?php
+                                } else {
+                                    ?> 
                                     <option value="<?php echo $mes['periodo_ref']; ?>" ><?php echo $mes['mes']; ?></option>                    
-            <?php
-        }
-    }
-    ?>                                       
+                                    <?php
+                                }
+                            }
+                            ?>                                       
                         </select>
                         <div class="col-xs-6 col-xs-3" >                     
                             <br/><a id="linkprint"  type="button" class="btn btn-info" target="_blank" href="./relatorios/contas_sintetico.php?periodo=<?php echo $mescad . "&fatura=" . $fatura; ?>">Imprimir Relatótio <span class="glyphicon glyphicon-print"></span></a>    

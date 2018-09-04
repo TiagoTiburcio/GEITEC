@@ -3,13 +3,13 @@
 include_once '../class/principal.php';
 
 $circuitos = new Circuitos();
-$tipo = $_GET ['tipo'];
+$tipo = filter_input(INPUT_GET,'tipo');
 if ($tipo == '1') {
-    $arquivo = $_GET ['arquivo'];
+    $arquivo = filter_input(INPUT_GET,'arquivo');
     $circuitos->excluiImport($arquivo);
 } elseif ($tipo == '2') {
-    $contrato = $_GET ['contrato'];
-    $conta = $_GET ['conta'];
+    $contrato = filter_input(INPUT_GET,'contrato');
+    $conta = filter_input(INPUT_GET,'conta');
     $circuitos->excluiDadosContas($contrato, $conta);
 }
 header("Location: confirmaimport.php");

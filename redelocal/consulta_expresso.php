@@ -4,23 +4,10 @@ include_once '../class/principal.php';
 $rotina = new RotinasPublicas();
 if ($rotina->validaSessao('') == 1) {
     $servidores = new Servidores();
-
-    if (!isset($_POST['cpf'])) {
-        $_POST['cpf'] = '';
-    }
-    if (!isset($_POST['nome'])) {
-        $_POST['nome'] = '';
-    }
-    if (!isset($_POST['setor'])) {
-        $_POST['setor'] = '';
-    }
-    if (!isset($_POST['siglasetor'])) {
-        $_POST['siglasetor'] = '';
-    }
-    $cpf = $_POST ["cpf"];
-    $nome = $_POST ["nome"];
-    $setor = $_POST ["setor"];
-    $siglasetor = $_POST ["siglasetor"];
+    $cpf = filter_input(INPUT_POST, 'cpf');
+    $nome = filter_input(INPUT_POST, 'nome');
+    $setor = filter_input(INPUT_POST, 'setor');
+    $siglasetor = filter_input(INPUT_POST, 'siglasetor');
     $usuario = '';
     $situacao = '';
     $consulta_expresso = $servidores->listaExpresso($usuario, $nome, $situacao);
@@ -54,12 +41,6 @@ if ($rotina->validaSessao('') == 1) {
 
         pg_close($conexao);
     }
-
-//$input = preg_quote($nome, '~'); 
-//$result = preg_grep('~' . $input . '~', $nomeA);
-//foreach ($result as $key => $value) {
-//    echo $key.' !!! '.$value. '!! '. $cpfA[$key].'<br/>';    
-//}
     ?>
     <div class="col-xs-2">                        
         <form class="form-horizontal" method="post" action="">
@@ -105,7 +86,6 @@ if ($rotina->validaSessao('') == 1) {
                         $input = preg_quote(strtoupper($table_expresso['nome']), '~');
                         $result = preg_grep('~' . $input . '~', $nomeA);
                         foreach ($result as $key => $value) {
-                            // echo $key.' !!! '.$value. '!! '. $cpfA[$key].' !!!!! '.$table_expresso['login']. '!!!!!'. $table_expresso['nome'] . '<br/>';    
                             ?>                    
                             <tr>
                                 <td><?php echo $cpfA[$key]; ?></td>
@@ -113,10 +93,10 @@ if ($rotina->validaSessao('') == 1) {
                                 <td><?php echo $table_expresso['login']; ?></td>                        
                                 <td><?php echo "Servidor"; ?></td>                        
                             </tr>  
-            <?php
-        }
-    }
-    ?>                                          
+                            <?php
+                        }
+                    }
+                    ?>                                          
                 </tbody>
             </table>                         
         </div>

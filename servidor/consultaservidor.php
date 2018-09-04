@@ -5,26 +5,15 @@ $rotina = new RotinasPublicas();
 
 if ($rotina->validaSessao('') == 1) {
     $servidores = new Servidores();
-    if (!isset($_POST['cpf'])) {
-        $_POST['cpf'] = '';
+    
+    $cpf = filter_input(INPUT_POST,'cpf');
+    $nome = filter_input(INPUT_POST,'nome');
+    $setor = filter_input(INPUT_POST,'setor');
+    $siglasetor = filter_input(INPUT_POST,'siglasetor');    
+    $zbx = filter_input(INPUT_POST,'ativo');
+    if (!isset($zbx)) {
+        $zbx = '2';
     }
-    if (!isset($_POST['nome'])) {
-        $_POST['nome'] = '';
-    }
-    if (!isset($_POST['setor'])) {
-        $_POST['setor'] = '';
-    }
-    if (!isset($_POST['siglasetor'])) {
-        $_POST['siglasetor'] = '';
-    }
-    if (!isset($_POST['ativo'])) {
-        $_POST['ativo'] = '2';
-    }
-    $cpf = $_POST ["cpf"];
-    $nome = $_POST ["nome"];
-    $setor = $_POST ["setor"];
-    $siglasetor = $_POST ["siglasetor"];
-    $zbx = $_POST['ativo'];
     $result = $servidores->listaServidores($cpf, $nome, $setor, $siglasetor);
     ?>
     <div class="col-xs-2">                        

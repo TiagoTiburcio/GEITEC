@@ -7,9 +7,9 @@ $usuario = new Usuario();
 $circuitos = new Circuitos();
 
 
-$designacao = $_POST ["designacao"];
-$localizacao = $_POST ["localizacao"];
-$unidade = $_POST ["combobox"];
+$designacao = filter_input(INPUT_POST, 'designacao');
+$localizacao = filter_input(INPUT_POST, 'localizacao');
+$unidade = filter_input(INPUT_POST, 'combobox');
 
 echo $designacao . ' adsa ' . $localizacao . ' asddsa ' . $unidade;
 

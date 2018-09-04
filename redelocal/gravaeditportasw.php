@@ -4,20 +4,20 @@ include_once '../class/principal.php';
 
 $switch = new Switchs();
 
-$sw = $_POST['sw'];
-$porta = $_POST['porta'];
-$tipo = $_POST['tipo_porta'];
-$tela = $_POST['tela'];
-$observacao = $_POST['observacao'];
-$velocidade = $_POST['velocidade'];
-$limpar = $_POST['limpar'];
-$vlan = $_POST['vlan'];
-$vlansw = $_POST['vlansw'];
-$opcaoTexto = $_POST['opcaoTexto'];
-$impressora = $_POST['Imp'];
-$modeloImp = $_POST['modImp'];
-$setor = $_POST['setorImp'];
-$data = date_default_timezone_set("America/Bahia");
+$sw = filter_input(INPUT_POST, 'sw');
+$porta = filter_input(INPUT_POST, 'porta');
+$tipo = filter_input(INPUT_POST, 'tipo_porta');
+$tela = filter_input(INPUT_POST, 'tela');
+$observacao = filter_input(INPUT_POST, 'observacao');
+$velocidade = filter_input(INPUT_POST, 'velocidade');
+$limpar = filter_input(INPUT_POST, 'limpar');
+$vlan = filter_input(INPUT_POST, 'vlan');
+$vlansw = filter_input(INPUT_POST, 'vlansw');
+$opcaoTexto = filter_input(INPUT_POST, 'opcaoTexto');
+$impressora = filter_input(INPUT_POST, 'Imp');
+$modeloImp = filter_input(INPUT_POST, 'modImp');
+$setor = filter_input(INPUT_POST, 'setorImp');
+date_default_timezone_set("America/Bahia");
 $data = date('Y-m-d H:i:s');
 
 $resultado_portImp = $switch->consImpressoraPorta($sw, $porta, $tipo);

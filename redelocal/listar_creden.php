@@ -5,19 +5,10 @@ $rotina = new RotinasPublicas();
 if ($rotina->validaSessao('') == 1) {
 
     $redeLocal = new RedeLocal();
-
-    if (!isset($_POST['tipo'])) {
-        $_POST['tipo'] = '';
-    }
-    if (!isset($_POST['descricao'])) {
-        $_POST['descricao'] = '';
-    }
-    if (!isset($_POST['local'])) {
-        $_POST['local'] = '';
-    }
-    $tipo = $_POST ["tipo"];
-    $descricao = $_POST ["descricao"];
-    $local = $_POST ["local"];
+   
+    $tipo = filter_input(INPUT_POST,'tipo');
+    $descricao = filter_input(INPUT_POST,'descricao');
+    $local = filter_input(INPUT_POST,'local');
     $zbx = '2';
     ?>
     <div class="col-xs-2">                        

@@ -8,15 +8,9 @@ if ($rotina->validaSessao('') == 1) {
 
     $zabbix = new ZabbixSEED();
     $switch = new Switchs();
-    $rede = new Rede();
-    if (!isset($_POST['bloco'])) {
-        $_POST['bloco'] = '';
-    }
-    if (!isset($_POST['rack'])) {
-        $_POST['rack'] = '';
-    }
-    $bloco = $_POST ["bloco"];
-    $rack = $_POST ["rack"];
+    $rede = new Rede();    
+    $bloco = filter_input(INPUT_POST,'bloco');
+    $rack = filter_input(INPUT_POST,'rack');
     $zbx = '2';
     ?>
     <div class="col-xs-2">                        

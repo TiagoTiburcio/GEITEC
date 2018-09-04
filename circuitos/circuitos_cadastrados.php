@@ -6,25 +6,10 @@ $rotina = new RotinasPublicas();
 if ($rotina->validaSessao('') == 1) {
 
     $circuitos = new Circuitos();
-    if (!isset($_POST['diretoria'])) {
-        $_POST['diretoria'] = '';
-    }
-    if (!isset($_POST['unidade'])) {
-        $_POST['unidade'] = '';
-    }
-    if (!isset($_POST['fatura'])) {
-        $_POST['fatura'] = '';
-    }
-    if (!isset($_POST['circuito'])) {
-        $_POST['circuito'] = '';
-    }
-    if (!isset($_POST['mes'])) {
-        $_POST['mes'] = '';
-    }
-    $diretoria = $_POST ['diretoria'];
-    $unidade = $_POST ['unidade'];
-    $fatura = $_POST ['fatura'];
-    $circuito = $_POST ['circuito'];
+    $diretoria = filter_input(INPUT_POST, 'diretoria');
+    $unidade = filter_input(INPUT_POST, 'unidade');
+    $fatura = filter_input(INPUT_POST, 'fatura');
+    $circuito = filter_input(INPUT_POST, 'circuito');
     ?>
     <div class="col-xs-2">                        
         <form class="form-horizontal" method="post" action="">
@@ -67,10 +52,10 @@ if ($rotina->validaSessao('') == 1) {
                     </tr>
                 </thead>
                 <tbody>
-    <?php
-    $resultado_analitico2 = $circuitos->listaCircuitosCadstrados($fatura, $diretoria, $unidade, $circuito);
-    foreach ($resultado_analitico2 as $table) {
-        ?>                
+                    <?php
+                    $resultado_analitico2 = $circuitos->listaCircuitosCadstrados($fatura, $diretoria, $unidade, $circuito);
+                    foreach ($resultado_analitico2 as $table) {
+                        ?>                
                         <tr>
                             <td><?php echo $table['sigla_dre']; ?></td>
                             <td><?php echo $table['nome_cidade']; ?></td>
@@ -80,9 +65,9 @@ if ($rotina->validaSessao('') == 1) {
                             <td><?php echo $table['velocidade']; ?></td>
                             <td><?php echo $table['tip_logradouro'] . ' ' . $table['nome_logradouro'] . ' ' . $table['num_imovel'] . ', ' . $table['nome_bairro'] . ' '; ?></td>
                         </tr>  
-        <?php
-    }
-    ?>                                          
+                        <?php
+                    }
+                    ?>                                          
                 </tbody>
             </table>
         </div>

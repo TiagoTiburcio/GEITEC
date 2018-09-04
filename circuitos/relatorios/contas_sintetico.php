@@ -2,8 +2,8 @@
 
 require '../../vendor/autoload.php';
 
-$periodo1 = $_GET['periodo'];
-$contrato = $_GET['fatura'];
+$periodo1 = filter_input(INPUT_GET, 'periodo');
+$contrato = filter_input(INPUT_GET, 'fatura');
 $periodo = date('m/Y', strtotime($periodo1));
 
 use PHPJasper\PHPJasper;

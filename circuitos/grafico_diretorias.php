@@ -3,15 +3,12 @@ include_once '../class/principal.php';
 
 $rotina = new RotinasPublicas();
 
-if ($rotina->validaSessao('4') == 1) {
-    if (!isset($_GET ['dre'])) {
-        $_GET ['dre'] = 'Todas';
+if ($rotina->validaSessao('4') == 1) {    
+    $filtro_diretoria = filter_input(INPUT_GET, 'dre');
+    $filtro_grafico = filter_input(INPUT_GET, 'graf');
+    if (!isset($filtro_diretoria)) {
+        $filtro_diretoria = 'Todas';
     }
-    if (!isset($_GET ['graf'])) {
-        $_GET ['graf'] = '';
-    }
-    $filtro_diretoria = $_GET ['dre'];
-    $filtro_grafico = $_GET ['graf'];
     $cores = array("blue", "red", "green", "purple", "blue", "grey", "purple");
     $relatorio = new RelatorioCircuitos();
     $diretorias = $relatorio->listaNomesTiposUnid($filtro_diretoria);

@@ -6,14 +6,9 @@ $rotina = new RotinasPublicas();
 if ($rotina->validaSessao('') == 1) {
 
     $circuitos = new Circuitos();
-    if (!isset($_GET ['arquivo'])) {
-        $_GET ['arquivo'] = '';
-    }
-    if (!isset($_GET ['num_linha'])) {
-        $_GET ['num_linha'] = '';
-    }
-    $arquivo = $_GET ["arquivo"];
-    $num_linha = $_GET ["num_linha"];
+
+    $arquivo = filter_input(INPUT_GET, 'arquivo');
+    $num_linha = filter_input(INPUT_GET, 'num_linha');
     $dados_linha = $circuitos->listaLinhaArquivo($arquivo, $num_linha);
     if (($arquivo != '') || ($num_linha != '')) {
         $dados_linha = $circuitos->listaLinhaArquivo($arquivo, $num_linha);
@@ -30,7 +25,6 @@ if ($rotina->validaSessao('') == 1) {
     ?>
     <div class="col-lg-8 col-lg-offset-2">
         <form class="form-horizontal" method="post" action="../circuitos/novoregconsumo_grava.php">
-
             <div class="form-group">
                 <label for="designacao">Designação Serviço</label>
                 <input type="text" class="form-control" id="designacao" name="designacao" value="<?php echo $designacao; ?>">

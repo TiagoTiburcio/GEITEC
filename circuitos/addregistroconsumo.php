@@ -3,7 +3,7 @@
 include_once '../class/principal.php';
 
 $circuitos = new Circuitos();
-$arquivo = $_GET ['arquivo'];
+$arquivo = filter_input(INPUT_GET, 'arquivo');
 if ($circuitos->testeImport($arquivo) == '1') {
     $circuitos->insertContasImport($arquivo);
     $circuitos->editRegistroConsumo($arquivo);

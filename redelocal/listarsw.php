@@ -6,9 +6,9 @@ if ($rotina->validaSessao('') == 1) {
 
     $switch = new Switchs();
 
-    if (!isset($_GET['limpa'])) {
+    if (!isset(filter_input(INPUT_POST,'limpa'))) {
         $_GET['limpa'] = '';
-    } elseif ($_POST['limpa'] = '1') {
+    } elseif (filter_input(INPUT_POST,'limpa') == '1') {
         unset($_SESSION['marca']);
         unset($_SESSION['modelo']);
         unset($_SESSION['ip']);
@@ -32,20 +32,20 @@ if ($rotina->validaSessao('') == 1) {
     if (!isset($_SESSION['setor'])) {
         $_SESSION['setor'] = '';
     }
-    if (isset($_POST['marca'])) {
-        $_SESSION ["marca"] = $_POST ["marca"];
+    if (isset(filter_input(INPUT_POST,'marca'))) {
+        $_SESSION ["marca"] = filter_input(INPUT_POST,'marca');
     }
-    if (isset($_POST['modelo'])) {
-        $_SESSION ["modelo"] = $_POST ["modelo"];
+    if (isset(filter_input(INPUT_POST,'modelo'))) {
+        $_SESSION ["modelo"] = filter_input(INPUT_POST,'modelo');
     }
-    if (isset($_POST['ip'])) {
-        $_SESSION ["ip"] = $_POST ["ip"];
+    if (isset(filter_input(INPUT_POST,'ip'))) {
+        $_SESSION ["ip"] = filter_input(INPUT_POST,'ip');
     }
-    if (isset($_POST['bloco'])) {
-        $_SESSION ["bloco"] = $_POST ["bloco"];
+    if (isset(filter_input(INPUT_POST,'bloco'))) {
+        $_SESSION ["bloco"] = filter_input(INPUT_POST,'bloco');
     }
-    if (isset($_POST['setor'])) {
-        $_SESSION ["setor"] = $_POST ["setor"];
+    if (isset(filter_input(INPUT_POST,'setor'))) {
+        $_SESSION ["setor"] = filter_input(INPUT_POST,'setor');
     }
 
     $marca = $_SESSION ["marca"];

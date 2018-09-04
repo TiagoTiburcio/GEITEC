@@ -6,14 +6,8 @@ $rotina = new RotinasPublicas();
 if ($rotina->validaSessao('') == 1) {
 
     $circuitos = new Circuitos();
-    if (!isset($_GET ['arquivo'])) {
-        $_GET ['arquivo'] = '';
-    }
-    if (!isset($_GET ['num_linha'])) {
-        $_GET ['num_linha'] = '';
-    }
-    $arquivo = $_GET ["arquivo"];
-    $num_linha = $_GET ["num_linha"];
+    $arquivo = filter_input(INPUT_GET, 'arquivo');
+    $num_linha = filter_input(INPUT_GET, 'num_linha');
     if (($arquivo != '') || ($num_linha != '')) {
         $dados_linha = $circuitos->listaLinhaArquivo($arquivo, $num_linha);
         foreach ($dados_linha as $table) {

@@ -9,7 +9,7 @@ $input = __DIR__ . '/analitico.jrxml';
 $jasper = new PHPJasper;
 $jasper->compile($input)->execute();
 
-$periodo1 = $_GET['periodo'];
+$periodo1 = filter_input(INPUT_GET,'periodo');
 $periodo = date('m/Y', strtotime($periodo1));
 
 

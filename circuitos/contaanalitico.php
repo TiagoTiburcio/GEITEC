@@ -5,14 +5,9 @@ $rotina = new RotinasPublicas();
 
 if ($rotina->validaSessao('') == 1) {
     $circuitos = new Circuitos();
-    if (!isset($_POST['fatura'])) {
-        $_POST['fatura'] = '';
-    }
-    if (!isset($_POST['mes'])) {
-        $_POST['mes'] = '';
-    }
-    $fatura = $_POST ["fatura"];
-    $mescad = $_POST ["mes"];
+    
+    $fatura = filter_input(INPUT_POST, 'fatura');
+    $mescad = filter_input(INPUT_POST, 'mes');
     ?>
     <div class="col-xs-2">                        
         <form class="form-horizontal" method="post" action="">
@@ -39,10 +34,10 @@ if ($rotina->validaSessao('') == 1) {
                                 } else {
                                     ?> 
                                     <option value="<?php echo $mes["periodo_ref"]; ?>" ><?php echo $mes["mes"]; ?></option>                    
-            <?php
-        }
-    }
-    ?>                                       
+                                    <?php
+                                }
+                            }
+                            ?>                                       
                         </select>
                         <div class="col-xs-6 col-xs-3" >                     
                             <br/><a id="linkprint"  type="button" class="btn btn-info" target="_blank" href="./relatorios/contas_analitico.php?periodo=<?php echo $mescad; ?>">Imprimir Relatótio <span class="glyphicon glyphicon-print"></span></a>    
@@ -67,10 +62,10 @@ if ($rotina->validaSessao('') == 1) {
                     </tr>
                 </thead>
                 <tbody>
-    <?php
-    $resultado_analitico2 = $circuitos->listaCircuitos($mescad, $fatura);
-    foreach ($resultado_analitico2 as $table) {
-        ?>                
+                    <?php
+                    $resultado_analitico2 = $circuitos->listaCircuitos($mescad, $fatura);
+                    foreach ($resultado_analitico2 as $table) {
+                        ?>                
                         <tr>
                             <td><?php echo $table["mes"]; ?></td>
                             <td><?php echo $table["descricao_servico"]; ?></td>
@@ -78,9 +73,9 @@ if ($rotina->validaSessao('') == 1) {
                             <td><?php echo $table["descricao"]; ?></td>
                             <td><?php echo $table["valor"]; ?></td>                        
                         </tr>  
-        <?php
-    }
-    ?>                                          
+                        <?php
+                    }
+                    ?>                                          
                 </tbody>
             </table>
         </div>

@@ -6,9 +6,9 @@ if ($rotina->validaSessao('') == 1) {
     $switch = new Switchs();
     $zabbix = new ZabbixSEED();
 
-    $codigo_sw = $_GET ["sw"];
-    $porta_sw = $_GET ["port"];
-    $tipo_porta = $_GET ["tipo"];
+    $codigo_sw = filter_input(INPUT_GET, 'sw');
+    $porta_sw = filter_input(INPUT_GET, 'port');
+    $tipo_porta = filter_input(INPUT_GET, 'tipo');
     $resultado_porta = $switch->iniPorta($porta_sw, $codigo_sw, $tipo_porta);
     foreach ($resultado_porta as $table_porta) {
         ?>

@@ -6,15 +6,9 @@ $servico = new Servico();
 $redmine = new Redmine();
 
 $rotina = new RotinasPublicas();
-if ($rotina->validaSessao('') == 1) {
-    if (!isset($_POST['nome'])) {
-        $_POST['nome'] = '';
-    }
-    if (!isset($_POST['id'])) {
-        $_POST['id'] = '';
-    }
-    $nome = $_POST ["nome"];
-    $id = $_POST ["id"];
+if ($rotina->validaSessao('') == 1) {    
+    $nome = filter_input(INPUT_POST, 'nome');
+    $id = filter_input (INPUT_POST, 'id');
     ?>
     <div class="col-xs-2">                        
         <form class="form-horizontal" method="post" action="">

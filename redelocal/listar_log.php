@@ -7,9 +7,9 @@ if ($rotina->validaSessao('') == 1) {
     $zbxCofre = new ZabbixCofre();
     $logArquivos = new LogArquivos();
 
-    if (!isset($_GET['limpa'])) {
+    if (!isset(filter_input(INPUT_POST, 'limpa'))) {
         $_GET['limpa'] = '';
-    } elseif ($_POST['limpa'] = '1') {
+    } elseif (filter_input(INPUT_POST, 'limpa') == '1') {
         unset($_SESSION['usuario']);
         unset($_SESSION['arquivo']);
         unset($_SESSION['inicio']);
@@ -27,28 +27,28 @@ if ($rotina->validaSessao('') == 1) {
         $_SESSION['inicio'] = '2010-01-01 00:00:00';
     }
     if (!isset($_SESSION['fim'])) {
-        $data = date_default_timezone_set("America/Bahia");
+        date_default_timezone_set("America/Bahia");
         $data = date('Y-m-d');
         $_SESSION['fim'] = $data . ' 23:59:59';
     }
     if (!isset($_SESSION['acao'])) {
         $_SESSION['acao'] = '';
     }
-    if (isset($_POST['usuario'])) {
-        $_SESSION ["usuario"] = $_POST ["usuario"];
+    if (isset(filter_input(INPUT_POST, 'usuario'))) {
+        $_SESSION ["usuario"] = filter_input(INPUT_POST, 'usuario');
     }
-    if (isset($_POST['arquivo'])) {
-        $_SESSION ["arquivo"] = $_POST ["arquivo"];
+    if (isset(filter_input(INPUT_POST, 'arquivo'))) {
+        $_SESSION ["arquivo"] = filter_input(INPUT_POST, 'arquivo');
     }
 
-    if (isset($_POST['inicio'])) {
-        $_SESSION ["inicio"] = $logArquivos->convert_data_BR_US($_POST ["inicio"]);
+    if (isset(filter_input(INPUT_POST, 'inicio'))) {
+        $_SESSION ["inicio"] = $logArquivos->convert_data_BR_US(filter_input(INPUT_POST, 'inicio'));
     }
-    if (isset($_POST['fim'])) {
-        $_SESSION ["fim"] = $logArquivos->convert_data_BR_US($_POST ["fim"]);
+    if (isset(filter_input(INPUT_POST, 'fim'))) {
+        $_SESSION ["fim"] = $logArquivos->convert_data_BR_US(filter_input(INPUT_POST, 'fim'));
     }
-    if (isset($_POST['acao'])) {
-        $_SESSION ["acao"] = $_POST ["acao"];
+    if (isset(filter_input(INPUT_POST, 'acao'))) {
+        $_SESSION ["acao"] = filter_input(INPUT_POST, 'acao');
     }
 
 
