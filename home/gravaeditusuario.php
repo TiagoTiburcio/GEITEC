@@ -14,6 +14,7 @@ if ($rotina->validaSessao('2') == 1) {
     $ativo = filter_input(INPUT_POST, 'ativo');
     $resetSenha = filter_input(INPUT_POST, 'resetSenha');
     $altProxLogin = filter_input(INPUT_POST, 'altProxLogin');
+    $tipoLogin = filter_input(INPUT_POST, 'tipologin');
     date_default_timezone_set("America/Bahia");
     $data = date('Y-m-d H:i:s');
     $resutado = $usuario->manutUsuario($login, $nome_usuario, $pass_branco, $ativo, $perfil, $altProxLogin, $usuario->getUsuario(), $data);

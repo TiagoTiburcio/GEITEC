@@ -4,10 +4,19 @@ include_once '../class/principal.php';
 $tarefas = new RotinasPublicas();
 
 if ($tarefas->validaSessao('') == 1) { //Formulario nola Senha para usuários que não utilizam senha no Active Directory
+    $user = new Usuario();
+    $user->iniUsuario($_SESSION['login']);
+    if ($user->getTipoLogin() == '0') {
+        $menssagem = "Usuário utilizando gerenciamento de senha via Active Directory";
+    } elseif ($user->getTipoLogin() == '1') {
+        $menssagem = "Usuário utilizando gerenciamento de senha Local";
+    } else {
+        $menssagem = "";
+    }
     ?>
-    <div class="col-xs-12 text-center">
-        <h6>Senha deve ser alterada no Active Directory </h6>
-<!--        <form id="renoveSenha" name="renoveSenha" onsubmit="return validaSenha();" class="form-horizontal" method="post" action="index.php">
+    <div class="col-xs-12 text-center">        
+        <h2><?php echo $menssagem; ?> </h2>
+        <form id="renoveSenha" name="renoveSenha" onsubmit="return validaSenha();" class="form-horizontal" method="post" action="gravasenha.php">
             <div class="form-group">
                 <div class="col-xs-2 col-xs-offset-5">                                  
                     <div class="input-group login">
@@ -17,11 +26,18 @@ if ($tarefas->validaSessao('') == 1) { //Formulario nola Senha para usuários qu
                     <div class="input-group login">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                         <input type="text" class="form-control text-center" id="nome_usuario" name="nome_usuario" value="<?php echo $_SESSION['nome_usuario']; ?>" readonly="">                
-                    </div>               
-                    <button type="submit" class="btn btn-success">Acessar <span class="glyphicon glyphicon-ok-sign"></span></button>                  
+                    </div> 
+                    <?php if ($user->getTipoLogin() == '1') { ?>
+                        <div class="input-group login">                  
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input type="password" required="true" class="form-control text-center" id="pass" name="pass" value="" placeholder="senha">
+                        </div>
+                        <button type="submit" class="btn btn-success">Acessar <span class="glyphicon glyphicon-ok-sign"></span></button> 
+                    <?php } ?>       
                 </div>
             </div>  
-        </form>-->
+        </form>
+
     </div>    
     <?php
     include ("../class/footer.php");

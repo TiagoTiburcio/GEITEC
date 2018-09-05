@@ -20,6 +20,7 @@ class Usuario extends Database {
     private $ativo;
     private $perfil;
     private $altProxLogin;
+    private $tipoLogin;
 
     function __construct() {
         
@@ -76,7 +77,7 @@ class Usuario extends Database {
 
     function getPerfil() {
         return $this->perfil;
-    }
+    }    
 
     private function setAltProxLogin($_altProxLogin) {
         $this->altProxLogin = $_altProxLogin;
@@ -84,6 +85,14 @@ class Usuario extends Database {
 
     function getAltProxLogin() {
         return $this->altProxLogin;
+    }
+    
+    private function setTipoLogin($_tipoLogin) {
+        $this->tipoLogin = $_tipoLogin;
+    }
+
+    function getTipoLogin() {
+        return $this->tipoLogin;
     }
 
     // 0 - usuario não gravado 1 - usuario existente na Base de Dados
@@ -106,17 +115,17 @@ class Usuario extends Database {
     }
 
     // 0 - Usuário Novo 1 - Editou Usuário
-    function manutUsuario($_usuario, $_nome, $_senhaBranco, $_ativo, $_perfil, $_altProxLogin, $_usuarioAlt, $_dataAlt) {
+    function manutUsuario($_usuario, $_nome, $_senhaBranco, $_ativo, $_perfil, $_altProxLogin, $_usuarioAlt, $_tipoLogin, $_dataAlt) {
         $resultado = $this->testeUsuarioCadatrado($_usuario);
         if ($resultado == 0) {
-            $consulta_manutUsuario = " INSERT INTO `home_usuario`(`usuario`,`senha`,`nome`,`ativo`,`codigo_perfil`,`altera_senha_login`,`usuario_edit`,`data_edit`) "
-                    . " VALUES('" . $_usuario . "' , '" . $this->getSenhaEncriptada($_senhaBranco) . "' , '" . $_nome . "' ,'" . $_ativo . "','" . $_perfil . "','" . $_altProxLogin . "','" . $_usuarioAlt . "','" . $_dataAlt . "'); ";
+            $consulta_manutUsuario = " INSERT INTO `home_usuario`(`usuario`,`senha`,`nome`,`ativo`,`codigo_perfil`,`altera_senha_login`,`metodo_login`,`usuario_edit`,`data_edit`) "
+                    . " VALUES('" . $_usuario . "' , '" . $this->getSenhaEncriptada($_senhaBranco) . "' , '" . $_nome . "' ,'" . $_ativo . "','" . $_perfil . "','" . $_altProxLogin . "','" . $_tipoLogin . "','". $_usuarioAlt . "','" . $_dataAlt . "'); ";
 
             $resultado_manutUsuario = mysqli_query($this->connect(), $consulta_manutUsuario);
         } else {
             $consulta_manutUsuario = "UPDATE `home_usuario` SET `usuario` = '" . $_usuario . "' , "
                     . "`senha` = '" . $this->getSenhaEncriptada($_senhaBranco) . "' , `nome` = '" . $_nome . "' "
-                    . ",`ativo` = '" . $_ativo . "',`altera_senha_login` = '" . $_altProxLogin . "', `usuario_edit` = '" . $_usuarioAlt . "',"
+                    . ",`ativo` = '" . $_ativo . "',`altera_senha_login` = '" . $_altProxLogin . "', `usuario_edit` = '" . $_usuarioAlt . "', `metodo_login` = '" . $_tipoLogin . "',"
                     . " `data_edit` = '" . $_dataAlt . "', `codigo_perfil` = '" . $_perfil . "' WHERE `codigo` = '" . $this->idUsuario($_usuario) . "';";
             $resultado_manutUsuario = mysqli_query($this->connect(), $consulta_manutUsuario);
         }
@@ -151,6 +160,7 @@ class Usuario extends Database {
                 $this->setAtivo($table_iniUsuario["ativo"]);
                 $this->setPerfil($table_iniUsuario["codigo_perfil"]);
                 $this->setAltProxLogin($table_iniUsuario["altera_senha_login"]);
+                $this->setTipoLogin($table_iniUsuario["metodo_login"]);
             }
         }
         return $retorno;

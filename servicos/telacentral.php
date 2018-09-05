@@ -29,7 +29,7 @@
                 $servicos->editTelaCentralArquivos('1', '1');
                 header("Location: ../redelocal/atu_log_arquivo.php");
             } else {
-                echo ($date % 4) . ' Arquivos Já Atualizados !!br/>';
+                echo ($date % 4) . ' Arquivos Já Atualizados !! <br/>';
                 echo '<meta http-equiv="refresh" content="20" url=""/>';
             }
         } else {

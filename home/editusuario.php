@@ -4,13 +4,9 @@ include_once '../class/principal.php';
 $rotina = new RotinasPublicas();
 
 if ($rotina->validaSessao('') == 1) {
-    if (!isset($_GET ["usuario"])) {
-        $_GET ["usuario"] = '';
-    }
-
     $usuarioEdit = new Usuario();
     $usuario = new Usuario();
-    $usuarioEdit->iniUsuario(filter_input(INPUT_GET,'usuario'));
+    $usuarioEdit->iniUsuario(filter_input(INPUT_GET, 'usuario'));
     ?>
     <div class="col-xs-12 text-center">
         <h2>Manuten&ccedil;&atilde;o Usu&aacute;rio</h2>
@@ -63,34 +59,52 @@ if ($rotina->validaSessao('') == 1) {
                                 ?> value="0">Não</label>
                         </div>                    
                     </div>
-                    <!--                <div class="input-group login centraliza">
-                                        <label for="resetSenha">Resetar Senha Usuário?</label><br/>
-                                        <div class="radio-inline">
-                                            <label><input type="radio" name="resetSenha" onclick="return mostraSenha();" value="1">Sim</label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label><input type="radio" name="resetSenha" onclick="return escondeSenha();" checked="" value="0">Não</label>
-                                        </div>                    
-                                    </div>
-                                    <div id="senha" name="senha" style="display: none">
-                                        <div class="input-group login centraliza">
-                                            <label for="altProxLogin">Alterar no Próximo Login do Usuário?</label><br/>
-                                            <div class="radio-inline">
-                                                <label><input type="radio" name="altProxLogin" checked="" value="1">Sim</label>
-                                            </div>
-                                            <div class="radio-inline">
-                                                <label><input type="radio" name="altProxLogin" value="0">Não</label>
-                                            </div>
-                                        </div>
-                                        <div class="input-group login" >                  
-                                          <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                          <input type="password" class="form-control text-center" id="pass" name="pass" value="" placeholder="Nova Senha">
-                                        </div>
-                                        <div class="input-group login">                  
-                                          <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                          <input type="password" class="form-control text-center" id="repass" name="repass" value="" placeholder="Repita Nova Senha">
-                                        </div>
-                                    </div>   -->
+                    <div class="input-group login centraliza">
+                        <label for="tipologin">Alterar Tipo Login?</label><br/>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="tipologin" <?php
+                                if ($usuarioEdit->getTipoLogin() == 1) {
+                                    echo 'checked=""';
+                                }
+                                ?> value="1" onclick="return mostraSenha();">Autent. Local</label>
+                        </div>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="tipologin" <?php
+                                if ($usuarioEdit->getTipoLogin() == 0) {
+                                    echo 'checked=""';
+                                }
+                                ?> value="0" onclick="return escondeSenha();">Autent. AD</label>
+                        </div>
+                    </div>                            
+                    <div class="input-group login centraliza" <?php if ($usuarioEdit->getTipoLogin() == 0) { echo 'style="display: none"';}?>>
+                        <label for="resetSenha">Resetar Senha Usuário?</label><br/>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="resetSenha" onclick="return mostraSenha();" value="1">Sim</label>
+                        </div>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="resetSenha" onclick="return escondeSenha();" checked="" value="0">Não</label>
+                        </div>                    
+                    </div>
+                    <div id="senha" name="senha" style="display: none">
+                        <div class="input-group login centraliza">
+                            <label for="altProxLogin">Alterar no Próximo Login do Usuário?</label><br/>
+                            <div class="radio-inline">
+                                <label><input type="radio" name="altProxLogin" checked="" value="1">Sim</label>
+                            </div>
+                            <div class="radio-inline">
+                                <label><input type="radio" name="altProxLogin" value="0">Não</label>
+                            </div>
+                        </div>
+                        <div class="input-group login" >                  
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input type="password" class="form-control text-center" id="pass" name="pass" value="" placeholder="Nova Senha">
+                        </div>
+                        <div class="input-group login">                  
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input type="password" class="form-control text-center" id="repass" name="repass" value="" placeholder="Repita Nova Senha">
+                        </div>
+                    </div>
+
                     <button type="submit" class="btn btn-success">Gravar <span class="glyphicon glyphicon-save"></span></button>                  
                 </div>
             </div>  
@@ -98,4 +112,4 @@ if ($rotina->validaSessao('') == 1) {
     </div>    
     <?php
     include ("../class/footer.php");
-}
+}        
