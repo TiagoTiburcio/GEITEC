@@ -5,6 +5,7 @@
         <meta lang="pt-BR">  
         <title>Sistema GEITEC</title>  
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="../favicon.ico"> 
         <link rel="stylesheet" href="../css/bootstrap.min.css">
         <link rel="stylesheet" href="../css/estilo.css">
         <script src="../js/validacampo.js" type="text/javascript"></script>      

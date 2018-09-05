@@ -3,17 +3,17 @@ include_once '../class/principal.php';
 
 $rotina = new RotinasPublicas();
 
-if ($rotina->validaSessao('4') == 1) {    
-    $filtro_diretoria = filtro_input(INPUT_GET, 'dre');
-    $filtro_situacao = filtro_input(INPUT_GET, 'sit');
-    $filtro_tp_ckt = filtro_input(INPUT_GET, 'tpckt');
-    if (!isset($filtro_diretoria)) {
+if ($rotina->validaSessao('4') == 1) {
+    $filtro_diretoria = filter_input(INPUT_GET, 'dre');
+    $filtro_situacao = filter_input(INPUT_GET, 'sit');
+    $filtro_tp_ckt = filter_input(INPUT_GET, 'tpckt');
+    if ($filtro_diretoria == '') {
         $filtro_diretoria = 'Todas';
     }
-    if (!isset($filtro_situacao)) {
+    if ($filtro_situacao == '') {
         $filtro_situacao = '2';
     }
-    if (!isset($filtro_tp_ckt)) {
+    if ($filtro_tp_ckt == '') {
         $filtro_tp_ckt = '0';
     }
     $relatorio = new RelatorioCircuitos();

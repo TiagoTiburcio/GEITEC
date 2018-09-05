@@ -401,14 +401,25 @@ class Servicos extends Database {
     //    Y | Ano //    M | Mês //    D | Dias //    W | Semanas //    H | Horas //    M | Minutos //    S | Segundos  
     function calculaDataRepeticao($_dataInicio, $_repeticao) {
         $data = DateTime::createFromFormat('Y-m-d', $_dataInicio);
-        if ($_repeticao == 'D') {
+        switch ($_repeticao) {
+            case 'D':
+                $data->add(new DateInterval('P1D'));
+                break;
+            case 'S':
+                $data->add(new DateInterval('P1W'));
+                break;
+            case 'M':
+                $data->add(new DateInterval('P1M'));
+                break;
+            case 'T':
+                $data->add(new DateInterval('P3M'));
+                break;
+        }
+        $valida = $data->format('w');
+        if ($valida == '6') {
+            $data->add(new DateInterval('P2D'));
+        } elseif ($valida == '0') {
             $data->add(new DateInterval('P1D'));
-        } elseif ($_repeticao == 'S') {
-            $data->add(new DateInterval('P1W'));
-        } elseif ($_repeticao == 'M') {
-            $data->add(new DateInterval('P1M'));
-        } elseif ($_repeticao == 'T') {
-            $data->add(new DateInterval('P3M'));
         }
         return $data->format('Y-m-d');
     }
@@ -425,8 +436,7 @@ class Servicos extends Database {
 
     // retorno = 0 - Evento Atrasado | 1 - Evento Normal
     function testeEventoVencido() {
-        $retorno = "0";
-        $dataHOJE = date('Y-m-d');
+        $retorno = "0";        
         if ($this->getLimiteInicio() != "" && $this->getInicioEvento() != "" && $this->getLimiteFim() != "" && $this->getFimEvento() != "") {
             if ($this->getLimiteInicio() <= $this->getTarefaRedmine()->getIniTarefa() && $this->getLimiteFim() >= $this->getTarefaRedmine()->getFimTarefa()) {
                 $retorno = "1";
