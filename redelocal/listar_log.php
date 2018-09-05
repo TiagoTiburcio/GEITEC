@@ -7,7 +7,7 @@ if ($rotina->validaSessao('') == 1) {
     $zbxCofre = new ZabbixCofre();
     $logArquivos = new LogArquivos();
 
-    if (!isset(filter_input(INPUT_POST, 'limpa'))) {
+    if (filter_input(INPUT_POST, 'limpa') !== NULL) {
         $_GET['limpa'] = '';
     } elseif (filter_input(INPUT_POST, 'limpa') == '1') {
         unset($_SESSION['usuario']);
@@ -34,20 +34,20 @@ if ($rotina->validaSessao('') == 1) {
     if (!isset($_SESSION['acao'])) {
         $_SESSION['acao'] = '';
     }
-    if (isset(filter_input(INPUT_POST, 'usuario'))) {
+    if (filter_input(INPUT_POST, 'usuario')!== NULL) {
         $_SESSION ["usuario"] = filter_input(INPUT_POST, 'usuario');
     }
-    if (isset(filter_input(INPUT_POST, 'arquivo'))) {
+    if (filter_input(INPUT_POST, 'arquivo')!== NULL) {
         $_SESSION ["arquivo"] = filter_input(INPUT_POST, 'arquivo');
     }
 
-    if (isset(filter_input(INPUT_POST, 'inicio'))) {
+    if (filter_input(INPUT_POST, 'inicio')!== NULL) {
         $_SESSION ["inicio"] = $logArquivos->convert_data_BR_US(filter_input(INPUT_POST, 'inicio'));
     }
-    if (isset(filter_input(INPUT_POST, 'fim'))) {
+    if (filter_input(INPUT_POST, 'fim')!== NULL) {
         $_SESSION ["fim"] = $logArquivos->convert_data_BR_US(filter_input(INPUT_POST, 'fim'));
     }
-    if (isset(filter_input(INPUT_POST, 'acao'))) {
+    if (filter_input(INPUT_POST, 'acao')!== NULL) {
         $_SESSION ["acao"] = filter_input(INPUT_POST, 'acao');
     }
 
