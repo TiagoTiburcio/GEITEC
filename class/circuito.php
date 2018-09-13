@@ -352,13 +352,7 @@ class Circuitos extends Database {
 
     // retorna lista com todos os usuarios cadastrados
     function listaUnidades($_dre, $_unidade, $_cidade) {
-        $consulta_listaUnidades = "SELECT distinctrow u.codigo_inep, u.descricao, d.descricao descricao_dre,"
-                . " d.sigla as sigla_dre, d.codigo_siig as codigo_siig_dre, e.descricao as cidade  "
-                . " FROM circuitos_unidades as u "
-                . " inner join circuitos_unidades as d on u.codigo_unidade_pai = d.codigo_siig "
-                . " inner join EscolasSiteCompleta as e on e.codigo_mec = u.codigo_inep "
-                . " where d.sigla like '%$_dre%' and u.descricao like '%$_unidade%' and e.descricao like '%$_cidade%' "
-                . " order by d.sigla, e.descricao, u.descricao; ";
+        $consulta_listaUnidades = " SELECT DISTINCTROW u.codigo_inep, u.descricao, d.descricao descricao_dre, d.sigla AS sigla_dre, d.codigo_siig AS codigo_siig_dre, e.descricao AS cidade FROM circuitos_unidades AS u INNER JOIN circuitos_unidades AS d ON u.codigo_unidade_pai = d.codigo_siig INNER JOIN EscolasSiteCompleta AS e ON e.codigo_mec = u.codigo_inep where d.sigla like '%$_dre%' and u.descricao like '%$_unidade%' and e.descricao like '%$_cidade%' ORDER BY d.sigla , e.descricao , u.descricao; ";
         $resultado_listaUnidades = mysqli_query($this->connect(), $consulta_listaUnidades);
         return $resultado_listaUnidades;
     }

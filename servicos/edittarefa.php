@@ -71,9 +71,17 @@ if ($rotina->validaSessao('') == 1) {
                         </div>
                         <?php if ($tarefa1->getNumTarefa() != "") { ?>
                             <div class="form-group centraltd">
+                                <a type="button" class="btn btn-warning"  <?php
+                                echo "href=http://redmine.seed.se.gov.br/redmine/issues/" . $tarefa1->getNumTarefa() . "/edit";
+                                ?>  target="_blank" >Editar</a>
                                 <a type="button" class="btn btn-primary" <?php
                                 echo "href='http://redmine.seed.se.gov.br/redmine/projects/atividades-gerais/issues/" . $tarefa1->getNumTarefa() . "/copy'";
-                                ?>  target="_blank" >Copiar Dados Tarefa</a>
+                                ?>  target="_blank" >Copiar</a>
+                                   <?php if ($tarefaAntes->getSituacaoEvento() != 'Fechada') { ?>
+                                    <a type="button" class="btn btn-danger" href="atu_tarefa_redmine.php?evento=<?php echo $evento; ?>&tarefa=<?php echo $tarefa1->getNumTarefa(); ?>&situacao=5">Fechar</a>                                    
+                                <?php } elseif ($tarefaAntes->getSituacaoEvento() == 'Fechada') { ?>
+                                    <a type="button" class="btn btn-info" href="atu_tarefa_redmine.php?evento=<?php echo $evento; ?>&tarefa=<?php echo $tarefa1->getNumTarefa(); ?>&situacao=1">Reabrir</a>
+                                <?php } ?>
                             </div>
                         <?php } ?>
                         <div class="form-group">
@@ -133,12 +141,20 @@ if ($rotina->validaSessao('') == 1) {
                         </div>  
                     </div>
                     <?php if ($tarefa->getNumTarefa() != "") { ?>
-                        <div class="form-group centraltd">
-                            <a type="button" class="btn btn-primary" <?php
-                            echo "href='http://redmine.seed.se.gov.br/redmine/projects/atividades-gerais/issues/" . $tarefa->getNumTarefa() . "/copy'";
-                            ?>  target="_blank" >Copiar Dados Tarefa</a>
-                        </div>
-                    <?php } ?>
+                            <div class="form-group centraltd">
+                                <a type="button" class="btn btn-warning"  <?php
+                                echo "href=http://redmine.seed.se.gov.br/redmine/issues/" . $tarefa->getNumTarefa() . "/edit";
+                                ?>  target="_blank" >Editar</a>
+                                <a type="button" class="btn btn-primary" <?php
+                                echo "href='http://redmine.seed.se.gov.br/redmine/projects/atividades-gerais/issues/" . $tarefa->getNumTarefa() . "/copy'";
+                                ?>  target="_blank" >Copiar</a>
+                                   <?php if ($servicos->getSituacaoEvento() != 'Fechada') { ?>
+                                    <a type="button" class="btn btn-danger" href="atu_tarefa_redmine.php?evento=<?php echo $evento; ?>&tarefa=<?php echo $tarefa->getNumTarefa(); ?>&situacao=5">Fechar</a>                                    
+                                <?php } elseif ($servicos->getSituacaoEvento() == 'Fechada') { ?>
+                                    <a type="button" class="btn btn-info" href="atu_tarefa_redmine.php?evento=<?php echo $evento; ?>&tarefa=<?php echo $tarefa->getNumTarefa(); ?>&situacao=1">Reabrir</a>
+                                <?php } ?>
+                            </div>
+                        <?php } ?>
                     <div class="form-group">
                         <label for="situacao_evento">Situa&ccedil;&atilde;o Evento</label>
                         <input type="text" class="form-control" readonly="true" id="situacao_evento" name="situacao_evento" value="<?php echo $servicos->getSituacaoEvento(); ?>">
@@ -197,12 +213,20 @@ if ($rotina->validaSessao('') == 1) {
                                 </div>
                             </div>  
                         </div>
-                        <?php if ($tarefa2->getNumTarefa() != "") { ?>
+                        <?php if ($tarefa2->getNumTarefa() != "") { ?>                           
                             <div class="form-group centraltd">
+                                <a type="button" class="btn btn-warning"  <?php
+                                echo "href=http://redmine.seed.se.gov.br/redmine/issues/" . $tarefa2->getNumTarefa() . "/edit";
+                                ?>  target="_blank" >Editar</a>
                                 <a type="button" class="btn btn-primary" <?php
                                 echo "href='http://redmine.seed.se.gov.br/redmine/projects/atividades-gerais/issues/" . $tarefa2->getNumTarefa() . "/copy'";
-                                ?>  target="_blank" >Copiar Dados Tarefa</a>
-                            </div>
+                                ?>  target="_blank" >Copiar</a>
+                                <?php if ($tarefaDepois->getSituacaoEvento() != 'Fechada') { ?>
+                                    <a type="button" class="btn btn-danger" href="atu_tarefa_redmine.php?evento=<?php echo $evento; ?>&tarefa=<?php echo $tarefa2->getNumTarefa(); ?>&situacao=5">Fechar</a>                                    
+                                <?php } elseif ($tarefaDepois->getSituacaoEvento() == 'Fechada') { ?>
+                                    <a type="button" class="btn btn-info" href="atu_tarefa_redmine.php?evento=<?php echo $evento; ?>&tarefa=<?php echo $tarefa2->getNumTarefa(); ?>&situacao=1">Reabrir</a>
+                                <?php } ?>
+                            </div>                        
                         <?php } ?>
                         <div class="form-group">
                             <label for="situacao_evento">Situa&ccedil;&atilde;o Evento</label>

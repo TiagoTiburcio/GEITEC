@@ -13,7 +13,7 @@ if ($rotina->validaSessao('') == 1) {
     $unidade = filter_input(INPUT_POST, 'unidade');
     $cidade = filter_input(INPUT_POST, 'cidade');
     $zbx = filter_input(INPUT_POST, 'zabbix');
-    if (!isset($zbx)) {
+    if ($zbx == NULL) {
         $zbx = 2;
     }
     ?>
@@ -98,23 +98,16 @@ if ($rotina->validaSessao('') == 1) {
                             $cadzbx = $tableZbx['value'];
                             $sitZbx = $tableZbx['tempo_inativo'];
                             $tipoZbx = $tableZbx['name'];
+                            echo " <tr> <td>" . $table['sigla_dre'] . "</td> "
+                            . " <td>" . $table['cidade'] . "</td> "
+                            . " <td>" . $tipoZbx . "</td>"
+                            . " <td>" . $table['descricao'] . "</td>"
+                            . " <td>" . $zabbix->imprimiAtivo($cadzbx) . "</td>"
+                            . " <td>" . $sitZbx . "</td> </tr>";
                         }
                     }
-                    if (($zbx == 2)) {
-                        echo " <tr> <td>" . $table['sigla_dre'] . "</td> "
-                        . " <td>" . $table['cidade'] . "</td> "
-                        . " <td>" . $tipoZbx . "</td>"
-                        . " <td>" . $table['descricao'] . "</td>"
-                        . " <td>" . $zabbix->imprimiAtivo($cadzbx) . "</td>"
-                        . " <td>" . $sitZbx . "</td> </tr>";
-                    } elseif (($zbx == 0) && ($zbx == $cadzbx)) {
-                        echo " <tr> <td>" . $table["sigla_dre"] . "</td> "
-                        . " <td>" . $table['cidade'] . "</td> "
-                        . " <td>" . $tipoZbx . "</td>"
-                        . " <td>" . $table['descricao'] . "</td>"
-                        . " <td>" . $zabbix->imprimiAtivo($cadzbx) . "</td>"
-                        . " <td>" . $sitZbx . "</td> </tr>";
-                    } elseif (($zbx == 1) && ($zbx == $cadzbx)) {
+
+                    if (($cadzbx == 3)) {
                         echo " <tr> <td>" . $table['sigla_dre'] . "</td> "
                         . " <td>" . $table['cidade'] . "</td> "
                         . " <td>" . $tipoZbx . "</td>"
@@ -122,7 +115,6 @@ if ($rotina->validaSessao('') == 1) {
                         . " <td>" . $zabbix->imprimiAtivo($cadzbx) . "</td>"
                         . " <td>" . $sitZbx . "</td> </tr>";
                     }
-                    //echo 'cadzbx: '.$cadzbx."| sitzbx: ".$sitZbx." | tipozbx: ".$tipoZbx."| desc: ". $tableZbx["inep"]. " | " . $table["codigo_inep"].'|<br/>' ;
                 }
                 ?>                                          
             </tbody>
