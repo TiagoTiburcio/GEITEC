@@ -15,6 +15,7 @@ if ($rotina->validaSessao('') == 1) {
     $circuito = filter_input(INPUT_POST, 'circuito');
     $mescad = filter_input(INPUT_POST, 'mes');
     $zbx = filter_input(INPUT_POST, 'zabbix');
+    $inep = filter_input(INPUT_POST, 'inep');
     if (!isset($zbx)) {
         $zbx = 2;
     }
@@ -38,6 +39,10 @@ if ($rotina->validaSessao('') == 1) {
                     <div class="form-group">
                         <label for="fatura">Contrato</label>
                         <input type="text" class="form-control" id="fatura" name="fatura" value="<?php echo $fatura; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="inep">Codigo Inep</label>
+                        <input type="text" class="form-control" id="inep" name="inep" value="<?php echo $inep; ?>">
                     </div>
                     <div class="form-group">
                         <label for="zabbix">Cadastro Zabbix</label><br/>
@@ -131,7 +136,7 @@ if ($rotina->validaSessao('') == 1) {
             </thead>
             <tbody>
                 <?php
-                $resultado_detalhada2 = $circuitos->listaConsultaDetalhada($unidade, $fatura, $circuito, $diretoria, $mescad);
+                $resultado_detalhada2 = $circuitos->listaConsultaDetalhada($unidade, $fatura, $circuito, $diretoria, $mescad, $inep);
                 $consultaZabbix = $zabbix->listLinksPagos();
                 foreach ($resultado_detalhada2 as $table) {
                     $cadzbx = 3;

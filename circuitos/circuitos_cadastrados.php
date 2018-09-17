@@ -48,6 +48,7 @@ if ($rotina->validaSessao('') == 1) {
                         <th>Designacao</th>
                         <th>Contrato</th>
                         <th>Velocidade</th>
+                        <th>Últ. Ref.</th>
                         <th>Endere&ccedil;o</th>
                     </tr>
                 </thead>
@@ -63,6 +64,7 @@ if ($rotina->validaSessao('') == 1) {
                             <td><?php echo $table['designacao']; ?></td>
                             <td><?php echo $table['fatura']; ?></td>
                             <td><?php echo $table['velocidade']; ?></td>
+                            <td><?php echo date('m/Y', strtotime($table['data_ult_ref'])); ?></td>
                             <td><?php echo $table['tip_logradouro'] . ' ' . $table['nome_logradouro'] . ' ' . $table['num_imovel'] . ', ' . $table['nome_bairro'] . ' '; ?></td>
                         </tr>  
                         <?php

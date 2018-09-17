@@ -425,23 +425,15 @@ class Circuitos extends Database {
         return $resultado_listaRegConsumo;
     }
 
-    function listaConsultaDetalhada($_unidade, $_fatura, $_circuito, $_diretoria, $_mescad) {
-        $consulta_circuito3 = " SELECT u_sup.sigla as `DRE`, u.cidade as `cidade`,"
-                . " c.designacao as `circuito`, u.descricao as `nome_unidade`, "
-                . " date_format(c.periodo_ref,'%m/%Y') as `periodo_ref`,c.`fatura`, rc.velocidade, "
-                . " CONCAT('R$ ', REPLACE(REPLACE(REPLACE(FORMAT(c.valor_conta, 2),'.',';'),',','.'),';',',')) as `valor_conta` "
-                . " FROM `circuitos_contas` as c "
-                . " join `circuitos_registro_consumo` as rc on rc.codigo = c.designacao "
-                . " join `circuitos_unidades` as u on u.codigo_ut_siig = rc.codigo_unidade "
-                . " join `circuitos_unidades` as u_sup on u.codigo_unidade_pai = u_sup.codigo_siig "
-                . " where u.descricao like '%$_unidade%' "
-                . " and c.`fatura` like '%$_fatura%' "
-                . " and c.designacao like '%$_circuito%' "
-                . " and u_sup.sigla like '%$_diretoria%' "
-                . " and c.periodo_ref = '$_mescad' "
-                . " order by u_sup.sigla, u.cidade, u.descricao;  ";
-        $resultado_circuito3 = mysqli_query($this->connect(), $consulta_circuito3);
-        return $resultado_circuito3;
+    function listaConsultaDetalhada($_unidade, $_fatura, $_circuito, $_diretoria, $_mescad, $_inep) {
+        if(($_inep != NULL)||($_inep != '')){
+            $filtro = " and u.codigo_inep = '$_inep' ";
+        } else {
+            $filtro = "";
+        }
+        $consulta = " SELECT u_sup.sigla AS `DRE`, u.cidade AS `cidade`, u.codigo_inep, c.designacao AS `circuito`, u.descricao AS `nome_unidade`, DATE_FORMAT(c.periodo_ref, '%m/%Y') AS `periodo_ref`, c.`fatura`, rc.velocidade, CONCAT('R$ ', REPLACE(REPLACE(REPLACE(FORMAT(c.valor_conta, 2), '.', ';'), ',', '.'), ';', ',')) AS `valor_conta` FROM `circuitos_contas` AS c JOIN `circuitos_registro_consumo` AS rc ON rc.codigo = c.designacao JOIN `circuitos_unidades` AS u ON u.codigo_ut_siig = rc.codigo_unidade JOIN `circuitos_unidades` AS u_sup ON u.codigo_unidade_pai = u_sup.codigo_siig WHERE u.descricao LIKE '%$_unidade%' AND c.`fatura` LIKE '%$_fatura%' AND c.designacao LIKE '%$_circuito%' AND u_sup.sigla LIKE '%$_diretoria%' AND c.periodo_ref = '$_mescad' $filtro ORDER BY u_sup.sigla , u.cidade , u.descricao; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
     }
 
     function listaValorContasAno() {
