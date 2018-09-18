@@ -301,6 +301,51 @@ class RedeLocal extends Database {
         return $resultado_dadosCredencial;
     }
 
+    /**
+     * 
+     * @param type $_usuario
+     * @return array resultado consulta usuários em listas 
+     */
+    function usuariosListaExpresso($_usuario, $_conferido) {
+        if ($_conferido == '1') {
+            $_conferido = " emails.conferido is null ";
+        } elseif ($_conferido == '0') {
+            $_conferido = " emails.conferido is not null ";
+        } else {
+            $_conferido = "";
+        } 
+        $text = " where ";
+        if (($_usuario != "") && ($_conferido != "")) {
+            $text = $text . " emails.email like '%$_usuario%' and $_conferido ";
+        } elseif (($_usuario == "") && ($_conferido != "")) {
+            $text = $text . " $_conferido ";
+        } elseif (($_usuario != "") && ($_conferido == "")) {
+            $text = $text . " emails.email like '%$_usuario%' ";
+        } else {
+            $text = " ";
+        }       
+        $consulta = " SELECT emails.*, ger.lista_seed_geral, usr.lista_seed_usuarios, adm.lista_seed_administrativo, esc.lista_seed_escest FROM (SELECT email, nome_usuario, COUNT(email) AS qtd_lista, conferido, usuario FROM redelocal_usuarios_lista_expresso le GROUP BY email) AS emails LEFT JOIN (SELECT email, '1' AS 'lista_seed_administrativo' FROM redelocal_usuarios_lista_expresso WHERE nome_lista = 'lista-seed-administrativo') AS adm ON adm.email = emails.email LEFT JOIN (SELECT email, '1' AS 'lista_seed_escest' FROM redelocal_usuarios_lista_expresso WHERE nome_lista = 'lista-seed-escest') AS esc ON esc.email = emails.email LEFT JOIN (SELECT email, '1' AS 'lista_seed_geral' FROM redelocal_usuarios_lista_expresso WHERE nome_lista = 'lista-seed-geral') AS ger ON ger.email = emails.email LEFT JOIN (SELECT email, '1' AS 'lista_seed_usuarios' FROM redelocal_usuarios_lista_expresso WHERE nome_lista = 'lista-seed-usuarios') AS usr ON usr.email = emails.email $text ORDER BY emails.email; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+    
+    function updateUsuarioLista($_email){
+        
+        $consulta = " UPDATE `redelocal_usuarios_lista_expresso` SET usuario = '".$_SESSION['login']."', conferido = '".date("Y-m-d H:i:s")."' WHERE email = '$_email' and conferido is null; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    } 
+
+    /**
+     * 
+     * @param type $_codigo
+     * @param type $_tipo
+     * @param type $_descricao
+     * @param type $_usuario
+     * @param type $_senha
+     * @param type $_local_alocado
+     * @return type
+     */
     function manuCredencial($_codigo, $_tipo, $_descricao, $_usuario, $_senha, $_local_alocado) {
         $resultDados = $this->dadosCredencial($_codigo);
         foreach ($resultDados as $dados) {

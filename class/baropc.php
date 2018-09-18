@@ -63,6 +63,7 @@ if (!isset($_SESSION['nome_usuario'])) {
                                     <li><a href="../redelocal/listarimpressoras.php">Lista Impressoras</a></li>
                                     <li><a href="../redelocal/listar_log.php">Lista Arquivos</a></li>
                                     <li><a href="../redelocal/listar_creden.php">Lista Credencias</a></li>
+                                    <li><a href="../redelocal/listar_usuario_expresso.php">Listas Expresso</a></li>
                                 </ul>
                             </li>  
                             <li class="dropdown">

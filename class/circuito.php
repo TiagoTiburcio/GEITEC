@@ -275,7 +275,18 @@ class RelatorioCircuitos extends Database {
         $resultado = mysqli_query($this->connect(), $consulta);
         return $resultado;
     }
-
+    
+    function listaGrupos($_filtro_diretoria) {
+        if ($_filtro_diretoria != 'Todas') {
+            $text = " WHERE c1.sigla_dre = '" . $_filtro_diretoria . "' ";
+        } else {
+            $text = "";
+        }
+        $consulta = " SELECT distinct c2.groupid, c2.grupo FROM (SELECT rc.codigo AS 'designacao', rc.localizacao AS 'cod_localizacao', cl.descricao AS 'desc_localizacao', rc.data_ativacao, rc.velocidade, rc.tipo_servico, rc.tip_logradouro, rc.nome_logradouro, rc.nome_cidade, rc.num_imovel, rc.nome_bairro, rc.data_ult_ref, cu.codigo_siig AS 'cd_siig_unidade', cu.codigo_inep, cu.descricao AS 'desc_unidade', cu.sigla AS 'sigla_unidade', cu.codigo_tipo_categoria_unidade, ctu.descricao AS 'desc_tipo_unidade', cu.zona_localizacao_unidade, cu.cidade AS 'cidade_unidade', cu.ativo AS 'ativo_unidade', dre.codigo_siig AS 'cd_siig_dre', dre.descricao AS 'desc_dre', dre.sigla AS 'sigla_dre', dre.codigo_tipo_categoria_unidade AS 'cd_tipo_categoria_dre', dre.cidade AS 'cidade_dre', dre.ativo AS 'ativo_dre' FROM sis_geitec.circuitos_registro_consumo AS rc JOIN sis_geitec.circuitos_localizacao AS cl ON cl.codigo = rc.localizacao JOIN sis_geitec.circuitos_unidades AS cu ON cu.codigo_ut_siig = rc.codigo_unidade JOIN sis_geitec.circuito_tipo_unidade AS ctu ON ctu.codigo = cu.codigo_tipo_categoria_unidade LEFT JOIN sis_geitec.circuitos_unidades AS dre ON dre.codigo_siig = cu.codigo_unidade_pai WHERE rc.data_ult_ref > DATE_SUB(NOW(), INTERVAL 1 YEAR)) AS c1 JOIN (SELECT h.name, t.value, (CASE t.value WHEN 1 THEN 'Down(1)' ELSE 'Up(0)' END) AS situacao, FROM_UNIXTIME(t.lastchange) AS data, TIMESTAMPDIFF(DAY, FROM_UNIXTIME(t.lastchange), NOW()) AS tempo_inativo, g.name AS grupo, g.groupid, hi.os AS diretoria, hi.name AS escola, inte.ip, hi.serialno_a AS inep, h.status FROM zabbix3.hosts h JOIN zabbix3.hosts_groups hg ON h.hostid = hg.hostid JOIN zabbix3.groups g ON hg.groupid = g.groupid LEFT JOIN zabbix3.host_inventory hi ON hi.hostid = h.hostid LEFT JOIN zabbix3.interface inte ON inte.hostid = h.hostid JOIN zabbix3.items i ON i.hostid = h.hostid JOIN zabbix3.functions f ON f.itemid = i.itemid JOIN zabbix3.triggers t ON t.triggerid = f.triggerid WHERE g.groupid IN ('28' , '29', '30', '31', '32', '33', '394', '396') AND t.templateid IN ('19524' , '13554') AND inte.main = '1') AS c2 ON c1.designacao = c2.name $text ; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+    
 }
 
 /**
