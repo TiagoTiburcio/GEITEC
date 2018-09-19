@@ -69,18 +69,18 @@ if ($rotina->validaSessao('4') == 1) {
                 if ($filtro_tp_ckt == 0) {
                     echo 'selected';
                 }
-                ?>>Todos</option> 
+                ?>>Todos</option>
                 <option value="1" <?php
                 if ($filtro_tp_ckt == 1) {
-                    echo 'selected';
-                }
+                                echo 'selected';
+                            }
                 ?>>Faturados SEED</option> 
                 <option value="2" <?php
                 if ($filtro_tp_ckt == 2) {
                     echo 'selected';
                 }
                 ?>>PBLE</option>                         
-            </select>          
+            </select>            
         </form>        
     </div>
     <?php
@@ -91,7 +91,7 @@ if ($rotina->validaSessao('4') == 1) {
                 $unidadeAtual = $unidTable['cd_siig_unidade'];
                 $first = true;
                 if (($filtro_tp_ckt == '0') || ($filtro_tp_ckt == '1')) {
-                    foreach ($dadosCircuitos as $circTable) {
+                foreach ($dadosCircuitos as $circTable) {
                         if ($unidTable['cd_siig_unidade'] == $circTable['cd_siig_unidade']) {
                             if (($first) && (($filtro_situacao == '2') || ($filtro_situacao == $circTable['value']))) {
                                 ?>

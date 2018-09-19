@@ -311,9 +311,13 @@ class RedeLocal extends Database {
             $_conferido = " emails.conferido is null ";
         } elseif ($_conferido == '0') {
             $_conferido = " emails.conferido is not null ";
+        } elseif ($_conferido == '3') {
+             $_conferido = " emails.conferido is not null and pendencia.resolvido = '0' ";
+        } elseif ($_conferido == '4') {
+             $_conferido = " emails.conferido is not null and (pendencia.resolvido = '0' or pendencia.resolvido is null)  ";
         } else {
             $_conferido = "";
-        } 
+        }
         $text = " where ";
         if (($_usuario != "") && ($_conferido != "")) {
             $text = $text . " emails.email like '%$_usuario%' and $_conferido ";
@@ -323,18 +327,65 @@ class RedeLocal extends Database {
             $text = $text . " emails.email like '%$_usuario%' ";
         } else {
             $text = " ";
-        }       
-        $consulta = " SELECT emails.*, ger.lista_seed_geral, usr.lista_seed_usuarios, adm.lista_seed_administrativo, esc.lista_seed_escest FROM (SELECT email, nome_usuario, COUNT(email) AS qtd_lista, conferido, usuario FROM redelocal_usuarios_lista_expresso le GROUP BY email) AS emails LEFT JOIN (SELECT email, '1' AS 'lista_seed_administrativo' FROM redelocal_usuarios_lista_expresso WHERE nome_lista = 'lista-seed-administrativo') AS adm ON adm.email = emails.email LEFT JOIN (SELECT email, '1' AS 'lista_seed_escest' FROM redelocal_usuarios_lista_expresso WHERE nome_lista = 'lista-seed-escest') AS esc ON esc.email = emails.email LEFT JOIN (SELECT email, '1' AS 'lista_seed_geral' FROM redelocal_usuarios_lista_expresso WHERE nome_lista = 'lista-seed-geral') AS ger ON ger.email = emails.email LEFT JOIN (SELECT email, '1' AS 'lista_seed_usuarios' FROM redelocal_usuarios_lista_expresso WHERE nome_lista = 'lista-seed-usuarios') AS usr ON usr.email = emails.email $text ORDER BY emails.email; ";
+        }
+        $consulta = " SELECT emails.*, ger.lista_seed_geral, usr.lista_seed_usuarios, adm.lista_seed_administrativo, esc.lista_seed_escest, pendencia.descricao, pendencia.resolvido FROM (SELECT email, nome_usuario, COUNT(email) AS qtd_lista, conferido, usuario FROM redelocal_usuarios_lista_expresso le GROUP BY email) AS emails LEFT JOIN (SELECT email, '1' AS 'lista_seed_administrativo' FROM redelocal_usuarios_lista_expresso WHERE nome_lista = 'lista-seed-administrativo') AS adm ON adm.email = emails.email LEFT JOIN (SELECT email, '1' AS 'lista_seed_escest' FROM redelocal_usuarios_lista_expresso WHERE nome_lista = 'lista-seed-escest') AS esc ON esc.email = emails.email LEFT JOIN (SELECT email, '1' AS 'lista_seed_geral' FROM redelocal_usuarios_lista_expresso WHERE nome_lista = 'lista-seed-geral') AS ger ON ger.email = emails.email LEFT JOIN (SELECT email, '1' AS 'lista_seed_usuarios' FROM redelocal_usuarios_lista_expresso WHERE nome_lista = 'lista-seed-usuarios') AS usr ON usr.email = emails.email LEFT JOIN (SELECT email, descricao, resolvido FROM redelocal_pendencia_lista_expresso) AS pendencia ON pendencia.email = emails.email $text ORDER BY emails.email; ";
         $resultado = mysqli_query($this->connect(), $consulta);
         return $resultado;
     }
-    
-    function updateUsuarioLista($_email){
-        
-        $consulta = " UPDATE `redelocal_usuarios_lista_expresso` SET usuario = '".$_SESSION['login']."', conferido = '".date("Y-m-d H:i:s")."' WHERE email = '$_email' and conferido is null; ";
+
+    /**
+     * 
+     * @param type $_email
+     * @return type igual a zero com erro / diferente de zero correto
+     */
+    function updateUsuarioLista($_email) {
+        $consulta = " select count(email) as cont from `redelocal_usuarios_lista_expresso` WHERE email = '$_email' and conferido is null; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        foreach ($resultado as $value) {
+            $test = $value['cont'];
+        }
+        if ($test != "0") {
+            $consulta = " UPDATE `redelocal_usuarios_lista_expresso` SET usuario = '" . $_SESSION['login'] . "', conferido = '" . date("Y-m-d H:i:s") . "' WHERE email = '$_email'; ";
+            $resultado = mysqli_query($this->connect(), $consulta);
+            return $resultado;
+        }
+        return 0;
+    }
+
+    /**
+     * 
+     * @param type $_email
+     * @return type igual a zero com erro / diferente de zero correto
+     */
+    function consultaPendenciaLista($_email) {
+        $consulta = " SELECT * FROM `redelocal_pendencia_lista_expresso` where email = '$_email'; ";
         $resultado = mysqli_query($this->connect(), $consulta);
         return $resultado;
-    } 
+    }
+
+    /**
+     * 
+     * @param type $_email
+     * @param type $_pendencia
+     * @param type $_resolvido
+     * @return type resultado alteraçao na base de dados
+     */
+    function gravaPendencia($_email, $_pendencia, $_resolvido) {
+        $consulta = " SELECT count(email) as cont FROM `redelocal_pendencia_lista_expresso` where email = '$_email'; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        foreach ($resultado as $value) {
+            $test = $value['cont'];
+        }
+        if ($test != "0") {
+            $consulta = " UPDATE `redelocal_pendencia_lista_expresso` SET `descricao` = '$_pendencia', `usuario` = '" . $_SESSION['login'] . "', `data` = '" . date("Y-m-d H:i:s") . "', `resolvido` = '$_resolvido' WHERE `email` = '$_email'; ";
+            $resultado = mysqli_query($this->connect(), $consulta);
+            return $resultado;
+        } else {
+            $consulta = " INSERT INTO `redelocal_pendencia_lista_expresso`(`email`,`descricao`,`usuario`,`data`,`resolvido`) VALUES ('$_email','$_pendencia','" . $_SESSION['login'] . "','" . date("Y-m-d H:i:s") . "','$_resolvido'); ";
+            $resultado = mysqli_query($this->connect(), $consulta);
+            return $resultado;
+        }
+    }
 
     /**
      * 
