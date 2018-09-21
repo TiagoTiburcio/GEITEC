@@ -131,7 +131,7 @@ if ($rotina->validaSessao('') == 1) {
                     <th>Tipo</th>
                     <th>Velocidade</th>
                     <th>Zabbix</th>                        
-                    <th>Dias Sit.</th>
+                    <th>Dias Sit.</th>            
                 </tr>
             </thead>
             <tbody>
@@ -153,7 +153,7 @@ if ($rotina->validaSessao('') == 1) {
                         echo " <tr> <td>" . $table['DRE'] . "</td> "
                         . " <td>" . $table['cidade'] . "</td> "
                         . " <td>" . $table['circuito'] . "</td>"
-                        . " <td>" . $table['nome_unidade'] . "</td>"
+                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank"> ' . $table['nome_unidade'] . " </a></td>"
                         . " <td>" . $table['periodo_ref'] . "</td>"
                         . " <td>" . $table['fatura'] . "</td> "
                         . " <td>" . $table['valor_conta'] . "</td>"
@@ -165,7 +165,7 @@ if ($rotina->validaSessao('') == 1) {
                         echo " <tr> <td>" . $table['DRE'] . "</td> "
                         . " <td>" . $table['cidade'] . "</td> "
                         . " <td>" . $table['circuito'] . "</td>"
-                        . " <td>" . $table['nome_unidade'] . "</td>"
+                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank"> ' . $table['nome_unidade'] . " </a></td>"
                         . " <td>" . $table['periodo_ref'] . "</td>"
                         . " <td>" . $table['fatura'] . "</td> "
                         . " <td>" . $table['valor_conta'] . "</td>"
@@ -177,7 +177,7 @@ if ($rotina->validaSessao('') == 1) {
                         echo " <tr> <td>" . $table['DRE'] . "</td> "
                         . " <td>" . $table['cidade'] . "</td> "
                         . " <td>" . $table['circuito'] . "</td>"
-                        . " <td>" . $table['nome_unidade'] . "</td>"
+                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank"> ' . $table['nome_unidade'] . " </a></td>"
                         . " <td>" . $table['periodo_ref'] . "</td>"
                         . " <td>" . $table['fatura'] . "</td> "
                         . " <td>" . $table['valor_conta'] . "</td>"
@@ -189,7 +189,7 @@ if ($rotina->validaSessao('') == 1) {
                         echo " <tr> <td>" . $table['DRE'] . "</td> "
                         . " <td>" . $table['cidade'] . "</td> "
                         . " <td>" . $table['circuito'] . "</td>"
-                        . " <td>" . $table['nome_unidade'] . "</td>"
+                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank"> ' . $table['nome_unidade'] . " </a></td>"
                         . " <td>" . $table['periodo_ref'] . "</td>"
                         . " <td>" . $table['fatura'] . "</td> "
                         . " <td>" . $table['valor_conta'] . "</td>"
@@ -201,7 +201,7 @@ if ($rotina->validaSessao('') == 1) {
                         echo " <tr> <td>" . $table['DRE'] . "</td> "
                         . " <td>" . $table['cidade'] . "</td> "
                         . " <td>" . $table['circuito'] . "</td>"
-                        . " <td>" . $table['nome_unidade'] . "</td>"
+                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank"> ' . $table['nome_unidade'] . " </a></td>"
                         . " <td>" . $table['periodo_ref'] . "</td>"
                         . " <td>" . $table['fatura'] . "</td> "
                         . " <td>" . $table['valor_conta'] . "</td>"

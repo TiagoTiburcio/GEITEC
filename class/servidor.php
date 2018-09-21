@@ -38,6 +38,12 @@ class Servidores extends Database {
         return $resultado_listaExpresso;
     }
 
+    function listaEscolas($_inep) {
+        $conexao_seednet = new DatabaseSEEDNET();
+        $consulta = " SELECT e.cdescola, eo.cdestrutura, e.codigo_mec, eo.nome_abreviado, eo.gps_latitude, eo.gps_longitude, i.logradouro, i.numero, i.complemento, i.cep, i.bairro,  cid.descricao FROM academico.escola e  INNER JOIN administrativo.estrutura_organizacional eo ON e.cdestrutura_organizacional = eo.cdestrutura inner join administrativo.estrutura_organizacional dre ON eo.cdestrutura_pai = dre.cdestrutura inner join public.cidade cid on eo.cdcidade_sede = cid.cdcidade LEFT JOIN administrativo.estrutura_organizacional_imovel eoi ON e.cdestrutura_organizacional = eoi.cdestrutura LEFT JOIN administrativo.imovel i ON eoi.cdimovel = i.cdimovel WHERE eo.cdcategoria = 2 AND e.cdsituacao = 1 and e.cdtipo_administracao = 1 and eo.cdestrutura not in (9999)   and e.codigo_mec in = '$_inep' ; ";
+        return $conexao_seednet->listConsulta($consulta);
+    }
+
     function __destruct() {
         
     }

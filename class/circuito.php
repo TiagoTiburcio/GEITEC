@@ -400,9 +400,7 @@ class Circuitos extends Database {
     }
 
     function listaCircuitosCadstrados($_contrato, $_dre, $_unidade, $_circuito) {
-        $consulta = "SELECT rc.codigo as designacao ,c.fatura, rc.data_ativacao ,rc.data_ult_ref ,rc.velocidade ,rc.tipo_servico ,rc.tip_logradouro ,rc.nome_logradouro ,rc.nome_cidade ,rc.num_imovel ,rc.nome_bairro    ,lo.descricao as localizacao ,u.descricao as nome_unidade ,u.ativo as status_unidade ,dre.sigla as sigla_dre FROM circuitos_registro_consumo as rc join circuitos_localizacao as lo on lo.codigo = rc.localizacao  join circuitos_unidades as u on u.codigo_ut_siig = rc.codigo_unidade join circuitos_unidades as dre on dre.codigo_siig = u.codigo_unidade_pai join circuitos_contas as c on c.designacao = rc.codigo and c.periodo_ref = rc.data_ult_ref where tipo_servico is not null "
-                . " and rc.codigo like '%$_circuito%' and c.fatura like '%$_contrato%' and dre.sigla like '%$_dre%' and u.descricao like '%$_unidade%' "
-                . " order by dre.sigla, u.descricao, rc.codigo;";
+        $consulta = " SELECT rc.codigo AS designacao, c.fatura, rc.data_ativacao, rc.data_ult_ref, rc.velocidade, rc.tipo_servico, rc.tip_logradouro, rc.nome_logradouro, rc.nome_cidade, rc.num_imovel, rc.nome_bairro, lo.descricao AS localizacao, u.codigo_inep as codigo_inep, u.descricao AS nome_unidade, u.ativo AS status_unidade, dre.sigla AS sigla_dre FROM circuitos_registro_consumo AS rc JOIN circuitos_localizacao AS lo ON lo.codigo = rc.localizacao JOIN circuitos_unidades AS u ON u.codigo_ut_siig = rc.codigo_unidade JOIN circuitos_unidades AS dre ON dre.codigo_siig = u.codigo_unidade_pai JOIN circuitos_contas AS c ON c.designacao = rc.codigo AND c.periodo_ref = rc.data_ult_ref WHERE tipo_servico IS NOT NULL AND rc.codigo LIKE '%$_circuito%' AND c.fatura LIKE '%$_contrato%' AND dre.sigla LIKE '%$_dre%' AND u.descricao LIKE '%$_unidade%' ORDER BY dre.sigla , u.descricao , rc.codigo; ";
         $resultado = mysqli_query($this->connect(), $consulta);
         return $resultado;
     }

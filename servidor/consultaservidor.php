@@ -5,12 +5,12 @@ $rotina = new RotinasPublicas();
 
 if ($rotina->validaSessao('') == 1) {
     $servidores = new Servidores();
-    
-    $cpf = filter_input(INPUT_POST,'cpf');
-    $nome = filter_input(INPUT_POST,'nome');
-    $setor = filter_input(INPUT_POST,'setor');
-    $siglasetor = filter_input(INPUT_POST,'siglasetor');    
-    $zbx = filter_input(INPUT_POST,'ativo');
+
+    $cpf = filter_input(INPUT_POST, 'cpf');
+    $nome = filter_input(INPUT_POST, 'nome');
+    $setor = filter_input(INPUT_POST, 'setor');
+    $siglasetor = filter_input(INPUT_POST, 'siglasetor');
+    $zbx = filter_input(INPUT_POST, 'ativo');
     if (!isset($zbx)) {
         $zbx = '2';
     }

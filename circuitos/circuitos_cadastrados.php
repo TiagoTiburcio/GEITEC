@@ -60,7 +60,7 @@ if ($rotina->validaSessao('') == 1) {
                         <tr>
                             <td><?php echo $table['sigla_dre']; ?></td>
                             <td><?php echo $table['nome_cidade']; ?></td>
-                            <td><?php echo $table['nome_unidade']; ?></td>
+                            <td><?php echo '<a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank"> ' . $table['nome_unidade'].'</a>'; ?></td>
                             <td><?php echo $table['designacao']; ?></td>
                             <td><?php echo $table['fatura']; ?></td>
                             <td><?php echo $table['velocidade']; ?></td>

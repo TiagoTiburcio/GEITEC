@@ -101,7 +101,7 @@ if ($rotina->validaSessao('') == 1) {
                             echo " <tr> <td>" . $table['sigla_dre'] . "</td> "
                             . " <td>" . $table['cidade'] . "</td> "
                             . " <td>" . $tipoZbx . "</td>"
-                            . " <td>" . $table['descricao'] . "</td>"
+                            . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank"> '. $table['descricao'] . "</a></td>"
                             . " <td>" . $zabbix->imprimiAtivo($cadzbx) . "</td>"
                             . " <td>" . $sitZbx . "</td> </tr>";
                         }
@@ -111,7 +111,7 @@ if ($rotina->validaSessao('') == 1) {
                         echo " <tr> <td>" . $table['sigla_dre'] . "</td> "
                         . " <td>" . $table['cidade'] . "</td> "
                         . " <td>" . $tipoZbx . "</td>"
-                        . " <td>" . $table['descricao'] . "</td>"
+                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank"> '. $table['descricao'] . "</a></td>"
                         . " <td>" . $zabbix->imprimiAtivo($cadzbx) . "</td>"
                         . " <td>" . $sitZbx . "</td> </tr>";
                     }
