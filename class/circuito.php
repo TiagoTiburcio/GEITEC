@@ -275,7 +275,7 @@ class RelatorioCircuitos extends Database {
         $resultado = mysqli_query($this->connect(), $consulta);
         return $resultado;
     }
-    
+
     function listaGrupos($_filtro_diretoria) {
         if ($_filtro_diretoria != 'Todas') {
             $text = " WHERE c1.sigla_dre = '" . $_filtro_diretoria . "' ";
@@ -286,7 +286,7 @@ class RelatorioCircuitos extends Database {
         $resultado = mysqli_query($this->connect(), $consulta);
         return $resultado;
     }
-    
+
 }
 
 /**
@@ -398,13 +398,29 @@ class Circuitos extends Database {
         $resultado_editLinhaArquivo = mysqli_query($this->connect(), $consulta_editLinhaArquivo);
         return $resultado_editLinhaArquivo;
     }
-
+    /**
+     * 
+     * @param type $_contrato
+     * @param type $_dre
+     * @param type $_unidade
+     * @param type $_circuito
+     * @return type
+     */
     function listaCircuitosCadstrados($_contrato, $_dre, $_unidade, $_circuito) {
         $consulta = " SELECT rc.codigo AS designacao, c.fatura, rc.data_ativacao, rc.data_ult_ref, rc.velocidade, rc.tipo_servico, rc.tip_logradouro, rc.nome_logradouro, rc.nome_cidade, rc.num_imovel, rc.nome_bairro, lo.descricao AS localizacao, u.codigo_inep as codigo_inep, u.descricao AS nome_unidade, u.ativo AS status_unidade, dre.sigla AS sigla_dre FROM circuitos_registro_consumo AS rc JOIN circuitos_localizacao AS lo ON lo.codigo = rc.localizacao JOIN circuitos_unidades AS u ON u.codigo_ut_siig = rc.codigo_unidade JOIN circuitos_unidades AS dre ON dre.codigo_siig = u.codigo_unidade_pai JOIN circuitos_contas AS c ON c.designacao = rc.codigo AND c.periodo_ref = rc.data_ult_ref WHERE tipo_servico IS NOT NULL AND rc.codigo LIKE '%$_circuito%' AND c.fatura LIKE '%$_contrato%' AND dre.sigla LIKE '%$_dre%' AND u.descricao LIKE '%$_unidade%' ORDER BY dre.sigla , u.descricao , rc.codigo; ";
         $resultado = mysqli_query($this->connect(), $consulta);
         return $resultado;
     }
-
+    /**
+     * 
+     * @param type $_ckt
+     * @return type
+     */
+    function listaCirctuitosUltCobancas($_ckt) {
+        $consulta = " SELECT rc.codigo AS designacao, c.fatura, rc.data_ativacao, c.periodo_ref, c.valor_conta, rc.velocidade, rc.tipo_servico, rc.tip_logradouro, rc.nome_logradouro, rc.nome_cidade, rc.num_imovel, rc.nome_bairro, lo.descricao AS localizacao, u.codigo_inep AS codigo_inep, u.descricao AS nome_unidade, u.ativo AS status_unidade, dre.sigla AS sigla_dre FROM circuitos_registro_consumo AS rc JOIN circuitos_localizacao AS lo ON lo.codigo = rc.localizacao JOIN circuitos_unidades AS u ON u.codigo_ut_siig = rc.codigo_unidade JOIN circuitos_unidades AS dre ON dre.codigo_siig = u.codigo_unidade_pai JOIN circuitos_contas AS c ON c.designacao = rc.codigo WHERE tipo_servico IS NOT NULL AND rc.codigo = '$_ckt' ORDER BY c.periodo_ref desc, dre.sigla , u.descricao , rc.codigo limit 12; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
     // retorna lista com todos os usuarios cadastrados
     function listaCircuitos($_mescad, $_fatura) {
         $consulta_circuito1 = " SELECT c.periodo_ref, c.fatura, rc.localizacao,"
@@ -435,7 +451,7 @@ class Circuitos extends Database {
     }
 
     function listaConsultaDetalhada($_unidade, $_fatura, $_circuito, $_diretoria, $_mescad, $_inep) {
-        if(($_inep != NULL)||($_inep != '')){
+        if (($_inep != NULL) || ($_inep != '')) {
             $filtro = " and u.codigo_inep = '$_inep' ";
         } else {
             $filtro = "";
@@ -462,7 +478,7 @@ class Circuitos extends Database {
         $resultado_listaContratosContasAno = mysqli_query($this->connect(), $consulta_listaContratosContasAno);
         return $resultado_listaContratosContasAno;
     }
-
+    
     function __destruct() {
         
     }

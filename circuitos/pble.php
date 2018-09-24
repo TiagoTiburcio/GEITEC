@@ -72,7 +72,7 @@ if ($rotina->validaSessao('') == 1) {
                 </div>
             </div>  
         </form>
-    </div>
+        </div>
     <div class="col-xs-10">
         <table class="table table-hover table-striped table-condensed">
             <thead>
@@ -100,8 +100,8 @@ if ($rotina->validaSessao('') == 1) {
                             $tipoZbx = $tableZbx['name'];
                             echo " <tr> <td>" . $table['sigla_dre'] . "</td> "
                             . " <td>" . $table['cidade'] . "</td> "
-                            . " <td>" . $tipoZbx . "</td>"
-                            . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank"> '. $table['descricao'] . "</a></td>"
+                            . '<td>'.$tipoZbx.'</td>'                             
+                            . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank" data-toggle="tooltip" data-placement="right" title="Abrir página Escola no Site SEED"> '. $table['descricao'] . "</a></td>"
                             . " <td>" . $zabbix->imprimiAtivo($cadzbx) . "</td>"
                             . " <td>" . $sitZbx . "</td> </tr>";
                         }
@@ -110,8 +110,8 @@ if ($rotina->validaSessao('') == 1) {
                     if (($cadzbx == 3)) {
                         echo " <tr> <td>" . $table['sigla_dre'] . "</td> "
                         . " <td>" . $table['cidade'] . "</td> "
-                        . " <td>" . $tipoZbx . "</td>"
-                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank"> '. $table['descricao'] . "</a></td>"
+                        . '<td>'.$tipoZbx.'</td>'                             
+                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank" data-toggle="tooltip" data-placement="right" title="Abrir página Escola no Site SEED"> '. $table['descricao'] . "</a></td>"
                         . " <td>" . $zabbix->imprimiAtivo($cadzbx) . "</td>"
                         . " <td>" . $sitZbx . "</td> </tr>";
                     }

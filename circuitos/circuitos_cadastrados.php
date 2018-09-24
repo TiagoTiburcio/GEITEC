@@ -60,8 +60,8 @@ if ($rotina->validaSessao('') == 1) {
                         <tr>
                             <td><?php echo $table['sigla_dre']; ?></td>
                             <td><?php echo $table['nome_cidade']; ?></td>
-                            <td><?php echo '<a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank"> ' . $table['nome_unidade'].'</a>'; ?></td>
-                            <td><?php echo $table['designacao']; ?></td>
+                            <td><?php echo '<a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank" data-toggle="tooltip" data-placement="right" title="Abrir página Escola no Site SEED" > ' . $table['nome_unidade'].'</a>'; ?></td>
+                            <td><?php echo '<a href="circuito.php?ckt='.$table['designacao'].'" target="_blank" data-toggle="tooltip" data-placement="right" title="Pagina Circuito" > ' . $table['designacao'].'</a>'; ?></td>
                             <td><?php echo $table['fatura']; ?></td>
                             <td><?php echo $table['velocidade']; ?></td>
                             <td><?php echo date('m/Y', strtotime($table['data_ult_ref'])); ?></td>

@@ -22,7 +22,7 @@ if ($rotina->validaSessao('4') == 1) {
     $dadosUnidades = $relatorio->listaNomesUnidades($filtro_diretoria);
     $dadosCircuitos = $relatorio->listaCircuitos($filtro_diretoria);
     $dadosPble = $relatorio->listaPble($filtro_diretoria);
-    ?>    
+        ?>
     <div class="col-lg-6">
         <form class="form-inline" id="filtro_diretoria_circuito" name="filtro_diretoria_circuito" method="get" action=""> 
             <label for="dre">Diretoria Filtro</label>
@@ -36,15 +36,15 @@ if ($rotina->validaSessao('4') == 1) {
                     if ($dirTable["sigla_dre"] == $filtro_diretoria) {
                         ?> 
                         <option value="<?php echo $dirTable["sigla_dre"]; ?>" selected><?php echo $dirTable["sigla_dre"]; ?></option>                    
-                        <?php
+                <?php
                     } else {
                         ?> 
                         <option value="<?php echo $dirTable["sigla_dre"]; ?>" ><?php echo $dirTable["sigla_dre"]; ?></option>                    
                         <?php
                     }
                 }
-                ?>                                       
-            </select>  
+                ?>
+            </select>
             <label for="sit">Situação Circuito</label>
             <select class="form-control" id="sit" name="sit" onchange="submitFormRelPorTipo()">
                 <option value="2" <?php
@@ -81,9 +81,9 @@ if ($rotina->validaSessao('4') == 1) {
                 }
                 ?>>PBLE</option>                         
             </select>            
-        </form>        
+        </form>
     </div>
-    <?php
+        <?php
     foreach ($dadosDiretoria as $dirTable) {
         $diretoriaAtual = $dirTable['cd_siig_dre'];
         foreach ($dadosUnidades as $unidTable) {
@@ -123,8 +123,8 @@ if ($rotina->validaSessao('4') == 1) {
                                             <td><?php echo $rotina->imprimiInverso($circTable['value']); ?></td>                   
                                         </tr>
                                         <?php
-                                    }
-                                }
+    }
+}
                             }
                         }
                         if (($filtro_tp_ckt == '0') || ($filtro_tp_ckt == '2')) {

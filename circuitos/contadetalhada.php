@@ -152,8 +152,8 @@ if ($rotina->validaSessao('') == 1) {
                     if (($zbx == 2)) {
                         echo " <tr> <td>" . $table['DRE'] . "</td> "
                         . " <td>" . $table['cidade'] . "</td> "
-                        . " <td>" . $table['circuito'] . "</td>"
-                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank"> ' . $table['nome_unidade'] . " </a></td>"
+                        . ' <td> <a href="circuito.php?ckt='.$table['circuito'].'" target="_blank" data-toggle="tooltip" data-placement="right" title="Pagina Circuito" > ' . $table['circuito']. '</a></td>' 
+                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank" data-toggle="tooltip" data-placement="right" title="Abrir página Escola no Site SEED"> ' . $table['nome_unidade'] . " </a></td>"
                         . " <td>" . $table['periodo_ref'] . "</td>"
                         . " <td>" . $table['fatura'] . "</td> "
                         . " <td>" . $table['valor_conta'] . "</td>"
@@ -164,8 +164,8 @@ if ($rotina->validaSessao('') == 1) {
                     } elseif (($zbx == 0) && ($zbx == $cadzbx)) {
                         echo " <tr> <td>" . $table['DRE'] . "</td> "
                         . " <td>" . $table['cidade'] . "</td> "
-                        . " <td>" . $table['circuito'] . "</td>"
-                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank"> ' . $table['nome_unidade'] . " </a></td>"
+                        . '<td> <a href="circuito.php?ckt='.$table['circuito'].'" target="_blank" data-toggle="tooltip" data-placement="right" title="Pagina Circuito" > ' . $table['circuito']. '</a></td>' 
+                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank" data-toggle="tooltip" data-placement="right" title="Abrir página Escola no Site SEED"> ' . $table['nome_unidade'] . " </a></td>"
                         . " <td>" . $table['periodo_ref'] . "</td>"
                         . " <td>" . $table['fatura'] . "</td> "
                         . " <td>" . $table['valor_conta'] . "</td>"
@@ -176,8 +176,8 @@ if ($rotina->validaSessao('') == 1) {
                     } elseif (($zbx == 1) && ($zbx == $cadzbx)) {
                         echo " <tr> <td>" . $table['DRE'] . "</td> "
                         . " <td>" . $table['cidade'] . "</td> "
-                        . " <td>" . $table['circuito'] . "</td>"
-                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank"> ' . $table['nome_unidade'] . " </a></td>"
+                        . '<td> <a href="circuito.php?ckt='.$table['circuito'].'" target="_blank" data-toggle="tooltip" data-placement="right" title="Pagina Circuito" > ' . $table['circuito']. '</a></td>' 
+                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank" data-toggle="tooltip" data-placement="right" title="Abrir página Escola no Site SEED"> ' . $table['nome_unidade'] . " </a></td>"
                         . " <td>" . $table['periodo_ref'] . "</td>"
                         . " <td>" . $table['fatura'] . "</td> "
                         . " <td>" . $table['valor_conta'] . "</td>"
@@ -188,8 +188,8 @@ if ($rotina->validaSessao('') == 1) {
                     } elseif (($zbx == 3) && ($zbx == $cadzbx)) {
                         echo " <tr> <td>" . $table['DRE'] . "</td> "
                         . " <td>" . $table['cidade'] . "</td> "
-                        . " <td>" . $table['circuito'] . "</td>"
-                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank"> ' . $table['nome_unidade'] . " </a></td>"
+                        . '<td> <a href="circuito.php?ckt='.$table['circuito'].'" target="_blank" data-toggle="tooltip" data-placement="right" title="Pagina Circuito" > ' . $table['circuito']. '</a></td>' 
+                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank" data-toggle="tooltip" data-placement="right" title="Abrir página Escola no Site SEED"> ' . $table['nome_unidade'] . " </a></td>"
                         . " <td>" . $table['periodo_ref'] . "</td>"
                         . " <td>" . $table['fatura'] . "</td> "
                         . " <td>" . $table['valor_conta'] . "</td>"
@@ -200,8 +200,8 @@ if ($rotina->validaSessao('') == 1) {
                     } elseif (($zbx == 4) && (( '0' == $cadzbx) || ( '1' == $cadzbx))) {
                         echo " <tr> <td>" . $table['DRE'] . "</td> "
                         . " <td>" . $table['cidade'] . "</td> "
-                        . " <td>" . $table['circuito'] . "</td>"
-                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank"> ' . $table['nome_unidade'] . " </a></td>"
+                        . '<td> <a href="circuito.php?ckt='.$table['circuito'].'" target="_blank" data-toggle="tooltip" data-placement="right" title="Pagina Circuito" > ' . $table['circuito']. '</a></td>' 
+                        . ' <td> <a href="escola.php?inep='.$table['codigo_inep'].'" target="_blank" data-toggle="tooltip" data-placement="right" title="Abrir página Escola no Site SEED"> ' . $table['nome_unidade'] . " </a></td>"
                         . " <td>" . $table['periodo_ref'] . "</td>"
                         . " <td>" . $table['fatura'] . "</td> "
                         . " <td>" . $table['valor_conta'] . "</td>"

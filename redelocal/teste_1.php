@@ -3,15 +3,13 @@ include_once '../class/principal.php';
 
 $rotina = new RotinasPublicas();
 
-//$url = 'http://10.24.0.59/zabbix/index.php';
-//$data = 'name=redmine&password=74123698seed&autologin=1&enter=Sign+in';
-//$s = "http://10.24.0.59/zabbix/map.php?noedit=1&sysmapid=527&width=500&height=100&curtime=1537442566&severity_min=0";
-//$s2 = "http://172.25.76.61/zabbix/chart2.php?graphid=1455&period=15552000&stime=20200323105001&updateProfile=1&profileIdx=web.screens&profileIdx2=1455&width=1782&sid=65ded52d2bb50e33&screenid=&curtime=1537451404563";
-//$url2 = 'http://172.25.76.61/zabbix/index.php';
-//
-//$rotina->login($url, $data, "zabbix_seed");
-//
-//$rotina->grab_page($s,"teste_tiago2.png","zabbix_seed");
+$url = 'http://10.24.0.59/zabbix/index.php';
+$data = 'name=redmine&password=74123698seed&autologin=1&enter=Sign+in';
+$s = "http://10.24.0.59/zabbix/map.php?noedit=1&sysmapid=527&width=500&height=100&curtime=1537442566&severity_min=0";
+
+$rotina->login($url, $data, "zabbix_seed");
+
+$rotina->grab_page($s,"teste_tiago2.png","zabbix_seed");
 //
 //$rotina->login($url2, $data, "zabbix_cofre");
 //

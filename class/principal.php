@@ -807,6 +807,12 @@ class ZabbixSEED extends DatabaseZbx {
             return 'N/C';
         }
     }
+    
+    function buscaDadosCircuito($_ckt){
+        $consulta = " SELECT h.name AS designacao, gi.graphid, infa.ip FROM hosts AS h JOIN items AS i ON i.hostid = h.hostid JOIN graphs_items AS gi ON gi.itemid = i.itemid JOIN interface AS infa ON infa.hostid = h.hostid WHERE h.name = '$_ckt' AND i.key_ = 'icmppingsec' AND infa.main = '1'; ";
+        $resultado = mysqli_query($this->connectZbx(), $consulta);
+        return $resultado;
+    } 
 
 }
 
