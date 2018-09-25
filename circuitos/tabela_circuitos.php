@@ -114,7 +114,7 @@ if ($rotina->validaSessao('4') == 1) {
                                     } if (($filtro_situacao == '2') || ($filtro_situacao == $circTable['value'])) {
                                         ?>
                                         <tr>
-                                            <td><?php echo $circTable['designacao']; ?></td>                   
+                                            <td><?php echo '<a href="circuito.php?ckt='.$circTable['designacao'].'" data-toggle="tooltip" data-placement="right" title="Pagina Circuito" >'. $circTable['designacao'].'</a>'; ?></td>                   
                                             <td><?php echo $circTable['grupo']; ?></td>                   
                                             <td><?php echo $circTable['ult_ref']; ?></td>                   
                                             <td><?php echo $circTable['ip']; ?></td>                   
