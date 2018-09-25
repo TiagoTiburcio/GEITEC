@@ -55,7 +55,7 @@ if ($rotina->validaSessao('') == 1) {
             </div>
         </div>
         <div class="col-lg-6">  
-           <iframe src="grafico.php<?php echo "?ckt=".$filtro_ckt."&period=".$filtro_period; ?>" width="100%" height="50%" style="border: 0px;"></iframe> 
+           <iframe src="grafico.php<?php echo "?ckt=".$filtro_ckt."&period=".$filtro_period; ?>" width="100%" height="400px" style="border: 0px;"></iframe> 
         </div>
         <div class="col-lg-6">
             <h3 class="centraltd">Ultimas Cobranças</h3>
