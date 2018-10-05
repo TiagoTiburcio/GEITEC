@@ -1,103 +1,89 @@
 <?php
 
+declare(strict_types = 1);
 include_once '../class/principal.php';
+include('../vendor/autoload.php');
+include '../class/conf_telegram.php';
 
-$rotina = new RotinasPublicas();
-// Substitua os asteriscos (*) pelo números fornecidos nos passos anteriores.
+use React\EventLoop\Factory;
+use unreal4u\TelegramAPI\HttpClientRequestHandler;
+use unreal4u\TelegramAPI\Telegram\Methods\SendPhoto;
+use unreal4u\TelegramAPI\Telegram\Types\Custom\InputFile;
+use unreal4u\TelegramAPI\TgLog;
 
-$chat_id = "SeedCodinSeBot";
+$circuitos = new Circuitos();
 
-$token = "613587290:AAHvXgrfWBEcWRaZyiS-S-bkljsS8_GGEkA";
+if ($circuitos->testeConexao() == 1) {
+    include '../home/enviamensgtelegram.php';
+} else {
+    $zabbix = new ZabbixCofre();
+    $rotina = new RotinasPublicas();
+    $rede = new Rede();
 
-$mensagem = " Serviços SEED inporantes!!!!!!  ";
+    $consulta = $zabbix->listaAtivosPrincipais();
 
-$url = "https://api.telegram.org/bot613587290:AAHvXgrfWBEcWRaZyiS-S-bkljsS8_GGEkA/sendMessage?chat_id=@seedcodinse&text=" . $mensagem ;
+    $filtro_ckt = "";
+    $filtro_period = "7200";
+    foreach ($consulta as $ativos) {
+        $teste = 0;
+        $alerta = $rede->getAlertas($ativos['name']);
+        foreach ($alerta as $table_alerta) {
+            if (($table_alerta['cont'] == 0) && ($ativos['value'] == 1)) {
+                $teste = 1 + $teste;
+                $rede->setAlerta($ativos['name'], $ativos['data']);
+            } elseif (($table_alerta['cont'] != 0) && ($ativos['value'] == 1)) {
+                echo 'Incidente em aberto <br/>Data: ' . $table_alerta['data_evento'] . '<br/>';
+                echo 'Nome Host: ' . $table_alerta['nome_host'] . '<br/>';
+            } elseif (($table_alerta['cont'] != 0) && ($ativos['value'] == 0)) {
+                $teste = 1 + $teste;
+                echo 'Data: ' . $table_alerta['data_evento'] . '<br/>';
+                echo 'Nome Host: ' . $table_alerta['nome_host'] . '<br/>';
+                $rede->updateAlerta($table_alerta['nome_host'], $table_alerta['data_evento']);
+            }
+        }
+        echo $ativos['name'] . ' Siutacao ' . $teste . '<br/>';
+        if ($teste == 1) {
+            $filelog = "../temp/log.txt";
+            if (file_exists($filelog)){
+                unlink($filelog);
+            }
+            $zbx = 'http://172.25.76.61/zabbix/index.php';
+            $data = 'name=redmine&password=74123698seed&autologin=1&enter=Sign+in';
 
-$execucao = file_get_contents($url);
+            $rotina->login($zbx, $data, "zabbix_cofre");
+
+            $filtro_ckt = $ativos['name'];
+            $grafico = $ativos['graphid'];
+            if ($grafico != "") {
+                $s = "http://172.25.76.61/zabbix/chart2.php?graphid=$grafico&period=$filtro_period&width=960";
+                $rotina->grab_page($s, $filtro_ckt . ".png", "zabbix_cofre");
+            }
+
+            $loop = Factory::create();
+            $tgLog = new TgLog(BOT_TOKEN, new HttpClientRequestHandler($loop));
+
+            $sendPhoto = new SendPhoto();
+            $sendPhoto->chat_id = A_USER_CHAT_ID;
+            $sendPhoto->photo = new InputFile('../images/temp/' . $filtro_ckt . '.png');
+            $sendPhoto->caption = "$filtro_ckt com está " . $ativos['situacao'] . " desde " . $ativos['data'];
+
+            $promise = $tgLog->performApiRequest($sendPhoto);
+
+            $promise->then(
+                    function ($response) {
+                echo '<pre>';
+                var_dump($response);
+                echo '</pre>';
+            }, function (\Exception $exception) {
+                // Onoes, an exception occurred...
+                echo 'Exception ' . get_class($exception) . ' caught, message: ' . $exception->getMessage();
+            }
+            );
+            $loop->run();
+        }
+    }
+}
 
 
 
-//declare(strict_types = 1);
-//include('../vendor/autoload.php');
-//include '../class/conf.php-sample';
-//
-//use \unreal4u\TelegramAPI\HttpClientRequestHandler;
-//use \unreal4u\TelegramAPI\TgLog;
-//use \unreal4u\TelegramAPI\Telegram\Methods\SendMessage;
-//define('BOT_TOKEN', '613587290:AAHvXgrfWBEcWRaZyiS-S-bkljsS8_GGEkA');
-//define('A_USER_CHAT_ID', 'seedcodinse');
-//$loop = \React\EventLoop\Factory::create();
-//$handler = new HttpClientRequestHandler($loop);
-//$tgLog = new TgLog(BOT_TOKEN, $handler);
-//
-//$sendMessage = new SendMessage();
-//$sendMessage->chat_id = A_USER_CHAT_ID;
-//$sendMessage->text = 'Hello world!';
-//
-//$tgLog->performApiRequest($sendMessage);
-//$loop->run();
 
-//use React\EventLoop\Factory;
-//use unreal4u\TelegramAPI\HttpClientRequestHandler;
-//use unreal4u\TelegramAPI\Telegram\Methods\GetMe;
-//use unreal4u\TelegramAPI\TgLog;
-//use \unreal4u\TelegramAPI\Abstracts\TelegramTypes;
-//$loop = Factory::create();
-//$tgLog = new TgLog(BOT_TOKEN, new HttpClientRequestHandler($loop));
-//$getMePromise = $tgLog->performApiRequest(new GetMe());
-//$getMePromise->then(
-//    function (TelegramTypes $getMeResponse) {
-//        var_dump($getMeResponse);
-//    },
-//    function (\Exception $e) {
-//        var_dump($e);
-//    }
-//);
-//$loop->run();
-
-//use React\EventLoop\Factory;
-//use unreal4u\TelegramAPI\HttpClientRequestHandler;
-//use unreal4u\TelegramAPI\Telegram\Methods\SendMessage;
-//use unreal4u\TelegramAPI\TgLog;
-//
-//$loop = Factory::create();
-//$tgLog = new TgLog(BOT_TOKEN, new HttpClientRequestHandler($loop));
-//
-//$sendMessage = new SendMessage();
-//$sendMessage->chat_id = A_USER_CHAT_ID;
-//$sendMessage->text = 'Hello world to the user... from a specialized getMessage file';
-//
-//$promise = $tgLog->performApiRequest($sendMessage);
-//
-//$promise->then(
-//    function ($response) {
-//        echo '<pre>';
-//        var_dump($response);
-//        echo '</pre>';
-//    },
-//    function (\Exception $exception) {
-//        // Onoes, an exception occurred...
-//        echo 'Exception ' . get_class($exception) . ' caught, message: ' . $exception->getMessage();
-//    }
-//);
-//
-//
-//$sendMessage = new SendMessage();
-//$sendMessage->chat_id = A_GROUP_CHAT_ID;
-//$sendMessage->text = 'And this is a hello to the group... also from a getMessage file';
-//
-//$promise = $tgLog->performApiRequest($sendMessage);
-//
-//$promise->then(
-//    function ($response) {
-//        echo '<pre>';
-//        var_dump($response);
-//        echo '</pre>';
-//    },
-//    function (\Exception $exception) {
-//        // Onoes, an exception occurred...
-//        echo 'Exception ' . get_class($exception) . ' caught, message: ' . $exception->getMessage();
-//    }
-//);
-//
-//$loop->run();

@@ -831,5 +831,11 @@ class ZabbixCofre extends DatabaseZbxCofre {
         $resultado_listArquivosExcluidos = mysqli_query($this->connectZbxCofre(), $consulta_listArquivosExcluidos);
         return $resultado_listArquivosExcluidos;
     }
+    
+    function listaAtivosPrincipais(){
+        $consulta = " SELECT h.name, t.value, (CASE t.value WHEN 1 THEN 'Down(1)' ELSE 'Up(0)' END) AS situacao, FROM_UNIXTIME(t.lastchange) AS data, TIMESTAMPDIFF(DAY, FROM_UNIXTIME(t.lastchange), NOW()) AS tempo_inativo, g.name AS grupo, inte.ip, h.status, graficos.graphid FROM hosts h JOIN hosts_groups hg ON h.hostid = hg.hostid JOIN groups g ON hg.groupid = g.groupid LEFT JOIN host_inventory hi ON hi.hostid = h.hostid LEFT JOIN interface inte ON inte.hostid = h.hostid JOIN items i ON i.hostid = h.hostid JOIN functions f ON f.itemid = i.itemid JOIN triggers t ON t.triggerid = f.triggerid left join graphs_items as gi on gi.itemid = i.itemid join ( SELECT h.name AS designacao, gi.graphid, infa.ip FROM hosts AS h JOIN items AS i ON i.hostid = h.hostid JOIN graphs_items AS gi ON gi.itemid = i.itemid JOIN interface AS infa ON infa.hostid = h.hostid WHERE i.key_ = 'icmppingsec' AND infa.main = '1' ) as graficos on graficos.designacao = h.name WHERE g.name = 'Ativos de Rede' AND t.templateid IN ('19524' , '13554') AND inte.main = '1'; ";
+        $resultado = mysqli_query($this->connectZbxCofre(), $consulta);
+        return $resultado;
+    }
 
 }

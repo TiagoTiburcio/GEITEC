@@ -98,7 +98,7 @@ class RotinasPublicas {
         curl_setopt($ch, CURLOPT_COOKIEFILE, "../temp/$sistema.txt");
         curl_setopt($ch, CURLOPT_URL, $site);
 
-         $fp = fopen(".." . "/images/temp/$_nome", 'w+');
+        $fp = fopen(".." . "/images/temp/$_nome", 'w+');
         // write curl response to file
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -125,6 +125,18 @@ class RotinasPublicas {
         ob_end_clean();
         curl_close($datapost);
         unset($datapost);
+    }
+
+    function logMe($msg) {
+        // Abre ou cria o arquivo bloco1.txt
+        // "a" representa que o arquivo é aberto para ser escrito
+        $fp = fopen("../temp/log.txt", "a");
+
+        // Escreve a mensagem passada através da variável $msg
+        $escreve = fwrite($fp, $msg);
+
+        // Fecha o arquivo
+        fclose($fp);
     }
 
 }

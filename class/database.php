@@ -11,7 +11,6 @@
  * @author tiagoc
  */
 class DatabaseCalendar {
-
     static $host = "172.25.76.85";
     static $user = "geitec";
     static $password = "seedqawsed";
@@ -62,6 +61,21 @@ abstract class Database {
             mysqli_character_set_name($conexao);
         }
         return $conexao;
+    }
+
+    function testeConexao() {
+        $mysqli = new mysqli($this->getHost(), $this->getUser(), $this->getPassword(), $this->getDB());
+
+        /* check connection */
+        if ($mysqli->connect_errno) {
+            return 1;
+            exit();
+        } else {
+            return 0;
+        }
+
+        /* close connection */
+        $mysqli->close();
     }
 
     function close() {

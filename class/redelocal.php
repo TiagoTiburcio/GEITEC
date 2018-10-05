@@ -29,6 +29,24 @@ class Rede extends Database {
             }
         }
     }
+    
+    function getAlertas($_nome) {
+        $consulta = " SELECT count(nome_host) as cont, `nome_host`,`data_evento`,`resolvido` FROM redelocal_alerta where nome_host = '$_nome' and resolvido <> '1'; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+    
+    function setAlerta($_nome, $_data ){
+        $consulta = " INSERT INTO `redelocal_alerta` (`nome_host`,`data_evento`,`resolvido`) VALUES ('$_nome', '$_data', '0'); ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+    
+    function updateAlerta($_nome, $_data){
+        $consulta = " UPDATE `redelocal_alerta` SET  `resolvido` = '1' WHERE `nome_host` = '$_nome' AND `data_evento` = '$_data'; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
 
 }
 
