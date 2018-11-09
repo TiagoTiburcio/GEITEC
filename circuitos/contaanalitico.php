@@ -18,7 +18,7 @@ if ($rotina->validaSessao('') == 1) {
                         <input type="text" class="form-control" id="fatura" name="fatura" value="<?php echo $fatura; ?>">
                     </div>
                     <div class="form-group">
-                        <label for="mes">M&ecirc;s Cobran&ccedil;a</label>
+                        <label for="mes">M&ecirc;s Conta</label>
                         <select class="form-control" id="mes" name="mes" onchange="pegaMes()">
 
                             <?php
@@ -54,7 +54,7 @@ if ($rotina->validaSessao('') == 1) {
             <table class="table table-hover table-striped table-condensed">
                 <thead>
                     <tr>
-                        <th>M&ecirc;s Referencia</th>  
+                        <th>M&ecirc;s Conta</th>  
                         <th>Servi&ccedil;o Contrato</th>
                         <th>Numero Contrato</th>
                         <th>Tipo Unidade</th>

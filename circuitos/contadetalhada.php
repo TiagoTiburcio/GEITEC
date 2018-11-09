@@ -83,7 +83,7 @@ if ($rotina->validaSessao('') == 1) {
                         </div><br/>
                     </div>                   
                     <div class="form-group">
-                        <label for="mes">Mes Cobranca</label>
+                        <label for="mes">Mes Conta</label>
                         <select class="form-control" id="mes" name="mes" onchange="pegaMesSint()">
 
                             <?php
@@ -125,7 +125,7 @@ if ($rotina->validaSessao('') == 1) {
                     <th>Cidade</th>
                     <th>Circuito</th>
                     <th>Nome Unidade</th>
-                    <th>Periodo</th>
+                    <th>Conta</th>
                     <th>Fatura</th>
                     <th>valor</th>
                     <th>Tipo</th>

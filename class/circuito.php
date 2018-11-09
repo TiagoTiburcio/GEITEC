@@ -66,7 +66,7 @@ class ImportContasCircuitos extends Database {
     }
 
     function listaContasImport() {
-        $consulta_listaContasImport = " SELECT ai.nome_arquivo , ai.contrato, date_format(ai.conta, '%m/%Y') as conta, c.periodo_ref, (case when c.periodo_ref is null then  CONCAT('R$ ', REPLACE(REPLACE(REPLACE(FORMAT(SUM(ai.valor_servico), 2),'.',';'),',','.'),';',',')) ELSE ''  END) as valor_total  FROM circuito_arquivo_import_temp as ai left join circuitos_contas as c on c.fatura = ai.contrato and c.periodo_ref = ai.conta group by ai.contrato,ai.conta, c.periodo_ref; ";
+        $consulta_listaContasImport = " SELECT ai.nome_arquivo , ai.contrato, date_format(ai.conta, '%m/%Y') as conta, c.periodo_ref, (case when c.periodo_ref is null then  CONCAT('R$ ', REPLACE(REPLACE(REPLACE(FORMAT(SUM(ai.valor_servico), 2),'.',';'),',','.'),';',',')) ELSE ''  END) as valor_total  FROM circuito_arquivo_import_temp as ai left join circuitos_contas as c on c.fatura = ai.contrato and c.periodo_ref = ai.conta group by ai.contrato, ai.conta, c.periodo_ref; ";
         $resultado_listaContasImport = mysqli_query($this->connect(), $consulta_listaContasImport);
         return $resultado_listaContasImport;
     }
