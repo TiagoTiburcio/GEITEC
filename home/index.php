@@ -98,7 +98,7 @@ if ($tarefas->validaSessao('') == 1) {
     <script src="../js/Chart.bundle.js"></script>
     <script src="../js/chart-utils.js"></script>
     <script src="../js/charts_area_analyser.js"></script>
-    <script src="../js/grafico.js"  type="text/javascript"></script>
+   
     <style>
         a {
             color: black;
