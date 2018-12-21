@@ -1,7 +1,7 @@
 <?php
 include_once '../class/principal.php';
 $rotina = new RotinasPublicas();
-if ($rotina->validaSessao('1') == 1) {
+if ($rotina->validaSessao('1','11') == 1) {
     $servicos = new Servicos();
     $redmine = new Redmine();
     ?>                

@@ -2,7 +2,7 @@
 include_once '../class/principal.php';
 
 $rotina = new RotinasPublicas();
-if ($rotina->validaSessao('') == 1) {
+if ($rotina->validaSessao('','18') == 1) {
     $atu_email = filter_input(INPUT_GET, 'email');
     $redeLocal = new RedeLocal();
     $consulta = $redeLocal->consultaPendenciaLista($atu_email);

@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Description of tarefas
+ * Description of Rotinas Publicas
+ * Classse com rotinas comuns a todo o sistema 
  *
  * @author tiagoc
  */
@@ -22,7 +23,7 @@ class RotinasPublicas {
         fclose($fp);
     }
 
-    function validaSessao($_teste) {
+    function validaSessao($_teste, $_codigo_pagina) {
         session_start();
         //Caso o usuário não esteja autenticado, limpa os dados e redireciona
         if (!isset($_SESSION['login']) and ! isset($_SESSION['pass'])) {
@@ -36,16 +37,14 @@ class RotinasPublicas {
             echo '<META http-equiv="refresh" content="0;../home/login.php">';
             return 0;
         } else {
-            $usuario = new Usuario();
-            $usuario->iniUsuario($_SESSION['login']);
-            $_SESSION['pagina'] = $_teste;
-            include ("../class/header.php");
-            if (($_teste == '2') || ($_teste == '4')) {
-                
+            $validaSistema = new ValidacaoSistema();
+            $_SESSION['pagina'] = $_teste;            
+            $retorno = $validaSistema->testePagina($_SESSION['login'], $_codigo_pagina);            
+            if (($_teste == '2') || ($_teste == '4')) {              
             } else {
                 include ("../class/baropc.php");
             }
-            return 1;
+            return $retorno;
         }
     }
 
@@ -137,6 +136,30 @@ class RotinasPublicas {
 
         // Fecha o arquivo
         fclose($fp);
+    }
+
+}
+
+/**
+ * Description of Validacao Sistema
+ * Classse com rotinas de validação de páginas no banco
+ *
+ * @author tiagoc
+ */
+class ValidacaoSistema extends Database {
+
+    function testePagina($_usuario, $_codigo_pagina) {
+        $consulta = " SELECT hu.codigo as cod_usuario, hu.usuario, pag.codigo as cod_pagina, pag.descricao, count(pag.codigo) as cont FROM home_pagina AS pag JOIN home_pagina_perfil AS hpp ON hpp.codigo_pagina = pag.codigo JOIN home_usuario AS hu ON hu.codigo_perfil = hpp.codigo_perfil WHERE hu.usuario = '$_usuario' AND pag.codigo = '$_codigo_pagina' AND pag.ativo = '1'; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        foreach ($resultado as $table) {
+            if ($table['cont'] == '1') {
+                include ("../class/header.php"); 
+                return $table['cont'];
+            } else {                
+               echo '<META http-equiv="refresh" content="0;../home/index.php?erro=1">';             
+               return $table['cont'];
+            }
+        }
     }
 
 }

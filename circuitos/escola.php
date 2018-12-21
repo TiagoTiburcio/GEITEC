@@ -4,7 +4,7 @@ include_once '../class/principal.php';
 
 $rotina = new RotinasPublicas();
 
-if ($rotina->validaSessao('4') == 1) {
+if ($rotina->validaSessao('4','5') == 1) {
     $filtro_inep = filter_input(INPUT_GET, 'inep'); 
     $url = "../index.php";
     if (($filtro_inep != NULL) || ($filtro_inep != "")){

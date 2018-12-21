@@ -14,129 +14,48 @@ include_once '../class/redmine.php';
  */
 class Usuario extends Database {
 
-    private $codigo;
-    private $usuario;
-    private $nome;
-    private $senha;
-    private $ativo;
-    private $perfil;
-    private $altProxLogin;
-    private $tipoLogin;
-
     function __construct() {
         
-    }
-
-    function setCodigo($_codigo) {
-        $this->codigo = $_codigo;
-    }
-
-    function getCodigo() {
-        return $this->codigo;
-    }
-
-    private function setNome($_nome) {
-        $this->nome = $_nome;
-    }
-
-    function getNome() {
-        return $this->nome;
-    }
-
-    private function setUsuario($_usuario) {
-        $this->usuario = $_usuario;
-    }
-
-    function getUsuario() {
-        return $this->usuario;
-    }
-
-    private function setSenha($_senha) {
-        $this->senha = $_senha;
-    }
-
-    function getSenha() {
-        return $this->senha;
     }
 
     function getSenhaEncriptada($_senha) {
         $resultado = sha1($_senha);
         return $resultado;
     }
-
-    private function setAtivo($_ativo) {
-        $this->ativo = $_ativo;
+  
+    // 0 - Usuário Novo 1 - Editou Usuário >=2 - Não grvado
+    function manutUsuario($_usuario, $_nome, $_senhaBranco, $_ativo, $_perfil, $_altProxLogin, $_usuarioAlt, $_tipoLogin, $_dataAlt) {        
+        echo $_usuario." | ".$_nome." | ". $_senhaBranco." | ". $_ativo." | ". $_perfil." | ". $_altProxLogin." | ". $_usuarioAlt." | ". $_tipoLogin." | ". $_dataAlt;
+        $dadosUsuario = $this->iniUsuario($_usuario);
+       foreach ($dadosUsuario as $table) {
+            $retorno = $table['cont'];
+            if($_senhaBranco == '' &&  $retorno == '1'){
+               $senha = $table['senha']; 
+            } elseif ($_senhaBranco == '' &&  $retorno == '0') {
+               $senha = $this->getSenhaEncriptada('12345678');
+            } else {
+               $senha = $this->getSenhaEncriptada($_senhaBranco);
+            }                      
+            if ($retorno == '0') {
+                $consulta_manutUsuario = " INSERT INTO `home_usuario`(`usuario`,`senha`,`nome`,`ativo`,`codigo_perfil`,`altera_senha_login`,`metodo_login`,`usuario_edit`,`data_edit`) "
+                        . " VALUES('" . $_usuario . "' , '" . $senha . "' , '" . $_nome . "' ,'" . $_ativo . "','" . $_perfil . "','" . $_altProxLogin . "','" . $_tipoLogin . "','" . $_usuarioAlt . "','" . $_dataAlt . "'); ";
+                $resultado_manutUsuario = mysqli_query($this->connect(), $consulta_manutUsuario);                
+            } elseif ($retorno == '1') {
+                $consulta_manutUsuario = "UPDATE `home_usuario` SET `usuario` = '" . $_usuario . "' , "
+                        . "`senha` = '" . $senha . "' , `nome` = '" . $_nome . "' "
+                        . ",`ativo` = '" . $_ativo . "',`altera_senha_login` = '" . $_altProxLogin . "', `usuario_edit` = '" . $_usuarioAlt . "', `metodo_login` = '" . $_tipoLogin . "',"
+                        . " `data_edit` = '" . $_dataAlt . "', `codigo_perfil` = '" . $_perfil . "' WHERE `codigo` = '" . $table['codigo'] . "';";
+               $resultado_manutUsuario = mysqli_query($this->connect(), $consulta_manutUsuario);                
+            }                  
+        }
+        return $retorno;
     }
 
-    function getAtivo() {
-        return $this->ativo;
-    }
-
-    private function setPerfil($_perfil) {
-        $this->perfil = $_perfil;
-    }
-
-    function getPerfil() {
-        return $this->perfil;
-    }    
-
-    private function setAltProxLogin($_altProxLogin) {
-        $this->altProxLogin = $_altProxLogin;
-    }
-
-    function getAltProxLogin() {
-        return $this->altProxLogin;
-    }
     
-    private function setTipoLogin($_tipoLogin) {
-        $this->tipoLogin = $_tipoLogin;
-    }
-
-    function getTipoLogin() {
-        return $this->tipoLogin;
-    }
-
-    // 0 - usuario não gravado 1 - usuario existente na Base de Dados
-    private function testeUsuarioCadatrado($_usuario) {
-        $consulta_usuario1 = "SELECT count(`codigo`) as cont FROM `home_usuario` where usuario = '$_usuario';";
-        $resultado_usuario1 = mysqli_query($this->connect(), $consulta_usuario1);
-        foreach ($resultado_usuario1 as $table_usuario1) {
-            $resultado = $table_usuario1["cont"];
-        }
-        return $resultado;
-    }
-
-    private function idUsuario($_usuario) {
-        $consulta_usuario1 = "SELECT `codigo` FROM `home_usuario` where usuario = '$_usuario';";
-        $resultado_usuario1 = mysqli_query($this->connect(), $consulta_usuario1);
-        foreach ($resultado_usuario1 as $table_usuario1) {
-            $resultado = $table_usuario1["codigo"];
-        }
-        return $resultado;
-    }
-
-    // 0 - Usuário Novo 1 - Editou Usuário
-    function manutUsuario($_usuario, $_nome, $_senhaBranco, $_ativo, $_perfil, $_altProxLogin, $_usuarioAlt, $_tipoLogin, $_dataAlt) {
-        $resultado = $this->testeUsuarioCadatrado($_usuario);
-        if ($resultado == 0) {
-            $consulta_manutUsuario = " INSERT INTO `home_usuario`(`usuario`,`senha`,`nome`,`ativo`,`codigo_perfil`,`altera_senha_login`,`metodo_login`,`usuario_edit`,`data_edit`) "
-                    . " VALUES('" . $_usuario . "' , '" . $this->getSenhaEncriptada($_senhaBranco) . "' , '" . $_nome . "' ,'" . $_ativo . "','" . $_perfil . "','" . $_altProxLogin . "','" . $_tipoLogin . "','". $_usuarioAlt . "','" . $_dataAlt . "'); ";
-
-            $resultado_manutUsuario = mysqli_query($this->connect(), $consulta_manutUsuario);
-        } else {
-            $consulta_manutUsuario = "UPDATE `home_usuario` SET `usuario` = '" . $_usuario . "' , "
-                    . "`senha` = '" . $this->getSenhaEncriptada($_senhaBranco) . "' , `nome` = '" . $_nome . "' "
-                    . ",`ativo` = '" . $_ativo . "',`altera_senha_login` = '" . $_altProxLogin . "', `usuario_edit` = '" . $_usuarioAlt . "', `metodo_login` = '" . $_tipoLogin . "',"
-                    . " `data_edit` = '" . $_dataAlt . "', `codigo_perfil` = '" . $_perfil . "' WHERE `codigo` = '" . $this->idUsuario($_usuario) . "';";
-            $resultado_manutUsuario = mysqli_query($this->connect(), $consulta_manutUsuario);
-        }
-        return $resultado;
-    }
-
     // retorna lista com todos os usuarios cadastrados
     function listaUsuarios($_codigo, $_nome, $_login) {
         $consulta_listaUsuarios = "SELECT u.*, p.descricao as descricao_perfil FROM home_usuario as u join home_perfil as p on p.codigo = u.codigo_perfil"
-                . " where u.codigo like '%$_codigo%' and u.usuario like '%$_nome%' and nome like '%$_login%';";
+                . " where u.codigo like '%$_codigo%' and u.usuario like '%$_login%' and nome like '%$_nome%';";
         $resultado_listaUsuarios = mysqli_query($this->connect(), $consulta_listaUsuarios);
         return $resultado_listaUsuarios;
     }
@@ -149,22 +68,33 @@ class Usuario extends Database {
 
     // retorno = 1 - usuario cadastrado 0 - usuario não cadastrado
     function iniUsuario($_usuario) {
-        $retorno = $this->testeUsuarioCadatrado($_usuario);
-        if ($retorno == 1) {
-            $consulta_iniUsuario = "SELECT * FROM home_usuario where usuario = '$_usuario';";
-            $resultado_iniUsuario = mysqli_query($this->connect(), $consulta_iniUsuario);
-            foreach ($resultado_iniUsuario as $table_iniUsuario) {
-                $this->setCodigo($table_iniUsuario["codigo"]);
-                $this->setUsuario($table_iniUsuario["usuario"]);
-                $this->setNome($table_iniUsuario["nome"]);
-                $this->setSenha($table_iniUsuario["senha"]);
-                $this->setAtivo($table_iniUsuario["ativo"]);
-                $this->setPerfil($table_iniUsuario["codigo_perfil"]);
-                $this->setAltProxLogin($table_iniUsuario["altera_senha_login"]);
-                $this->setTipoLogin($table_iniUsuario["metodo_login"]);
+        $consulta1 = " SELECT `codigo`, `usuario`, `senha`, `nome`, `ativo`, `codigo_perfil`, `altera_senha_login`, `usuario_edit`, `data_edit`, `metodo_login`, count(`codigo`) as cont FROM `home_usuario` where usuario = '$_usuario'; ";
+        $resultado1 = mysqli_query($this->connect(), $consulta1);
+        return $resultado1;
+    }
+
+    // retorno = 1 - usuario cadastrado 0 - usuario não cadastrado
+    function listaPaginasPermitidas($_usuario) {
+        $dadosUsuario = $this->iniUsuario($_usuario);
+        foreach ($dadosUsuario as $table) {
+            if ($table['cont'] == '1') {
+                $consulta1 = " SELECT hu.codigo, hu.usuario, hp.descricao as 'perf_desc', hm.codigo as 'mod_cod', hm.descricao as 'mod_desc', pag.codigo as 'pag_cod', pag.descricao as 'pag_desc', concat('../', hm.pasta, '/', pag.caminho) as path FROM home_usuario AS hu JOIN home_perfil AS hp ON hu.codigo_perfil = hp.codigo JOIN home_pagina_perfil AS hpp ON hp.codigo = hpp.codigo_perfil JOIN home_pagina AS pag ON pag.codigo = hpp.codigo_pagina JOIN home_modulo AS hm ON hm.codigo = pag.codigo_modulo WHERE hu.usuario = '$_usuario' AND hm.ativo = '1' AND pag.ativo = '1' AND hu.ativo = '1'; ";
+                $resultado1 = mysqli_query($this->connect(), $consulta1);
+                return $resultado1;
             }
         }
-        return $retorno;
+    }
+
+    // retorno = 1 - usuario cadastrado 0 - usuario não cadastrado
+    function listaModulosPermitidas($_usuario) {
+        $dadosUsuario = $this->iniUsuario($_usuario);
+        foreach ($dadosUsuario as $table) {
+            if ($table['cont'] == '1') {
+                $consulta1 = " SELECT distinctrow hu.codigo, hu.usuario, hp.descricao as 'perf_desc', hm.codigo as 'mod_cod', hm.descricao as 'mod_desc' FROM home_usuario AS hu JOIN home_perfil AS hp ON hu.codigo_perfil = hp.codigo JOIN home_pagina_perfil AS hpp ON hp.codigo = hpp.codigo_perfil JOIN home_pagina AS pag ON pag.codigo = hpp.codigo_pagina JOIN home_modulo AS hm ON hm.codigo = pag.codigo_modulo WHERE hu.usuario = '$_usuario' AND hm.ativo = '1' AND pag.ativo = '1' AND hu.ativo = '1'; ";
+                $resultado1 = mysqli_query($this->connect(), $consulta1);
+                return $resultado1;
+            }
+        }
     }
 
     function __destruct() {
@@ -341,7 +271,7 @@ class Servicos extends Database {
 
     // retorno = 0 - Evento Atrasado | 1 - Evento Normal
     function testeEventoVencido() {
-        $retorno = "0";        
+        $retorno = "0";
         if ($this->getLimiteInicio() != "" && $this->getInicioEvento() != "" && $this->getLimiteFim() != "" && $this->getFimEvento() != "") {
             if ($this->getLimiteInicio() <= $this->getTarefaRedmine()->getIniTarefa() && $this->getLimiteFim() >= $this->getTarefaRedmine()->getFimTarefa()) {
                 $retorno = "1";
@@ -807,12 +737,12 @@ class ZabbixSEED extends DatabaseZbx {
             return 'N/C';
         }
     }
-    
-    function buscaDadosCircuito($_ckt){
+
+    function buscaDadosCircuito($_ckt) {
         $consulta = " SELECT h.name AS designacao, gi.graphid, infa.ip FROM hosts AS h JOIN items AS i ON i.hostid = h.hostid JOIN graphs_items AS gi ON gi.itemid = i.itemid JOIN interface AS infa ON infa.hostid = h.hostid WHERE h.name = '$_ckt' AND i.key_ = 'icmppingsec' AND infa.main = '1'; ";
         $resultado = mysqli_query($this->connectZbx(), $consulta);
         return $resultado;
-    } 
+    }
 
 }
 
@@ -831,8 +761,8 @@ class ZabbixCofre extends DatabaseZbxCofre {
         $resultado_listArquivosExcluidos = mysqli_query($this->connectZbxCofre(), $consulta_listArquivosExcluidos);
         return $resultado_listArquivosExcluidos;
     }
-    
-    function listaAtivosPrincipais(){
+
+    function listaAtivosPrincipais() {
         $consulta = " SELECT h.name, t.value, (CASE t.value WHEN 1 THEN 'Down(1)' ELSE 'Up(0)' END) AS situacao, FROM_UNIXTIME(t.lastchange) AS data, TIMESTAMPDIFF(DAY, FROM_UNIXTIME(t.lastchange), NOW()) AS tempo_inativo, g.name AS grupo, inte.ip, h.status, graficos.graphid FROM hosts h JOIN hosts_groups hg ON h.hostid = hg.hostid JOIN groups g ON hg.groupid = g.groupid LEFT JOIN host_inventory hi ON hi.hostid = h.hostid LEFT JOIN interface inte ON inte.hostid = h.hostid JOIN items i ON i.hostid = h.hostid JOIN functions f ON f.itemid = i.itemid JOIN triggers t ON t.triggerid = f.triggerid left join graphs_items as gi on gi.itemid = i.itemid join ( SELECT h.name AS designacao, gi.graphid, infa.ip FROM hosts AS h JOIN items AS i ON i.hostid = h.hostid JOIN graphs_items AS gi ON gi.itemid = i.itemid JOIN interface AS infa ON infa.hostid = h.hostid WHERE i.key_ = 'icmppingsec' AND infa.main = '1' ) as graficos on graficos.designacao = h.name WHERE g.name = 'Ativos de Rede' AND t.templateid IN ('19524' , '13554') AND inte.main = '1'; ";
         $resultado = mysqli_query($this->connectZbxCofre(), $consulta);
         return $resultado;

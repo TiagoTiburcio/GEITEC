@@ -3,7 +3,7 @@
 if (!session_id()) {
     session_start();
 }
-//Caso o usu�rio n�o esteja autenticado, limpa os dados e redireciona
+//Caso o usuario nao esteja autenticado, limpa os dados e redireciona
 if (!isset($_SESSION['login']) and ! isset($_SESSION['pass'])) {
     //Destroi
     session_destroy();
@@ -24,14 +24,16 @@ if (!isset($_SESSION['login']) and ! isset($_SESSION['pass'])) {
     date_default_timezone_set("America/Bahia");
     $data = date('Y-m-d H:i:s');
     $usuario = new Usuario();
-    $usuario->iniUsuario($login);
-    $resultado = $usuario->manutUsuario($usuario->getUsuario(), $usuario->getNome(), $pass_branco, $usuario->getAtivo(), $usuario->getPerfil(), "0", $usuario->getUsuario(), $data);
-    if ($resultado == 1) {
-        echo "sdjakhdalk:   " . $usuario->getPerfil() . "Gravado com sucesso";
-        $pass = $usuario->getSenha();
-    } else {
-        echo "Erro gravacao";
-    }
-
+    $dadosUsuario = $usuario->iniUsuario($login);
+    foreach ($dadosUsuario as $table) {
+        $resultado = $usuario->manutUsuario($table['usuario'], $table['nome'], $pass_branco , $table['ativo'], $table['codigo_perfil'], "0",  $_SESSION['login'], "1" , $data);
+        if ($resultado == 1) {
+        echo  $table['codigo_perfil'] . "Gravado com sucesso";
+            $pass = $table['senha'];
+        } else {
+            echo "Erro gravacao";
+        }
+    }    
+    
     header('location:index.php');
 }

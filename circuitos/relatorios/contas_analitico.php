@@ -1,8 +1,12 @@
 <?php
 
 require '../../vendor/autoload.php';
+include_once '../../class/database.php';
 
 use PHPJasper\PHPJasper;
+
+
+$banco = new DatabaseCalendar();
 
 $input = __DIR__ . '/analitico.jrxml';
 
@@ -11,8 +15,6 @@ $jasper->compile($input)->execute();
 
 $periodo1 = filter_input(INPUT_GET,'periodo');
 $periodo = date('m/Y', strtotime($periodo1));
-
-
 
 $input = __DIR__ . '/analitico.jasper';
 $output = __DIR__ . '/analitico';
@@ -24,13 +26,14 @@ $options = [
     ],
     'db_connection' => [
         'driver' => 'mysql',
-        'username' => 'geitec',
-        'password' => 'seedqawsed',
-        'host' => '172.25.76.85',
-        'database' => 'sis_geitec',
+        'username' => $banco::$user,
+        'password' => $banco::$password,
+        'host' => $banco::$host,
+        'database' => $banco::$db,
         'port' => '3306'
     ]
 ];
+
 
 $jasper->process(
         $input, $output, $options

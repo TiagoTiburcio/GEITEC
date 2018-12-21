@@ -3,7 +3,7 @@ include_once '../class/principal.php';
 
 $rotina = new RotinasPublicas();
 
-if ($rotina->validaSessao('') == 1) {
+if ($rotina->validaSessao('','0') == 1) {
     $filtro_diretoria = filter_input(INPUT_GET, 'dre');
     $filtro_situacao = filter_input(INPUT_GET, 'sit');
     $filtro_tp_ckt = filter_input(INPUT_GET, 'tpckt');

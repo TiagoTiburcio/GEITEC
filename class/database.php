@@ -14,7 +14,7 @@ class DatabaseCalendar {
     static $host = "172.25.76.85";
     static $user = "geitec";
     static $password = "seedqawsed";
-    static $db = "sis_geitec";
+    static $db = "homo_sis_geitec";
 
 }
 
@@ -28,7 +28,7 @@ abstract class Database {
     private static $host = "172.25.76.85";
     private static $user = "geitec";
     private static $password = "seedqawsed";
-    private static $db = "sis_geitec";
+    private static $db = "homo_sis_geitec";
 
     /* Metodos que trazem o conteudo da variavel desejada
       @return   $xxx = conteudo da variavel solicitada */

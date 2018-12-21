@@ -3,12 +3,8 @@ include_once '../class/principal.php';
 
 $tarefas = new RotinasPublicas();
 
-if ($tarefas->validaSessao('') == 1) {
+if ($tarefas->validaSessao('2','0') == 1) {
     ?>
-
-<!--    <div class="col-xs-6">              
-        <iframe src="https://www.google.com/maps/d/embed?mid=1NoTEGGHswVsYX0wTFMJK-1OKJAebYGp7&hl=pt-BR" width="100%" height="600" style=" border: none;"></iframe> 
-    </div>-->
     <div class="col-xs-12">              
         <canvas id="chart-0" style="display: block; width: 800px; height: 600px;" ></canvas> 
     </div>
@@ -125,6 +121,5 @@ if ($tarefas->validaSessao('') == 1) {
             options: options
         });
     </script>           
-    <?php
-    include ("../class/footer.php");
+    <?php   
 }

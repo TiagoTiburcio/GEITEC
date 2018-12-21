@@ -3,7 +3,20 @@ include_once '../class/principal.php';
 
 $tarefas = new RotinasPublicas();
 
-if ($tarefas->validaSessao('') == 1) {
+$cd_erro = filter_input(INPUT_GET, 'erro');
+switch ($cd_erro) {
+    case 1:
+        $menssagem = "Perfil sem permissão para acesso a página solicitada!!!";
+        break;
+    case 2:
+        $menssagem = "";
+        break;
+    default :
+        $menssagem = "";
+        break;
+}
+
+if ($tarefas->validaSessao('', '0') == 1) {
 
     $zabbix = new ZabbixSEED();
     $relCircuito = new RelatorioCircuitos();
@@ -17,6 +30,10 @@ if ($tarefas->validaSessao('') == 1) {
     $tipoSituacao = array('Links UP', 'Links DOWN');
     $tipoSituacaoPBLE = array('PBLE UP', 'PBLE DOWN');
     $cores = array("blue", "red", "green", "purple", "blue", "grey", "purple");
+    if($menssagem != ""){
+        echo '<div class="col-lg-12"><h2 class="centraltd">' . $menssagem . '</h2></div>';    
+    }
+     
     ?>
     <div class="col-lg-6">
         <canvas id="chart-0" style="display: block; width: 800px; height: 300px;" ></canvas> 
@@ -98,7 +115,7 @@ if ($tarefas->validaSessao('') == 1) {
     <script src="../js/Chart.bundle.js"></script>
     <script src="../js/chart-utils.js"></script>
     <script src="../js/charts_area_analyser.js"></script>
-   
+
     <style>
         a {
             color: black;

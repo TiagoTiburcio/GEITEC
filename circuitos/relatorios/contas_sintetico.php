@@ -1,12 +1,15 @@
 <?php
 
 require '../../vendor/autoload.php';
+include_once '../../class/database.php';
 
 $periodo1 = filter_input(INPUT_GET, 'periodo');
 $contrato = filter_input(INPUT_GET, 'fatura');
 $periodo = date('m/Y', strtotime($periodo1));
 
 use PHPJasper\PHPJasper;
+
+$banco = new DatabaseCalendar();
 
 $input = __DIR__ . '/sintetico.jrxml';
 
@@ -24,10 +27,10 @@ $options = [
     ],
     'db_connection' => [
         'driver' => 'mysql',
-        'username' => 'geitec',
-        'password' => 'seedqawsed',
-        'host' => '172.25.76.85',
-        'database' => 'sis_geitec',
+        'username' => $banco::$user,
+        'password' => $banco::$password,
+        'host' => $banco::$host,
+        'database' => $banco::$db,
         'port' => '3306'
     ]
 ];

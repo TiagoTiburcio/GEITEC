@@ -1,7 +1,7 @@
 <?php
 include_once '../class/principal.php';
 $rotina = new RotinasPublicas();
-if ($rotina->validaSessao('3') == 1) {
+if ($rotina->validaSessao('3','7') == 1) {
     ?>
     <div class="col-xs-offset-1 col-xs-10">                        
         <div id='calendario'>        

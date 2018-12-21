@@ -3,7 +3,7 @@ include_once '../class/principal.php';
 
 $rotina = new RotinasPublicas();
 
-if ($rotina->validaSessao('4') == 1) {
+if ($rotina->validaSessao('4', '0') == 1) {
 
     $filtro_ckt = filter_input(INPUT_GET, 'ckt');
     $filtro_period = filter_input(INPUT_GET, 'period');

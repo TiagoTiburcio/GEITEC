@@ -2,7 +2,7 @@
 include_once '../class/principal.php';
 
 $rotina = new RotinasPublicas();
-if ($rotina->validaSessao('') == 1) {
+if ($rotina->validaSessao('','7') == 1) {
 
     $servicos = new Servicos();
     $tarefa_redmine = filter_input(INPUT_POST,'tarefa_redmine');

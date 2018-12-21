@@ -3,7 +3,7 @@ include_once '../class/principal.php';
 
 $rotina = new RotinasPublicas();
 
-if ($rotina->validaSessao('4') == 1) {    
+if ($rotina->validaSessao('4','0') == 1) {    
     $filtro_diretoria = filter_input(INPUT_GET, 'dre');
     $filtro_grafico = filter_input(INPUT_GET, 'graf');
     if (!isset($filtro_diretoria)) {

@@ -3,7 +3,7 @@ include_once '../class/principal.php';
 
 $rotina = new RotinasPublicas();
 
-if ($rotina->validaSessao('') == 1) {
+if ($rotina->validaSessao('','0') == 1) {
 
     $circuitos = new Circuitos();
     

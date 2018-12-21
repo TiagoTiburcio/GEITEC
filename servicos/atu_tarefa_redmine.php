@@ -4,7 +4,7 @@ include_once '../class/principal.php';
 
 $rotina = new RotinasPublicas();
 
-if ($rotina->validaSessao('4') == 1) {
+if ($rotina->validaSessao('4','11') == 1) {
     $filtro_tarefa = filter_input(INPUT_GET, 'tarefa');
     $filtro_situacao = filter_input(INPUT_GET, 'situacao');
     $filtro_evento = filter_input(INPUT_GET, 'evento');

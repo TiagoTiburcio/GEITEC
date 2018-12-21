@@ -3,7 +3,7 @@
 include_once '../class/principal.php';
 $rotina = new RotinasPublicas();
 
-if ($rotina->validaSessao('2') == 1) {
+if ($rotina->validaSessao('2','17') == 1) {
     $redeLocal = new RedeLocal();
     $tipo = filter_input(INPUT_POST,'tipo');
     $descricao = filter_input(INPUT_POST,'descricao');

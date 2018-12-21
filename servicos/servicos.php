@@ -6,7 +6,7 @@ $servico = new Servico();
 $redmine = new Redmine();
 
 $rotina = new RotinasPublicas();
-if ($rotina->validaSessao('') == 1) {    
+if ($rotina->validaSessao('','6') == 1) {    
     $nome = filter_input(INPUT_POST, 'nome');
     $id = filter_input (INPUT_POST, 'id');
     ?>
