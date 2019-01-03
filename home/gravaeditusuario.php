@@ -19,7 +19,7 @@ if ($rotina->validaSessao('2','20') == 1) {
     date_default_timezone_set("America/Bahia");
     $data = date('Y-m-d H:i:s');
        
-    $resultado = $usuario->manutUsuario($login, $nome_usuario, $pass_branco, $ativo, $perfil, $altProxLogin, $usr_sessao, $tipoLogin, $data);
+    
 
     if ($resultado == '1') {
         echo '<br/> usuario atualizado!';

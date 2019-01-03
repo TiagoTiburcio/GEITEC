@@ -4,10 +4,10 @@ if (!isset($_SESSION['nome_usuario'])) {
 }
 ?>
 <div class="row">
-    <div class="col-xs-12 col-lg-2">
-        <img src="../images/seed/seed_colorida.svg"/>                   
+    <div class="col-xs-12 col-md-2">
+        <img src="../images/seed/porvirwhite.png"/>                   
     </div>
-    <div class="col-xs-12 col-lg-8 text-center">
+    <div class="col-md-offset-2 col-md-6 text-center visible-md visible-lg " >
         <h2>Consultas Administrativas GEITEC</h2>
         <h2><small>Consultas ao dados cadastrados nas bases de dados dos sistemas administrativos</small></h2>
     </div>        

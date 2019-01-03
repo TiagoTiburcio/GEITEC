@@ -22,36 +22,35 @@ class Usuario extends Database {
         $resultado = sha1($_senha);
         return $resultado;
     }
-  
+
     // 0 - Usuário Novo 1 - Editou Usuário >=2 - Não grvado
-    function manutUsuario($_usuario, $_nome, $_senhaBranco, $_ativo, $_perfil, $_altProxLogin, $_usuarioAlt, $_tipoLogin, $_dataAlt) {        
-        echo $_usuario." | ".$_nome." | ". $_senhaBranco." | ". $_ativo." | ". $_perfil." | ". $_altProxLogin." | ". $_usuarioAlt." | ". $_tipoLogin." | ". $_dataAlt;
+    function manutUsuario($_usuario, $_nome, $_senhaBranco, $_ativo, $_perfil, $_altProxLogin, $_usuarioAlt, $_tipoLogin, $_dataAlt) {
+        echo $_usuario . " | " . $_nome . " | " . $_senhaBranco . " | " . $_ativo . " | " . $_perfil . " | " . $_altProxLogin . " | " . $_usuarioAlt . " | " . $_tipoLogin . " | " . $_dataAlt;
         $dadosUsuario = $this->iniUsuario($_usuario);
-       foreach ($dadosUsuario as $table) {
+        foreach ($dadosUsuario as $table) {
             $retorno = $table['cont'];
-            if($_senhaBranco == '' &&  $retorno == '1'){
-               $senha = $table['senha']; 
-            } elseif ($_senhaBranco == '' &&  $retorno == '0') {
-               $senha = $this->getSenhaEncriptada('12345678');
+            if ($_senhaBranco == '' && $retorno == '1') {
+                $senha = $table['senha'];
+            } elseif ($_senhaBranco == '' && $retorno == '0') {
+                $senha = $this->getSenhaEncriptada('12345678');
             } else {
-               $senha = $this->getSenhaEncriptada($_senhaBranco);
-            }                      
+                $senha = $this->getSenhaEncriptada($_senhaBranco);
+            }
             if ($retorno == '0') {
                 $consulta_manutUsuario = " INSERT INTO `home_usuario`(`usuario`,`senha`,`nome`,`ativo`,`codigo_perfil`,`altera_senha_login`,`metodo_login`,`usuario_edit`,`data_edit`) "
                         . " VALUES('" . $_usuario . "' , '" . $senha . "' , '" . $_nome . "' ,'" . $_ativo . "','" . $_perfil . "','" . $_altProxLogin . "','" . $_tipoLogin . "','" . $_usuarioAlt . "','" . $_dataAlt . "'); ";
-                $resultado_manutUsuario = mysqli_query($this->connect(), $consulta_manutUsuario);                
+                $resultado_manutUsuario = mysqli_query($this->connect(), $consulta_manutUsuario);
             } elseif ($retorno == '1') {
                 $consulta_manutUsuario = "UPDATE `home_usuario` SET `usuario` = '" . $_usuario . "' , "
                         . "`senha` = '" . $senha . "' , `nome` = '" . $_nome . "' "
                         . ",`ativo` = '" . $_ativo . "',`altera_senha_login` = '" . $_altProxLogin . "', `usuario_edit` = '" . $_usuarioAlt . "', `metodo_login` = '" . $_tipoLogin . "',"
                         . " `data_edit` = '" . $_dataAlt . "', `codigo_perfil` = '" . $_perfil . "' WHERE `codigo` = '" . $table['codigo'] . "';";
-               $resultado_manutUsuario = mysqli_query($this->connect(), $consulta_manutUsuario);                
-            }                  
+                $resultado_manutUsuario = mysqli_query($this->connect(), $consulta_manutUsuario);
+            }
         }
         return $retorno;
     }
 
-    
     // retorna lista com todos os usuarios cadastrados
     function listaUsuarios($_codigo, $_nome, $_login) {
         $consulta_listaUsuarios = "SELECT u.*, p.descricao as descricao_perfil FROM home_usuario as u join home_perfil as p on p.codigo = u.codigo_perfil"
@@ -61,7 +60,7 @@ class Usuario extends Database {
     }
 
     function listaPerfil() {
-        $consulta_listaPerfil = "SELECT * FROM homo_sis_geitec.home_perfil where ativo = '1';";
+        $consulta_listaPerfil = "SELECT * FROM home_perfil where ativo = '1';";
         $resultado_listaPerfil = mysqli_query($this->connect(), $consulta_listaPerfil);
         return $resultado_listaPerfil;
     }
@@ -99,6 +98,86 @@ class Usuario extends Database {
 
     function __destruct() {
         
+    }
+
+}
+
+/**
+ * Description of Perfil
+ *
+ * @author tiagoc
+ */
+class Perfil extends Database {
+
+    //  Lista perfis apartir dos filtros retorno array consulta
+    function listaPerfis($_id, $_nome) {
+        if ($_id != '') {
+            $filtro_id = "and codigo = '" . $_id . "'";
+        } else {
+            $filtro_id = "";
+        }
+        $consulta = " SELECT * FROM home_perfil where descricao like '%$_nome%' $filtro_id; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+
+    function listaPaginas() {
+        $consulta = " SELECT hp.codigo as pag_cod, hp.descricao as pag_desc, hm.descricao as modulo, hp.ativo FROM home_pagina AS hp JOIN home_modulo AS hm ON hm.codigo = hp.codigo_modulo where hm.ativo = '1'; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+
+    function listaPaginasPerfilPermitida($_codigo) {
+        $consulta = " select hp.codigo as pag_cod, hp.descricao as pag_desc, hm.descricao as modulo, hp.ativo from home_pagina_perfil as hpp join home_pagina as hp on hp.codigo = hpp.codigo_pagina JOIN home_modulo AS hm ON hm.codigo = hp.codigo_modulo where  hpp.codigo_perfil = '$_codigo' and hp.ativo = '1' and hm.ativo = '1'; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+
+    function listaPaginasPerfilBloqueada($_codigo) {
+        $consulta = " SELECT hp.codigo as pag_cod, hp.descricao as pag_desc, hm.descricao as modulo, hp.ativo FROM home_pagina_perfil AS hpp JOIN home_pagina AS hp ON hp.codigo = hpp.codigo_pagina JOIN home_modulo AS hm ON hm.codigo = hp.codigo_modulo WHERE hp.ativo = '1' and hpp.codigo_pagina not in (select hpp.codigo_pagina from home_pagina_perfil AS hpp where hpp.codigo_perfil = '$_codigo') and hm.ativo = '1'; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+
+    function testaPerfil($_codigo) {
+        $consulta = " SELECT hp.*, count(hp.codigo) as cont  FROM home_perfil as hp where hp.codigo = '$_codigo';";
+        return mysqli_query($this->connect(), $consulta);
+    }
+
+    function proxID() {
+        $consulta = " SELECT (max(codigo) + 1) as prox_cod FROM home_perfil; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        foreach ($resultado as $table){
+            return $table['prox_cod'];
+        }
+    }
+
+    function inserePermissao($_perfil, $_ativo, $_descricao, $_linhas) {
+        $resultado = $this->testaPerfil($_perfil);
+        foreach ($resultado as $table) {
+            if ($table['cont'] == 1) {
+                $consulta = " DELETE FROM `home_pagina_perfil` WHERE codigo_pagina >= 0 and codigo_perfil = '$_perfil';";
+                $resultado = mysqli_query($this->connect(), $consulta);
+                echo $consulta;
+                $consulta1 = " INSERT INTO `home_pagina_perfil` (`codigo_pagina`,`codigo_perfil`) VALUES "
+                        . implode(', ', $_linhas) . ";";
+                $resultado1 = mysqli_query($this->connect(), $consulta1);
+                echo $consulta1;
+                $consulta2 = " UPDATE `home_perfil` SET `descricao` = '$_descricao', `ativo` ='$_ativo' WHERE `codigo` = '$_perfil';";
+                $resultado2 = mysqli_query($this->connect(), $consulta2);
+                echo $consulta2;
+                return 1;
+            } elseif ($table['cont'] == 0) {
+                $consulta2 = " INSERT INTO `home_perfil` (`codigo`,`descricao`,`ativo`) VALUES ('$_perfil','$_descricao','$_ativo');";
+                $resultado2 = mysqli_query($this->connect(), $consulta2);
+                echo $consulta2;
+                $consulta1 = " INSERT INTO `home_pagina_perfil` (`codigo_pagina`,`codigo_perfil`) VALUES "
+                        . implode(', ', $_linhas) . ";";
+                echo $consulta1;
+                $resultado1 = mysqli_query($this->connect(), $consulta1);
+                return 0;
+            }
+        }
     }
 
 }

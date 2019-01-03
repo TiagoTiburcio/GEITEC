@@ -39,10 +39,15 @@ footer {
 }
 
 .centraltd{     
-    text-align:center;vertical-align:middle;
+    text-align:center;
+    vertical-align:middle;
 }
 .esquerdatd{     
     text-align:left;
+    vertical-align:middle;
+}
+.direitatd{
+    text-align:right;
     vertical-align:middle;
 }
 .fonteSw{
@@ -64,6 +69,11 @@ footer {
     margin: 0;
     padding: 5px 10px;
     width: 970px;
+}
+.fundoCinza{
+    background: #f2f2f2;
+    border-style: solid;
+    border-width: initial;
 }
 
 a{

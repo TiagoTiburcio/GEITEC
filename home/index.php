@@ -30,10 +30,9 @@ if ($tarefas->validaSessao('', '0') == 1) {
     $tipoSituacao = array('Links UP', 'Links DOWN');
     $tipoSituacaoPBLE = array('PBLE UP', 'PBLE DOWN');
     $cores = array("blue", "red", "green", "purple", "blue", "grey", "purple");
-    if($menssagem != ""){
-        echo '<div class="col-lg-12"><h2 class="centraltd">' . $menssagem . '</h2></div>';    
+    if ($menssagem != "") {
+        echo '<div class="col-lg-12"><h2 class="centraltd">' . $menssagem . '</h2></div>';
     }
-     
     ?>
     <div class="col-lg-6">
         <canvas id="chart-0" style="display: block; width: 800px; height: 300px;" ></canvas> 

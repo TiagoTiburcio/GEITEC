@@ -42,7 +42,7 @@
         ?>    
         <div class="row">
             <div class="col-xs-2">
-                <img src="../images/seed/seed_colorida.svg"/>                   
+                <img src="../images/seed/porvirwhite.png"/>                   
             </div>
             <div class="col-xs-8 text-center">
                 <h2>Gest&atilde;o de Servi&ccedil;os GEITEC</h2>            
