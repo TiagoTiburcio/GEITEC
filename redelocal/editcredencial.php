@@ -26,7 +26,7 @@ if ($rotina->validaSessao('3','17') == 1) {
             $tipo = $dados['tipo'];
             $descricao = $dados['descricao'];
             $user = $dados['usuario'];
-            $senha = $dados['senha'];
+            $senha =  base64_decode($dados['senha']);
             $local = $dados['local_alocado'];
         }
         $arrayTipo = array("SERVIÇO", "SERVIDOR", "EQUIPAMENTO");

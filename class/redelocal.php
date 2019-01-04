@@ -302,8 +302,7 @@ class RedeLocal extends Database {
      * @return array consulta
      */
     function listaCredenciais($_tipo, $_descricao, $_local) {
-        $consulta_listaCredenciais = " SELECT * FROM redelocal_credenciais where tipo like '%$_tipo%' and descricao like '%$_descricao%' and local_alocado like '%$_local%'"
-                . " order by `tipo`, `descricao`, `local_alocado`; ";
+        $consulta_listaCredenciais = " SELECT * FROM redelocal_credenciais where tipo like '%$_tipo%' and descricao like '%$_descricao%' and local_alocado like '%$_local%' order by `tipo` desc, `descricao`, `local_alocado`; ";
         $resultado_listaCredenciais = mysqli_query($this->connect(), $consulta_listaCredenciais);
         return $resultado_listaCredenciais;
     }
@@ -417,12 +416,13 @@ class RedeLocal extends Database {
      */
     function manuCredencial($_codigo, $_tipo, $_descricao, $_usuario, $_senha, $_local_alocado) {
         $resultDados = $this->dadosCredencial($_codigo);
+        $senha = base64_encode($_senha);
         foreach ($resultDados as $dados) {
             if ($dados['cont'] == '0') {
-                $consulta_manuCredencial = " INSERT INTO `redelocal_credenciais`(`tipo`,`descricao`,`usuario`,`senha`,`local_alocado`)VALUES('$_tipo','$_descricao','$_usuario','$_senha','$_local_alocado'); ";
+                $consulta_manuCredencial = " INSERT INTO `redelocal_credenciais`(`tipo`,`descricao`,`usuario`,`senha`,`local_alocado`)VALUES('$_tipo','$_descricao','$_usuario','$senha','$_local_alocado'); ";
                 $resultado_manuCredencial = mysqli_query($this->connect(), $consulta_manuCredencial);
             } else {
-                $consulta_manuCredencial = " UPDATE `redelocal_credenciais` SET `tipo` = '$_tipo', `descricao` = '$_descricao', `usuario` = '$_usuario', `senha` = '$_senha', `local_alocado` = '$_local_alocado' WHERE `codigo` = '$_codigo'; ";
+                $consulta_manuCredencial = " UPDATE `redelocal_credenciais` SET `tipo` = '$_tipo', `descricao` = '$_descricao', `usuario` = '$_usuario', `senha` = '$senha', `local_alocado` = '$_local_alocado' WHERE `codigo` = '$_codigo'; ";
                 $resultado_manuCredencial = mysqli_query($this->connect(), $consulta_manuCredencial);
             }
             return $resultado_manuCredencial;

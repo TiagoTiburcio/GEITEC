@@ -2,16 +2,16 @@
 include_once '../class/principal.php';
 
 $rotina = new RotinasPublicas();
-if ($rotina->validaSessao('','17') == 1) {
+if ($rotina->validaSessao('', '17') == 1) {
 
     $redeLocal = new RedeLocal();
-   
-    $tipo = filter_input(INPUT_POST,'tipo');
-    $descricao = filter_input(INPUT_POST,'descricao');
-    $local = filter_input(INPUT_POST,'local');
+
+    $tipo = filter_input(INPUT_POST, 'tipo');
+    $descricao = filter_input(INPUT_POST, 'descricao');
+    $local = filter_input(INPUT_POST, 'local');
     $zbx = '2';
     ?>
-    <div class="col-xs-2">                        
+    <div class="col-lg-2 visible-lg">                        
         <form class="form-horizontal" method="post" action="">
             <div class="form-group">
                 <div class="col-xs-10 col-xs-offset-2">                                     
@@ -33,37 +33,33 @@ if ($rotina->validaSessao('','17') == 1) {
             </div>  
         </form>
     </div>
-    <div class="col-xs-2 col-xs-offset-8"> 
+    <div class="col-lg-2 col-lg-offset-8"> 
         <a type="button" class="btn btn-success" href="../redelocal/editcredencial.php?">Adicionar Nova Credencial <span class="glyphicon glyphicon-plus-sign"></span></a>
     </div>    
-    <div class="col-xs-10">
-        <table class="table table-hover table-striped table-condensed">
+    <div class="col-lg-10">
+        <table class="table table-hover table-striped table-condensed table-responsive">
             <thead>
                 <tr>
                     <th>Tipo</th>
-                    <th>Descrição</th>
-                    <th>Usuário</th>
-                    <th>Senha</th>
+                    <th>Descrição</th>                    
                     <th>Local</th>
-                    <th>Manutenção</th>                
+                    <th>Vizualizar</th>
                 </tr>
             </thead>
             <tbody>
-    <?php
-    $listaCreden = $redeLocal->listaCredenciais($tipo, $descricao, $local);
-    foreach ($listaCreden as $table) {
-        ?>                
+                <?php
+                $listaCreden = $redeLocal->listaCredenciais($tipo, $descricao, $local);
+                foreach ($listaCreden as $table) {
+                    ?>                
                     <tr>
                         <td><?php echo $table["tipo"]; ?></td>
-                        <td><?php echo $table["descricao"]; ?></td> 
-                        <td><?php echo $table["usuario"]; ?></td>                      
-                        <td><?php echo $table["senha"]; ?></td>                      
+                        <td><?php echo $table["descricao"]; ?></td>                      
                         <td><?php echo $table["local_alocado"]; ?></td>
-                        <td><?php echo '<a type="button" class="btn btn-primary" href="../redelocal/editcredencial.php?codigo=' . $table["codigo"] . '"><span class="glyphicon glyphicon-edit"></span></a>'; ?></td>                        
+                        <td><?php echo '<a type="button" class="btn btn-default" href="../redelocal/editcredencial.php?codigo=' . $table["codigo"] . '"><span class="glyphicon glyphicon-eye-open"></span></span></a>'; ?></td>                       
                     </tr>  
-        <?php
-    }
-    ?>                               
+                    <?php
+                }
+                ?>                               
             </tbody>
         </table>
     </div>
