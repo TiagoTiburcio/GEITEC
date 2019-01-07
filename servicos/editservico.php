@@ -4,12 +4,22 @@ include_once '../class/principal.php';
 $rotina = new RotinasPublicas();
 if ($rotina->validaSessao('','6') == 1) {
 
+    
+    if(filter_input(INPUT_GET, 'codigo') != ''){
+        $codigo = filter_input(INPUT_GET, 'codigo');
+        $menssagem = "Editar Serviço";
+    } else {
+        $codigo = '0';
+        $menssagem = "Novo Serviço";
+    }
+        
     $servicos = new Servico();
-    $codigo = $_GET ["codigo"];
+    
 
     $servicos->iniServico($codigo);
     ?>                
-    <div class="col-xs-offset-4 col-xs-3">
+    <div class="col-lg-offset-4 col-lg-3 centraltd">
+        <h3><?php echo $menssagem;?></h3>
         <form class="form-horizontal" method="post" action="../servicos/editservico_grava.php">
             <div class="form-group">
                 <div class="col-xs-12">                                     
@@ -52,11 +62,11 @@ if ($rotina->validaSessao('','6') == 1) {
                     </div>
                     <div class="form-group">
                         <label for="data_prox">Data Próxima</label>
-                        <input type="text" class="form-control" readonly="true" id="desc_comp" name="desc_comp" value="<?php echo $servicos->formataDataBR($servicos->getDataProxExec()); ?>">
+                        <input type="date" class="form-control" id="data_prox" name="data_prox" value="<?php echo $servicos->getDataProxExec(); ?>">
                     </div>                
                     <div class="form-group">
                         <label for="data_ant">Data Anterior</label>
-                        <input type="text" class="form-control" readonly="true" id="inicio_evento" name="inicio_evento" value="<?php echo $servicos->formataDataBR($servicos->getDataUltExec()); ?>">
+                        <input type="date" class="form-control" readonly="true" id="data_ant" name="data_ant" value="<?php echo $servicos->getDataUltExec(); ?>">
                     </div>                  
                     <div class="text-center col-xs-12">
                         <a type="button" class="btn btn-danger" href="servicos.php">voltar <span class="glyphicon glyphicon-backward"></span></a>                    

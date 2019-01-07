@@ -147,7 +147,7 @@ class Perfil extends Database {
     function proxID() {
         $consulta = " SELECT (max(codigo) + 1) as prox_cod FROM home_perfil; ";
         $resultado = mysqli_query($this->connect(), $consulta);
-        foreach ($resultado as $table){
+        foreach ($resultado as $table) {
             return $table['prox_cod'];
         }
     }
@@ -443,7 +443,7 @@ class Servicos extends Database {
     }
 
     function consultaIdUltimaTarefa() {
-        $consulta_servicos7 = "SELECT max(codigo_tarefa) as ult_tarefa_criada FROM sis_geitec.servicos_tarefas;";
+        $consulta_servicos7 = "SELECT max(codigo_tarefa) as ult_tarefa_criada FROM servicos_tarefas;";
         $resultado_servicos7 = mysqli_query($this->connect(), $consulta_servicos7);
         foreach ($resultado_servicos7 as $table_servicos7) {
             $resultado = $table_servicos7["ult_tarefa_criada"];
@@ -452,7 +452,7 @@ class Servicos extends Database {
     }
 
     function consultaUltimaTarefaServico($_codigoServico) {
-        $consulta_servicos11 = "SELECT id_ultimo_evento FROM sis_geitec.servicos_cadastro where codigo_servico = '$_codigoServico';";
+        $consulta_servicos11 = "SELECT id_ultimo_evento FROM servicos_cadastro where codigo_servico = '$_codigoServico';";
         $resultado_servicos11 = mysqli_query($this->connect(), $consulta_servicos11);
         foreach ($resultado_servicos11 as $table_servicos11) {
             $resultado = $table_servicos11["id_ultimo_evento"];
@@ -689,9 +689,23 @@ class Servico extends Database {
         }
     }
 
-    function manutServico($_codigo, $_nome, $_descricao, $_repeticao) {
-        $consulta_manutServico = "UPDATE `servicos_cadastro` SET `nome_redu_servico` = '" . $_nome . "', `descricao_tipo_servico` = '" . $_descricao . "', `repeticao` = '" . $_repeticao . "' WHERE `codigo_servico` = '" . $_codigo . "'";
-        $resultado_manutServico = mysqli_query($this->connect(), $consulta_manutServico);
+    function testeServico($_codigo) {
+        $consulta = "SELECT * , count(codigo_servico) as cont FROM `servicos_cadastro` where codigo_servico = '$_codigo'; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        foreach ($resultado as $value) {
+            return $value['cont'];
+        }
+    }
+
+    function manutServico($_codigo, $_nome, $_descricao, $_repeticao, $_data_prox_exec) {
+        if ($this->testeServico($_codigo) == 1) {
+            $consulta = "UPDATE `servicos_cadastro` SET `nome_redu_servico` = '" . $_nome . "', `descricao_tipo_servico` = '" . $_descricao . "', `data_prox_exec` = '" . $_data_prox_exec . "', `repeticao` = '" . $_repeticao . "' WHERE `codigo_servico` = '" . $_codigo . "'";
+            $resultado = mysqli_query($this->connect(), $consulta);
+        }elseif (($this->testeServico($_codigo) == 0)) {
+            $consulta = " INSERT INTO `servicos_cadastro`(`nome_redu_servico`,`descricao_tipo_servico`,`repeticao`,`data_prox_exec`,`data_ult_criacao`,`falhou`,`id_ultimo_evento`) VALUES ('$_nome','$_descricao','$_repeticao','$_data_prox_exec',NULL,NULL,'0'); ";
+            $resultado = mysqli_query($this->connect(), $consulta);
+        }
+        return $this->testeServico($_codigo);
     }
 
     function formataDataBR($_data) {
