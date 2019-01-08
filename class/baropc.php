@@ -5,7 +5,7 @@ if (!isset($_SESSION['nome_usuario'])) {
 ?>
 <div class="row">
     <div class="col-xs-12 col-md-2">
-        <img src="../images/seed/porvirwhite.png"/>                   
+        <img src="../images/seed/seducporvir2019.svg"/>                   
     </div>
     <div class="col-md-offset-2 col-md-6 text-center visible-md visible-lg " >
         <h2>Consultas Administrativas GEITEC</h2>

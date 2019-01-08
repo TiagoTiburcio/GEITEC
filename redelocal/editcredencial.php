@@ -15,7 +15,7 @@ if ($rotina->validaSessao('3','17') == 1) {
     foreach ($consultaCredencial as $dados) {
 
         if ($dados['cont'] == '0') {
-            $menssagem = 'Cadastre o Nova Credencial';
+            $menssagem = 'Cadastre a Nova Credencial';
             $tipo = '';
             $descricao = '';
             $user = '';
