@@ -443,5 +443,14 @@ class EscolasPG {
         $consulta = " SELECT     e.cdescola, eo.cdestrutura, e.codigo_mec, eo.nome_abreviado, eo.gps_latitude, eo.gps_longitude, i.logradouro, i.numero, i.complemento, i.cep, i.bairro,  cid.descricao FROM academico.escola e  INNER JOIN administrativo.estrutura_organizacional eo ON e.cdestrutura_organizacional = eo.cdestrutura inner join administrativo.estrutura_organizacional dre ON eo.cdestrutura_pai = dre.cdestrutura inner join public.cidade cid on eo.cdcidade_sede = cid.cdcidade LEFT JOIN administrativo.estrutura_organizacional_imovel eoi ON e.cdestrutura_organizacional = eoi.cdestrutura LEFT JOIN administrativo.imovel i ON eoi.cdimovel = i.cdimovel WHERE eo.cdcategoria = 2 AND e.cdsituacao = 1 and e.cdtipo_administracao = 1 and eo.cdestrutura not in (9999) and e.codigo_mec = '$_inep';   ";
         return $conexao_seednet->listConsulta($consulta);
     }
+    
+    function listaCodDBSEED($_cod_legado){
+        $conexao_dbseed = new DatabaseDBSEED();
+        $consulta = "SELECT cd_estrutura_adm_pk, cd_estrutura_legado FROM public.tb_estrutura_de_para where cd_estrutura_legado = '$_cod_legado';";        
+        while ($consulta = pg_fetch_assoc($conexao_dbseed->listConsulta($consulta))) {
+            return $consulta["cd_estrutura_adm_pk"];   
+        }        
+        
+    }
 
 }
