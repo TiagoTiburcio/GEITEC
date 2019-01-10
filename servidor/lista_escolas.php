@@ -3,8 +3,7 @@ include_once '../class/principal.php';
 
 $rotina = new RotinasPublicas();
 
-if ($rotina->validaSessao('','13') == 1) {
-    $servidores = new Servidores();
+if ($rotina->validaSessao('', '23') == 1) {
 
     $cpf = filter_input(INPUT_POST, 'cpf');
     $nome = filter_input(INPUT_POST, 'nome');
@@ -14,7 +13,8 @@ if ($rotina->validaSessao('','13') == 1) {
     if (!isset($zbx)) {
         $zbx = '2';
     }
-    $result = $servidores->listaServidores($cpf, $nome, $setor, $siglasetor);
+    $escolas = new EscolasPG();
+    $result = $escolas->listaEscolas('');
     ?>
     <div class="col-xs-2">                        
         <form class="form-horizontal" method="post" action="">
@@ -71,35 +71,25 @@ if ($rotina->validaSessao('','13') == 1) {
             <table class="table table-hover table-striped table-condensed">
                 <thead>
                     <tr>
-                        <th>Nome Servidor</th>  
-                        <th>CPF</th>                                               
-                        <th>Setor Sup.</th>
-                        <th>Setor Sup.</th>
-                        <th>Sigla Setor</th>
-                        <th>Nome Setor</th>
-                        <th>Tipo Vinculo</th>
-                        <th>Cargo</th>
-                        <th>Situacao</th>
+                        <th>Diretoria</th>  
+                        <th>Unidade</th>                                               
+                        <th>Cod. INEP</th>
+                        <th>Cidade</th>                                                
+                        <th>Visualizar Equipe</th>                        
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    while ($consulta = pg_fetch_assoc($result)) { 
-                        if (($consulta["ativo"] == $zbx) || ($zbx == '2')) {
-                            ?>                
-                            <tr>
-                                <td><?php echo $consulta["nome_servidor"]; ?></td>
-                                <td><?php echo $consulta["cpf"]; ?></td>                      
-                                <td><?php echo $consulta["nivel_3"]; ?></td>
-                                <td><?php echo $consulta["nivel_2"]; ?></td>
-                                <td><?php echo $consulta["nivel_1"]; ?></td>
-                                <td><?php echo $consulta["nome_setor"]; ?></td>
-                                <td><?php echo $consulta["tipo_vinculo"]; ?></td>
-                                <td><?php echo $consulta["cargo"]; ?></td>
-                                <td><?php echo $consulta["ativo"]; ?></td>
-                            </tr>  
-                            <?php
-                        }
+                    while ($consulta = pg_fetch_assoc($result)) { //print "Saldo: ".$consulta['cdsituacao'];                        
+                        ?>                
+                        <tr>
+                            <td><?php echo $consulta["dre"]; ?></td>
+                            <td><?php echo $consulta["nome_unidade"]; ?></td>                      
+                            <td><?php echo $consulta["codigo_mec"]; ?></td>
+                            <td><?php echo $consulta["cidade"]; ?></td>
+                            <td><?php echo '<a type="button" class="btn btn-default" href="../servidor/equipe_escola.php?codigo=' . $consulta["cdestrutura"] . '"><span class="glyphicon glyphicon-eye-open"></span></span></a>'; ?></td>                                
+                        </tr>  
+                        <?php
                     }
                     ?>                                          
                 </tbody>
