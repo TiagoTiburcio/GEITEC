@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2018-11-09T10:34:14 -->
+<!-- 2019-01-21T11:16:34 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="a4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1694b566-086b-4c66-9537-dadcd68bc497">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sis_geitec"/>
@@ -214,18 +214,18 @@ ORDER BY c.periodo_ref DESC , c.fatura , rc.localizacao]]>
 				<text><![CDATA[GOVERNO DE SERGIPE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="50" y="50" width="380" height="20" uuid="c5ac6677-20c1-40c5-823a-10a66bb31191"/>
+				<reportElement x="50" y="50" width="500" height="20" uuid="c5ac6677-20c1-40c5-823a-10a66bb31191"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[COORDENADORIA DE INFORMÁTICA - CODIN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="50" y="30" width="380" height="20" uuid="172b1d16-6372-4f8d-b0c6-3a3e9bf84a3e"/>
+				<reportElement x="50" y="30" width="500" height="20" uuid="172b1d16-6372-4f8d-b0c6-3a3e9bf84a3e"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[SECRETARIA DE ESTADO DA EDUCAÇÃO - SEED]]></text>
+				<text><![CDATA[SECRETARIA DE ESTADO DA EDUCAÇÃO, DO ESPORTE E DA CULTURA - SEDUC]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="500" y="0" width="60" height="20" uuid="8cb88219-f114-4c2f-a2bb-58a0e467253c"/>
@@ -241,9 +241,9 @@ ORDER BY c.periodo_ref DESC , c.fatura , rc.localizacao]]>
 				</textElement>
 				<text><![CDATA[Emissão: ]]></text>
 			</staticText>
-			<image onErrorType="Blank">
+			<image isUsingCache="true" onErrorType="Blank">
 				<reportElement x="0" y="10" width="50" height="50" uuid="a7f6170b-9dc9-47a0-a301-217b57b1b490"/>
-				<imageExpression><![CDATA["http://www.seed.se.gov.br/images/teste/porvir.png"]]></imageExpression>
+				<imageExpression><![CDATA["http://www.seduc.se.gov.br/images/teste/porvir.png"]]></imageExpression>
 			</image>
 		</band>
 	</pageHeader>

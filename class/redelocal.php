@@ -29,20 +29,20 @@ class Rede extends Database {
             }
         }
     }
-    
+
     function getAlertas($_nome) {
         $consulta = " SELECT count(nome_host) as cont, `nome_host`,`data_evento`,`resolvido` FROM redelocal_alerta where nome_host = '$_nome' and resolvido <> '1'; ";
         $resultado = mysqli_query($this->connect(), $consulta);
         return $resultado;
     }
-    
-    function setAlerta($_nome, $_data ){
+
+    function setAlerta($_nome, $_data) {
         $consulta = " INSERT INTO `redelocal_alerta` (`nome_host`,`data_evento`,`resolvido`) VALUES ('$_nome', '$_data', '0'); ";
         $resultado = mysqli_query($this->connect(), $consulta);
         return $resultado;
     }
-    
-    function updateAlerta($_nome, $_data){
+
+    function updateAlerta($_nome, $_data) {
         $consulta = " UPDATE `redelocal_alerta` SET  `resolvido` = '1' WHERE `nome_host` = '$_nome' AND `data_evento` = '$_data'; ";
         $resultado = mysqli_query($this->connect(), $consulta);
         return $resultado;
@@ -308,6 +308,81 @@ class RedeLocal extends Database {
     }
 
     /**
+     * @param type $_codigo
+     * @return type
+     */
+    function getUsuarioExpresso($_codigo) {
+        $consulta = "SELECT * FROM ( SELECT * FROM lista_expresso AS le LEFT JOIN (SELECT DISTINCTROW REPLACE(`redelocal_usuarios_lista_expresso`.`email`, '@seduc.se.gov.br', '') AS login_limpo, `redelocal_usuarios_lista_expresso`.`email`, `redelocal_usuarios_lista_expresso`.`nome_usuario` FROM `sis_geitec`.`redelocal_usuarios_lista_expresso` WHERE data_import = '2019-03-29') AS t1 ON le.login = t1.login_limpo ) as t2 where id = '$_codigo';";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+
+    /**
+     * @param type $_codigo
+     * @return type
+     */
+    function getUsuarioGeral($_usuario_expresso) {
+        $consulta = " SELECT `cpf`, `usuario_expresso`, `usuario_rede`, `codigo_recadastramento`, `data_atualizacao`, `usuario_atualizacao` FROM `usuarios_geral` where `usuario_expresso` = '$_usuario_expresso';  ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+
+    /**
+     * @param type $_codigo, $_situacao
+     * @return nada
+     */
+    function updateSituacaoExpresso($_codigo, $_situacao) {
+        $consulta = " UPDATE `lista_expresso` SET `edit` = '$_situacao'  WHERE `id` = '$_codigo'; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+
+    /**
+     * Lista de Usuários 
+     * @return type array Consulta
+     */
+    function listaExpresso($_limite) {
+        if ($_limite != "") {
+            $limite = " limit $_limite ";
+        } else {
+            $limite = "";
+        }
+        $consulta = " SELECT * FROM ( SELECT * FROM lista_expresso AS le LEFT JOIN (SELECT DISTINCTROW REPLACE(`redelocal_usuarios_lista_expresso`.`email`, '@seduc.se.gov.br', '') AS login_limpo, `redelocal_usuarios_lista_expresso`.`email`, `redelocal_usuarios_lista_expresso`.`nome_usuario` FROM `sis_geitec`.`redelocal_usuarios_lista_expresso` WHERE data_import = '2019-03-29') AS t1 ON le.login = t1.login_limpo ) as t2  where edit = '0' order by dias_sem_logar, ult_acesso desc, login $limite ; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+
+    /**
+     *  Retorna Conferidos , Não Conferidos, Total
+     * @return type array Totais
+     */
+    function totalConf() {
+        $consulta = " select total, conferidos, a_conferir from (SELECT 1 as id, count(id) as total FROM lista_expresso) as t1 join (select 1 as id, count(id) as a_conferir FROM lista_expresso where edit = '0' ) as t2 on t1.id = t2.id join (SELECT 1 as id, COUNT(id) AS conferidos FROM lista_expresso WHERE edit <> '0' ) as t3 on t1.id = t3.id; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+
+    /**
+     *  Retorna Conferidos , Não Conferidos, Total
+     * @return type array Totais
+     */
+    function gravaUsuarioGeral($_cpf,$_usuario_rede,$_codigo_recadastramento,$_usuario_expresso, $_data_atualizacao, $_usuario_atualizacao, $_situacao, $_motivo_desativar) {
+        $consulta = " SELECT count(usuario_expresso) as cont, codigo FROM usuarios_geral where usuario_expresso = '$_usuario_expresso'; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        foreach ($resultado as $dados) {
+            $cont = $dados['cont'];
+            $codigo = $dados['codigo'];
+        }
+        if ($cont == '1') {
+            $consulta = " UPDATE `usuarios_geral` SET `cpf` = '$_cpf', `situacao` = '$_situacao', `motivo_desativar` = '$_motivo_desativar', `usuario_expresso` = '$_usuario_expresso', `usuario_rede` = '$_usuario_rede', `codigo_recadastramento` = '$_codigo_recadastramento', `data_atualizacao` = '$_data_atualizacao', `usuario_atualizacao` = '$_usuario_atualizacao' WHERE `codigo` = '$codigo'; ";
+            $resultado = mysqli_query($this->connect(), $consulta);            
+        }elseif ($cont == '0') {
+            $consulta = " INSERT INTO `usuarios_geral` (`cpf`,`usuario_expresso`, `usuario_rede`,`codigo_recadastramento`, `situacao` ,`motivo_desativar`, `data_atualizacao`, `usuario_atualizacao`) VALUES ('$_cpf', '$_usuario_expresso', '$_usuario_rede', '$_codigo_recadastramento', '$_situacao', '$_motivo_desativar', '$_data_atualizacao', '$_usuario_atualizacao'); ";
+            $resultado = mysqli_query($this->connect(), $consulta);            
+        }
+    }
+
+    /**
      * Dados `codigo` | `tipo` | `descricao` | `usuario` | `senha` | `local_alocado` 
      * Filtro `tipo` | `descricao` | `local_alocado` 
      * @return array consulta com 1 registro
@@ -438,24 +513,31 @@ class RedeLocal extends Database {
  */
 class EscolasPG {
 
-    function listaEscolas($_inep) {
-        if($_inep == ''){
-            $filtro = "";
-        } else {
-            $filtro = "and e.codigo_mec = '$_inep'";
+    function listaEscolas($_inep = '', $_diretoria = '', $_nome = '', $_cidade = '') {
+        $filtro = "";
+        if ($_inep != '') {
+            $filtro = $filtro . " and e.codigo_mec = '$_inep' ";
+        }
+        if ($_diretoria != '') {
+            $filtro = $filtro . " AND dre.nome_abreviado ilike '%$_diretoria%' ";
+        }
+        if ($_nome != '') {
+            $filtro = $filtro . " AND eo.nome_abreviado ilike '%$_nome%' ";
+        }
+        if ($_cidade != '') {
+            $filtro = $filtro . " AND cid.descricao ilike '%$_cidade%' ";
         }
         $conexao_seednet = new DatabaseSEEDNET();
         $consulta = " SELECT e.cdescola, eo.cdestrutura, e.codigo_mec, dre.nome_abreviado as dre, eo.nome_abreviado as nome_unidade, eo.gps_latitude, eo.gps_longitude, i.logradouro, i.numero, i.complemento, i.cep, i.bairro,  cid.descricao as cidade FROM academico.escola e INNER JOIN administrativo.estrutura_organizacional eo ON e.cdestrutura_organizacional = eo.cdestrutura inner join administrativo.estrutura_organizacional dre ON eo.cdestrutura_pai = dre.cdestrutura inner join public.cidade cid on eo.cdcidade_sede = cid.cdcidade LEFT JOIN administrativo.estrutura_organizacional_imovel eoi ON e.cdestrutura_organizacional = eoi.cdestrutura LEFT JOIN administrativo.imovel i ON eoi.cdimovel = i.cdimovel WHERE eo.cdcategoria = 2 AND e.cdsituacao = 1 and e.cdtipo_administracao = 1 and eo.cdestrutura not in (9999) $filtro order by dre.nome_abreviado asc, eo.nome_abreviado asc;";
         return $conexao_seednet->listConsulta($consulta);
     }
-    
-    function listaCodDBSEED($_cod_legado){
+
+    function listaCodDBSEED($_cod_legado) {
         $conexao_dbseed = new DatabaseDBSEED();
-        $consulta = "SELECT cd_estrutura_adm_pk, cd_estrutura_legado FROM public.tb_estrutura_de_para where cd_estrutura_legado = '$_cod_legado';";        
+        $consulta = "SELECT cd_estrutura_adm_pk, cd_estrutura_legado FROM public.tb_estrutura_de_para where cd_estrutura_legado = '$_cod_legado';";
         while ($consulta = pg_fetch_assoc($conexao_dbseed->listConsulta($consulta))) {
-            return $consulta["cd_estrutura_adm_pk"];   
-        }        
-        
+            return $consulta["cd_estrutura_adm_pk"];
+        }
     }
-   
+
 }

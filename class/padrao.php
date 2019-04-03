@@ -156,7 +156,7 @@ class ValidacaoSistema extends Database {
                 include ("../class/header.php"); 
                 return $table['cont'];
             } else {                
-               echo '<META http-equiv="refresh" content="0;../home/index.php?erro=1">';             
+               echo '<META http-equiv="refresh" content="2";"../home/index.php?erro=1">';             
                return $table['cont'];
             }
         }

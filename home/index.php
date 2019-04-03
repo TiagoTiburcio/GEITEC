@@ -16,7 +16,7 @@ switch ($cd_erro) {
         break;
 }
 
-if ($tarefas->validaSessao('', '0') == 1) {
+if ($tarefas->validaSessao('1', '0') == 1) {
 
     $zabbix = new ZabbixSEED();
     $relCircuito = new RelatorioCircuitos();

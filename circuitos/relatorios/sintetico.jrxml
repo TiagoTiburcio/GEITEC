@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2018-11-09T10:57:31 -->
+<!-- 2019-01-21T11:16:46 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SinteticoContas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b9923f71-584b-4b70-be7c-3ee4192f94e9">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="homo_sis_geitec"/>
@@ -81,7 +81,7 @@ LEFT JOIN circuitos_unidades as u_dre on u.codigo_unidade_pai = u_dre.codigo_sii
 			<band height="130">
 				<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				<staticText>
-					<reportElement x="50" y="0" width="330" height="18" uuid="b26a7ba2-8037-411c-b664-7c3de6697e58">
+					<reportElement x="50" y="0" width="500" height="18" uuid="b26a7ba2-8037-411c-b664-7c3de6697e58">
 						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
@@ -120,7 +120,7 @@ LEFT JOIN circuitos_unidades as u_dre on u.codigo_unidade_pai = u_dre.codigo_sii
 					<textFieldExpression><![CDATA[$F{cod_Fornecedor}+" "+$F{nome_fornecedor}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="50" y="36" width="330" height="18" uuid="105bdf03-574d-49e3-bc2c-137ac37cc1df">
+					<reportElement x="50" y="36" width="500" height="18" uuid="105bdf03-574d-49e3-bc2c-137ac37cc1df">
 						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					</reportElement>
@@ -130,14 +130,14 @@ LEFT JOIN circuitos_unidades as u_dre on u.codigo_unidade_pai = u_dre.codigo_sii
 					<text><![CDATA[COORDENADORIA DE INFORMÁTICA - CODIN]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="50" y="18" width="330" height="18" uuid="20d66ff5-6f70-4c06-b1ba-1bae71fdb605">
+					<reportElement x="50" y="18" width="500" height="18" uuid="20d66ff5-6f70-4c06-b1ba-1bae71fdb605">
 						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[SECRETARIA DE ESTADO DA EDUCAÇÃO - SEED]]></text>
+					<text><![CDATA[SECRETARIA DE ESTADO DA EDUCAÇÃO, DO ESPORTE E DA CULTURA - SEDUC]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="0" y="55" width="560" height="18" uuid="a70d0ae7-d335-4b6c-926e-cffee776e92e">
@@ -222,9 +222,9 @@ LEFT JOIN circuitos_unidades as u_dre on u.codigo_unidade_pai = u_dre.codigo_sii
 					</textElement>
 					<textFieldExpression><![CDATA[$F{desc_servico}]]></textFieldExpression>
 				</textField>
-				<image>
+				<image onErrorType="Blank">
 					<reportElement x="0" y="10" width="50" height="50" uuid="b50e038e-8d28-4002-8922-1d1f9bff82c6"/>
-					<imageExpression><![CDATA["http://www.seed.se.gov.br/images/teste/porvir.png"]]></imageExpression>
+					<imageExpression><![CDATA["http://www.seduc.se.gov.br/images/teste/porvir.png"]]></imageExpression>
 				</image>
 				<staticText>
 					<reportElement x="290" y="91" width="110" height="18" uuid="b9cebd63-6fc1-4a48-9012-35e1ae8c16ab">

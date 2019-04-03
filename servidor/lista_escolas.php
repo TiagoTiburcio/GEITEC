@@ -5,65 +5,40 @@ $rotina = new RotinasPublicas();
 
 if ($rotina->validaSessao('', '23') == 1) {
 
-    $cpf = filter_input(INPUT_POST, 'cpf');
     $nome = filter_input(INPUT_POST, 'nome');
-    $setor = filter_input(INPUT_POST, 'setor');
-    $siglasetor = filter_input(INPUT_POST, 'siglasetor');
-    $zbx = filter_input(INPUT_POST, 'ativo');
-    if (!isset($zbx)) {
-        $zbx = '2';
-    }
+    $diretoria = filter_input(INPUT_POST, 'dre');
+    $inep = filter_input(INPUT_POST, 'inep');
+    $cidade = filter_input(INPUT_POST, 'cidade');
+
     $escolas = new EscolasPG();
-    $result = $escolas->listaEscolas('');
+    $result = $escolas->listaEscolas($inep, $diretoria, $nome,$cidade);
     ?>
     <div class="col-xs-2">                        
         <form class="form-horizontal" method="post" action="">
             <div class="form-group">
-                <div class="col-xs-10 col-xs-offset-2">                                  
-                    <div class="form-group">                
-                        <label for="cpf">CPF</label>
-                        <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="000.000.000-00" data-mask-selectonfocus="true" id="cpf" name="cpf" value="<?php echo $cpf; ?>">
+                <div class="col-xs-10 col-xs-offset-2">
+                    <div class="form-group">
+                        <label for="dre">DRE</label>
+                        <input type="text" class="form-control" id="dre" name="dre" value="<?php echo $diretoria; ?>">
                     </div>
                     <div class="form-group">
-                        <label for="nome">Nome Servidor</label>
+                        <label for="nome">Nome Unidade</label>
                         <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $nome; ?>">
                     </div>
                     <div class="form-group">
-                        <label for="siglasetor">Sigla Setor</label>
-                        <input type="text" class="form-control" id="siglasetor" name="siglasetor" value="<?php echo $siglasetor; ?>">
-                    </div>   
-                    <div class="form-group">
-                        <label for="setor">Setor</label>
-                        <input type="text" class="form-control" id="setor" name="setor" value="<?php echo $setor; ?>">
+                        <label for="inep">Codigo Mec</label>
+                        <input type="text" class="form-control" id="inep" name="inep" value="<?php echo $inep; ?>">
                     </div>
                     <div class="form-group">
-                        <label for="ativo">Situação Vinculo</label><br/>
-                        <div class="radio">
-                            <label><input type="radio" name="ativo" <?php
-                                if ($zbx == 2) {
-                                    echo 'checked=""';
-                                }
-                                ?> value="2">Todos</label>
-                        </div><br/>
-                        <div class="radio">
-                            <label><input type="radio" name="ativo" <?php
-                                if ($zbx == 1) {
-                                    echo 'checked=""';
-                                }
-                                ?> value="1">Ativo</label>
-                        </div><br/>
-                        <div class="radio">
-                            <label><input type="radio" name="ativo" <?php
-                                if ($zbx == 0) {
-                                    echo 'checked=""';
-                                }
-                                ?> value="0">Inativo</label>
-                        </div><br/>                    
+                        <label for="cidade">Cidade Unidade</label>
+                        <input type="text" class="form-control" id="cidade" name="cidade" value="<?php echo $cidade; ?>">
                     </div>
-                    <a type="button" class="btn btn-danger"  href="">Limpar <span class="glyphicon glyphicon-erase"></span></a>                 
-                    <button type="submit" class="btn btn-primary">Pesquisar <span class="glyphicon glyphicon-search"></span></button>                  
+                    <div class="form-group">
+                        <a type="button" class="btn btn-danger"  href="">Limpar <span class="glyphicon glyphicon-erase"></span></a>                 
+                        <button type="submit" class="btn btn-primary">Pesquisar <span class="glyphicon glyphicon-search"></span></button>                  
+                    </div>
                 </div>
-            </div>  
+            </div>
         </form>
     </div>
     <div class="col-xs-10">
@@ -72,9 +47,9 @@ if ($rotina->validaSessao('', '23') == 1) {
                 <thead>
                     <tr>
                         <th>Diretoria</th>  
+                        <th>Cidade</th>                                
                         <th>Unidade</th>                                               
-                        <th>Cod. INEP</th>
-                        <th>Cidade</th>                                                
+                        <th>Cod. INEP</th>                                        
                         <th>Visualizar Equipe</th>                        
                     </tr>
                 </thead>
@@ -84,9 +59,9 @@ if ($rotina->validaSessao('', '23') == 1) {
                         ?>                
                         <tr>
                             <td><?php echo $consulta["dre"]; ?></td>
-                            <td><?php echo $consulta["nome_unidade"]; ?></td>                      
-                            <td><?php echo $consulta["codigo_mec"]; ?></td>
                             <td><?php echo $consulta["cidade"]; ?></td>
+                            <td><?php echo $consulta["nome_unidade"]; ?></td>                      
+                            <td><?php echo $consulta["codigo_mec"]; ?></td>                            
                             <td><?php echo '<a type="button" class="btn btn-default" href="../servidor/equipe_escola.php?codigo=' . $consulta["cdestrutura"] . '"><span class="glyphicon glyphicon-eye-open"></span></span></a>'; ?></td>                                
                         </tr>  
                         <?php
