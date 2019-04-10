@@ -1,35 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2019-01-21T11:16:34 -->
+<!-- 2019-04-10T11:21:25 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="a4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1694b566-086b-4c66-9537-dadcd68bc497">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sis_geitec"/>
 	<parameter name="periodo" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT 
-    c.periodo_ref,
-    c.fatura,
-    rc.localizacao,
-    SUM(c.valor_conta) AS valor,
-    DATE_FORMAT(DATE_SUB(c.periodo_ref,
-                INTERVAL 1 MONTH),
-            '%m/%Y') AS mes_ref,
-    DATE_FORMAT(c.periodo_ref,
-            '%m/%Y') AS mes,
-    l.descricao AS descricao_localizacao,
-    con.descricao_servico
-FROM
-    circuitos_contas AS c
-        JOIN
-    circuitos_registro_consumo AS rc ON c.designacao = rc.codigo
-        JOIN
-    circuitos_unidades AS u ON u.codigo_ut_siig = rc.codigo_unidade
-        JOIN
-    circuitos_localizacao AS l ON l.codigo = rc.localizacao
-        JOIN
-    circuitos_contrato AS con ON con.codigo = c.fatura
-GROUP BY c.periodo_ref , c.fatura , rc.localizacao
-ORDER BY c.periodo_ref DESC , c.fatura , rc.localizacao]]>
+		<![CDATA[SELECT c.periodo_ref, c.fatura, rc.localizacao, SUM(c.valor_conta) AS valor, DATE_FORMAT(DATE_SUB(c.periodo_ref, INTERVAL 1 MONTH), '%m/%Y') AS mes_ref, DATE_FORMAT(c.periodo_ref, '%m/%Y') AS mes, l.descricao AS descricao_localizacao, c.vencimento, con.descricao_servico FROM circuitos_contas AS c JOIN circuitos_registro_consumo AS rc ON c.designacao = rc.codigo JOIN circuitos_unidades AS u ON u.codigo_ut_siig = rc.codigo_unidade JOIN circuitos_localizacao AS l ON l.codigo = rc.localizacao JOIN circuitos_contrato AS con ON con.codigo = c.fatura GROUP BY c.periodo_ref , c.fatura , rc.localizacao ORDER BY c.periodo_ref DESC , c.fatura , rc.localizacao]]>
 	</queryString>
 	<field name="periodo_ref" class="java.sql.Date"/>
 	<field name="fatura" class="java.lang.String"/>
@@ -38,6 +15,7 @@ ORDER BY c.periodo_ref DESC , c.fatura , rc.localizacao]]>
 	<field name="mes_ref" class="java.lang.String"/>
 	<field name="mes" class="java.lang.String"/>
 	<field name="descricao_localizacao" class="java.lang.String"/>
+	<field name="vencimento" class="java.sql.Date"/>
 	<field name="descricao_servico" class="java.lang.String"/>
 	<variable name="somaContrato" class="java.math.BigDecimal" resetType="Group" resetGroup="fatura" calculation="Sum">
 		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
@@ -49,7 +27,7 @@ ORDER BY c.periodo_ref DESC , c.fatura , rc.localizacao]]>
 	<group name="periodo_ref">
 		<groupExpression><![CDATA[$F{periodo_ref}]]></groupExpression>
 		<groupHeader>
-			<band height="33">
+			<band height="32">
 				<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				<staticText>
 					<reportElement x="0" y="0" width="560" height="32" uuid="00b5e039-d86b-44d3-8361-4193bfbda257">
@@ -92,6 +70,14 @@ ORDER BY c.periodo_ref DESC , c.fatura , rc.localizacao]]>
 						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[java.text.NumberFormat.getCurrencyInstance(new Locale("pt","br")).format($V{somaTotalMes}.doubleValue())]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="2" width="90" height="16" uuid="9dc21371-1c5e-4ec7-9956-b7996a7af5ab"/>
+					<text><![CDATA[Vencimento Fatura:]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="90" y="2" width="100" height="16" uuid="310513e6-4d02-4317-8177-371382dc1d05"/>
+					<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
