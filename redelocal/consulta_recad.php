@@ -4,7 +4,8 @@ include_once '../class/principal.php';
 $rotina = new RotinasPublicas();
 if ($rotina->validaSessao('4', '0') == 1) {
     $servidores = new Servidores();
-    $cpf = filter_input(INPUT_POST, 'cpf');
+    $cpf_semponto = str_replace(".","",filter_input(INPUT_POST, 'cpf'));
+    $cpf = str_replace("-","",$cpf_semponto);
     $nome = filter_input(INPUT_POST, 'nome');
     $result = $servidores->listaRecadastramento($cpf, $nome);
     $result2 = $servidores->listaServidores('', $nome, '', '', $cpf);
@@ -87,7 +88,9 @@ if ($rotina->validaSessao('4', '0') == 1) {
                 </tbody>
             </table>
         </div>
-
+    <script type="text/javascript" src="../js/jquery-3.0.0.min.js"></script>    
+    <script type="text/javascript" src="../js/jquery.mask.js"></script>
+    <script type="text/javascript" src="../js/jquery.mask.test.js"></script>
     </div>       
     <?php
 }

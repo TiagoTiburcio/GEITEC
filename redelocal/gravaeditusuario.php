@@ -17,8 +17,7 @@ if ($codigo == '') {
     $situacao = filter_input(INPUT_POST, 'situacao');
     
     date_default_timezone_set("America/Bahia");
-    $data = date('Y-m-d H:i:s');
-    echo 'Data: '.$data.' | Cod: '.$cod;
+    $data = date('Y-m-d H:i:s');    
     $teste = $redeLocal->updateSituacaoExpresso($cod, "1");
     $redeLocal->gravaUsuarioGeral($cpf, $usuario_rede, $cod_recad, $usuario_exp, $data, $_SESSION['login'], $situacao, $mot_desat);
 } else {
