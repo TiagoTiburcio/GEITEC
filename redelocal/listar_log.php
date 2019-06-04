@@ -7,9 +7,12 @@ if ($rotina->validaSessao('','16') == 1) {
     $zbxCofre = new ZabbixCofre();
     $logArquivos = new LogArquivos();
 
-    if (filter_input(INPUT_POST, 'limpa') !== NULL) {
+    if (filter_input(INPUT_GET, 'limpa') == NULL) {
         $_GET['limpa'] = '';
-    } elseif (filter_input(INPUT_POST, 'limpa') == '1') {
+        
+    } 
+    if (filter_input(INPUT_GET, 'limpa') == '1') {
+        
         unset($_SESSION['usuario']);
         unset($_SESSION['arquivo']);
         unset($_SESSION['inicio']);

@@ -50,6 +50,56 @@ class Rede extends Database {
 
 }
 
+class ServidoresRede extends DatabaseZbxCofre {
+
+    function listServidores($_type = '0', $_amb = '0', $_so = '0', $_nome = '') {
+        $filtro = " and h.host like '%$_nome%' ";
+        if ($_type != '0') {
+            $filtro = $filtro . " and hi.type = '" . $_type . "' ";
+        }
+        if ($_amb != '0') {
+            $filtro = $filtro . " and hi.tag = '" . $_amb . "' ";
+        }
+        if ($_so != '0') {
+            $filtro = $filtro . " and hi.os_short = '" . $_so . "' ";
+        }
+        $consulta = " SELECT h.hostid, h.host, h.status, h.description, hi.type, hi.type_full, hi.name, hi.alias, hi.os, hi.os_full, hi.os_short, hi.tag, hi.software, hi.software_full, hi.software_app_a, hi.software_app_b, hi.software_app_c, hi.software_app_d, hi.software_app_e, hi.contact, hi.location, hi.url_a, hi.url_b, hi.url_c, g.name AS grupo_nome FROM zabbixcofre.hosts AS h LEFT JOIN zabbixcofre.host_inventory AS hi ON hi.hostid = h.hostid JOIN zabbixcofre.hosts_groups AS hg ON hg.hostid = h.hostid JOIN zabbixcofre.groups AS g ON g.groupid = hg.groupid WHERE g.name = 'Servidores' $filtro ORDER BY hi.tag DESC , hi.type , h.host; ";
+        $resultado = mysqli_query($this->connectZbxCofre(), $consulta);
+        return $resultado;
+    }
+
+    /**
+     * Tipo Servidor
+     * @return type consulta
+     */
+    function listTiposServidores() {
+        $consulta = " SELECT distinctrow type, type_full FROM host_inventory as hi where hi.type <> '' order by type; ";
+        $resultado = mysqli_query($this->connectZbxCofre(), $consulta);
+        return $resultado;
+    }
+
+    /**
+     * Sistemas Opracionais Servidores
+     * @return type consulta
+     */
+    function listSistemasOperacionais() {
+        $consulta = " SELECT distinctrow os_short, os_full FROM host_inventory as hi where hi.os_short <> ''order by hi.os_short; ";
+        $resultado = mysqli_query($this->connectZbxCofre(), $consulta);
+        return $resultado;
+    }
+
+    /**
+     * Tipo Servidor Produção Homologação
+     * @return type consulta
+     */
+    function listProdHomo() {
+        $consulta = " SELECT distinctrow tag FROM host_inventory as hi where hi.tag <> '' order by hi.tag; ";
+        $resultado = mysqli_query($this->connectZbxCofre(), $consulta);
+        return $resultado;
+    }
+
+}
+
 /**
  * Description of Log Arquivos Rede Local
  *
@@ -366,7 +416,7 @@ class RedeLocal extends Database {
      *  Retorna Conferidos , Não Conferidos, Total
      * @return type array Totais
      */
-    function gravaUsuarioGeral($_cpf,$_usuario_rede,$_codigo_recadastramento,$_usuario_expresso, $_data_atualizacao, $_usuario_atualizacao, $_situacao, $_motivo_desativar) {
+    function gravaUsuarioGeral($_cpf, $_usuario_rede, $_codigo_recadastramento, $_usuario_expresso, $_data_atualizacao, $_usuario_atualizacao, $_situacao, $_motivo_desativar) {
         $consulta = " SELECT count(usuario_expresso) as cont, codigo FROM usuarios_geral where usuario_expresso = '$_usuario_expresso'; ";
         $resultado = mysqli_query($this->connect(), $consulta);
         foreach ($resultado as $dados) {
@@ -375,10 +425,10 @@ class RedeLocal extends Database {
         }
         if ($cont == '1') {
             $consulta = " UPDATE `usuarios_geral` SET `cpf` = '$_cpf', `situacao` = '$_situacao', `motivo_desativar` = '$_motivo_desativar', `usuario_expresso` = '$_usuario_expresso', `usuario_rede` = '$_usuario_rede', `codigo_recadastramento` = '$_codigo_recadastramento', `data_atualizacao` = '$_data_atualizacao', `usuario_atualizacao` = '$_usuario_atualizacao' WHERE `codigo` = '$codigo'; ";
-            $resultado = mysqli_query($this->connect(), $consulta);            
-        }elseif ($cont == '0') {
+            $resultado = mysqli_query($this->connect(), $consulta);
+        } elseif ($cont == '0') {
             $consulta = " INSERT INTO `usuarios_geral` (`cpf`,`usuario_expresso`, `usuario_rede`,`codigo_recadastramento`, `situacao` ,`motivo_desativar`, `data_atualizacao`, `usuario_atualizacao`) VALUES ('$_cpf', '$_usuario_expresso', '$_usuario_rede', '$_codigo_recadastramento', '$_situacao', '$_motivo_desativar', '$_data_atualizacao', '$_usuario_atualizacao'); ";
-            $resultado = mysqli_query($this->connect(), $consulta);            
+            $resultado = mysqli_query($this->connect(), $consulta);
         }
     }
 

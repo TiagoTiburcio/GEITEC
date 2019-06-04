@@ -850,8 +850,10 @@ class ZabbixCofre extends DatabaseZbxCofre {
         if ($_data == '') {
             $_data = '2010-01-01 00:00:00';
         }
-        $consulta_listArquivosExcluidos = " select * from (SELECT * , FROM_UNIXTIME(timestamp) AS data_hora FROM history_log) as a1 where (a1.value like '%Access Mask:		0x10000%' or a1.value like '%Access Mask:		0x2%' ) and a1.logeventid = '4663' and a1.data_hora > '$_data' order by  a1.timestamp asc ;";
+        $consulta_listArquivosExcluidos = " select * from (SELECT * , FROM_UNIXTIME(timestamp) AS data_hora FROM history_log) as a1 where (a1.value like '%Access Mask:		0x10000%' or a1.value like '%Access Mask:		0x2%' ) and a1.logeventid = '4663' and a1.data_hora > '$_data' order by  a1.timestamp asc limit 10000;";
         $resultado_listArquivosExcluidos = mysqli_query($this->connectZbxCofre(), $consulta_listArquivosExcluidos);
+        $consulta = " DELETE FROM history_log WHERE id IN (SELECT id FROM (SELECT *, FROM_UNIXTIME(timestamp) AS data_hora FROM history_log) AS a1 WHERE (a1.value LIKE '%Access Mask:		0x10000%' OR a1.value LIKE '%Access Mask:		0x2%') AND a1.logeventid = '4663' AND a1.data_hora > '$_data') LIMIT 10000; ";
+        $resultado = mysqli_query($this->connectZbxCofre(), $consulta);
         return $resultado_listArquivosExcluidos;
     }
 
