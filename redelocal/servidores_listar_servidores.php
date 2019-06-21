@@ -69,7 +69,7 @@ if ($rotina->validaSessao('4', '25') == 1) {
                         <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $nome; ?>">
                     </div> 
                     <div class="form-group">
-                        <a type="button" class="btn btn-danger"  href="">Limpar <span class="glyphicon glyphicon-erase"></span></a>                 
+                        <a type="button" class="btn btn-danger"  href="">Limpar <span class="glyphicon glyphicon-erase"></span></a>                                         
                         <button type="submit" class="btn btn-primary">Pesquisar <span class="glyphicon glyphicon-search"></span></button>                  
                     </div>
                 </div>
@@ -86,6 +86,7 @@ if ($rotina->validaSessao('4', '25') == 1) {
                     <th>Função</th>
                     <th>Sistema Op.</th>
                     <th>Ativo</th>
+                    <th>Detalhes</th>
                 </tr>
             </thead>
             <tbody>
@@ -99,6 +100,7 @@ if ($rotina->validaSessao('4', '25') == 1) {
                         <td><?php echo $value['description']; ?></td>                                
                         <td><?php echo $value['os_short']; ?></td>  
                         <td><?php echo $rotina->imprimiInverso($value['status']); ?></td>
+                        <td><?php echo '<a type="button" class="btn btn-default" href="servidores_servidor_detalhes.php?hostid='.$value['hostid'].'"><span class="glyphicon glyphicon-eye-open"></span></span></a>'; ?></td>
                     </tr>  
                     <?php
                 }

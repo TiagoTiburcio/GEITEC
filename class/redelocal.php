@@ -50,9 +50,80 @@ class Rede extends Database {
 
 }
 
+class RedeLocalServidores extends Database {
+
+    /**
+     * @param type $_hostid
+     * @return type
+     */
+    function listServidores($_hostid = '') {
+        $consulta = " SELECT `codigo`, `nome_servidor`, `hostid_zbx` FROM `redelocal_servidores` where `hostid_zbx` = '$_hostid'; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+    
+    /**
+     * @param type $_hostid
+     * @return type
+     */
+    function listAplicativos($_hostid = '') {
+        $consulta = " SELECT app.codigo, app.codigo_servidor, app.nome as nome_app, app.descricao as descricao_app, app.tipo_app, bd.nome as nome_bd, bd.descricao as descricao_bd, bd.tipo_banco_dados FROM redelocal_srv_aplicativo AS app LEFT JOIN redelocal_app_bd AS app_bd ON app_bd.codigo_app = app.codigo left JOIN redelocal_srv_banco_dados AS bd ON bd.codigo = app_bd.codigo_bd where app.codigo_servidor = '$_hostid' ;  ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+   
+     /**
+     * 
+     * @param type $_hostid
+     * @param type $_nome_bd
+     * @param type $_tipo_banco_dados
+     * @param type $codigo_bd
+     * @return type
+     */
+    function addBancoDados($_hostid, $_nome_bd, $_tipo_banco_dados,$_descricao, $codigo_bd = '') {
+        if ($codigo_bd == '') {
+            $consulta = " INSERT INTO `redelocal_srv_banco_dados`(`nome`,`codigo_servidor`,`tipo_banco_dados`,`descricao`) VALUES ('$_nome_bd','$_hostid','$_tipo_banco_dados','$_descricao');";
+        } else {
+            $consulta = " UPDATE `redelocal_srv_banco_dados` SET `nome` = '$_nome_bd', `codigo_servidor` = '$_hostid' , `tipo_banco_dados` = '$_tipo_banco_dados', `descricao` = '$_descricao' WHERE `codigo` = '$codigo_bd'; ";
+        }
+        echo $consulta;
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+    
+    /**
+     * 
+     * @param type $_hostid
+     * @param type $_nome_aplicativo
+     * @param type $_descricao_app
+     * @param type $codigo_app
+     * @return type
+     */
+    function addAplicativo($_hostid, $_nome_aplicativo, $_descricao_app, $_tipo_app,$codigo_app = '') {
+        if ($codigo_app == '') {
+            $consulta = " INSERT INTO `redelocal_srv_aplicativo` (`nome`,`descricao`,`codigo_servidor`,`tipo_app`) VALUES (' $_nome_aplicativo', '$_descricao_app', '$_hostid', '$_tipo_app'); ";
+        } else {
+            $consulta = " UPDATE `redelocal_srv_aplicativo` SET `nome` = '$_nome_aplicativo', `descricao` = '$_descricao_app', `codigo_servidor` = '$_hostid', `tipo_app` = '$_tipo_app' WHERE `codigo` = '$codigo_app'; ";
+        }
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+    
+    
+    
+    
+}
+
 class ServidoresRede extends DatabaseZbxCofre {
 
-    function listServidores($_type = '0', $_amb = '0', $_so = '0', $_nome = '') {
+    /**
+     * @param type $_type
+     * @param type $_amb
+     * @param type $_so
+     * @param type $_nome
+     * @return type
+     */
+    function listServidores($_type = '0', $_amb = '0', $_so = '0', $_nome = '', $_hostid = '') {
         $filtro = " and h.host like '%$_nome%' ";
         if ($_type != '0') {
             $filtro = $filtro . " and hi.type = '" . $_type . "' ";
@@ -63,7 +134,52 @@ class ServidoresRede extends DatabaseZbxCofre {
         if ($_so != '0') {
             $filtro = $filtro . " and hi.os_short = '" . $_so . "' ";
         }
+        if ($_hostid != '') {
+            $filtro = $filtro . " and h.hostid = '" . $_hostid . "' ";
+        }
         $consulta = " SELECT h.hostid, h.host, h.status, h.description, hi.type, hi.type_full, hi.name, hi.alias, hi.os, hi.os_full, hi.os_short, hi.tag, hi.software, hi.software_full, hi.software_app_a, hi.software_app_b, hi.software_app_c, hi.software_app_d, hi.software_app_e, hi.contact, hi.location, hi.url_a, hi.url_b, hi.url_c, g.name AS grupo_nome FROM zabbixcofre.hosts AS h LEFT JOIN zabbixcofre.host_inventory AS hi ON hi.hostid = h.hostid JOIN zabbixcofre.hosts_groups AS hg ON hg.hostid = h.hostid JOIN zabbixcofre.groups AS g ON g.groupid = hg.groupid WHERE g.name = 'Servidores' $filtro ORDER BY hi.tag DESC , hi.type , h.host; ";
+        $resultado = mysqli_query($this->connectZbxCofre(), $consulta);
+        return $resultado;
+    }
+
+    /**
+     * 
+     * @param type $_hostid
+     * @return type
+     */
+    function listInterfaces($_hostid) {
+        $consulta = " SELECT distinctrow i.hostid, i.main, i.ip, i.dns FROM interface as i where i.hostid = '$_hostid'; ";
+        $resultado = mysqli_query($this->connectZbxCofre(), $consulta);
+        return $resultado;
+    }
+
+    /**
+     * @param type $_hostid
+     * @return type
+     */
+    function itensServidor($_hostid) {
+        $consulta = " SELECT i.`itemid`, i.`hostid`, i.`name`, i.`key_`, i.`status`, i.`units` FROM items AS i WHERE i.value_type = '3' AND i.name NOT IN ('Incoming network traffic on $1' , 'Outgoing network traffic on $1') AND i.key_ NOT IN ('vfs.fs.size[{#FSNAME},free]' , 'vfs.fs.size[{#FSNAME},pfree]','vfs.fs.size[{#FSNAME},total]','vfs.fs.size[{#FSNAME},used]') AND i.hostid = '$_hostid';  ";
+        $resultado = mysqli_query($this->connectZbxCofre(), $consulta);
+        return $resultado;
+    }
+
+    /**
+     * @param type $_hostid
+     * @return type
+     */
+    function graficosServidor($_hostid) {
+        $consulta = " SELECT DISTINCTROW g.graphid, g.name FROM hosts AS h JOIN items AS i ON i.hostid = h.hostid JOIN graphs_items AS gi ON gi.itemid = i.itemid JOIN graphs AS g ON g.graphid = gi.graphid JOIN hosts_groups AS hg ON hg.hostid = h.hostid WHERE hg.groupid = '35'  and g.name not in  ('Crescimento uso disco {#FSNAME}' , 'Uso espaço em Disco {#FSNAME}', 'Disk space usage {#FSNAME}', 'Network traffic on {#IFNAME}') AND h.hostid = '$_hostid';  ";
+        $resultado = mysqli_query($this->connectZbxCofre(), $consulta);
+        return $resultado;
+    }
+
+    /**
+     * 
+     * @param type $_itemid
+     * @return type
+     */
+    function dadoItem($_itemid) {
+        $consulta = " SELECT hu.`itemid`, from_unixtime(hu.`clock`) as data_hora, (hu.`value`) as tamanho FROM `history_uint` as hu where hu.`itemid` = '$_itemid' order by hu.`clock` desc limit 1;  ";
         $resultado = mysqli_query($this->connectZbxCofre(), $consulta);
         return $resultado;
     }
