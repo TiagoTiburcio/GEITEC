@@ -10,12 +10,12 @@
  *
  * @author tiagoc
  */
-class DatabaseCalendar {
+class DatabaseCalendar
+{
     static $host = "172.25.76.85";
     static $user = "geitec";
     static $password = "seedqawsed";
     static $db = "sis_geitec";
-
 }
 
 /**
@@ -23,7 +23,8 @@ class DatabaseCalendar {
  *
  * @author tiagoc
  */
-abstract class Database {
+abstract class Database
+{
 
     private static $host = "172.25.76.85";
     private static $user = "geitec";
@@ -33,23 +34,28 @@ abstract class Database {
     /* Metodos que trazem o conteudo da variavel desejada
       @return   $xxx = conteudo da variavel solicitada */
 
-    private function getHost() {
+    private function getHost()
+    {
         return self::$host;
     }
 
-    private function getUser() {
+    private function getUser()
+    {
         return self::$user;
     }
 
-    private function getPassword() {
+    private function getPassword()
+    {
         return self::$password;
     }
 
-    private function getDB() {
+    private function getDB()
+    {
         return self::$db;
     }
 
-    function connect() {
+    function connect()
+    {
         $conexao = mysqli_connect($this->getHost(), $this->getUser(), $this->getPassword(), $this->getDB());
         if (mysqli_connect_errno()) {
             echo "Falha na conexão: " . mysqli_connect_errno();
@@ -63,7 +69,8 @@ abstract class Database {
         return $conexao;
     }
 
-    function testeConexao() {
+    function testeConexao()
+    {
         $mysqli = new mysqli($this->getHost(), $this->getUser(), $this->getPassword(), $this->getDB());
 
         /* check connection */
@@ -78,13 +85,12 @@ abstract class Database {
         $mysqli->close();
     }
 
-    function close() {
-        
-    }
-
+    function close()
+    { }
 }
 
-abstract class DatabaseOI {
+abstract class DatabaseOI
+{
 
     private static $hostOI = "10.24.0.59";
     private static $userOI = "contas";
@@ -94,23 +100,28 @@ abstract class DatabaseOI {
     /* Metodos que trazem o conteudo da variavel desejada
       @return   $xxx = conteudo da variavel solicitada */
 
-    private function getHost() {
+    private function getHost()
+    {
         return self::$hostOI;
     }
 
-    private function getUser() {
+    private function getUser()
+    {
         return self::$userOI;
     }
 
-    private function getPassword() {
+    private function getPassword()
+    {
         return self::$passwordOI;
     }
 
-    private function getDB() {
+    private function getDB()
+    {
         return self::$dbOI;
     }
 
-    function connectOI() {
+    function connectOI()
+    {
         $conexaoOI = mysqli_connect($this->getHost(), $this->getUser(), $this->getPassword(), $this->getDB());
         if (mysqli_connect_errno()) {
             echo "Falha na conexão: " . mysqli_connect_errno();
@@ -118,13 +129,12 @@ abstract class DatabaseOI {
         return $conexaoOI;
     }
 
-    function close() {
-        
-    }
-
+    function close()
+    { }
 }
 
-abstract class DatabaseRed {
+abstract class DatabaseRed
+{
 
     private static $hostRed = "172.25.76.76";
     private static $userRed = "painel";
@@ -134,23 +144,28 @@ abstract class DatabaseRed {
     /* Metodos que trazem o conteudo da variavel desejada
       @return   $xxx = conteudo da variavel solicitada */
 
-    private function getHost() {
+    private function getHost()
+    {
         return self::$hostRed;
     }
 
-    private function getUser() {
+    private function getUser()
+    {
         return self::$userRed;
     }
 
-    private function getPassword() {
+    private function getPassword()
+    {
         return self::$passwordRed;
     }
 
-    private function getDB() {
+    private function getDB()
+    {
         return self::$dbRed;
     }
 
-    function connectRed() {
+    function connectRed()
+    {
         $conexaoRed = mysqli_connect($this->getHost(), $this->getUser(), $this->getPassword(), $this->getDB());
         if (mysqli_connect_errno()) {
             echo "Falha na conexão: " . mysqli_connect_errno();
@@ -164,13 +179,12 @@ abstract class DatabaseRed {
         return $conexaoRed;
     }
 
-    function close() {
-        
-    }
-
+    function close()
+    { }
 }
 
-abstract class DatabaseZbx {
+abstract class DatabaseZbx
+{
 
     private static $hostzbx = "172.25.76.85";
     private static $userzbx = "geitec";
@@ -180,23 +194,28 @@ abstract class DatabaseZbx {
     /* Metodos que trazem o conteudo da variavel desejada
       @return   $xxx = conteudo da variavel solicitada */
 
-    private function getHost() {
+    private function getHost()
+    {
         return self::$hostzbx;
     }
 
-    private function getUser() {
+    private function getUser()
+    {
         return self::$userzbx;
     }
 
-    private function getPassword() {
+    private function getPassword()
+    {
         return self::$passwordzbx;
     }
 
-    private function getDB() {
+    private function getDB()
+    {
         return self::$dbzbx;
     }
 
-    function connectZbx() {
+    function connectZbx()
+    {
         $conexaoZbx = mysqli_connect($this->getHost(), $this->getUser(), $this->getPassword(), $this->getDB());
         if (mysqli_connect_errno()) {
             echo "Falha na conexão: " . mysqli_connect_errno();
@@ -210,13 +229,12 @@ abstract class DatabaseZbx {
         return $conexaoZbx;
     }
 
-    function close() {
-        
-    }
-
+    function close()
+    { }
 }
 
-abstract class DatabaseZbxCofre {
+abstract class DatabaseZbxCofre
+{
 
     private static $hostZbxCofre = "172.25.76.85";
     private static $userZbxCofre = "geitec";
@@ -226,23 +244,28 @@ abstract class DatabaseZbxCofre {
     /* Metodos que trazem o conteudo da variavel desejada
       @return   $xxx = conteudo da variavel solicitada */
 
-    private function getHost() {
+    private function getHost()
+    {
         return self::$hostZbxCofre;
     }
 
-    private function getUser() {
+    private function getUser()
+    {
         return self::$userZbxCofre;
     }
 
-    private function getPassword() {
+    private function getPassword()
+    {
         return self::$passwordZbxCofre;
     }
 
-    private function getDB() {
+    private function getDB()
+    {
         return self::$dbZbxCofre;
     }
 
-    function connectZbxCofre() {
+    function connectZbxCofre()
+    {
         $conexaoZbxCofre = mysqli_connect($this->getHost(), $this->getUser(), $this->getPassword(), $this->getDB());
         if (mysqli_connect_errno()) {
             echo "Falha na conexão: " . mysqli_connect_errno();
@@ -256,15 +279,66 @@ abstract class DatabaseZbxCofre {
         return $conexaoZbxCofre;
     }
 
-    function close() {
-        
-    }
-
+    function close()
+    { }
 }
 
-class DatabaseSEEDNET {
+abstract class DatabaseGlpi
+{
 
-    function listConsulta($_query) {
+    private static $hostGlpi = "172.25.76.68";
+    private static $userGlpi = "geitec";
+    private static $passwordGlpi = "74123698geitec";
+    private static $dbGlpi = "glpi";
+
+    /* Metodos que trazem o conteudo da variavel desejada
+      @return   $xxx = conteudo da variavel solicitada */
+
+    private function getHost()
+    {
+        return self::$hostGlpi;
+    }
+
+    private function getUser()
+    {
+        return self::$userGlpi;
+    }
+
+    private function getPassword()
+    {
+        return self::$passwordGlpi;
+    }
+
+    private function getDB()
+    {
+        return self::$dbGlpi;
+    }
+
+    function connectGlpi()
+    {
+        $conexaoGlpi = mysqli_connect($this->getHost(), $this->getUser(), $this->getPassword(), $this->getDB());
+        if (mysqli_connect_errno()) {
+            echo "Falha na conexão: " . mysqli_connect_errno();
+        }
+        if (!mysqli_set_charset($conexaoGlpi, "utf8")) {
+            printf("Error loading character set utf8: %s\n", mysqli_error($conexaoGlpi));
+            exit();
+        } else {
+            mysqli_character_set_name($conexaoGlpi);
+        }
+        return $conexaoGlpi;
+    }
+
+    function close()
+    { }
+}
+
+
+class DatabaseSEEDNET
+{
+
+    function listConsulta($_query)
+    {
         $conexao = pg_connect("host=172.25.76.67 dbname=seednet port=5432 user=usrappacademico password=12347");
         if (!@($conexao)) {
             print "Não foi possível estabelecer uma conexão com o banco de dados.";
@@ -274,12 +348,13 @@ class DatabaseSEEDNET {
         }
         return $result;
     }
-
 }
 
-class DatabaseDBSEED {
+class DatabaseDBSEED
+{
 
-    function listConsulta($_query) {
+    function listConsulta($_query)
+    {
         $conexao = pg_connect("host=172.25.76.69 dbname=dbseed port=5432 user=usrappacademico password=12347");
         if (!@($conexao)) {
             print "Não foi possível estabelecer uma conexão com o banco de dados.";
@@ -289,6 +364,4 @@ class DatabaseDBSEED {
         }
         return $result;
     }
-
 }
-

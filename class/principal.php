@@ -6,6 +6,7 @@ include_once '../class/redelocal.php';
 include_once '../class/servidor.php';
 include_once '../class/circuito.php';
 include_once '../class/redmine.php';
+include_once '../class/glpi.php';
 
 /**
  * Description of usuario

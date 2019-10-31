@@ -40,7 +40,7 @@ class RotinasPublicas {
             $validaSistema = new ValidacaoSistema();
             $_SESSION['pagina'] = $_teste;            
             $retorno = $validaSistema->testePagina($_SESSION['login'], $_codigo_pagina);            
-            if (($_teste == '2') || ($_teste == '4')) {              
+            if (($_teste == '2') || ($_teste == '4') || ($_teste == '5')) {              
             } else {
                 include ("../class/baropc.php");
             }
