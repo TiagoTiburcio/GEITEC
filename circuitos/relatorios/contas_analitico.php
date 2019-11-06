@@ -14,6 +14,7 @@ $jasper = new PHPJasper;
 $jasper->compile($input)->execute();
 
 $periodo1 = filter_input(INPUT_GET,'periodo');
+$fornecedor = filter_input(INPUT_GET, 'fornecedor');
 $periodo = date('m/Y', strtotime($periodo1));
 
 $input = __DIR__ . '/analitico.jasper';
@@ -22,6 +23,7 @@ $options = [
     'format' => ['pdf'],
     'params' => [
         'periodo' => $periodo,
+        'fornecedor' => $fornecedor,
         'REPORT_LOCALE' => 'pt_BR'
     ],
     'db_connection' => [

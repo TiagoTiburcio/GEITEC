@@ -8,21 +8,52 @@ if ($rotina->validaSessao('','1') == 1) {
     
     $fatura = filter_input(INPUT_POST, 'fatura');
     $mescad = filter_input(INPUT_POST, 'mes');
+    $forncad = filter_input(INPUT_POST, 'fornecedor');
+    if (!isset($forncad)) {
+        $forncad = 'OI';
+    }
     ?>
-    <div class="col-xs-2">                        
+    <div class="col-xs-2">
+    <form class="form-horizontal" method="post" action="" id="filtro_fornecedor" name="filtro_fornecedor">
+            <div class="form-group">
+                <div class="col-xs-11 col-xs-offset-1">
+                    <label for="fornecedor">Fornecedor</label>
+                    <select class="form-control" id="fornecedor" name="fornecedor" onchange="submitFormFornecedor()">
+                        <?php
+                            $resultado_fornecedor = $circuitos->listaFornecedor();
+                            foreach ($resultado_fornecedor as $fornecedor) {
+                                if ($forncad == '') {
+                                    $forncad = $fornecedor['nome_fornecedor'];
+                                }
+                                if ($fornecedor['nome_fornecedor'] == $forncad) {
+                                    ?>
+                                <option value="<?php echo $fornecedor['nome_fornecedor']; ?>" selected><?php echo $fornecedor['nome_fornecedor']; ?></option>
+                            <?php
+                                    } else {
+                                        ?>
+                                <option value="<?php echo $fornecedor['nome_fornecedor']; ?>"><?php echo $fornecedor['nome_fornecedor']; ?></option>
+                        <?php
+                                }
+                            }
+                            ?>
+                    </select>
+                </div>
+            </div>
+        </form>                        
         <form class="form-horizontal" method="post" action="">
             <div class="form-group">
                 <div class="col-xs-10 col-xs-offset-2">                                  
                     <div class="form-group">
                         <label for="fatura">Contrato</label>
                         <input type="text" class="form-control" id="fatura" name="fatura" value="<?php echo $fatura; ?>">
+                        <input type="hidden" id="fornecedor" name="fornecedor" value="<?php echo $forncad; ?>">
                     </div>
                     <div class="form-group">
                         <label for="mes">M&ecirc;s Conta</label>
                         <select class="form-control" id="mes" name="mes" onchange="pegaMes()">
 
                             <?php
-                            $resultado_analitico1 = $circuitos->listaPeriodoRef();
+                            $resultado_analitico1 = $circuitos->listaPeriodoRef($forncad);
                             foreach ($resultado_analitico1 as $mes) {
                                 if ($mescad == '') {
                                     $mescad = $mes["periodo_ref"];
@@ -40,8 +71,8 @@ if ($rotina->validaSessao('','1') == 1) {
                             ?>                                       
                         </select>
                         <div class="col-xs-6 col-xs-3" >                     
-                            <br/><a id="linkprint"  type="button" class="btn btn-info" target="_blank" href="./relatorios/contas_analitico.php?periodo=<?php echo $mescad; ?>">Imprimir Relatório Fatura<span class="glyphicon glyphicon-print"></span></a>    
-                            <br/><a id="linkprint"  type="button" class="btn btn-info" target="_blank" href="./relatorios/contas_localizacao.php?periodo=<?php echo $mescad; ?>">Imprimir Relatório Localizacao<span class="glyphicon glyphicon-print"></span></a>    
+                            <br/><a id="linkprint"  type="button" class="btn btn-info" target="_blank" href="./relatorios/contas_analitico.php?periodo=<?php echo $mescad . '&fornecedor=' . $forncad; ?>">Imprimir Relatório Fatura<span class="glyphicon glyphicon-print"></span></a>    
+                            <br/><a id="linkprint"  type="button" class="btn btn-info" target="_blank" href="./relatorios/contas_localizacao.php?periodo=<?php echo $mescad . '&fornecedor=' . $forncad; ?>">Imprimir Relatório Localizacao<span class="glyphicon glyphicon-print"></span></a>    
                         </div>
                     </div>
                     <a type="button" class="btn btn-danger"  href="">Limpar <span class="glyphicon glyphicon-erase"></span></a>                 
@@ -64,7 +95,7 @@ if ($rotina->validaSessao('','1') == 1) {
                 </thead>
                 <tbody>
                     <?php
-                    $resultado_analitico2 = $circuitos->listaCircuitos($mescad, $fatura);
+                    $resultado_analitico2 = $circuitos->listaCircuitos($mescad, $fatura, $forncad);
                     foreach ($resultado_analitico2 as $table) {
                         ?>                
                         <tr>

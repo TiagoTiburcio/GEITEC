@@ -422,26 +422,22 @@ class Circuitos extends Database {
         return $resultado;
     }
     // retorna lista com todos os usuarios cadastrados
-    function listaCircuitos($_mescad, $_fatura) {
-        $consulta_circuito1 = " SELECT c.periodo_ref, c.fatura, rc.localizacao,"
-                . " CONCAT('R$ ', REPLACE(REPLACE(REPLACE(FORMAT(SUM(c.valor_conta), 2),'.',';'),',','.'),';',',')) as valor, "
-                . " date_format(c.periodo_ref,'%m/%Y') as mes, lo.descricao, "
-                . " co.descricao_servico FROM circuitos_contas as c "
-                . " join circuitos_registro_consumo as rc on rc.codigo = c.designacao "
-                . " join circuitos_unidades as u on u.codigo_ut_siig = rc.codigo_unidade "
-                . " join circuitos_localizacao as lo on lo.codigo = rc.localizacao "
-                . " join circuitos_contrato as co on co.codigo = c.fatura "
-                . " where c.periodo_ref = '$_mescad' and c.fatura like '%$_fatura%' "
-                . " GROUP BY c.periodo_ref, c.fatura, rc.localizacao "
-                . " ORDER BY c.periodo_ref desc, c.fatura , rc.localizacao; ";
+    function listaCircuitos($_mescad, $_fatura, $fornecedor) {
+        $consulta_circuito1 = " SELECT c.periodo_ref, c.fatura, rc.localizacao, CONCAT('R$ ', REPLACE(REPLACE(REPLACE(FORMAT(SUM(c.valor_conta), 2), '.',';'),',','.'),';',',')) AS valor, DATE_FORMAT(c.periodo_ref, '%m/%Y') AS mes, lo.descricao, co.descricao_servico FROM circuitos_contas AS c JOIN circuitos_registro_consumo AS rc ON rc.codigo = c.designacao JOIN circuitos_unidades AS u ON u.codigo_ut_siig = rc.codigo_unidade JOIN circuitos_localizacao AS lo ON lo.codigo = rc.localizacao JOIN circuitos_contrato AS co ON co.codigo = c.fatura WHERE c.periodo_ref = '$_mescad' AND c.fatura LIKE '%$_fatura%' and co.nome_fornecedor = '$fornecedor' GROUP BY c.periodo_ref , c.fatura , rc.localizacao ORDER BY c.periodo_ref DESC , c.fatura , rc.localizacao; ";
         $resultado_circuito1 = mysqli_query($this->connect(), $consulta_circuito1);
         return $resultado_circuito1;
     }
 
-    function listaPeriodoRef() {
-        $consulta_circuito2 = "SELECT distinct periodo_ref, date_format(periodo_ref,'%m/%Y') as mes FROM circuitos_contas order by periodo_ref desc limit 10";
+    function listaPeriodoRef($_fornecedor = 'OI') {
+        $consulta_circuito2 = "SELECT distinct c.periodo_ref, date_format(c.periodo_ref,'%m/%Y') as mes FROM circuitos_contas as c join circuitos_contrato as ct on c.fatura = ct.codigo where ct.nome_fornecedor = '$_fornecedor' order by periodo_ref desc limit 12;";
         $resultado_circuito2 = mysqli_query($this->connect(), $consulta_circuito2);
         return $resultado_circuito2;
+    }
+
+    function listaFornecedor() {
+        $consulta = "SELECT distinct nome_fornecedor FROM circuitos_contrato order by nome_fornecedor;";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
     }
 
     function listaRegConsumo() {
@@ -450,13 +446,13 @@ class Circuitos extends Database {
         return $resultado_listaRegConsumo;
     }
 
-    function listaConsultaDetalhada($_unidade, $_fatura, $_circuito, $_diretoria, $_mescad, $_inep) {
+    function listaConsultaDetalhada($_unidade, $_fatura, $_circuito, $_diretoria, $_mescad, $_inep, $_fornecedor = 'OI') {
         if (($_inep != NULL) || ($_inep != '')) {
             $filtro = " and u.codigo_inep = '$_inep' ";
         } else {
             $filtro = "";
         }
-        $consulta = " SELECT u_sup.sigla AS `DRE`, u.cidade AS `cidade`, u.codigo_inep, c.designacao AS `circuito`, u.descricao AS `nome_unidade`, DATE_FORMAT(c.periodo_ref, '%m/%Y') AS `periodo_ref`, c.`fatura`, rc.velocidade, CONCAT('R$ ', REPLACE(REPLACE(REPLACE(FORMAT(c.valor_conta, 2), '.', ';'), ',', '.'), ';', ',')) AS `valor_conta` FROM `circuitos_contas` AS c JOIN `circuitos_registro_consumo` AS rc ON rc.codigo = c.designacao JOIN `circuitos_unidades` AS u ON u.codigo_ut_siig = rc.codigo_unidade JOIN `circuitos_unidades` AS u_sup ON u.codigo_unidade_pai = u_sup.codigo_siig WHERE u.descricao LIKE '%$_unidade%' AND c.`fatura` LIKE '%$_fatura%' AND c.designacao LIKE '%$_circuito%' AND u_sup.sigla LIKE '%$_diretoria%' AND c.periodo_ref = '$_mescad' $filtro ORDER BY u_sup.sigla , u.cidade , u.descricao; ";
+        $consulta = " SELECT u_sup.sigla AS `DRE`, u.cidade AS `cidade`, u.codigo_inep, c.designacao AS `circuito`, u.descricao AS `nome_unidade`, DATE_FORMAT(c.periodo_ref, '%m/%Y') AS `periodo_ref`, cont.nome_fornecedor, c.`fatura`, rc.velocidade, CONCAT('R$ ', REPLACE(REPLACE(REPLACE(FORMAT(c.valor_conta, 2),'.',';'),',','.'),';',',')) AS `valor_conta` FROM `circuitos_contas` AS c JOIN `circuitos_registro_consumo` AS rc ON rc.codigo = c.designacao JOIN `circuitos_unidades` AS u ON u.codigo_ut_siig = rc.codigo_unidade JOIN `circuitos_unidades` AS u_sup ON u.codigo_unidade_pai = u_sup.codigo_siig join `circuitos_contrato` AS cont on c.`fatura` = cont.codigo WHERE u.descricao LIKE '%$_unidade%' AND c.`fatura` LIKE '%$_fatura%' AND c.designacao LIKE '%$_circuito%' AND u_sup.sigla LIKE '%$_diretoria%' AND c.periodo_ref = '$_mescad' $filtro And cont.nome_fornecedor = '$_fornecedor' ORDER BY u_sup.sigla , u.cidade , u.descricao; ";
         $resultado = mysqli_query($this->connect(), $consulta);
         return $resultado;
     }

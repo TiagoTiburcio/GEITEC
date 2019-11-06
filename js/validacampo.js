@@ -49,6 +49,9 @@ function pegaMes() {
 function submitFormRelPorTipo() {
     document.getElementById("filtro_diretoria_circuito").submit();
 }
+function submitFormFornecedor() {
+    document.getElementById("filtro_fornecedor").submit();
+}
 function pegaMesSint() {
     document.getElementById("linkprint").href = './relatorios/contas_sintetico.php?periodo=' + document.getElementById("mes").value + '&fatura=' + document.getElementById("fatura").value;
 }

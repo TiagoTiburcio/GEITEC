@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2019-01-21T11:16:46 -->
+<!-- 2019-11-05T14:37:09 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SinteticoContas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b9923f71-584b-4b70-be7c-3ee4192f94e9">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="homo_sis_geitec"/>
@@ -11,8 +11,9 @@
 	<parameter name="unidade" class="java.lang.String"/>
 	<parameter name="circuito" class="java.lang.String"/>
 	<parameter name="contrato" class="java.lang.String"/>
+	<parameter name="fornecedor" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT '307' as cod_Fornecedor, rc.localizacao as cod_localizacao, rc.codigo_unidade as cod_estrut, u.descricao as nome_estrut, u_dre.sigla as sigla_DRE, con.nome_fornecedor as nome_fornecedor, u.cidade as cidade_servico,
+		<![CDATA[SELECT '' as cod_Fornecedor, rc.localizacao as cod_localizacao, rc.codigo_unidade as cod_estrut, u.descricao as nome_estrut, u_dre.sigla as sigla_DRE, con.nome_fornecedor as nome_fornecedor, u.cidade as cidade_servico,
 c.designacao as matricula_servico, date_sub(c.periodo_ref, interval 1 MONTH) as mes_ano_consumo, c.periodo_ref as mes_ano_conta, c.vencimento as data_vencimento, c.valor_conta as valor_fatura, c.fatura as numero_fatura, con.descricao_servico as desc_servico,
 l.descricao as desc_tipo_unidade , DATE_FORMAT(c.periodo_ref, '%m/%Y') AS referencia FROM circuitos_contas AS c JOIN circuitos_registro_consumo AS rc ON c.designacao = rc.codigo JOIN circuitos_unidades AS u ON u.codigo_ut_siig = rc.codigo_unidade
 LEFT JOIN circuitos_unidades as u_dre on u.codigo_unidade_pai = u_dre.codigo_siig JOIN circuitos_localizacao AS l ON l.codigo = rc.localizacao JOIN circuitos_contrato AS con ON con.codigo = c.fatura]]>
@@ -58,10 +59,7 @@ LEFT JOIN circuitos_unidades as u_dre on u.codigo_unidade_pai = u_dre.codigo_sii
 	<variable name="valor_fatura6" class="java.math.BigDecimal" resetType="Group" resetGroup="Group3" calculation="Sum">
 		<variableExpression><![CDATA[$F{valor_fatura}]]></variableExpression>
 	</variable>
-	<filterExpression><![CDATA[IF($P{contrato}.isEmpty(),
-	(($F{referencia}.contains($P{periodo}))&&($F{numero_fatura}==$F{numero_fatura})),
-	(($F{referencia}.contains($P{periodo}))&&($F{numero_fatura}.contains($P{contrato})))
-)]]></filterExpression>
+	<filterExpression><![CDATA[IF($P{contrato}.isEmpty(),(($F{referencia}.contains($P{periodo}))&&($F{nome_fornecedor}.contains($P{fornecedor}))&&($F{numero_fatura}==$F{numero_fatura})),(($F{referencia}.contains($P{periodo}))&&($F{nome_fornecedor}.contains($P{fornecedor}))&&($F{numero_fatura}.contains($P{contrato}))))]]></filterExpression>
 	<group name="Group4">
 		<groupExpression><![CDATA[$F{numero_fatura}]]></groupExpression>
 		<groupHeader>

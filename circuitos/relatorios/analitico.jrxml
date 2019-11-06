@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2019-07-18T16:00:21 -->
+<!-- 2019-11-05T15:53:39 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="a4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1694b566-086b-4c66-9537-dadcd68bc497">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sis_geitec"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="homo_sis_geitec"/>
 	<parameter name="periodo" class="java.lang.String"/>
+	<parameter name="fornecedor" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT c.periodo_ref, c.fatura, rc.localizacao, SUM(c.valor_conta) AS valor, DATE_FORMAT(DATE_SUB(c.periodo_ref, INTERVAL 1 MONTH), '%m/%Y') AS mes_ref, DATE_FORMAT(c.periodo_ref, '%m/%Y') AS mes, l.descricao AS descricao_localizacao, c.vencimento, con.descricao_servico FROM circuitos_contas AS c JOIN circuitos_registro_consumo AS rc ON c.designacao = rc.codigo JOIN circuitos_unidades AS u ON u.codigo_ut_siig = rc.codigo_unidade JOIN circuitos_localizacao AS l ON l.codigo = rc.localizacao JOIN circuitos_contrato AS con ON con.codigo = c.fatura GROUP BY c.periodo_ref , c.fatura , rc.localizacao ORDER BY c.periodo_ref DESC , c.fatura , rc.localizacao]]>
+		<![CDATA[SELECT 
+    c.periodo_ref,
+    c.fatura,
+    rc.localizacao,
+    SUM(c.valor_conta) AS valor,
+    DATE_FORMAT(DATE_SUB(c.periodo_ref,
+                INTERVAL 1 MONTH),
+            '%m/%Y') AS mes_ref,
+    DATE_FORMAT(c.periodo_ref, '%m/%Y') AS mes,
+    l.descricao AS descricao_localizacao,
+    c.vencimento,
+    con.descricao_servico,
+    con.nome_fornecedor
+FROM
+    circuitos_contas AS c
+        JOIN
+    circuitos_registro_consumo AS rc ON c.designacao = rc.codigo
+        JOIN
+    circuitos_unidades AS u ON u.codigo_ut_siig = rc.codigo_unidade
+        JOIN
+    circuitos_localizacao AS l ON l.codigo = rc.localizacao
+        JOIN
+    circuitos_contrato AS con ON con.codigo = c.fatura
+GROUP BY c.periodo_ref , c.fatura , rc.localizacao
+ORDER BY c.periodo_ref DESC , c.fatura , rc.localizacao]]>
 	</queryString>
 	<field name="periodo_ref" class="java.sql.Date"/>
 	<field name="fatura" class="java.lang.String"/>
@@ -17,13 +42,16 @@
 	<field name="descricao_localizacao" class="java.lang.String"/>
 	<field name="vencimento" class="java.sql.Date"/>
 	<field name="descricao_servico" class="java.lang.String"/>
+	<field name="nome_fornecedor" class="java.lang.String"/>
 	<variable name="somaContrato" class="java.math.BigDecimal" resetType="Group" resetGroup="fatura" calculation="Sum">
 		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
 	</variable>
 	<variable name="somaTotalMes" class="java.math.BigDecimal" resetType="Group" resetGroup="periodo_ref" calculation="Sum">
 		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
 	</variable>
-	<filterExpression><![CDATA[IF($P{periodo}.isEmpty(),$F{mes}==$F{mes},($F{mes}.contains( $P{periodo})))]]></filterExpression>
+	<filterExpression><![CDATA[IF($P{periodo}.isEmpty(),(($F{mes}==$F{mes})&&($F{nome_fornecedor}.contains($P{fornecedor}))),
+	(($F{mes}.contains( $P{periodo}))&&($F{nome_fornecedor}.contains($P{fornecedor})))
+)]]></filterExpression>
 	<group name="periodo_ref">
 		<groupExpression><![CDATA[$F{periodo_ref}]]></groupExpression>
 		<groupHeader>

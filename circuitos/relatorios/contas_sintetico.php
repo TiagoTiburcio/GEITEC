@@ -5,6 +5,7 @@ include_once '../../class/database.php';
 
 $periodo1 = filter_input(INPUT_GET, 'periodo');
 $contrato = filter_input(INPUT_GET, 'fatura');
+$fornecedor = filter_input(INPUT_GET, 'fornecedor');
 $periodo = date('m/Y', strtotime($periodo1));
 
 use PHPJasper\PHPJasper;
@@ -23,6 +24,7 @@ $options = [
     'params' => [
         'periodo' => $periodo,
         'contrato' => $contrato,
+        'fornecedor' => $fornecedor,
         'REPORT_LOCALE' => 'pt_BR'
     ],
     'db_connection' => [
