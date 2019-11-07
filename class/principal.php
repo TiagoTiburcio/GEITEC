@@ -78,7 +78,7 @@ class Usuario extends Database {
         $dadosUsuario = $this->iniUsuario($_usuario);
         foreach ($dadosUsuario as $table) {
             if ($table['cont'] == '1') {
-                $consulta1 = " SELECT hu.codigo, hu.usuario, hp.descricao as 'perf_desc', hm.codigo as 'mod_cod', hm.descricao as 'mod_desc', pag.codigo as 'pag_cod', pag.descricao as 'pag_desc', concat('../', hm.pasta, '/', pag.caminho) as path FROM home_usuario AS hu JOIN home_perfil AS hp ON hu.codigo_perfil = hp.codigo JOIN home_pagina_perfil AS hpp ON hp.codigo = hpp.codigo_perfil JOIN home_pagina AS pag ON pag.codigo = hpp.codigo_pagina JOIN home_modulo AS hm ON hm.codigo = pag.codigo_modulo WHERE hu.usuario = '$_usuario' AND hm.ativo = '1' AND pag.ativo = '1' AND hu.ativo = '1'; ";
+                $consulta1 = " SELECT hu.codigo, hu.usuario, hp.descricao as 'perf_desc', hm.codigo as 'mod_cod', hm.descricao as 'mod_desc', pag.codigo as 'pag_cod', pag.descricao as 'pag_desc', concat('../', hm.pasta, '/', pag.caminho) as path FROM home_usuario AS hu JOIN home_perfil AS hp ON hu.codigo_perfil = hp.codigo JOIN home_pagina_perfil AS hpp ON hp.codigo = hpp.codigo_perfil JOIN home_pagina AS pag ON pag.codigo = hpp.codigo_pagina JOIN home_modulo AS hm ON hm.codigo = pag.codigo_modulo WHERE hu.usuario = '$_usuario' AND hm.ativo = '1' AND pag.ativo = '1' AND hu.ativo = '1' order by pag.descricao; ";
                 $resultado1 = mysqli_query($this->connect(), $consulta1);
                 return $resultado1;
             }
