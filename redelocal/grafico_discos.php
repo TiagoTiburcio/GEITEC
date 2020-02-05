@@ -4,7 +4,9 @@ include_once '../class/principal.php';
 $tarefas = new RotinasPublicas();
 
 if ($tarefas->validaSessao('2', '0') == 1) {
-?>
+?> <div class="col-xs-1">
+        <a href="../home/index.php"> Voltar Inicio <span class="glyphicon glyphicon-backward"></span></a>
+    </div>
     <div class="col-xs-12">
         <canvas id="chart-0" style="display: block; width: 800px; height: 600px;"></canvas>
     </div>
@@ -40,7 +42,7 @@ if ($tarefas->validaSessao('2', '0') == 1) {
 
         var data = {
             <?php
-           
+
             $graficos = new GraficosDiscosDC();
 
             $meses = $graficos->listaMeses();
@@ -135,42 +137,42 @@ if ($tarefas->validaSessao('2', '0') == 1) {
         });
     </script>
 
-<div class="col-xs-12">
-  <h2>Dados Discos Servidores Data Center</h2>
-  <p>Dados de Discos Servidores Zabbix Sala Cofre.</p>            
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Pool VM</th>
-        <th>Nome</th>
-        <?php 
-            foreach ($meses_graph as $mes) {
-                echo "<th>$mes</th>";    
-            }             
-        ?>
-      </tr>
-    </thead>
-    <tbody>
-    <?php
-        foreach ($vms as $vms_table) {
-            echo "<tr><td>".$vms_table['name_pool']."</td>";
-            echo "<td>".$vms_table['host']."</td>";
-            foreach ($meses_graph as $mes) {
-                $imprime = '-';
-                foreach ($dados as $dados_table){
-                    if(($dados_table['mes'] == $mes) && ($dados_table['host'] == $vms_table['host'])){
-                        $imprime = $dados_table['total_disco_format'];
-                    }                        
+    <div class="col-xs-12">
+        <h2>Dados Discos Servidores Data Center</h2>
+        <p>Dados de Discos Servidores Zabbix Sala Cofre.</p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Pool VM</th>
+                    <th>Nome</th>
+                    <?php
+                    foreach ($meses_graph as $mes) {
+                        echo "<th>$mes</th>";
+                    }
+                    ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($vms as $vms_table) {
+                    echo "<tr><td>" . $vms_table['name_pool'] . "</td>";
+                    echo "<td>" . $vms_table['host'] . "</td>";
+                    foreach ($meses_graph as $mes) {
+                        $imprime = '-';
+                        foreach ($dados as $dados_table) {
+                            if (($dados_table['mes'] == $mes) && ($dados_table['host'] == $vms_table['host'])) {
+                                $imprime = $dados_table['total_disco_format'];
+                            }
+                        }
+                        echo "<td>" . $imprime . "</td>";
+                    }
+                    echo "</tr>";
                 }
-                echo "<td>".$imprime."</td>";                                      
-            }
-            echo "</tr>";
-        }
-    
-      ?>  
-    </tbody>
-  </table>
-</div>
+
+                ?>
+            </tbody>
+        </table>
+    </div>
 <?php
 
 }

@@ -18,7 +18,11 @@ if ($tarefas->validaSessao('5', '5') == 1) {
     <link href="../design/css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="../design/css/style.css" rel="stylesheet">
+
     <div class="col-xs-12">
+    <div class="col-xs-1">
+            <a href="../home/index.php"><span class="glyphicon glyphicon-backward"></span></a>
+    </div>
         <table id="example" class="table table-hover table-striped table-condensed table-bordered">
             <thead>
                 <tr>
@@ -39,7 +43,7 @@ if ($tarefas->validaSessao('5', '5') == 1) {
                         <th class="text-center">Liv.<br>Gb</th>
                         <th class="text-center">Uso<br>Gb</th>
                         <th class="text-center">Tot.<br>Gb</th>
-                        <th class="text-center">Uso<br>%</th>    
+                        <th class="text-center">Uso<br>%</th>
                     <?php
                     }
                     ?>
@@ -63,7 +67,7 @@ if ($tarefas->validaSessao('5', '5') == 1) {
                                     $tamanho = number_format(($dados_table['total_mb'] / 1024), 2, ",", ".");
                                     $imprime = $dados_table['utilizada_perc'] * 100;
                                     $livre = number_format(($dados_table['livre_mb'] / 1024), 2, ",", ".");
-                                    $uso = number_format(($dados_table['utilizada_mb'] / 1024), 2, ",", ".");                                    
+                                    $uso = number_format(($dados_table['utilizada_mb'] / 1024), 2, ",", ".");
                                 }
                             }
                         ?>
@@ -85,12 +89,12 @@ if ($tarefas->validaSessao('5', '5') == 1) {
                     <th class="text-center" rowspan="2">Host</th>
                     <?php
                     foreach ($meses as $table_meses) {
-                    ?>  <th class="text-center">Liv.<br>Gb</th>
+                    ?> <th class="text-center">Liv.<br>Gb</th>
                         <th class="text-center">Uso<br>Gb</th>
                         <th class="text-center">Tot.<br>Gb</th>
-                        <th class="text-center">Uso<br>%</th>                        
+                        <th class="text-center">Uso<br>%</th>
                     <?php
-                    
+
                     }
                     ?>
                 </tr>
@@ -102,7 +106,7 @@ if ($tarefas->validaSessao('5', '5') == 1) {
                         echo '</th>';
                     }
                     ?>
-                    
+
                 </tr>
             </tfoot>
         </table>
