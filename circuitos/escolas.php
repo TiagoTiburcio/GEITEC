@@ -9,6 +9,7 @@ if ($rotina->validaSessao('','0') == 1) {
     
     $fatura = filter_input( INPUT_POST, 'fatura');
     $mescad = filter_input( INPUT_POST, 'mes');
+    $forncad = 'OI';
     ?>
     <div class="col-xs-2">                        
         <form class="form-horizontal" method="post" action="">
@@ -58,7 +59,7 @@ if ($rotina->validaSessao('','0') == 1) {
                 </thead>
                 <tbody>
                     <?php
-                    $resultado_analitico2 = $circuitos->listaCircuitos($mescad, $fatura);
+                    $resultado_analitico2 = $circuitos->listaCircuitos($mescad, $fatura,$forncad);
                     foreach ($resultado_analitico2 as $table) {
                         ?>                
                         <tr>

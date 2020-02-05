@@ -28,7 +28,7 @@ FROM
         JOIN
     circuitos_localizacao AS l ON l.codigo = rc.localizacao
         JOIN
-    circuitos_contrato AS con ON con.codigo = c.fatura
+    circuitos_contrato AS con ON con.contrato = c.fatura
 GROUP BY con.nome_fornecedor, c.periodo_ref , rc.localizacao
 ORDER BY c.periodo_ref DESC , rc.localizacao , c.fatura]]>
 	</queryString>

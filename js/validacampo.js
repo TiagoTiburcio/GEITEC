@@ -44,7 +44,8 @@ function testeVlan() {
 }
 
 function pegaMes() {
-    document.getElementById("linkprint").href = './relatorios/contas_analitico.php?periodo=' + document.getElementById("mes").value;
+    document.getElementById("linkprint").href = './relatorios/contas_analitico.php?periodo=' + document.getElementById("mes").value + '&fornecedor=' + document.getElementById("fornecedor").value;
+    document.getElementById("linkprint").href = './relatorios/contas_analitico.php?periodo=' + document.getElementById("mes").value + '&fornecedor=' + document.getElementById("fornecedor").value;
 }
 function submitFormRelPorTipo() {
     document.getElementById("filtro_diretoria_circuito").submit();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2019-11-07T11:31:36 -->
+<!-- 2019-11-12T16:13:51 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="a4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1694b566-086b-4c66-9537-dadcd68bc497">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="homo_sis_geitec"/>
@@ -29,7 +29,7 @@ FROM
         JOIN
     circuitos_localizacao AS l ON l.codigo = rc.localizacao
         JOIN
-    circuitos_contrato AS con ON con.codigo = c.fatura
+    circuitos_contrato AS con ON con.contrato = c.fatura
 GROUP BY con.nome_fornecedor, c.periodo_ref , c.fatura , rc.localizacao
 ORDER BY c.periodo_ref DESC , c.fatura , rc.localizacao]]>
 	</queryString>

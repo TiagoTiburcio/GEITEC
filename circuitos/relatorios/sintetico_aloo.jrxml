@@ -16,7 +16,7 @@
 		<![CDATA[SELECT '' as cod_Fornecedor, rc.localizacao as cod_localizacao, rc.codigo_unidade as cod_estrut, u.descricao as nome_estrut, u_dre.sigla as sigla_DRE, con.nome_fornecedor as nome_fornecedor, u.cidade as cidade_servico,
 c.designacao as matricula_servico, date_sub(c.periodo_ref, interval 1 MONTH) as mes_ano_consumo, c.periodo_ref as mes_ano_conta, c.vencimento as data_vencimento, c.valor_conta as valor_fatura, c.fatura as numero_fatura, con.descricao_servico as desc_servico,
 l.descricao as desc_tipo_unidade , DATE_FORMAT(c.periodo_ref, '%m/%Y') AS referencia FROM circuitos_contas AS c JOIN circuitos_registro_consumo AS rc ON c.designacao = rc.codigo JOIN circuitos_unidades AS u ON u.codigo_ut_siig = rc.codigo_unidade
-LEFT JOIN circuitos_unidades as u_dre on u.codigo_unidade_pai = u_dre.codigo_siig JOIN circuitos_localizacao AS l ON l.codigo = rc.localizacao JOIN circuitos_contrato AS con ON con.codigo = c.fatura]]>
+LEFT JOIN circuitos_unidades as u_dre on u.codigo_unidade_pai = u_dre.codigo_siig JOIN circuitos_localizacao AS l ON l.codigo = rc.localizacao JOIN circuitos_contrato AS con ON con.contrato = c.fatura]]>
 	</queryString>
 	<field name="cod_Fornecedor" class="java.lang.String"/>
 	<field name="cod_localizacao" class="java.lang.Integer"/>

@@ -1,5 +1,64 @@
 <?php
 
+
+/**
+ * Description of Rede
+ *
+ * @author tiagoc
+ */
+class GraficosDiscosDC extends Database {
+
+    function listaMeses() {
+        $consulta = " SELECT distinct DATE_FORMAT(data, '%m/%Y') as mes, data FROM sis_geitec.temp_dados_discos where DAY(data) = 01; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+
+    // 
+    
+    function listaVM() {
+        $consulta = " SELECT distinct host, name_pool FROM sis_geitec.temp_dados_discos where DAY(data) = 01 order by name_pool,host; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+
+    function listaEspacoPorVM() {
+        $consulta = " SELECT name_pool, host, data, format(total_disco,2,'de_DE') as total_disco_format, DATE_FORMAT(data, '%m/%Y') as mes, total_disco FROM sis_geitec.temp_dados_discos where DAY(data) = 01 order by name_pool,host; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+}
+
+
+/**
+ * Description of Rede
+ *
+ * @author tiagoc
+ */
+class GraficosMemDC extends Database {
+
+    function listaMeses() {
+        $consulta = ' select distinct mes_ano from ( SELECT `tmht`.`host`, `tmht`.`data_hora`, DATE_FORMAT(`tmht`.`data_hora`, "%m/%Y") as mes_ano, `tmht`.`livre_mb`, `tmht`.`utilizada_mb`, `tmht`.`total_mb`, `tmht`.`livre_perc`, `tmht`.`utilizada_perc` FROM `sis_geitec`.`temp_mem_hist_tratada` as `tmht` ) as c1 where data_hora > SUBDATE(current_timestamp(), INTERVAL 3 MONTH) group by host, mes_ano order by `data_hora`; ' ;
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+
+    // 
+    
+    function listaVM() {
+        $consulta = " SELECT gr.groupid, gr.name as group_name, ht.hostid, ht.host, ht.available, ht.name as host_apelido FROM zabbixcofre.groups AS gr JOIN zabbixcofre.hosts_groups AS ht_gr ON ht_gr.groupid = gr.groupid JOIN zabbixcofre.hosts AS ht ON ht.hostid = ht_gr.hostid JOIN zabbixcofre.items AS it ON ht.hostid = it.hostid WHERE gr.groupid IN ('39' , '40', '41') group by host order by gr.name, ht.host; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+
+    function listaDadosMemVMs() {
+        $consulta = " SELECT gr.groupid, gr.name AS group_name, ht.hostid, ht.host, ht.available, ht.name AS host_apelido, hist.mes_ano, hist.`livre_mb`, hist.`utilizada_mb`, hist.`total_mb`, hist.`livre_perc`, hist.`utilizada_perc` FROM zabbixcofre.groups AS gr JOIN zabbixcofre.hosts_groups AS ht_gr ON ht_gr.groupid = gr.groupid JOIN zabbixcofre.hosts AS ht ON ht.hostid = ht_gr.hostid JOIN zabbixcofre.items AS it ON ht.hostid = it.hostid JOIN (SELECT * FROM (SELECT `tmht`.`host`, `tmht`.`data_hora`, DATE_FORMAT(`tmht`.`data_hora`, '%m/%Y') AS mes_ano, `tmht`.`livre_mb`, `tmht`.`utilizada_mb`, `tmht`.`total_mb`, `tmht`.`livre_perc`, `tmht`.`utilizada_perc` FROM `sis_geitec`.`temp_mem_hist_tratada` AS `tmht`) AS c1 GROUP BY host , mes_ano) AS hist ON hist.host = ht.host WHERE gr.groupid IN ('39' , '40', '41') GROUP BY host , hist.mes_ano ORDER BY gr.name , ht.host,hist.data_hora; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+}
+
+
 /**
  * Description of Rede
  *

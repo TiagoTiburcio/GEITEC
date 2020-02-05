@@ -72,7 +72,7 @@ if ($rotina->validaSessao('','1') == 1) {
                         </select>
                         <div class="col-xs-6 col-xs-3" >                     
                             <br/><a id="linkprint"  type="button" class="btn btn-info" target="_blank" href="./relatorios/contas_analitico.php?periodo=<?php echo $mescad . '&fornecedor=' . $forncad; ?>">Imprimir Relatório Fatura<span class="glyphicon glyphicon-print"></span></a>    
-                            <br/><a id="linkprint"  type="button" class="btn btn-info" target="_blank" href="./relatorios/contas_localizacao.php?periodo=<?php echo $mescad . '&fornecedor=' . $forncad; ?>">Imprimir Relatório Localizacao<span class="glyphicon glyphicon-print"></span></a>    
+                            <br/><a id="linkprint2"  type="button" class="btn btn-info" target="_blank" href="./relatorios/contas_localizacao.php?periodo=<?php echo $mescad . '&fornecedor=' . $forncad; ?>">Imprimir Relatório Localizacao<span class="glyphicon glyphicon-print"></span></a>    
                         </div>
                     </div>
                     <a type="button" class="btn btn-danger"  href="">Limpar <span class="glyphicon glyphicon-erase"></span></a>                 

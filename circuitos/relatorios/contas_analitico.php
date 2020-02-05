@@ -12,6 +12,8 @@ $jasper = new PHPJasper;
 $periodo1 = filter_input(INPUT_GET, 'periodo');
 $fornecedor = filter_input(INPUT_GET, 'fornecedor');
 $periodo = date('m/Y', strtotime($periodo1));
+
+
 if ($fornecedor == 'Aloo') {
     $input = __DIR__ . '/analitico_aloo.jrxml';
     $jasper->compile($input)->execute();    
@@ -34,6 +36,7 @@ if ($fornecedor == 'Aloo') {
         ]
     ];
 } elseif ($fornecedor == 'OI') {
+    //echo $fornecedor . ' Periodo: '.  $periodo;
     $input = __DIR__ . '/analitico.jrxml';
     $jasper->compile($input)->execute();
     $input = __DIR__ . '/analitico.jasper';
@@ -57,7 +60,7 @@ if ($fornecedor == 'Aloo') {
 }
 
 $jasper->process(
-    $input,
+   $input,
     $output,
     $options
 )->execute();

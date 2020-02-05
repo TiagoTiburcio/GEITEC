@@ -146,6 +146,25 @@ class ImportContasCircuitos extends Database {
 
 }
 
+/**
+ * Description of Circuitos
+ *
+ * @author tiagoc
+ */
+class ImportContasDiversas extends Database {
+
+    function listaFornecedor() {
+        $consulta = " SELECT cf.codigo, cf.nome, cf.nome_completo, cf.tipo_import FROM circuitos_fornecedor as cf where cf.tipo_import = '1'; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+    function listaContratos($codigo_fornecedor) {
+        $consulta = " SELECT cf.codigo, cf.nome, cf.nome_completo, cf.tipo_import, cc.contrato, cc.descricao, cc.descricao_servico FROM circuitos_fornecedor as cf join circuitos_contrato as cc on cc.nome_fornecedor = cf.nome where cf.tipo_import = '1' and cf.codigo = '$codigo_fornecedor'; ";
+        $resultado = mysqli_query($this->connect(), $consulta);
+        return $resultado;
+    }
+}    
+
 class RelatorioCircuitos extends Database {
 
     function dadosContasUltAno($_filtro_diretoria) {

@@ -27,12 +27,5 @@ if ($rotina->validaSessao('2', '22') == 1) {
     date_default_timezone_set("America/Bahia");
     $data = date('Y-m-d H:i:s');
 
-
-
-//    if ($resultado == '1') {
-//        echo '<br/> usuario atualizado!';
-//    } else {
-//        echo '<br/> usuario novo!';
-//    }
     header('location:listarperfil.php');  
 }    
