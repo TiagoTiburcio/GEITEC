@@ -9,9 +9,9 @@ if ($tarefas->validaSessao('5', '5') == 1) {
     $lista_vms = $graficos->listaVM();
     $dados_vms = $graficos->listaDadosMemVMs();
 ?>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="../css/datatable/bootstrap.css">
+    <link rel="stylesheet" href="../css/datatable/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../css/datatable/all.css">
     <!-- Bootstrap core CSS -->
     <link href="'../design/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
@@ -117,14 +117,14 @@ if ($tarefas->validaSessao('5', '5') == 1) {
         <script type="text/javascript" src="../design/js/bootstrap.min.js"></script>
         <!-- MDB core JavaScript -->
         <script type="text/javascript" src="../design/js/mdb.min.js"></script>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+        <script type="text/javascript" src="../js/datatable/jquery-3.3.1.js"></script>
+        <script type="text/javascript" src="../js/datatable/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="../js/datatable/dataTables.bootstrap4.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#example').DataTable({
                     "language": {
-                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
+                        "url": "Portuguese-Brasil.json"
                     }
                 });
             });
