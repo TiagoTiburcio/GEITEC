@@ -7,6 +7,7 @@ include_once '../class/servidor.php';
 include_once '../class/circuito.php';
 include_once '../class/redmine.php';
 include_once '../class/glpi.php';
+include_once '../class/manut.php';
 
 /**
  * Description of usuario

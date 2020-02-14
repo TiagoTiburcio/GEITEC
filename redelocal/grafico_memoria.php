@@ -9,6 +9,18 @@ if ($tarefas->validaSessao('5', '5') == 1) {
     $lista_vms = $graficos->listaVM();
     $dados_vms = $graficos->listaDadosMemVMs();
 ?>
+    <div class="col-xs-12">
+        <div class="d-flex mb-3">
+            <div class="p-2">
+                <a class="btn btn-dark" href="../home/index.php"> << Voltar Home</a> 
+            </div> 
+            <div class="p-2 ml-auto">
+                
+            </div>
+        </div>
+    </div>
+
+
     <link rel="stylesheet" href="../css/datatable/bootstrap.css">
     <link rel="stylesheet" href="../css/datatable/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../css/datatable/all.css">
@@ -20,9 +32,6 @@ if ($tarefas->validaSessao('5', '5') == 1) {
     <link href="../design/css/style.css" rel="stylesheet">
 
     <div class="col-xs-12">
-    <div class="col-xs-1">
-            <a href="../home/index.php"><span class="glyphicon glyphicon-backward"></span></a>
-    </div>
         <table id="example" class="table table-hover table-striped table-condensed table-bordered">
             <thead>
                 <tr>
